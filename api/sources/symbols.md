@@ -283,3 +283,24 @@ So, firstly, symbol name `NQ\M23` with SQL LIKE syntax should be matched with pa
 NQ\M23
 ```
 
+Secondly, in python string `"NQ\\M23"` should be escaped as `"NQ\\\\M23"`:
+
+```
+>>> print('NQ\\\\M23')
+NQ\\M23
+```
+
+Escaping character `\` in python can be avoided with python “raw” strings syntax:
+
+```
+>>> print(r'NQ\\M23')
+NQ\\M23
+```
+
+Using raw strings is recommended for readability.
+
+##### SEE ALSO
+`Symbols guide`
+
+**FIND_DB_SYMBOLS** OneTick event processor
+

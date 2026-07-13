@@ -20,3 +20,24 @@ Basic example:
 >>> otp.run(data)
         Time  A  AT
 0 2003-12-01  1   1
+```
+
+You can also pass ``Column`` as parameter:
+
+```
+>>> data = otp.Tick(A=0b0001)
+>>> data['AT'] = otp.bit_at(data['A'], 0)
+>>> otp.run(data)
+        Time  A  AT
+0 2003-12-01  1   1
+```
+
+Or use ``Operation`` as parameter:
+
+```
+>>> data = otp.Tick(A=0b0001)
+>>> data['AT'] = otp.bit_at(data['A'] * 2, 0)
+>>> otp.run(data)
+        Time  A  AT
+0 2003-12-01  1   0
+```

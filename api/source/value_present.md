@@ -23,3 +23,24 @@ Select ticks that have specified values in field A:
 ```
 >>> data = otp.Ticks(A=[1, 2, 3, 4, 5])
 >>> data = data.value_present(field='A', values=[2, 3])
+>>> otp.run(data)
+                     Time  A
+0 2003-12-01 00:00:00.001  2
+1 2003-12-01 00:00:00.002  3
+```
+
+Use parameter `discard_on_match` to filter values *out*:
+
+```
+>>> data = otp.Ticks(A=[1, 2, 3, 4, 5])
+>>> data = data.value_present(field='A', values=[2, 3], discard_on_match=True)
+>>> otp.run(data)
+                     Time  A
+0 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.003  4
+2 2003-12-01 00:00:00.004  5
+```
+
+##### SEE ALSO
+**VALUE_PRESENT** OneTick event processor
+``onetick.py.Operation.isin()``

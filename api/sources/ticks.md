@@ -113,3 +113,24 @@ Remove the `offset` for all ticks, in this case the timestamp of each tick is se
         Time  X
 0 2003-12-01  1
 1 2003-12-01  2
+2 2003-12-01  3
+```
+
+Parameter `offset` allows to set the same value for all ticks:
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3], offset=otp.Nano(13))
+>>> otp.run(data)
+                           Time  X
+0 2003-12-01 00:00:00.000000013  1
+1 2003-12-01 00:00:00.000000013  2
+2 2003-12-01 00:00:00.000000013  3
+```
+
+##### SEE ALSO
+**TICK_GENERATOR** OneTick event processor
+
+**CSV_FILE_LISTING** OneTick event processor
+
+``otp.Tick``
+

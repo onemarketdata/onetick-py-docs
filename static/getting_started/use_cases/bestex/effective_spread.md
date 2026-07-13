@@ -24,3 +24,24 @@ quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
 # Join orders with quotes based on timestamp
 joined_data = otp.join_by_time([orders, quotes])
 
+# Calculate the mid-price of prevailing quotes
+joined_data['MID_PRICE'] = (joined_data['ASK_PRICE'] + joined_data['BID_PRICE']) / 2
+
+# Calculate VWAP for each order grouped by ID
+# Take the first MID_PRICE because effective spread uses the price prevailing at the time the order arrived
+# Propagate BUY_FLAG to calculate then DIRECTION
+joined_data = joined_data.agg({'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
+                               'EXEC_QTY': otp.agg.sum('QTY_FILLED'),
+                               'MID_PRICE': otp.agg.first('MID_PRICE'),
+                               'BUY_FLAG': otp.agg.first('BUY_FLAG')},
+                               group_by='ID')
+
+# Add direction (1 for buy orders and -1 for sell orders)
+joined_data['DIRECTION'] = joined_data['BUY_FLAG'] * 2 - 1
+
+# Calculate effective spread
+joined_data['EFFECTIVE_SPREAD'] = 2 * joined_data['DIRECTION'] * joined_data['EXEC_QTY'] * (joined_data['VWAP'] - joined_data['MID_PRICE'])
+
+# Run the query for the specified date
+df = otp.run(joined_data, date=date)
+```

@@ -188,3 +188,24 @@ Return first value of input field
     * **event_ts**
 
       only ticks from current bucket used for calculations
+    * **state_ts**
+      * if there is a tick in bucket with timestamp = bucket start
+
+        only ticks in bucket used for calculation max value
+      * else
+
+        latest tick from previous bucket included in current bucket
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4])
+>>> agg = otp.agg.first('X')
+>>> data = agg.apply(data)
+>>> otp.run(data)
+        Time  X
+0 2003-12-04  1
+```
+
+##### SEE ALSO
+**FIRST** OneTick event processor

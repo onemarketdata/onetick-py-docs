@@ -51,3 +51,24 @@ You can change this behaviour via `delete_if_exists` parameter.
   * **symbol** (str, list of str, list of otq.Symbol, ``onetick.py.Source``, `pandas.DataFrame`, optional) – `symbols` parameter of `otp.run()`.
   * **db** (*str*) – Database.
   * **self** (*Source*)
+* **Return type:**
+  `Source`
+
+##### Examples
+
+Simple usage
+
+```
+>>> src = otp.DataSource("COMMON", tick_type="TRD", symbols="AAPL")
+>>> data = src.cache(
+...    cache_name="some_cache",
+...    tick_type="TRD", symbol="SYM", db="LOCAL",
+... )
+>>> df = otp.run(data)  
+```
+
+##### SEE ALSO
+``onetick.py.create_cache()``
+
+``onetick.py.ReadCache``
+

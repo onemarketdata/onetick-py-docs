@@ -49,3 +49,24 @@ agg_fields = {
     'ARRIVAL_MID_PRICE': otp.agg.first('MID_PRICE'),
     'SIDE': otp.agg.first('SIDE'),
     'EXECUTED_QTY': otp.agg.sum('QTY_FILLED')
+}
+for m in arrival_markouts:
+    mr = str(m).replace('-', 'm')
+    agg_fields[f'MID_PRICE_{mr}_arrival'] = otp.agg.first(f'MID_PRICE_{mr}_arrival')
+
+orders_agg = joined_orders_with_quotes.agg(agg_fields, group_by='ID')
+
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
+
+# Calculate Market Impact for each markout
+for m in arrival_markouts:
+    mr = str(m).replace('-', 'm')
+    orders_agg[f'MI_{mr}'] = orders_agg['DIRECTION'] * orders_agg['EXECUTED_QTY'] * (orders_agg['ARRIVAL_MID_PRICE'] - orders_agg[f'MID_PRICE_{mr}_arrival'])
+
+# Select relevant fields
+orders_with_mi = orders_agg[['ID', 'EXECUTED_QTY'] + [f'MI_{mr}' for mr in [str(m).replace('-', 'm') for m in arrival_markouts]]]
+
+# Run the query for the specified date
+df = otp.run(orders_with_mi, date=date, symbols=symbol)
+```

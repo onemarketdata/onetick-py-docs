@@ -184,3 +184,24 @@ otp.run(data)
 
 Or to generate ticks with some interval, for example every day:
 
+```python
+data = otp.Tick(A=otp.math.rand(1, 100), bucket_interval=1, bucket_units='days')
+otp.run(data, start=otp.dt(2024, 2, 1), end=otp.dt(2024, 2, 6))
+```
+
+And ``otp.Ticks`` can be used to generate many ticks with different fixed values:
+
+```python
+data = otp.Ticks({'A': list(range(5)), 'B': ['c', 'd', 'e', 'f', 'g']})
+otp.run(data)
+```
+
+``otp.Ticks`` can also be used to generate ticks from `pandas.DataFrame`:
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({'Time': [pd.Timestamp(2024, 2, 1, 1, 1, 1), pd.Timestamp(2024, 2, 2, 2, 2, 2)], 'A': [1, 2]})
+data = otp.Ticks(df)
+otp.run(data, start=otp.dt(2024, 2, 1), end=otp.dt(2024, 2, 6))
+```

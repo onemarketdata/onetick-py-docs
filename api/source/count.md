@@ -16,3 +16,24 @@ a developer wants to check data presences for example.
 
 ##### Examples
 
+```
+>>> data = otp.Ticks(X=[1, 2, 3])
+>>> data.count()
+3
+```
+
+```
+>>> data = otp.Empty()
+>>> data.count()
+0
+```
+
+##### SEE ALSO
+``onetick.py.agg.count()``
+
+``otp.run``
+
+``onetick.py.Source.head()``
+
+``onetick.py.Source.tail()``
+

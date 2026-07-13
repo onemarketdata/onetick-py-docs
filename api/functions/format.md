@@ -52,3 +52,24 @@ Formatting can be used with key-word arguments:
 0 2003-12-01 00:00:00.000  1  abc  A is `1`, B is `abc`. Also, A is `1`
 1 2003-12-01 00:00:00.001  2  def  A is `2`, B is `def`. Also, A is `2`
 ```
+
+Float numbers can be formatted:
+
+```
+>>> data = otp.Ticks(A=[12.3456, 67.8971])
+>>> data['B'] = otp.format('A is about {:.2f}', data['A'])
+>>> otp.run(data)
+                     Time        A                 B
+0 2003-12-01 00:00:00.000  12.3456  A is about 12.35
+1 2003-12-01 00:00:00.001  67.8971  A is about 67.90
+```
+
+Time can be formatted:
+
+```
+>>> data = otp.Tick(A=otp.datetime(2020, 4, 5, 17, 56, 3, 789123))
+>>> data['B'] = otp.format('A is {:%Y/%m/%d %H:%M:%S.%J}', data['A'])
+>>> otp.run(data)
+        Time                          A                                   B
+0 2003-12-01 2020-04-05 17:56:03.789123  A is 2020/04/05 17:56:03.789123000
+```

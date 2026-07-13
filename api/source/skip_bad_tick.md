@@ -59,3 +59,24 @@ set `discard_on_match` parameter to `True`:
 ```
 >>> data = otp.Ticks(X=[10, 11, 15, 11, 9, 10])
 >>> data = data.skip_bad_tick(field=data["X"], jump_threshold=1.2, num_neighbor_ticks=1, discard_on_match=True)
+>>> otp.run(data)
+                     Time   X
+0 2003-12-01 00:00:00.002  15
+1 2003-12-01 00:00:00.004   9
+```
+
+In case, if you need to compare values on an absolute basis, set `use_absolute_values` parameter to `True`:
+
+```
+>>> data = otp.Ticks(X=[10, -11, -15, 11, 9, 10])
+>>> data = data.skip_bad_tick(field=data["X"], jump_threshold=1.2, num_neighbor_ticks=1, use_absolute_values=True)
+>>> otp.run(data)
+                     Time   X
+0 2003-12-01 00:00:00.000  10
+1 2003-12-01 00:00:00.001  -11
+2 2003-12-01 00:00:00.003  11
+3 2003-12-01 00:00:00.005  10
+```
+
+##### SEE ALSO
+**SKIP_BAD_TICK** OneTick event processor

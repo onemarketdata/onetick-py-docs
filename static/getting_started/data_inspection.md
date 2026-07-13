@@ -163,3 +163,24 @@ dict(sorted(symbols_last_dates.items()))
 
 ### Adding missing fields
 
+Let’s imagine that you have a database in which, for some reason, the data field you need for
+your query is not available for every day. However you can calculate its value during query execution.
+
+```
+>>> db = 'US_COMP_SAMPLE'
+>>> _date = otp.dt(2024, 2, 1)
+>>>
+>>> source = otp.DataSource(db=db, tick_type='TRD', symbols='AAPL')
+>>>
+>>> if 'VOLUME' not in otp.databases()[db].schema(date=_date, tick_type='TRD'):
+...     source['VOLUME'] = source['PRICE'] * source['SIZE']
+>>>
+>>> source = source[['PRICE', 'SIZE', 'VOLUME']][:5]
+>>> otp.run(source, date=_date)
+                                Time   PRICE  SIZE    VOLUME
+0      2024-02-01 04:00:00.008283417  186.50     6   1119.00
+1      2024-02-01 04:00:00.008290927  185.59     1    185.59
+2      2024-02-01 04:00:00.008291153  185.49   107  19847.43
+3      2024-02-01 04:00:00.010381671  185.49     1    185.49
+4      2024-02-01 04:00:00.011224206  185.50     2    371.00
+```

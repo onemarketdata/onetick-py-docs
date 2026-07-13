@@ -89,13 +89,14 @@ It is possible to control this behaviour with the schema_policy parameter.
 data = otp.DataSource('US_COMP_SAMPLE',
                       tick_type='QTE',
                       symbol='AAPL',
-                      schema_policy='manual')
-data.schema.set(ASK_PRICE=float, BID_PRICE=float, ASK_SIZE=int, BID_SIZE=int)
+                      schema_policy='manual',
+                      schema={'ASK_PRICE': float, 'ASK_SIZE': int})
+data.schema.update(BID_PRICE=float, BID_SIZE=int)
 ```
 
-**schema_policy=manual** means that the source object has an empty schema
+**schema_policy=’manual’** means that the source object has an empty schema
 and it is expected that the schema will be set manually by the user
-using the ``onetick.py.Source.schema`` methods.
+using schema parameter or the ``onetick.py.Source.schema`` methods.
 
 That is the recommended way for production code.
 
@@ -107,3 +108,24 @@ method can be used to propagate only the specified fields and to set the schema 
 
 ```python
 data = data.table(ASK_PRICE=float, BID_PRICE=float, ASK_SIZE=int, BID_SIZE=int)
+```
+
+``onetick.py.Source.table()`` guarantees the fields will be present during runtime even if
+the fields are not present in the data. In this case, a field is filled with the default value for the corresponding
+field type.
+
+## Types change
+
+The field type can be modified. This is done implicitly when values of a different type are assigned to the field
+
+```python
+data['X'] = 1              # it is the `int` type
+data['X'] = data['X'] / 2  # here it becomes `float`
+```
+
+or it could be done explicitly using the ``onetick.py.Source.apply()`` method
+(or equivalently – `onetick.py.Source.astype()`)
+
+```python
+data['X'] = data['X'].apply(str)
+```

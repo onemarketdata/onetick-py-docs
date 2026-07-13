@@ -123,3 +123,24 @@ There are two common operations that can be done with state variables:
    State value initialization happens before any ticks are propagated through the query.
    If ``onetick.py.eval()`` is used to initialize a state variable (for example, a tick set),
    then the query in ``onetick.py.eval()`` will be executed before the main query,
+   and its results would be stored in the state variable.
+2. When some EP accesses a state variable to read or modify its value,
+   variable access or modification happens when an input tick is passing through this EP.
+   Therefore, most operations done to state variables (other than initialization)
+   are triggered by tick passage through the query.
+   So, to know which value the state variable will hold for a particular tick,
+   it’s important to understand the overall order of tick processing.
+
+Depending on the tick accumulation happening in the graph,
+results of the operations with state vars may be different!
+See the diagrams below to see how a state var would behave with and without tick accumulation.
+
+In the first example, each tick that passes through the graph updates the state variable,
+and immediately gets its value assigned to a field:
+
+!`image`
+
+In the second example, there is an accumulating EP between state variable update and state variable being assigned
+to a field, thus state variable gets assigned to tick fields only after **all** ticks updated its value first:
+
+!`image`

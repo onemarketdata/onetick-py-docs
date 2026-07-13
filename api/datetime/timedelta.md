@@ -26,3 +26,24 @@ Create ``otp.timedelta`` from different types of objects:
 
 ```
 >>> otp.timedelta(datetime.timedelta(days=2, hours=3))
+timedelta('2 days 03:00:00')
+```
+
+```
+>>> otp.timedelta('20 days 13:02:01.999777666')
+timedelta('20 days 13:02:01.999777666')
+```
+
+Adding ``otp.timedelta`` object to ``otp.datetime``:
+
+```
+>>> otp.datetime(2022, 1, 1, 1, 2, 3) + otp.timedelta(days=1, hours=1, minutes=1, seconds=1)
+2022-01-02 02:03:04
+```
+
+Adding ``otp.timedelta`` object to ``otp.date``:
+
+```
+>>> otp.date(2022, 1, 1) + otp.timedelta(weeks=1, nanoseconds=1)
+2022-01-08 00:00:00.000000001
+```

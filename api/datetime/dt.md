@@ -260,3 +260,24 @@ Convert a timezone-aware datetime object to a different timezone
 ```
 >>> d = otp.datetime(2021, 6, 3, tz="EST5EDT")
 >>> d.tz_convert("Europe/Moscow")
+2021-06-03 07:00:00+03:00
+```
+
+#### ``to_operation(timezone=None)``
+
+Convert ``otp.datetime`` object to
+``otp.Operation``
+
+* **Parameters:**
+  **timezone** (*Operation*) – Can be used to specify timezone as an Operation.
+
+##### Examples
+
+```
+>>> t = otp.Ticks(TZ=['EST5EDT', 'GMT'])
+>>> t['DT'] = otp.dt(2022, 1, 1).to_operation(timezone=t['TZ'])
+>>> otp.run(t, timezone='GMT')[['TZ', 'DT']]
+        TZ                  DT
+0  EST5EDT 2022-01-01 05:00:00
+1      GMT 2022-01-01 00:00:00
+```

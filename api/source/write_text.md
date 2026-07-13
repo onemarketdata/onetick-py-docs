@@ -167,3 +167,24 @@ The order of fields and separator character can be specified:
 1   20031201050000.000000
 2   20031201050000.001000
 3   20031201050000.002000
+```
+
+The formatting can be specified for each field:
+
+```
+>>> write = data.write_text(formats_of_fields={
+...     'TIMESTAMP': '%|GMT|%Y-%m-%d %H:%M:%S.%q',
+...     'A': '%3d'
+... })
+>>> _ = otp.run(write)  
+#SYMBOL_NAME,TIMESTAMP,A
+AAPL,2003-12-01 05:00:00.000,  1
+AAPL,2003-12-01 05:00:00.001,  2
+AAPL,2003-12-01 05:00:00.002,  3
+```
+
+##### SEE ALSO
+**WRITE_TEXT** OneTick event processor
+
+``onetick.py.Source.dump()``
+

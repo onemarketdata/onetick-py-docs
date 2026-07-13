@@ -131,3 +131,24 @@ The second parameter is symbol parameter’s type.
 2 2024-02-01 07:56:00.692942080  131.40             6
 ```
 
+It also works with ``msectime`` and ``nsectime`` types:
+
+```
+>>> symbols = otp.Symbols('US_COMP_SAMPLE')[:3]
+>>> symbols['NSECTIME_PARAM'] = symbols['Time'] + otp.Nano(100)
+>>> symbols['MSECTIME_PARAM'] = symbols['Time'] + otp.Milli(1)
+>>> ticks = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+>>> ticks = ticks[['PRICE']][:1]
+>>> ticks['NSECTIME_PARAM'] = ticks.Symbol['NSECTIME_PARAM', otp.nsectime] + otp.Nano(1)
+>>> ticks['MSECTIME_PARAM'] = ticks.Symbol['MSECTIME_PARAM', otp.msectime] + otp.Milli(1)
+>>> ticks['NSECTIME_PARAM'].dtype
+<class 'onetick.py.types.nsectime'>
+>>> ticks['MSECTIME_PARAM'].dtype
+<class 'onetick.py.types.msectime'>
+>>> ticks = otp.merge([ticks], symbols=symbols)
+>>> otp.run(ticks, date=otp.dt(2024, 2, 1))
+                           Time   PRICE                NSECTIME_PARAM          MSECTIME_PARAM
+0 2024-02-01 04:00:00.008283417  186.50 2024-02-01 00:00:00.000000101 2024-02-01 00:00:00.002
+1 2024-02-01 04:00:00.097381367   14.33 2024-02-01 00:00:00.000000101 2024-02-01 00:00:00.002
+2 2024-02-01 07:56:00.692942080  131.40 2024-02-01 00:00:00.000000101 2024-02-01 00:00:00.002
+```

@@ -36,3 +36,24 @@ To run your code remotely on Ray, proceed to `Remote OTP with Ray` for details.
 
 
 ## Connection to Ray
+
+In order to **connect from an external network**, it is necessary to **whitelist your IP address**
+and use your connection certificates (ask your OneMarketData rep to provide certificate files and whitelist your IP).
+Download these certificate files to one common folder (<path-to-folder>):
+
+- `client-cert.pem`
+- `client-key.pem`
+- `ca-cert.pem`
+
+Add paths to certificate files into environment variables:
+
+```
+export RAY_TLS_SERVER_CERT=<path-to-folder>/client-cert.pem
+export RAY_TLS_SERVER_KEY=<path-to-folder>/client-key.pem
+export RAY_TLS_CA_CERT=<path-to-folder>/ca-cert.pem
+export RAY_USE_TLS=1
+```
+
+or in the similar way for Windows.
+
+Now you can connect to a Ray instance from an external network.

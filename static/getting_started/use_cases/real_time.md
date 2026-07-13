@@ -34,3 +34,24 @@ class GoldenCrossCallback(otp.CallbackBase):
         # print()
         print(time, tick)
         if tick['buy']:
+            print('BUY')
+        if tick['sell']:
+            print('SELL')
+        print()
+```
+
+The query will run continuously with the output printed as the events happen
+if the database and start/end times are set accordingly (see the commented out lines).
+With the US_COMP_SAMPLE database used and the time interval set in the past, the query will work in “historical” mode.
+
+```python
+# timestamps appear in GMT
+cb = GoldenCrossCallback()
+otp.run(trd,
+        callback=cb, running=True,
+        symbols='US_COMP_SAMPLE::AAPL',
+        start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11),
+        # symbols='US_COMP:AAPL',
+        # start=otp.dt.now(), end=otp.dt.now() + otp.Day(1),
+)
+```

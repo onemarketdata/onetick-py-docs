@@ -20,3 +20,24 @@ Empty data source
 
 ##### Examples
 
+Empty source returns no data:
+
+```
+>>> data = otp.Empty()
+>>> otp.run(data)
+Empty DataFrame
+Columns: []
+Index: []
+```
+
+But we can still define schema if needed:
+
+```
+>>> data = otp.Empty(schema={'A': str, 'B': int})
+>>> otp.run(data)
+Empty DataFrame
+Columns: [A, B, Time]
+Index: []
+>>> data.schema
+{'A': <class 'str'>, 'B': <class 'int'>}
+```

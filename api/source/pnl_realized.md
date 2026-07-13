@@ -75,3 +75,24 @@ First let’s use string `buy_sell_flag_field` field:
 10 2003-12-01 00:00:00.010    1.0   100     S        -200.0
 ```
 
+We can get the same result using integer `buy_sell_flag_field` field:
+
+```
+>>> data = trades.pnl_realized(buy_sell_flag_field='SELL_FLAG')  
+>>> otp.run(data)[['Time', 'PRICE', 'SIZE', 'SELL_FLAG', 'PNL_REALIZED']]  
+                      Time  PRICE  SIZE  SELL_FLAG  PNL_REALIZED
+0  2003-12-01 00:00:00.000    1.0   700          0           0.0
+1  2003-12-01 00:00:00.001    2.0    20          0           0.0
+2  2003-12-01 00:00:00.002    3.0   570          0           0.0
+3  2003-12-01 00:00:00.003    2.5   600          1         900.0
+4  2003-12-01 00:00:00.004    4.0   100          1         300.0
+5  2003-12-01 00:00:00.005    5.0   100          1         220.0
+6  2003-12-01 00:00:00.006    6.0   100          1         300.0
+7  2003-12-01 00:00:00.007    7.0   100          1         400.0
+8  2003-12-01 00:00:00.008    3.0   150          0           0.0
+9  2003-12-01 00:00:00.009    4.0    10          0           0.0
+10 2003-12-01 00:00:00.010    1.0   100          1        -200.0
+```
+
+##### SEE ALSO
+**PNL_REALIZED** OneTick event processor

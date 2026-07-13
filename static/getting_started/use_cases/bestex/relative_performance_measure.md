@@ -67,3 +67,24 @@ def rpm(vwap, direction) -> otp.Source:
         'SIZE',
         lambda row: (row['PRICE'] > vwap and direction == 1) or (row['PRICE'] < vwap and direction == -1)
     )
+
+    # Sum up qty of trades which prices are equal to order's vwap
+    equal = add_state_var_aggr(md, 'EQUAL', 'SIZE', lambda row: row['PRICE'] == vwap)
+
+    # Calculate RPM
+    md = md.last()
+    md['RPM'] = (worse + 0.5 * equal) / total
+    md['RPM'] = md.apply(lambda row: otp.nan if vwap == otp.nan else md['RPM'])
+    return md[['RPM']]
+
+# Join orders with RPM calculation
+orders_with_rpm = orders_agg.join_with_query(
+    rpm,
+    params=dict(vwap=orders_agg['VWAP'].float.str(), direction=orders_agg['DIRECTION']),
+    start_time=orders_agg['ARRIVAL_TIME'],
+    end_time=orders_agg['EXIT_TIME']
+)
+
+# Run the query for the specified date
+df = otp.run(orders_with_rpm, date=date)
+```

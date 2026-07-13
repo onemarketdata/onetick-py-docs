@@ -43,3 +43,24 @@ List snapshots from memory:
 0 2003-12-01    snapshot_1              MEMORY        DEMO_L1
 1 2003-12-01    snapshot_2              MEMORY        DEMO_L1
 ```
+
+List snapshots from memory mapped files:
+
+```
+>>> src = otp.ShowSnapshotList(snapshot_storage='memory_mapped_file')  
+>>> otp.run(src)  
+        Time SNAPSHOT_NAME        STORAGE_TYPE        DB_NAME
+0 2003-12-01    snapshot_3  MEMORY_MAPPED_FILE  SNAPSHOT_DEMO
+```
+
+##### SEE ALSO
+**SHOW_SNAPSHOT_LIST** OneTick event processor
+
+``onetick.py.ReadSnapshot``
+
+``onetick.py.FindSnapshotSymbols``
+
+``onetick.py.Source.save_snapshot()``
+
+``onetick.py.Source.join_with_snapshot()``
+

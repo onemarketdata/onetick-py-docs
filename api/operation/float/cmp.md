@@ -21,3 +21,24 @@ Two numbers are considered to be equal if:
   * **eps** (*Operation* *or* *float*) – column or value with relative difference
 * **Returns:**
   **result** – 0 if column == other, 1 if column > other, and -1 if column < other.
+* **Return type:**
+  `Operation`
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=[2.17, 2.17, 10.31841, 3.141593, 5],
+...                  OTHER=[2.1, 2.1, 10.32841, 3.14, 6],
+...                  EPS=[0.01, 0.1, 0.1, 0.0001, 0.01])
+>>> data["Y"] = data["X"].float.cmp(data["OTHER"], data["EPS"])
+>>> otp.run(data)  
+                     Time          X     OTHER     EPS    Y
+0 2003-12-01 00:00:00.000   2.170000   2.10000  0.0100  1.0
+1 2003-12-01 00:00:00.001   2.170000   2.10000  0.1000  0.0
+2 2003-12-01 00:00:00.002  10.318410  10.32841  0.1000  0.0
+3 2003-12-01 00:00:00.003   3.141593   3.14000  0.0001  1.0
+4 2003-12-01 00:00:00.004   5.000000   6.00000  0.0100 -1.0
+```
+
+##### SEE ALSO
+``eq``

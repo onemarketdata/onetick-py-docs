@@ -75,3 +75,24 @@ Ascending/descending control
 >>> data = otp.Ticks({'X':[     94,   5,   34],
 ...                   'Y':[otp.nan, 3.1, -0.3]})
 >>> data = data.sort(data['X'], ascending=False)
+>>> otp.run(data)
+                     Time   X    Y
+0 2003-12-01 00:00:00.000  94  NaN
+1 2003-12-01 00:00:00.002  34 -0.3
+2 2003-12-01 00:00:00.001   5  3.1
+```
+
+```
+>>> data = otp.Ticks({'X':[  5,   6,   3,   6],
+...                   'Y':[1.4, 3.1, 9.1, 5.5]})
+>>> data = data.sort([data['X'], data['Y']], ascending=[True, False])
+>>> otp.run(data)
+                     Time  X    Y
+0 2003-12-01 00:00:00.002  3  9.1
+1 2003-12-01 00:00:00.000  5  1.4
+2 2003-12-01 00:00:00.003  6  5.5
+3 2003-12-01 00:00:00.001  6  3.1
+```
+
+##### SEE ALSO
+**ORDER_BY** OneTick event processor

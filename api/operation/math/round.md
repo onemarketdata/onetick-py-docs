@@ -56,3 +56,24 @@ Negative precision truncates to the number of digits *before* floating point
                      Time       A  ROUND_M1  ROUND_M2
 0 2003-12-01 00:00:00.000 -123.45    -120.0    -100.0
 1 2003-12-01 00:00:00.001  123.45     120.0     100.0
+```
+
+Rounding ``otp.nan`` returns NaN
+and rounding ``otp.inf`` returns Infinity in all cases:
+
+```
+>>> t = otp.Ticks(A=[otp.inf, -otp.inf, otp.nan])
+>>> t['ROUND_0'] = round(t['A'])
+>>> t['ROUND_P2'] = round(t['A'], 2)
+>>> t['ROUND_M2'] = round(t['A'], -2)
+>>> otp.run(t)
+                     Time    A  ROUND_0  ROUND_P2  ROUND_M2
+0 2003-12-01 00:00:00.000  inf      inf       inf       inf
+1 2003-12-01 00:00:00.001 -inf     -inf      -inf      -inf
+2 2003-12-01 00:00:00.002  NaN      NaN       NaN       NaN
+```
+
+##### SEE ALSO
+``otp.math.round``
+``otp.math.floor``
+``otp.math.ceil``

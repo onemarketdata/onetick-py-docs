@@ -165,3 +165,24 @@ shorter.
     0 2003-12-01 00:00:00.001  2  6  7
 ```
 
+Use parameter `output_type_index` to specify which input class to use to create output object.
+It may be useful in case some custom user class was used as input:
+
+```
+>>> class CustomTick(otp.Tick):
+...     def custom_method(self):
+...         return 'custom_result'
+>>> data1 = otp.Tick(A=1)
+>>> data2 = CustomTick(B=2)
+>>> data = otp.join(data1, data2, on='same_size', output_type_index=1)
+>>> type(data)
+<class 'onetick.py.functions.CustomTick'>
+>>> data.custom_method()
+'custom_result'
+>>> otp.run(data)
+        Time  A  B
+0 2003-12-01  1  2
+```
+
+##### SEE ALSO
+**JOIN** OneTick event processor

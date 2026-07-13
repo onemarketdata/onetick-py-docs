@@ -185,3 +185,24 @@ Regular expressions can be used to select fields too:
 Note that by default pattern is matched in any position of the string.
 Use characters ^ and $ to specify start and end of the string:
 
+```
+>>> otp.run(data['^A'])
+        Time  A  AA  AB
+0 2003-12-01  1   2   3
+```
+
+Several regular expressions can be specified too:
+
+```
+>>> otp.run(data[['^A+$', '^B+$']])
+        Time  A  AA  B  BB
+0 2003-12-01  1   2  4   5
+```
+
+##### SEE ALSO
+``Source.table()``: another and more generic way to select subset of specified columns
+
+**PASSTHROUGH** OneTick event processor
+
+**WHERE_CLAUSE** OneTick event processor
+

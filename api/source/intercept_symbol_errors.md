@@ -25,3 +25,24 @@ By default data quality events are not showed, use this method to see them:
 0 2003-12-01           1         WRONG
 1 2003-12-01           1         WRONG
 2 2003-12-01           1         WRONG
+```
+
+Intercepting data quality events will remove them from the data flow:
+
+```
+>>> data = otp.Ticks({'A': [1, 2, 3]})
+>>> data = data.throw('WRONG', scope='symbol')
+>>> data = data.intercept_symbol_errors()
+>>> data = data.show_symbol_errors()
+>>> otp.run(data)  
+Empty DataFrame
+...
+```
+
+##### SEE ALSO
+**INTERCEPT_SYMBOL_ERRORS** OneTick event processor
+
+``show_symbol_errors()``
+
+``onetick.py.Source.throw()``
+

@@ -33,3 +33,24 @@ single data series (e.g., from a CSV file) into separate data series by symbol. 
 ...     order_ticks=True
 ... )[['stock', 'px']]
 >>> csv = otp.by_symbol(executions, 'stock') 
+>>> trd = otp.DataSource( 
+...     db='US_COMP',
+...     tick_type='TRD',
+...     start=otp.dt(2022, 7, 1),
+...     end=otp.dt(2022, 7, 2)
+... )[['PRICE', 'SIZE']]
+>>> data = otp.join_by_time([csv, trd]) 
+>>> result = otp.run(data, symbols=executions.distinct(keys='stock')[['stock']], concurrency=8) 
+>>> result['THG'] 
+                           Time stock      px   PRICE  SIZE
+0 2022-07-01 11:37:56.432947200   THG  148.02  146.48     1
+>>> result['TFX'] 
+                           Time stock      px   PRICE  SIZE
+0 2022-07-01 11:39:45.882808576   TFX  255.61  251.97     1
+>>> result['BURL'] 
+                           Time stock      px   PRICE  SIZE
+0 2022-07-01 11:42:35.125718016  BURL  137.53  135.41     2
+```
+
+##### SEE ALSO
+**SPLIT_QUERY_OUTPUT_BY_SYMBOL** OneTick event processor

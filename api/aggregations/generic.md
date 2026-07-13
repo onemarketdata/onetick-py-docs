@@ -182,3 +182,24 @@ Getting first 3 ticks from 5 milliseconds buckets:
 >>> otp.run(data, start=otp.config.default_start_time, end=otp.config.default_start_time + otp.Milli(10))
                      Time  A
 0 2003-12-01 00:00:00.005  0
+1 2003-12-01 00:00:00.005  1
+2 2003-12-01 00:00:00.005  2
+3 2003-12-01 00:00:00.010  5
+4 2003-12-01 00:00:00.010  6
+5 2003-12-01 00:00:00.010  7
+```
+
+Using generic aggregation inside ``onetick.py.Source.agg()`` method:
+
+```
+>>> def agg_fun(source):
+...     return source.agg({'SUM': otp.agg.sum('X'), 'AVG': otp.agg.average('X')})
+>>> data = otp.Ticks(X=[1, 2, 3, 4, 5])
+>>> data = data.agg({'X': otp.agg.generic(agg_fun)})
+>>> otp.run(data)
+        Time  X.SUM  X.AVG
+0 2003-12-04     15    3.0
+```
+
+##### SEE ALSO
+**GENERIC_AGGREGATION** OneTick event processor

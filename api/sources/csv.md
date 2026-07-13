@@ -193,3 +193,24 @@ Helps to build a file buffer that could be used to
 delivery on the remote site to be processed there.
 For example it could be passed as input to the ``CSV``
 
+* **Parameters:**
+  **path** (*str* *|* *PathLike*)
+* **Return type:**
+  *FileBuffer*
+
+## otp.utils.FileBuffer
+
+### ``class FileBuffer(path)``
+
+Bases: ``object``
+
+Class holds the file content with goal to delivery
+it to the execution side in case of remote executions.
+
+The basic implementation reads file content to a property
+that allows to transfer file content as pickled object
+to the server side since the pickling stores all class property
+values.
+
+* **Parameters:**
+  **path** (*str* *|* *PathLike*)

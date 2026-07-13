@@ -24,3 +24,24 @@ If there are not enough tokens to get the one at position `n`, then empty string
 >>> otp.run(data)
         Time              X    Y
 0 2003-12-01  US_COMP::TRD  TRD
+```
+
+Other columns can be used as parameters too:
+
+```
+>>> data = otp.Tick(X='US_COMP::TRD', SEP=':', N=-1)
+>>> data['Y'] = data['X'].str.token(data['SEP'], data['N'])
+>>> otp.run(data)
+        Time              X SEP  N    Y
+0 2003-12-01  US_COMP::TRD   : -1  TRD
+```
+
+If index is out of range, then empty string is returned:
+
+```
+>>> data = otp.Tick(X='US_COMP::TRD')
+>>> data['Y'] = data['X'].str.token(':', 999)
+>>> otp.run(data)
+        Time              X  Y
+0 2003-12-01  US_COMP::TRD
+```

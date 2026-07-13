@@ -103,3 +103,24 @@ The config allows to specify different query options.
 #### \_\_call_\_(*ticks, **pins)
 
 Return object representing outputs of the query.
+This object can be used to get a specified output pin of the query as a new ``onetick.py.Source``.
+
+##### Examples
+
+```
+>>> query = otp.query('/otqs/some.otq::some_query', PARAM1='val1')  
+>>> query()['OUT']  
+<onetick.py.core.source.Source at ...>
+```
+
+#### ``to_eval_string()``
+
+Converts query object to OneTick’s eval string.
+
+#### ``update_params(**new_params)``
+
+Update dictionary of parameters of the query.
+
+#### ``property str_params``
+
+Query parameters converted to OneTick string representation.

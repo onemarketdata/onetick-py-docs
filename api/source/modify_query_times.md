@@ -148,3 +148,24 @@ Constant datetime values can be used as parameters too:
 >>> t = data.modify_query_times(start=start + otp.Milli(1),
 ...                             end=end - otp.Milli(1))
 >>> otp.run(t, start=start, end=end)
+                           Time   PRICE  SIZE
+0 2024-02-01 04:00:00.009381671  185.49     1
+```
+
+Note that some graph patterns are not allowed when using this method.
+For example, modifying query times for a branch that will be merged later:
+
+```
+>>> t1, t2 = data[data['PRICE'] > 1.3]
+>>> t2 = t2.modify_query_times(start=start + otp.Milli(1))
+>>> t = otp.merge([t1, t2])
+>>> otp.run(t, start=start, end=end) 
+Traceback (most recent call last):
+Exception...Invalid graph...time bound to a node...an intermediate node in one of the cycles in graph...
+```
+
+##### SEE ALSO
+**MODIFY_QUERY_TIMES** OneTick event processor
+
+``onetick.py.Source.time_interval_shift()``
+

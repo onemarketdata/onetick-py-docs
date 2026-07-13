@@ -47,3 +47,24 @@ Join quotes and trades:
 ... )
                            Time  T.PRICE  Q.ASK_PRICE  Q.BID_PRICE
 0 2024-02-01 04:00:00.008283417   186.50       187.02       185.49
+1 2024-02-01 04:00:00.008290927   185.59       187.02       185.49
+```
+
+Calculate average price of trades across several symbols:
+
+```
+>>> otp.run(  
+...     otp.SqlQuery(
+...         "select COUNT(*) as COUNT, AVG(PRICE) as AVG_PRICE"
+...         " from US_COMP_SAMPLE.TRD"
+...         " where symbol_name in ('AAPL', 'AAL')"
+...         " and start_time = '2024-02-01 00:00:00 EST5EDT' and end_time = '2024-02-02 00:00:00 EST5EDT'",
+...         merge_all_symbols=True
+...     ),
+... )
+        Time     COUNT   AVG_PRICE
+0 2024-02-02  921779.0  166.697838
+```
+
+##### SEE ALSO
+``otp.run``

@@ -36,3 +36,24 @@ Other columns can be used as parameter `sub` too:
 2 2003-12-01 00:00:00.002  Potato   ato  3
 ```
 
+Note that empty string will be found at the start of any string:
+
+```
+>>> data = otp.Ticks(X=['string', ''])
+>>> data['Y'] = data['X'].str.find('')
+>>> otp.run(data)
+                     Time       X  Y
+0 2003-12-01 00:00:00.000  string  0
+1 2003-12-01 00:00:00.001          0
+```
+
+`start` parameter is used to find `sub` starting from selected position:
+
+```
+>>> data = otp.Ticks(X=['ababab', 'abbbbb'])
+>>> data['Y'] = data['X'].str.find('ab', 1)
+>>> otp.run(data)
+                     Time       X  Y
+0 2003-12-01 00:00:00.000  ababab  2
+1 2003-12-01 00:00:00.001  abbbbb -1
+```

@@ -32,3 +32,24 @@ arrival_orders_with_quotes['MID_PRICE'] = (arrival_orders_with_quotes['ASK_PRICE
 
 # Merge all ticks back to apply aggregation properly
 merged_orders = arrival_orders_with_quotes + other_orders
+
+# Aggregate to carry forward arrival mid price, VWAP, 'SIDE' field, and sum of 'QTY_FILLED'
+orders_agg = merged_orders.agg({
+    'ARRIVAL_MID_PRICE': otp.agg.first('MID_PRICE'),
+    'SIDE': otp.agg.first('SIDE'),
+    'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
+    'EXECUTED_QTY': otp.agg.sum('QTY_FILLED')
+}, group_by='ID')
+
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
+
+# Calculate IS (Implementation Shortfall)
+orders_agg['IS'] = orders_agg['DIRECTION'] * orders_agg['EXECUTED_QTY'] * (orders_agg['ARRIVAL_MID_PRICE'] - orders_agg['VWAP'])
+
+# Select relevant fields
+orders_with_is = orders_agg[['ID', 'IS']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_is, date=date)
+```

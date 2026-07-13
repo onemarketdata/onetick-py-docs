@@ -406,3 +406,24 @@ using OneTick expressions. They take precedence over `start`/`end`:
 ```python
 data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
 result = otp.run(data, symbols='AAPL',
+                 start_time_expression='20240201093000',
+                 end_time_expression='20240201160000')
+```
+
+`query_properties` passes OneTick query properties as a dict:
+
+```python
+data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+result = otp.run(data, symbols='AAPL',
+                 query_properties={'ALLOW_GRAPH_REUSE': 'true'},
+                 date=otp.dt(2024, 2, 1))
+```
+
+`node_name` selects the output from a specific node when running
+an OTQ file with multiple output nodes:
+
+```python
+result = otp.run('path/to/multi_output.otq',
+                 symbols='AAPL', node_name='OUTPUT_1',
+                 date=otp.dt(2022, 3, 1))
+```

@@ -38,3 +38,24 @@ end_time = otp.dt(2024, 2, 1, 9, 30, 1)
 trd = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
 trd = trd[['PRICE', 'SIZE']]
 
+qte = otp.DataSource('US_COMP_SAMPLE', tick_type='NBBO')
+qte = qte[['BID_PRICE', 'ASK_PRICE']]
+
+enh_trd = otp.join_by_time([trd, qte])
+Image(enh_trd.render_otq(output_format='png', symbols=['AAPL'], start=start_time, end=end_time))
+```
+
+Query with `Per Tick Script`:
+
+```python
+def fun(tick):
+    tick['VOLUME'] = tick['PRICE'] * tick['SIZE']
+    if tick['SIZE'] >= 1000:
+        tick['REQ_SIZE'] = 1
+    else:
+        tick['REQ_SIZE'] = 0
+
+data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')
+data = data.script(fun)
+Image(data.render_otq(output_format='png'))
+```

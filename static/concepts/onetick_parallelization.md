@@ -248,3 +248,24 @@ Instead, number of threads used by the query would depend on the parameters of C
 Onetick allows to use different CEP adapters, each adapter corresponding to its own type of real-time input:
 for example, it may be a data feed, or a growing raw data file, or something else. Most CEP adapters would define
 two configurations for number of used threads:
+
+- `threads_for_symbols_bound_to_query`
+- `threads_for_symbols_bound_to_ep`
+
+The first parameter controls how many threads the adapter would use to dispatch input data to CEP queries
+with unbound symbols. The second parameter controls how many threads the adapter would use to dispatch input data
+to CEP queries with bound symbols. However, data dispatching and query analytics have to occur in the same thread -
+therefore, same number of threads would be used to parallelize query analytics.
+
+There are three important notes:
+
+1. If you run a CEP query with a historical part, then historical calculations would be performed by the same
+   number of threads as real-time calculations - `concurrency` is again ignored.
+2. The distinction between “CEP queries with unbound symbols” and “CEP queries with bound symbols” is made like this:
+   if a query uses some bound symbols, then **all** input ticks to it (for both bound and unbound symbols)
+   would normally be dispatched by the bound symbol threads. However, Onetick CEP engine may make decisions about
+   whether to specify specific query as “unbound symbol” or “bound symbol” depending on how query is built -
+   if you want to check which pool of threads is used to execute your query, you may need to check query logs.
+3. If you’re running several CEP queries against a tick server, then specified number of threads
+   would be **shared between all CEP queries** that use the same input database. If you want each query to
+   parallelize independently, you may need to run queries standalone (without a tick server).

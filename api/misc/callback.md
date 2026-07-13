@@ -211,3 +211,24 @@ Called to report a per-security error or per-security warning.
 
 * **Parameters:**
   * **error_code** (*int*) – Values of error code less than 1000 are warnings.
+    Warnings signal issues which might not affect results of the query
+    and thus could be chosen to be ignored
+  * **error_msg** (*str*) – Error message
+
+#### ``done()``
+
+Invoked when all the raw or computed ticks for a given request
+were submitted to the callback using the ``process_tick()`` method.
+
+##### Examples
+
+```
+>>> t = otp.Tick(A=1)
+>>> class DoneCallback(otp.CallbackBase):
+...     def done(self):
+...         self.done = True
+>>> callback = DoneCallback()
+>>> otp.run(t, callback=callback)
+>>> callback.done
+True
+```

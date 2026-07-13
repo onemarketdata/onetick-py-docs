@@ -25,3 +25,24 @@ def get_window_ask_bid(orders: otp.Source, quotes: otp.Source, window_before: fl
                              'WINDOW_BID': otp.agg.min('BID_PRICE')})
 
     # Define the start and end of the window
+    window_start = orders['Time'] - otp.Nano(int(window_before * 1e9))
+    window_end = orders['Time'] + otp.Nano(int(window_after * 1e9))
+
+    # Join orders with the aggregated quotes based on the time window
+    return orders.join_with_query(quotes_agg,
+                                  start=window_start,
+                                  end=window_end)
+
+# Apply the function to get windowed ask and bid prices
+windowed_ask_bid = get_window_ask_bid(orders, quotes, window_before, window_after)
+
+# Calculate Window_NT and Window_FT for each order
+windowed_ask_bid['Window_NT'] = windowed_ask_bid.apply(lambda tick: windowed_ask_bid['WINDOW_BID'] if tick['SIDE'] == 'BUY' else windowed_ask_bid['WINDOW_ASK'])
+windowed_ask_bid['Window_FT'] = windowed_ask_bid.apply(lambda tick: windowed_ask_bid['WINDOW_ASK'] if tick['SIDE'] == 'BUY' else windowed_ask_bid['WINDOW_BID'])
+
+# Select relevant fields
+orders_with_window_nt_ft = windowed_ask_bid[['ID', 'Window_NT', 'Window_FT']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_window_nt_ft, date=date)
+```

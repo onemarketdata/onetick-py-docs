@@ -124,3 +124,24 @@ orders.head()
 ```
 
 Market-by-order data can be used to analyze/validate the priority mechanism used by the exchange.
+
+```python
+prl = otp.ObSnapshot('CME_SAMPLE', tick_type='PRL_FULL', side='BID', show_full_detail=True)
+
+"""
+ORDER_TYPE:
+L = Limit order
+I = Implied order
+
+Implied liquidity doesn't have priority as it's always last to execute at any price level.
+It also doesn't have an order ID, so the IDs that we see in the db are synthetic
+(consisting of 1 or 2 for the 1st/2nd implied level, and E/F for the buy/sell side respectively).
+
+In order to rank the orders within a given price point by priority, we need to sort first by ORDER_TYPE (“L” comes before “I”),
+then by TIME_PRIORITY (lowest value comes first).
+"""
+prl = prl.sort(['LEVEL', 'ORDER_TYPE', 'TIME_PRIORITY'], ascending=[True, False, True])
+orders = otp.run(prl, symbols=r'NQ\H24', start=s, end=s)
+orders = orders[['ORDER_ID', 'PRICE', 'LEVEL', 'TIME_PRIORITY', 'SIZE', 'BUY_SELL_FLAG', 'ORDER_TYPE']]
+orders.head()
+```

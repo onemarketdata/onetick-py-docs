@@ -35,3 +35,24 @@ Select ticks that have the N or T in EXCHANGE field:
 2 2003-12-01 00:00:00.002  28.44    200        T
 3 2003-12-01 00:00:00.003  28.45    100        T
 4 2003-12-01 00:00:00.004  28.44    500        T
+```
+
+Select ticks that have the N or T in EXCHANGE field and character set in OLD_EXCHANGE field:
+
+```
+>>> data = otp.DataSource('TEST_DATABASE', tick_type='TRD', symbols='A')  
+>>> data = data.character_present(  
+...     field=data['EXCHANGE'], characters='NT', characters_field=data['OLD_EXCHANGE'],
+... )
+>>> data = data[['PRICE', 'SIZE', 'EXCHANGE']]  
+>>> otp.run(data)  
+                     Time  PRICE   SIZE EXCHANGE
+0 2003-12-01 00:00:00.000  28.44  55100        N
+1 2003-12-01 00:00:00.001  28.44    100        B
+2 2003-12-01 00:00:00.002  28.44    200        B
+3 2003-12-01 00:00:00.003  28.45    100        T
+4 2003-12-01 00:00:00.004  28.44    200        T
+```
+
+##### SEE ALSO
+**CHARACTER_PRESENT** OneTick event processor

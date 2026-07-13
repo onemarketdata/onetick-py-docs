@@ -136,3 +136,24 @@ Implement variance aggregation
     By default **all** groups are shown at the end of each bucket interval.
     If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
     within a given bucket interval are shown.
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 3, 4])
+>>> data = data.agg({'RESULT': otp.agg.variance('X', biased=False)})
+>>> otp.run(data)
+        Time  RESULT
+0 2003-12-04     1.3
+```
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 3, 4])
+>>> data = data.agg({'RESULT': otp.agg.variance('X', biased=True)})
+>>> otp.run(data)
+        Time  RESULT
+0 2003-12-04     1.04
+```
+
+##### SEE ALSO
+**VARIANCE** OneTick event processor

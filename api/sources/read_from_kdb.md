@@ -86,3 +86,24 @@ Rename fields from previous query and keep only them
 ... )                                   
 >>> otp.run(src, symbol='LOCAL::AAPL')  
                            Time      PRICE  SIZE
+0 2003-12-01 04:42:42.156933546  68.668341   300
+1 2003-12-01 08:59:33.463062196  64.309823    60
+2 2003-12-01 10:10:40.343438833  67.087377   530
+...
+```
+
+Pass query as `query` parameter instead of table name. In this case filtering by symbol wouldn’t work.
+
+```
+>>> src = otp.ReadFromKdb('kdb-server:5000', 'select from some_table')  
+>>> otp.run(src, symbol='LOCAL::ANY')                                   
+                 Time                date            time      price  size   sym
+0 2199-12-31 19:00:00 2003-11-30 19:00:00  12311440987139  65.868242   170  AAPL
+1 2199-12-31 19:00:00 2003-11-30 19:00:00  33435228341817  95.989642   248  MSFT
+2 2199-12-31 19:00:00 2003-11-30 19:00:00  34962156933546  68.668341   342  AAPL
+3 2199-12-31 19:00:00 2003-11-30 19:00:00  50373463062196  64.309823    60  AAPL
+...
+```
+
+##### SEE ALSO
+**READ_FROM_KDB** OneTick event processor

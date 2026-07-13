@@ -26,3 +26,24 @@ Input must not have field ‘time’ as that field will also be added by the EP 
       : filesystem naming rules.
 
     Pseudo-fields ‘_SYMBOL_NAME’ and ‘_TICK_TYPE’ may be used as partitioning_keys and
+    will be added to the schema automatically.
+  * **propagate_input_ticks** (*bool*) – Switches propagation of the ticks. If set to True, ticks will be propagated.
+  * **inplace** (*bool*) – A flag controls whether operation should be applied inplace.
+    If `inplace=True`, then it returns nothing. Otherwise method
+    returns a new modified object.
+
+##### Examples
+
+Simple usage:
+
+```
+>>> data = otp.Ticks(A=[1, 2, 3])
+>>> data = data.write_parquet("/path/to/parquet/file")  
+>>> otp.run(data)  
+```
+
+##### SEE ALSO
+**WRITE_TO_PARQUET** OneTick event processor
+
+``onetick.py.ReadParquet``
+

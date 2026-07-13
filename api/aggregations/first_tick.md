@@ -113,3 +113,24 @@ Select the first **n** ticks
     By default **all** groups are shown at the end of each bucket interval.
     If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
     within a given bucket interval are shown.
+  * **keep_timestamp** (*bool* *,* *default=True*) – If True, timestamps of the output ticks are the same as timestamps of the original ticks.
+    Otherwise, timestamps of the output ticks are determined by bucket_time, and original timestamps
+    are put in the TICK_TIME field.
+  * **default_tick** (*Optional* **[*dict* *]* *,* *default=None*) – Mapping of input stream field names to some values.
+    When set, exactly one tick with specified default values will be created for each empty bucket.
+    If default value is specified as `None`, then fields are initialized to the corresponding “zero” values:
+    0 for integer types, NaN for doubles, empty string for string types, etc.
+
+##### Examples
+
+```
+>>> data = otp.Ticks(P=[1, 2, 3, 4], S=[10, 20, 30, 40])
+>>> agg = otp.agg.first_tick()
+>>> data = agg.apply(data)
+>>> otp.run(data)
+        Time  P   S
+0 2003-12-01  1  10
+```
+
+##### SEE ALSO
+**FIRST_TICK** OneTick event processor

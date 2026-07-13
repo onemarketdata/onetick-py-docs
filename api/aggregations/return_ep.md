@@ -165,3 +165,24 @@ Basic example as ``Source`` method:
 1   2024-02-01 00:20:00  1.000513
 2   2024-02-01 00:30:00  1.000567
 3   2024-02-01 00:40:00  1.000135
+4   2024-02-01 00:50:00  1.000027
+..                  ...       ...
+```
+
+Basic example as aggregation:
+
+```
+>>> data = otp.DataSource('US_COMP_SAMPLE', symbol='AAPL', tick_type='TRD')
+>>> data = otp.agg.return_ep(data['PRICE'], bucket_interval=otp.Minute(10)).apply(data)
+>>> otp.run(data, date=otp.dt(2024, 2, 1))  
+                   Time     PRICE
+0   2024-02-01 00:10:00  0.999784
+1   2024-02-01 00:20:00  1.000513
+2   2024-02-01 00:30:00  1.000567
+3   2024-02-01 00:40:00  1.000135
+4   2024-02-01 00:50:00  1.000027
+..                  ...       ...
+```
+
+##### SEE ALSO
+**RETURN** OneTick event processor

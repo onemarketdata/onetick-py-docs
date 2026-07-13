@@ -122,3 +122,24 @@ Select the last `n` ticks
     * **event_ts**
 
       only ticks from current bucket used for calculations
+    * **state_ts**
+      * if there is a tick in bucket with timestamp = bucket start
+
+        only ticks in bucket used for calculation max value
+      * else
+
+        latest tick from previous bucket included in current bucket
+
+##### Examples
+
+```
+>>> data = otp.Ticks(P=[1, 2, 3, 4], S=[10, 20, 30, 40], offset=[0, 1000, 1500, 3000])
+>>> agg = otp.agg.last_tick()
+>>> data = agg.apply(data)
+>>> otp.run(data)
+                 Time  P   S
+0 2003-12-01 00:00:03  4  40
+```
+
+##### SEE ALSO
+**LAST_TICK** OneTick event processor

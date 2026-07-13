@@ -64,3 +64,24 @@ data = data.corp_actions(fields='VOLUME', adjust_rule='SIZE', apply_split=True)
 result = otp.run(data,
                  start=otp.dt(2024, 2, 10),
                  end=otp.dt(2024, 3, 10),
+                 timezone='America/New_York',
+                 symbols='WMT',
+                 symbol_date=otp.dt.now())
+result.plot(x='Time', y='VOLUME')
+```
+
+# Retrieving Corporate actions for a symbol
+
+We can retrieve all corporate actions for the symbols of interest:
+
+```python
+db = otp.databases()['US_COMP_SAMPLE_DAILY']
+db.ref_data(
+    ref_data_type='corp_actions',
+    start=otp.dt(2024, 2, 10),
+    end=otp.dt(2024, 3, 10),
+    timezone='America/New_York',
+    symbol='WMT',
+    symbol_date=otp.dt.now(),
+)
+```

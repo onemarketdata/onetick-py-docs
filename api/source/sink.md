@@ -46,3 +46,24 @@ We should manually change source’s schema:
 
 ```
 >>> data.schema.update(B=int)
+>>> data['C'] = data['B']
+>>> otp.run(data)
+        Time  A  B  C
+0 2003-12-01  1  2  2
+```
+
+Use parameter `inplace=False` to return modified copy of the source:
+
+```
+>>> data = otp.Tick(A=1)
+>>> new_data = data.sink(otq.AddField(field='B', value=2), inplace=False)
+>>> otp.run(data)
+        Time  A
+0 2003-12-01  1
+>>> otp.run(new_data)
+        Time  A  B
+0 2003-12-01  1  2
+```
+
+##### SEE ALSO
+``onetick.py.Source.schema``, ``onetick.py.core._source.schema.Schema``

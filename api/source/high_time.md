@@ -140,3 +140,24 @@ Returns timestamp of tick with the highest value of input field
     If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
     within a given bucket interval are shown.
   * **selection** (*Literal* *[* *'first'* *,*  *'last'* *]* *,* *default=first*) – Controls the selection of the respective beginning or trailing part of ticks.
+  * **time_series_type** (*Literal* *[* *'event_ts'* *,*  *'state_ts'* *]* *,* *default=event_ts*) – 
+
+    Controls initial value for each bucket
+    * **event_ts**
+
+      only ticks from current bucket used for calculations
+    * **state_ts**
+      * if there is a tick in bucket with timestamp = bucket start
+
+        only ticks in bucket used for calculation max value
+      * else
+
+        latest tick from previous bucket included in current bucket
+* **Return type:**
+  `Source`
+
+##### SEE ALSO
+**HIGH_TIME** OneTick event processor
+
+##### SEE ALSO
+``high_time()``

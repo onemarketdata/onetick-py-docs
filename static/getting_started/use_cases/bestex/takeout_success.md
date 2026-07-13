@@ -14,3 +14,24 @@ import onetick.py as otp
 
 orders = otp.DataSource('ORDERS_DB', tick_type='ORDER')
 
+# add the direction that is equl to 1 for buy orders and -1 for sell orders
+orders['DIRECTION'] = 2 * orders['BUY_FLAG'] - 1
+
+quotes = otp.DataSource('US_COMP_SAMPLE', tick_type='QTE')
+
+res = otp.join_by_time([orders, quotes])
+
+# initialize a field where we could put the takeout sucess flag
+res['TAKEOUT_SUCCESS'] = 0
+
+res = res.update(
+            {'TAKEOUT_SUCCESS': 1},
+            where=(res['DIRECTION'] == 1) & (res['QTY_FILLED'] >= res['ASK_SIZE'])
+)
+res = res.update(
+            {'TAKEOUT_SUCCESS': 1},
+            where=(res['DIRECTION'] == -1) & (res['QTY_FILLED'] >= res['BID_SIZE'])
+)
+
+otp.run(res, date=otp.dt(2024, 2, 1), symbols='TSLA')
+```

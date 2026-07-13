@@ -150,3 +150,24 @@ print(df)
 
 ```
         Time    A
+0 2003-12-04  3.0
+```
+
+Use ``agg()`` method to apply several aggregations at the same time:
+
+```python
+data = t.agg({
+    'X': otp.agg.find_value_for_percentile('A', 50, 'interpolated_value'),
+    'COUNT': otp.agg.count(),
+})
+df = otp.run(data)
+print(df)
+```
+
+```
+        Time    X  COUNT
+0 2003-12-04  2.5      4
+```
+
+##### SEE ALSO
+**FIND_VALUE_FOR_PERCENTILE** OneTick event processor

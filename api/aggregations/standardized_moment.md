@@ -137,3 +137,24 @@ as the expected value of the expression `((X - mean) / stddev)^k`.
     If ``Operation`` is used then GROUP_{i} column is added. Where i is index in group_by list.
     For example, if Operation is the only element in `group_by` list then GROUP_0 field will be added.
   * **groups_to_display** (*Literal* *[* *'all'* *,*  *'previous'* *]* *,* *default=all*) – Specifies for which sub-buckets (groups) ticks should be shown for each bucket interval.
+    By default **all** groups are shown at the end of each bucket interval.
+    If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
+    within a given bucket interval are shown.
+  * **degree** (*int* *,* *default=3*) – The order (degree) of the standardized moment to compute, denoted as k in the description above.
+
+##### Examples
+
+Basic example
+
+```python
+data = otp.Ticks({'A': [1, 2, 4, 4, 4, 6]})
+data = data.standardized_moment('A', degree=3, bucket_interval=3, bucket_units='ticks')
+df = otp.run(data)
+print(df)
+```
+
+```
+```
+
+##### SEE ALSO
+**STANDARDIZED_MOMENT** OneTick event processor

@@ -148,3 +148,24 @@ Get last tick each day:
 
 ```
 >>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[otp.Day(0), otp.Day(0), otp.Day(2), otp.Day(2)])
+>>> data = data.last(bucket_interval=1, bucket_units='days', bucket_time='start')
+>>> otp.run(data)
+        Time  X
+0 2003-12-01  2
+1 2003-12-03  4
+```
+
+Get last tick each day and set tick value for empty buckets:
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[otp.Day(0), otp.Day(0), otp.Day(2), otp.Day(2)])
+>>> data = data.last(bucket_interval=1, bucket_units='days', bucket_time='start', default_tick={'X': -1})
+>>> otp.run(data)
+        Time   X
+0 2003-12-01   2
+1 2003-12-02  -1
+2 2003-12-03   4
+```
+
+##### SEE ALSO
+**LAST_TICK** OneTick event processor

@@ -22,3 +22,24 @@ in ``Session`` as well as the local databases.
   * **resource** (*str* *,* *optional*) – The resource of the host.
     If not specified here, can be specified in the `host` parameter.
   * **cep** (*bool*) – Specifies if the remote server is the CEP-mode tick-server.
+
+##### Examples
+
+Specify host name and port together in first parameter:
+
+```
+>>> session.use(otp.RemoteTS('server.onetick.com:50015'))  
+```
+
+Additionally specify web-socket protocol and resource of the remote server:
+
+```
+>>> session.use(otp.RemoteTS('wss://data.onetick.com:443/omdwebapi/websocket'))  
+```
+
+Combination of LoadBalancing and FaultTolerance can be used for host parameter:
+
+```
+>>> RemoteTS(FaultTolerance(LoadBalancing('host1:4001', 'host2:4002'),
+...                         LoadBalancing('host3:4003', 'host3:4004')) 
+```

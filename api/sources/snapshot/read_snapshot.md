@@ -76,3 +76,24 @@ Read snapshot for specified database and symbol name:
 
 ```
 >>> src = otp.ReadSnapshot(snapshot_name='some_snapshot', db='DB', symbol='AAA')
+```
+
+Read snapshot from memory mapped file:
+
+```
+>>> src = otp.ReadSnapshot(
+...     snapshot_name='some_snapshot', snapshot_storage='memory_mapped_file', db='DB',
+... )
+```
+
+##### SEE ALSO
+**READ_SNAPSHOT** OneTick event processor
+
+``onetick.py.ShowSnapshotList``
+
+``onetick.py.FindSnapshotSymbols``
+
+``onetick.py.Source.save_snapshot()``
+
+``onetick.py.Source.join_with_snapshot()``
+

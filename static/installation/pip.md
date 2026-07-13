@@ -84,3 +84,24 @@ cd %APPDATA%
 mkdir pip
 type nul > pip\pip.ini # it creates new file
 notepad pip\pip.ini
+```
+
+* Content for Windows is the same as for Linux. For more information `look here`.
+
+1. install onetick-py
+
+```
+python[3] -m pip install onetick-py [--user]
+```
+
+- You should use `python3` command if the default python on your system is 2.7
+- You should use `--user` option to install onetick-py for your user only.
+
+1. Check everything is ok.
+
+- Run python interpreter:
+
+```
+python[3]
+>>> import onetick.py as otp
+```

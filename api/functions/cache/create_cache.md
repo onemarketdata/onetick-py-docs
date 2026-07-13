@@ -89,3 +89,24 @@ Create cache for time intervals with different datetime types:
 ...    db="LOCAL",
 ... )
 ```
+
+Create cache with OTQ params:
+
+```
+>>> otp.create_cache(  
+...    cache_name="some_cache",
+...    query="query_example.otq::query"),
+...    otq_params={"some_param": "some_value"},
+...    timezone="GMT",
+...    tick_type="TRD",
+...    db="LOCAL",
+... )
+```
+
+##### SEE ALSO
+**CREATE_CACHE** OneTick event processor
+
+``onetick.py.ReadCache``
+
+``onetick.py.delete_cache()``
+

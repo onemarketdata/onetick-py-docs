@@ -84,3 +84,24 @@ Setting Ellipsis as length represents varstring.
 
 Varstring length is multiplied.
 
+```
+>>> t['A'] *= 65
+>>> t['B'] = t['A'].str.len()
+>>> otp.run(t)
+        Time                                                                  A   B
+0 2003-12-01  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa  65
+```
+
+otp.varstring is a shortcut:
+
+```
+>>> t = otp.Tick(A='a')
+>>> t = t.table(A=otp.varstring)
+>>> t.schema
+{'A': varstring}
+```
+
+* **Variables:**
+  **DEFAULT_LENGTH** (*int*) – default length of the string when the length is not specified
+
+#### DEFAULT_LENGTH *= 64*

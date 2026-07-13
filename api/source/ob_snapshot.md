@@ -1,6 +1,6 @@
 # otp.Source.ob_snapshot
 
-#### ``Source.ob_snapshot(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, identify_source=False, show_full_detail=False, show_only_changes=False, book_delimiters=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None)``
+#### ``Source.ob_snapshot(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, identify_source=None, show_full_detail=False, show_only_changes=False, book_delimiters=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None)``
 
 Returns the order book state at the end of each bucket interval:
 the price, the size, the side, and the time of the last update for a specified number of order book levels.
@@ -122,12 +122,15 @@ the price, the size, the side, and the time of the last update for a specified n
     the price of a new bid tick get removed from the book, and all bid levels that have price higher or equal
     to the price of a new ask tick get removed from the book.
   * **dq_events_that_clear_book** (*list* **[*str* *]* *,* *default=None*) – A list of names of data quality events arrival of which should clear the order book.
-  * **identify_source** (*bool* *,* *default=False*) – When this parameter is set to “true” and the input stream is fed through the VIRTUAL_OB event processor
-    (with the QUOTE_SOURCE_FIELDS parameter specified) and group_by is not set to be “SOURCE”
-    it will separate a tick with the same price from different sources into multiple ticks.
-    The parameter can also be used when merging ticks from multiple feeds.
-    Each feed going into the merge would need an ADD_FIELD EP source value set for the VALUE parameter,
-    where the value would be different for each leg.
+  * **identify_source** (*Optional* **[*bool* *]* *,* *default=None*) – 
+
+    When this parameter is set to True, input ticks must have field **SOURCE**,
+    and the EP will produce a separate output tick for each value of **SOURCE** field.
+
+    If **SOURCE** field doesn’t exist,
+    it will be created automatically by setting it to  *\_SYMBOL_NAME* pseudo-field.
+
+    Default is False.
   * **show_full_detail** (*bool* *,* *default=False*) – When set to “true” and if the state key of the input ticks consists of some fields besides PRICE,
     output ticks will contain all fields from the input ticks for each price level.
     When set to “false” only PRICE, UPDATE_TIME, SIZE, LEVEL, and BUY_SELL_FLAG fields will be populated.
@@ -166,3 +169,24 @@ the price, the size, the side, and the time of the last update for a specified n
     Default is False.
 * **Return type:**
   `Source`
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = data.ob_snapshot(max_levels=3)                                            
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))          
+                 Time     PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG
+0 2024-02-01 10:00:00  17351.75     1      1 2024-02-01 09:59:59.701711193              1
+1 2024-02-01 10:00:00  17352.00     3      2 2024-02-01 09:59:59.582195881              1
+2 2024-02-01 10:00:00  17352.25     3      3 2024-02-01 09:59:59.580457957              1
+3 2024-02-01 10:00:00  17351.25     1      1 2024-02-01 09:59:59.867609851              0
+4 2024-02-01 10:00:00  17351.00     6      2 2024-02-01 09:59:59.867226023              0
+5 2024-02-01 10:00:00  17350.75     2      3 2024-02-01 09:59:59.867226023              0
+```
+
+##### SEE ALSO
+``onetick.py.ObSnapshot()``
+
+**OB_SNAPSHOT** OneTick event processor
+

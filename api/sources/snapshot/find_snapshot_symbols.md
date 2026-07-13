@@ -98,3 +98,24 @@ Use `pattern` parameter to filter symbol names:
 ```
 
 Select symbol names not matched by pattern:
+
+```
+>>> src = otp.FindSnapshotSymbols(
+...     snapshot_name='some_snapshot', db='S1', pattern='A%', discard_on_match=True,
+... )
+>>> otp.run(src, symbols='S1::')  
+        Time SYMBOL_NAME
+0 2003-12-01    S1::MSFT
+```
+
+##### SEE ALSO
+**FIND_SNAPSHOT_SYMBOLS** OneTick event processor
+
+``onetick.py.ReadSnapshot``
+
+``onetick.py.ShowSnapshotList``
+
+``onetick.py.Source.save_snapshot()``
+
+``onetick.py.Source.join_with_snapshot()``
+

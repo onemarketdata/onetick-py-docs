@@ -141,3 +141,24 @@ Returns timestamp of tick with highest value of input field
     Controls initial value for each bucket
     * **event_ts**
 
+      only ticks from current bucket used for calculations
+    * **state_ts**
+      * if there is a tick in bucket with timestamp = bucket start
+
+        only ticks in bucket used for calculation max value
+      * else
+
+        latest tick from previous bucket included in current bucket
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=[1, 2, 4, 3], offset=[0, 1000, 1500, 3000])
+>>> data = data.agg({'RESULT': otp.agg.high_time(['X'])})
+>>> otp.run(data)
+        Time                  RESULT
+0 2003-12-04 2003-12-01 00:00:01.500
+```
+
+##### SEE ALSO
+**HIGH_TIME** OneTick event processor

@@ -709,3 +709,24 @@ Can be used only on Source directly.
     If some fields are in tick set schema but not added in this method, they will have default values.
   * **erase_condition** (``Operation``) – Selection of input ticks that will be erased from tick set.
     If it is set then `where` parameter is not taken into account.
+  * **inplace** (*bool*) – If `True` current source will be modified else modified copy will be returned
+* **Return type:**
+  if `inplace` is False then returns ``Source`` copy.
+
+##### Examples
+
+```
+>>> data = otp.Ticks(A=[1, 2, 3], B=[4, 5, 6], C=[7, 8, 9])
+>>> data.state_vars['SET'] = otp.state.tick_set('oldest', 'A')
+>>> data = data.state_vars['SET'].update(value_fields=['B'])
+>>> data = data.state_vars['SET'].update(data['A'] == 2)
+>>> data = data.state_vars['SET'].update(erase_condition=data['A'] == 2)
+```
+
+```
+>>> data = data.first().state_vars['SET'].dump(when_to_dump='first_tick')
+>>> otp.run(data)
+        Time  A  B
+0 2003-12-01  1  4
+1 2003-12-01  3  6
+```

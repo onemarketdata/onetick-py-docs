@@ -132,3 +132,24 @@ VWAP, best and worst price, total size, and number of levels, for one or both si
   * **state_key_max_inactivity_sec** (*int* *,* *default=None*) – If set, specifies in how many seconds after it was added
     a given state key should be automatically removed from the book.
   * **size_max_fractional_digits** (*int* *,* *default=0*) – Specifies maximum number of digits after dot in SIZE, if SIZE can be fractional.
+  * **include_market_order_ticks** (*bool* *,* *default=None*) – 
+
+    If set, market order ticks (they have price NaN) are included into the order book,
+    and are at the order book’s top level.
+    > Default is False.
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = otp.agg.ob_summary(max_levels=3).apply(data)                               
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))           
+                 Time  BID_SIZE      BID_VWAP  BEST_BID_PRICE  WORST_BID_PRICE  NUM_BID_LEVELS  ASK_SIZE                              ASK_VWAP  BEST_ASK_PRICE  WORST_ASK_PRICE  NUM_ASK_LEVELS
+0 2024-02-01 10:00:00         9  17350.972222        17351.25         17350.75               3         7                          17352.071429        17351.75         17352.25               3
+```
+
+##### SEE ALSO
+``onetick.py.ObSummary()``
+
+**OB_SUMMARY** OneTick event processor
+

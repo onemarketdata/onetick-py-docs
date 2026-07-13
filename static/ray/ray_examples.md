@@ -133,3 +133,24 @@ def match_condition(row):
    if row['COND'].str.contains('O'):
        return 1
    if row['COND'].str.contains('6') == True:
+       return 1
+   if row['COND'].str.contains('9') == True:
+       return 1
+   else:
+       return 0
+
+@ray.remote(max_retries=1)
+def quicktest(start, end, symbol):
+    ds_trd = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', start=start, end=end)
+    ds_trd.schema['COND'] = str
+    ds_trd['OC_TRD'] = ds_trd.apply(match_condition)
+    return otp.run(ds_trd, symbol=[symbol])
+
+start = otp.dt(2024, 2, 1, 9, 29)
+end = otp.dt(2024, 2, 1, 16, 30)
+symbol = 'AAPL'
+ray.init()
+result = ray.get(quicktest.remote(start, end, symbol))
+print(result)
+ray.shutdown()
+```

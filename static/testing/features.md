@@ -167,3 +167,24 @@ the [`otp.config['show_stack_info']`](../../api/config.md#onetick.py.configurati
 
 ### Other
 
+Our plugin adds OneTick version into the pytest output. You might find it in the
+header of the output where `pytest` lists the plugins and their versions.
+
+In the following example:
+
+```
+$ pytest -vs
+
+=========================== test session starts =====================
+platform linux -- Python 3.9.6, pytest-7.1.2, pluggy-1.3.0 -- python3
+
+OneTick build: 20230831120000, onetick-py: 1.82.0, onetick-py-test: 1.1.34
+cachedir: .pytest_cache
+...
+```
+
+The following line shows OneTick related dependencies:
+
+```
+OneTick build: 20230831120000, onetick-py: 1.82.0, onetick-py-test: 1.1.34
+```

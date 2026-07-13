@@ -15,3 +15,24 @@ In this case, the package does not require OneTick binaries to be installed on t
 
 ## Prerequisites
 
+- You installed `python 3.10 or newer`.
+- You installed `pip`.
+- Optional, but it is **highly recommended** to use virtual environment for Python packages.
+  > Create and activate it with following commands:
+  > - Linux / MacOS: `python3 -m venv venv && source venv/bin/activate`
+  > - Windows (cmd): `python -m venv venv && venv\Scripts\activate`
+
+## Installation from PyPI
+
+The latest version of onetick-py is available on PyPI: `https://pypi.org/project/onetick-py/`.
+
+```
+pip install onetick-py[webapi]
+```
+
+`webapi` extra is needed to install additional dependencies required for REST connectivity to the OneTick server,
+over either HTTP or HTTPS using Arrow as a transport format.
+
+## Getting started
+
+Go to the `Getting Started` page.

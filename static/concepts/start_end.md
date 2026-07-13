@@ -92,3 +92,24 @@ nanoseconds and DST as the standard python `datetime.datetime` class does not su
 
 ``otp.dt`` could be used in any `onetick.py` api call that allows date or time as an input:
 
+```
+>>> data = otp.Ticks(X=[1, 2, 3])
+>>> data['TIME_VALUE'] = otp.dt(2022, 1, 1, nanosecond=456)
+>>> otp.run(data)
+                     Time  X                    TIME_VALUE
+0 2003-12-01 00:00:00.000  1 2022-01-01 00:00:00.000000456
+1 2003-12-01 00:00:00.001  2 2022-01-01 00:00:00.000000456
+2 2003-12-01 00:00:00.002  3 2022-01-01 00:00:00.000000456
+```
+
+## Timezone
+
+The timezone can be specified in the ``otp.run`` using the `timezone` parameter.
+If it is not set then default timezone is used.
+
+It is possible to change the default timezone using the `OTP_DEFAULT_TZ` environment variable
+or using the `otp.config['tz']` config variable:
+
+```
+otp.config['tz'] = 'GMT'
+```

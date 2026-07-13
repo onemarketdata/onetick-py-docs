@@ -25,3 +25,24 @@ By default data quality events are not showed, use this method to see them:
 0 2003-12-01 00:00:00.000                  0                OK
 1 2003-12-01 00:00:00.001                  0                OK
 2 2003-12-01 00:00:00.002                  0                OK
+```
+
+Intercepting data quality events will remove them from the data flow:
+
+```
+>>> data = otp.Ticks({'A': [1, 2, 3]})
+>>> data = data.insert_data_quality_event('OK')
+>>> data = data.intercept_data_quality()
+>>> data = data.show_data_quality()
+>>> otp.run(data)  
+Empty DataFrame
+...
+```
+
+##### SEE ALSO
+**INTERCEPT_DATA_QUALITY** OneTick event processor
+
+``insert_data_quality_event()``
+
+``show_data_quality()``
+

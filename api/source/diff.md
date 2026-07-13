@@ -110,3 +110,24 @@ print(otp.run(data))
 0 2003-12-01 00:00:00    1    1    1    3
 1 2003-12-01 00:00:01    1    3    1    4
 2 2003-12-01 00:00:02    1    4    1    6
+3 2003-12-01 00:00:02    1    5    1    7
+```
+
+Showing diff for every tick with `show_all_ticks` parameter:
+
+```python
+t = otp.Ticks(A=[1, 2, 3], B=[0, 0, 1])
+q = otp.Ticks(A=[1, 3], B=[0, 0])
+data = t.diff(q, show_all_ticks=True)
+print(otp.run(data))
+```
+
+```
+                     Time  MATCH_STATUS  L.A  R.A  L.B
+0 2003-12-01 00:00:00.000             1    0    0    0
+1 2003-12-01 00:00:00.001             0    2    3    0
+2 2003-12-01 00:00:00.002             2    3    0    1
+```
+
+##### SEE ALSO
+**DIFF** OneTick event processor

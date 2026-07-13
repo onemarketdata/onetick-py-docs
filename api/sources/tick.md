@@ -120,3 +120,24 @@ Generate tick every hour and set fixed time:
 4 2023-01-02 03:04:05.000006  1
 ```
 
+Use `datetime offset object` as a `bucket_interval`:
+
+```python
+t = otp.Tick(A=1, bucket_interval=otp.Day(1))
+df = otp.run(t, start=otp.dt(2023, 1, 1), end=otp.dt(2023, 1, 5))
+print(df)
+```
+
+```
+        Time  A
+0 2023-01-01  1
+1 2023-01-02  1
+2 2023-01-03  1
+3 2023-01-04  1
+```
+
+##### SEE ALSO
+**TICK_GENERATOR** OneTick event processor
+
+``otp.Ticks``
+

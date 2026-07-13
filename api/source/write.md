@@ -92,3 +92,24 @@ Write to the database:
 
 ```
 >>> data = otp.Ticks(X=[1, 2, 3])
+>>> data = data.write('WRITE_DB', symbol='S_WRITE', tick_type='T_WRITE')
+>>> otp.run(data)
+                     Time  X
+0 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.001  2
+2 2003-12-01 00:00:00.002  3
+```
+
+Then read from the same database:
+
+```
+>>> data = otp.DataSource('WRITE_DB', symbol='S_WRITE', tick_type='T_WRITE')
+>>> otp.run(data)
+                     Time  X
+0 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.001  2
+2 2003-12-01 00:00:00.002  3
+```
+
+##### SEE ALSO
+**WRITE_TO_ONETICK_DB** OneTick event processor

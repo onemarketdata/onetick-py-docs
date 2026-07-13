@@ -94,3 +94,24 @@ data = otp.Ticks(X=[1, 2, 3, 4, 5, 6])
 data = data.limit(2, tick_offset=2)
 df = otp.run(data)
 print(df)
+```
+
+```
+                     Time  X
+0 2003-12-01 00:00:00.002  3
+1 2003-12-01 00:00:00.003  4
+```
+
+Using `apply_across_symbols` to limit ticks through all symbols in one database:
+
+```
+>>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', date=otp.dt(2024, 2, 1))       
+>>> data = data.limit(5)                                                                       
+>>> data = data.limit(7, apply_across_symbols=True)                                            
+>>> result = otp.run(data, symbols=['AAPL', 'MSFT'])                                           
+>>> print(', '.join(f'{len(df)} ticks for symbol {symbol}' for symbol, df in result.items()))  
+5 ticks for symbol AAPL, 2 ticks for symbol MSFT
+```
+
+##### SEE ALSO
+**LIMIT** OneTick event processor

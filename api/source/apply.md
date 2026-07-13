@@ -57,3 +57,24 @@ Another example of applying more sophisticated operation
 >>> otp.run(data)
                      Time  X  Y
 0 2003-12-01 00:00:00.000  1  0
+1 2003-12-01 00:00:00.001  2  0
+2 2003-12-01 00:00:00.002  3  1
+```
+
+Example of applying a predicate to a Source. In this case value passed
+to a predicate is a whole tick. Result is a column.
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3], Y=[.5, -0.4, .2])
+>>> data['Z'] = data.apply(lambda tick: 1 if abs(tick['X'] * tick['Y']) > 0.5 else 0)
+>>> otp.run(data)
+                     Time  X     Y  Z
+0 2003-12-01 00:00:00.000  1   0.5  0
+1 2003-12-01 00:00:00.001  2  -0.4  1
+2 2003-12-01 00:00:00.002  3   0.2  1
+```
+
+##### SEE ALSO
+``onetick.py.query``
+``onetick.py.Source.script()``
+`Python callables parsing guide`

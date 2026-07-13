@@ -204,3 +204,24 @@ Get dict of database raw configurations.
 
 #### ``property feed``
 
+Get dict of database feed configuration.
+
+* **Return type:**
+  `dict`
+
+##### Examples
+
+```
+>>> db = otp.DB('RAW_EXAMPLE',
+...     db_raw_data=[{
+...         'id': 'PRIMARY_A',
+...         'prefix': 'DATA.',
+...         'locations': [
+...             {'mount': 'mount1'}
+...         ]
+...     }],
+...     db_feed={'type': 'rawdb', 'raw_source': 'PRIMARY_A'},
+... )
+>>> db.feed
+{'type': 'rawdb', 'raw_source': 'PRIMARY_A', 'format': 'native'}
+```

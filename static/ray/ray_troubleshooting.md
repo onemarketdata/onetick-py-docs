@@ -94,3 +94,24 @@ credentials = grpc.ssl_channel_credentials(
     private_key=private_key,
     root_certificates=ca_cert,
 )
+channel = grpc.secure_channel(host, credentials)
+channel.subscribe(_on_channel_state_change)
+
+print("Opening channel", channel)
+grpc.channel_ready_future(channel).result(timeout=10)
+print("Your connection state", _conn_state)
+```
+
+The positive output result is when your last line is: `Your connection state ChannelConnectivity.READY`
+All other results are most probably have a description of error:
+- `routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED` multiple times - your certificate is broken or outdated, ask your contact manager to provide you proper certificates.
+- `grpc.FutureTimeoutError` - this is common error for connection issues.
+
+5. In case you having `grpc.FutureTimeoutError` in step 4, please, run the same script with debugging attributes and dump log into file `log.txt`:
+code-block:
+
+```
+GRPC_TRACE=all GRPC_VERBOSITY=debug python test-grpc.py > log.txt
+```
+
+Share resulted `log.txt` file with your contact manager in order to provide our technical team more information about issue.

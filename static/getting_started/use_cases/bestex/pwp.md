@@ -46,3 +46,24 @@ def pwp_query(volume):
         res[pwp_name] = res.state_vars[state_name]
         to_output.append(pwp_name)
 
+    res = res[to_output]
+    return res
+
+# Load orders data
+orders = otp.DataSource(db=orders_db, tick_type='ORDER', symbol=symbol)
+
+# Aggregate orders to calculate total executed quantity and arrival time
+orders_agg = orders.agg({'QTY_FILLED': otp.agg.sum('QTY_FILLED'),
+                         'ARRIVAL_TIME': otp.agg.first_time()},
+                         group_by='ID')
+
+# Join PWP values to every order using total order executed value (QTY_FILLED)
+# starting from the ARRIVAL_TIME. The logic in `pwp_query` accumulates ticks
+# until it reaches the necessary market volume.
+result = orders_agg.join_with_query(pwp_query,
+                                    params={'volume': orders_agg['QTY_FILLED']},
+                                    start=orders_agg['ARRIVAL_TIME'])
+
+# Run the query for the specified date
+df = otp.run(result, date=date)
+```

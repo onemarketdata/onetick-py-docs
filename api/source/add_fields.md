@@ -31,3 +31,24 @@ Add new fields specified in the dictionary:
 >>> otp.run(data)
         Time  A           D      X  Y     Z
 0 2003-12-01  1  2022-02-02  12345  1  1abc
+```
+
+Parameter `override` can be used to rewrite existing fields:
+
+```python
+data = otp.Tick(A=1)
+data = data.add_fields({'A': 2, 'B': 'b'}, override=True)
+df = otp.run(data)
+print(df)
+```
+
+```
+        Time  A  B
+0 2003-12-01  2  b
+```
+
+##### SEE ALSO
+``Source.__setitem__()``
+
+**ADD_FIELDS** OneTick event processor
+

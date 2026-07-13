@@ -53,3 +53,24 @@ The returned string has the same type and therefore the same maximum length as t
 0 2003-12-01  Banana  BananaBan
 ```
 
+`repeat` does the same thing as multiplication by a non-negative int:
+
+```
+>>> data = otp.Ticks(X=['Banana'], N=[2])
+>>> data['X2'] = data['X'] * data['N']
+>>> data['X3'] = data['X'] * 3
+>>> otp.run(data)
+        Time       X  N            X2                  X3
+0 2003-12-01  Banana  2  BananaBanana  BananaBananaBanana
+```
+
+Multiplying by 0 results in empty string:
+
+```
+>>> data = otp.Ticks(X=['Banana', 'Apple'])
+>>> data['Y'] = data['X'].str.repeat(0)
+>>> otp.run(data)
+                     Time       X Y
+0 2003-12-01 00:00:00.000  Banana
+1 2003-12-01 00:00:00.001   Apple
+```

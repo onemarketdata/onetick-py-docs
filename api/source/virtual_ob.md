@@ -60,3 +60,24 @@ Basic example
 0  2003-12-01 00:00:00.000  22.28 1969-12-31 19:00:00   500              1            0   AAPL
 1  2003-12-01 00:00:00.000  21.66 1969-12-31 19:00:00   100              0            0   AAPL
 2  2003-12-01 00:00:00.001   21.8 1969-12-31 19:00:00   500              1            0   AAPL
+...
+```
+
+Specify columns to group quotes
+
+```
+>>> data = otp.DataSource(
+...     db='US_COMP', symbols='AAPL', tick_type='QTE', date=otp.date(2003, 12, 1)
+... )  
+>>> data = data[['ASK_PRICE', 'ASK_SIZE', 'BID_PRICE', 'BID_SIZE', 'EXCHANGE']]  
+>>> data = data.virtual_ob(['EXCHANGE'])  
+>>> otp.run(data)  
+                      Time  PRICE        DELETED_TIME  SIZE  BUY_SELL_FLAG  TICK_STATUS SOURCE
+0  2003-12-01 00:00:00.000  22.28 1969-12-31 19:00:00   500              1            0      D
+1  2003-12-01 00:00:00.000  21.66 1969-12-31 19:00:00   100              0            0      D
+2  2003-12-01 00:00:00.001   21.8 1969-12-31 19:00:00   500              1            0      P
+...
+```
+
+##### SEE ALSO
+**VIRTUAL_OB** OneTick event processor

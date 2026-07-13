@@ -476,3 +476,24 @@ Sequential number of the root EP in the root EPs summary section
 Root EP name for which summary is provided
 
 #### sink_ep_tag *: `int`*
+
+Root EP tag for which summary is provided
+
+#### latencies_mean *: `float`*
+
+Mean of the latencies of all ticks passed through the node
+
+#### latencies_standard_deviation *: `float`*
+
+Standard deviation of the latencies of all ticks passed through the node
+
+#### latencies_average_slope *: `float`*
+
+Average slope of the linear regression function found by least squares method calculated for all latencies
+of all ticks passed through the root node.
+As mentioned earlier, the regression function can be considered as a function describing some relationship
+between two variables: tick latency and tick arrival timestamp.
+
+#### latencies_variance_from_regression_line *: `float`*
+
+This is the average variance of ticks latencies from the computed linear regression function.

@@ -127,3 +127,24 @@ with multiple field groups corresponding to book levels.
     > Default is False.
   * **show_num_orders_at_level** (*Optional* **[*bool* *]* *,* *default=None*) – 
 
+    When set to True, additional *NUM_ORDERS* field[s] will be added to each output tick.
+    The values are computed by counting individual orders as they arrive and depart:
+    incremented when a new order appears at a price level and decremented when an order is removed.
+
+    Default is False.
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = otp.agg.ob_snapshot_flat(max_levels=3).apply(data)                        
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))          
+                 Time  BID_PRICE1  BID_SIZE1              BID_UPDATE_TIME1  ASK_PRICE1  ASK_SIZE1 ...
+0 2024-02-01 10:00:00    17351.25          1 2024-02-01 09:59:59.867609851    17351.75          1 ...
+```
+
+##### SEE ALSO
+``onetick.py.ObSnapshotFlat()``
+
+**OB_SNAPSHOT_FLAT** OneTick event processor
+

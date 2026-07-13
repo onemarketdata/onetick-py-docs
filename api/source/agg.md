@@ -337,3 +337,24 @@ For low/high policies the field selected as input is set this way:
 0 2003-12-04  1     2.5  1.118034
 ```
 
+Example of using ‘flexible’ buckets. Here every bucket consists of consecutive upticks.
+
+```
+>>> trades = otp.Ticks(PRICE=[194.65, 194.65, 194.65, 194.75, 194.75, 194.51, 194.70, 194.71, 194.75, 194.71])
+>>> trades = trades.agg({'COUNT': otp.agg.count(),
+...                     'FIRST_TIME': otp.agg.first('Time'),
+...                     'LAST_TIME': otp.agg.last('Time')},
+...                     bucket_units='flexible',
+...                     bucket_end_condition=trades['PRICE'] < trades['PRICE'][-1])
+>>> otp.run(trades)
+                     Time  COUNT              FIRST_TIME               LAST_TIME
+0 2003-12-01 00:00:00.005      5 2003-12-01 00:00:00.000 2003-12-01 00:00:00.004
+1 2003-12-01 00:00:00.009      4 2003-12-01 00:00:00.005 2003-12-01 00:00:00.008
+2 2003-12-04 00:00:00.000      1 2003-12-01 00:00:00.009 2003-12-01 00:00:00.009
+```
+
+##### SEE ALSO
+`Aggregations`
+
+**COMPUTE** OneTick event processor
+

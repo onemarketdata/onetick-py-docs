@@ -30,3 +30,24 @@ The main idea is joining many ticks into one or splitting one tick to many.
 
 Merging two ticks into one.
 
+```
+>>> data = otp.Ticks(dict(A=[1, 2],
+...                       B=[3, 4]))
+>>> data = data.transpose(direction='rows', n=2)
+>>> otp.run(data)
+                     Time             TIMESTAMP_1  A_1  B_1 TIMESTAMP_2  A_2  B_2
+0 2003-12-01 00:00:00.001 2003-12-01 00:00:00.001    2    4  2003-12-01    1    3
+```
+
+And splitting them back into two.
+
+```
+>>> data = data.transpose(direction='columns')
+>>> otp.run(data)
+                     Time  A  B
+0 2003-12-01 00:00:00.000  1  3
+1 2003-12-01 00:00:00.001  2  4
+```
+
+##### SEE ALSO
+**TRANSPOSE** OneTick event processor

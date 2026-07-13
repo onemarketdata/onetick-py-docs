@@ -396,3 +396,24 @@ Can only be used in per-tick script.
 ...     tick.state_vars['LIST'].push_back(tick)
 >>> data = otp.Tick(A=1)
 >>> data.state_vars['LIST'] = otp.state.tick_list()
+>>> data = data.script(fun)
+```
+
+```
+>>> data = data.state_vars['LIST'].dump()
+>>> otp.run(data)
+        Time  A
+0 2003-12-01  1
+```
+
+#### ``property schema *: `dict`*``
+
+Get schema of the tick sequence.
+
+#### ``size()``
+
+##### SEE ALSO
+``get_size``
+
+* **Return type:**
+  *Operation*

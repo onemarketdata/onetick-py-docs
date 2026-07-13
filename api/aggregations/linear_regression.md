@@ -129,3 +129,24 @@ by the formula: Y = SLOPE \* X + INTERCEPT, where SLOPE and INTERCEPT are the ca
     * **previous**
 
       A tick on which `bucket_end_condition` evaluates to “true” belongs to the bucket being closed.
+    * **new**
+
+      tick belongs to the new bucket.
+
+    This parameter is only used if `bucket_units` is set to “flexible”
+
+##### Examples
+
+```
+>>> data = otp.Ticks({'X': [10.0, 9.5, 8.0, 8.5], 'Y': [3.0, 5.0, 4.5, 3.5]})
+>>> data = data.linear_regression(
+...     dependent_variable_field_name=data['Y'],
+...     independent_variable_field_name=data['X'],
+... )  
+>>> otp.run(data)  
+        Time  SLOPE  INTERCEPT
+0 2003-12-04   -0.3        6.7
+```
+
+##### SEE ALSO
+**LINEAR_REGRESSION** OneTick event processor

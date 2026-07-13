@@ -131,3 +131,24 @@ Does not change the order of the ticks.
 >>> t = otp.Ticks({'A': [1, 2, 2, 3, 2, 1]})
 >>> otp.run(t.ranking({'A': 'asc'}, show_rank_as='percent_lt_values', include_tick=True))
                      Time  A    RANKING
+0 2003-12-01 00:00:00.000  1  66.666667
+1 2003-12-01 00:00:00.001  2  16.666667
+2 2003-12-01 00:00:00.002  2  16.666667
+3 2003-12-01 00:00:00.003  3   0.000000
+4 2003-12-01 00:00:00.004  2  16.666667
+5 2003-12-01 00:00:00.005  1  66.666667
+```
+
+```
+>>> otp.run(t.ranking({'A': 'asc'}, show_rank_as='percent_lt_values', include_tick=False))
+                     Time  A  RANKING
+0 2003-12-01 00:00:00.000  1     80.0
+1 2003-12-01 00:00:00.001  2     20.0
+2 2003-12-01 00:00:00.002  2     20.0
+3 2003-12-01 00:00:00.003  3      0.0
+4 2003-12-01 00:00:00.004  2     20.0
+5 2003-12-01 00:00:00.005  1     80.0
+```
+
+##### SEE ALSO
+**RANKING** OneTick event processor

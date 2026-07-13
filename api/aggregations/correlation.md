@@ -142,3 +142,24 @@ Returns Pearson correlation coefficient value between two numeric fields.
 >>> otp.run(data)
         Time  RESULT
 0 2003-12-04     1.0
+```
+
+```
+>>> data = otp.Ticks(P=[1, 2, 3, 4], S=[40, 30, 20, 10])
+>>> data = otp.agg.correlation('P', 'S').apply(data)
+>>> otp.run(data)
+        Time  CORRELATION
+0 2003-12-04         -1.0
+```
+
+```
+>>> data = otp.Ticks(P=[1, 2, 3, 4], S=[40, 30, 10, 20])
+>>> data = otp.agg.correlation('P', 'S', bucket_units='ticks', bucket_interval=2).apply(data)
+>>> otp.run(data)
+                     Time  CORRELATION
+0 2003-12-01 00:00:00.001         -1.0
+1 2003-12-01 00:00:00.003          1.0
+```
+
+##### SEE ALSO
+**CORRELATION** OneTick event processor

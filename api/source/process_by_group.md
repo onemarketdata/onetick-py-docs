@@ -76,3 +76,24 @@ Return multiple outputs, each with unique grouping logic:
 ...               Y=[1, 2, 1, 3])
 >>> def func(source):
 ...     source['Z'] = source['X']
+...     source2 = source.copy()
+...     source = source.first()
+...     source2 = source2.last()
+...     return source, source2
+>>> res1, res2 = d.process_by_group(func, group_by=['Y'])
+>>> df1 = otp.run(res1)
+>>> df2 = otp.run(res2)
+>>> df1[['X', 'Y', 'Z']]
+   X  Y  Z
+0  1  1  1
+1  1  2  1
+2  2  3  2
+>>> df2[['X', 'Y', 'Z']]
+   X  Y  Z
+0  1  2  1
+1  2  1  2
+2  2  3  2
+```
+
+##### SEE ALSO
+**GROUP_BY** OneTick event processor

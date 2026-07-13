@@ -194,3 +194,24 @@ Basic example:
 >>> otp.run(data)  
         Time     VALUE
 0 2003-12-04  0.889491
+```
+
+Specifying `interest_rate` and `strike_price` as symbol parameters:
+
+```
+>>> sym = otp.Ticks({
+...     'SYMBOL_NAME': ['TEST'],
+...     'INTEREST_RATE': [0.05],
+...     'STRIKE_PRICE': [100.0],
+... })  
+>>> data = otp.DataSource('SOME_DB', symbol='AAA', tick_type='TT')  
+>>> data = data.implied_vol(
+...     option_type_field=data['OPTION_TYPE'], days_till_expiration_field=data['DAYS_TILL_EXPIRATION'],
+... )  
+>>> otp.run(data)  
+        Time     VALUE
+0 2003-12-04  0.889491
+```
+
+##### SEE ALSO
+**IMPLIED_VOL** OneTick event processor

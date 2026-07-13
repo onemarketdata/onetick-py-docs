@@ -694,3 +694,24 @@ Call built-in OneTick `THROW_EXCEPTION` function from per-tick script.
 
 * **Parameters:**
   **message** (*str*) – Message string that defines the error message to be thrown.
+* **Return type:**
+  `str`
+
+##### Examples
+
+```
+>>> t = otp.Ticks({'X': [1, -2, 6]})
+```
+
+```
+>>> def test_script(tick):
+...     if tick["X"] <= 0:
+...         otp.throw_exception("Tick column X should be greater than zero.")
+```
+
+```
+>>> t = t.script(test_script)
+```
+
+##### SEE ALSO
+`Per-Tick Script Guide`

@@ -38,3 +38,24 @@ Columns can be updated with this method:
 1 2003-12-01 00:00:00.001 -3  5  0
 2 2003-12-01 00:00:00.002  9  6  1
 ```
+
+State variables can be updated too:
+
+```
+>>> t = otp.Ticks({'X': [1, 2, 3],
+...                'Y': [4, 5, 6],
+...                'Z': [1, 0, 1]})
+>>> t.state_vars['X'] = 0
+>>> t = t.update(if_set={t.state_vars['X']: t['X'] + t['Y']},
+...              else_set={t.state_vars['X']: t['X'] - t['Y']},
+...              where=t['Z'] == 1)
+>>> t['UX'] = t.state_vars['X']
+>>> otp.run(t)
+                     Time  X  Y  Z  UX
+0 2003-12-01 00:00:00.000  1  4  1   5
+1 2003-12-01 00:00:00.001  2  5  0  -3
+2 2003-12-01 00:00:00.002  3  6  1   9
+```
+
+##### SEE ALSO
+**UPDATE_FIELD** and **UPDATE_FIELDS** OneTick event processors

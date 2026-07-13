@@ -179,3 +179,24 @@ so you may not get expected results when using, for example, 24 \* 60 \* 60 seco
 >>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')  
                  Time  VOLUME
 0 2023-03-11 00:00:00       0
+1 2023-03-12 00:00:00   66190
+2 2023-03-13 01:00:00  631750
+3 2023-03-14 01:00:00  345952
+```
+
+In such case use **days** bucket unit instead:
+
+```
+>>> data = otp.DataSource('CME', symbols=r'NQ\H23', tick_type='TRD')  
+>>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')},  
+...                 bucket_interval=1, bucket_units='days', bucket_time='start')
+>>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')  
+        Time  VOLUME
+0 2023-03-11       0
+1 2023-03-12   62940
+2 2023-03-13  634172
+3 2023-03-14  346780
+```
+
+##### SEE ALSO
+**SUM** OneTick event processor

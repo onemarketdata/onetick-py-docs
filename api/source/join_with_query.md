@@ -264,3 +264,24 @@ If you want to include such ticks, you can add one nanosecond to the query end t
 ```
 >>> data = main_query.join_with_query(joined_query,
 ...                                   start=otp.dt(2003, 12, 1), end=otp.dt(2003, 12, 4) + otp.Nano(1))
+>>> otp.run(data)
+        Time  DAY  A
+0 2003-12-01    4  1
+```
+
+Use `keep_time` parameter to keep or rename original timestamp column:
+
+```
+>>> d = otp.Ticks(Y=[1, 2])
+>>> data = otp.Ticks(X=[1, 2])
+>>> res = data.join_with_query(d, how='inner', keep_time="ORIG_TIME")
+>>> otp.run(res)
+                     Time  Y               ORIG_TIME  X
+0 2003-12-01 00:00:00.000  1 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.000  2 2003-12-01 00:00:00.001  1
+2 2003-12-01 00:00:00.001  1 2003-12-01 00:00:00.000  2
+3 2003-12-01 00:00:00.001  2 2003-12-01 00:00:00.001  2
+```
+
+##### SEE ALSO
+**JOIN_WITH_QUERY** OneTick event processor

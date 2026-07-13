@@ -172,3 +172,24 @@ Getting portfolio price for multiple symbols:
 ```
 
 Applying **PORTFOLIO_PRICE** on custom column:
+
+```
+>>> data = otp.Ticks(X=[10.0, 12.5, 11.0, 10.2, 15])
+>>> data = data.portfolio_price('X')
+>>> otp.run(data)
+        Time  VALUE  NUM_SYMBOLS
+0 2003-12-04   15.0            1
+```
+
+Specifying weights via column ‘WEIGHS’:
+
+```
+>>> data = otp.Ticks(PRICE=[10.0, 12.5, 11.0, 10.2, 15], WEIGHTS=[1, 2, -1, 2, 2])
+>>> data = data.portfolio_price(weight_field_name=data['WEIGHTS'])
+>>> otp.run(data)
+        Time  VALUE  NUM_SYMBOLS
+0 2003-12-04   30.0            1
+```
+
+##### SEE ALSO
+**PORTFOLIO_PRICE** OneTick event processor

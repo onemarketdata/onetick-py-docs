@@ -101,3 +101,24 @@ ticks = otp.Ticks(PRICE=[412.22, 400], SIZE=[247, 1000], INDEX=[1, 2])
 otp.run(ticks)
 ```
 
+We then check if any of the trades match these ticks by `PRICE` and `SIZE`.
+
+```python
+q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
+
+q.state_vars['special_ticks'] = otp.state.tick_set('latest', ['PRICE', 'SIZE'], otp.eval(ticks))
+q['special'] = q.state_vars['special_ticks'].find('INDEX', -1)
+
+q = q.where(q['special'] != -1)
+
+otp.run(q, start=s, end=e, symbols=['AAPL'])
+```
+
+# Lists and Queues
+
+Lists and double-ended queues (deques) can be used to keep track of collections ticks.
+
+## Lists and Queues Use Cases
+
+`Realized P&L (FIFO)`

@@ -160,7 +160,7 @@ Returns list of dates in GMT timezone for which data is available.
 
 #### ``property last_date``
 
-The latest date on which db has data and the current user has access to.
+The latest date in GMT timezone on which db has data and the current user has access to.
 
 * **Returns:**
   Returns `None` when there is no data in the database
@@ -175,7 +175,7 @@ The latest date on which db has data and the current user has access to.
 datetime.date(2024, 3, 28)
 ```
 
-#### ``tick_types(date=None, timezone=None, query_properties=None)``
+#### ``tick_types(date=None, timezone=None, query_properties=None, include_memdb=True)``
 
 Returns list of tick types for the `date`.
 
@@ -184,6 +184,9 @@ Returns list of tick types for the `date`.
   * **timezone** (*str* *,* *optional*) – Timezone for the look up. `None` means the default timezone.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+  * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
+    Otherwise only the archive databases will be used.
+    Default is True.
 * **Returns:**
   List with string values of available tick types.
 * **Return type:**
@@ -197,7 +200,7 @@ Returns list of tick types for the `date`.
 ['DAY', 'IND', 'LULD', 'MKT', 'NBBO', 'QTE', 'STAT', 'TRD']
 ```
 
-#### ``schema(date=None, tick_type=None, timezone=None, check_index_file=utils.adaptive, query_properties=None)``
+#### ``schema(date=None, tick_type=None, timezone=None, check_index_file=utils.adaptive, query_properties=None, include_memdb=True)``
 
 Gets the schema of the database.
 
@@ -217,6 +220,9 @@ Gets the schema of the database.
     otherwise it is set to True.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+  * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
+    Otherwise only the archive databases will be used.
+    Default is True.
 * **Returns:**
   Dict where keys are field names and values are `onetick.py` `types`.
   It’s compatible with the ``onetick.py.Source.schema`` methods.
@@ -245,7 +251,7 @@ Gets the schema of the database.
  'TTE': string[1]}
 ```
 
-#### ``symbols(date=None, timezone=None, tick_type=None, pattern='.*', query_properties=None)``
+#### ``symbols(date=None, timezone=None, tick_type=None, pattern='.*', query_properties=None, include_memdb=True)``
 
 Finds a list of available symbols in the database
 
@@ -256,6 +262,9 @@ Finds a list of available symbols in the database
   * **pattern** (*str*) – Regular expression to select symbols.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+  * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
+    Otherwise only the archive databases will be used.
+    Default is True.
 * **Return type:**
   `list``[str`]
 
@@ -373,3 +382,24 @@ Show calendars for a database US_COMP_SAMPLE in the given range:
 1   2024-01-01   2024-01-02  BBG_EQUITY_EXCH_US   PRE_MARKET             b   0.0.12345         40000                   93000  America/New_York         0                    @US_DEFAULT
 2   2024-01-01   2024-01-02  BBG_EQUITY_EXCH_US       MARKET             r   0.0.12345         93000                  160000  America/New_York         0                    @US_DEFAULT
 3   2024-01-01   2024-01-02  BBG_EQUITY_EXCH_US  POST_MARKET             a   0.0.12345        160000                  200000  America/New_York         0                    @US_DEFAULT
+4   2024-01-01   2024-01-02  BBG_EQUITY_EXCH_US      HOLIDAY             H       1.3.1             0                  240000  America/New_York         1  MARTIN_LUTHER_KING@US_DEFAULT
+..         ...          ...                 ...          ...           ...         ...           ...                     ...               ...       ...                            ...
+```
+
+Set symbol name with `symbol` parameter:
+
+```
+>>> db = otp.databases()['US_COMP_SAMPLE']
+>>> db.ref_data(ref_data_type='corp_actions',
+...             start=otp.dt(2024, 1, 1),
+...             end=otp.dt(2024, 4, 1),
+...             symbol_date=otp.dt(2024, 1, 1),
+...             symbol='AAPL',
+...             timezone='America/New_York')
+        Time  MULTIPLICATIVE_ADJUSTMENT  ADDITIVE_ADJUSTMENT ADJUSTMENT_TYPE
+0 2024-02-09                   1.000000                 0.24   CASH_DIVIDEND
+1 2024-02-09                   0.998726                 0.00  MULTI_ADJ_CASH
+```
+
+##### SEE ALSO
+**REF_DATA** OneTick event processor

@@ -76,3 +76,24 @@ Use `otp.eval` with meta fields:
 ```
 >>> def filter_by_tt(tick_type):
 ...     res = otp.Ticks({
+...         'TICK_TYPE': ['TRD', 'QTE'],
+...         'WHERE': ['PRICE>=190', 'ASK_PRICE>=180']
+...     })
+...     res = res.where(res['TICK_TYPE'] == tick_type)
+...     return res.drop(['TICK_TYPE'])
+>>> t = otp.DataSource('US_COMP_SAMPLE::TRD')
+>>> t = t[['PRICE', 'SIZE']]
+>>> t = t.where(otp.eval(filter_by_tt, tick_type=t['_TICK_TYPE']))
+>>> otp.run(t, date=otp.dt(2024, 2, 1))  
+                              Time   PRICE  SIZE
+0    2024-02-01 10:53:56.130163522  192.42     6
+1    2024-02-01 12:58:30.442440693  192.60   200
+2    2024-02-01 14:44:08.734358075  190.94    48
+3    2024-02-01 16:02:02.421242609  196.09    10
+4    2024-02-01 16:30:00.030074464  190.00    11
+...                            ...     ...   ...
+```
+
+##### SEE ALSO
+`Symbol Parameters Objects`
+`Symbol parameters`

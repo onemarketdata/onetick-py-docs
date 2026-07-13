@@ -168,3 +168,24 @@ Change number of quantiles:
 
 Or change default comparison order:
 
+```
+>>> t = otp.Ticks({'A': [1, 2, 3, 4]})
+>>> t = t.percentile([('A', 'asc')], number_of_quantiles=3)
+>>> otp.run(t)
+        Time  A  QUANTILE
+0 2003-12-04  2         1
+1 2003-12-04  3         2
+```
+
+You can also change output column name via `output_field_names` parameter:
+
+```
+>>> t = otp.Ticks({'A': [1, 2, 3, 4]})
+>>> t = t.percentile(['A'], output_field_names=['B'])
+>>> otp.run(t)
+        Time  B  QUANTILE
+0 2003-12-04  2         1
+```
+
+##### SEE ALSO
+**PERCENTILE** OneTick event processor

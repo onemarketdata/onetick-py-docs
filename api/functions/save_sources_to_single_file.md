@@ -58,3 +58,24 @@ Set start and end time for query_1 and symbol name for query_2:
 ...             'source': src2,
 ...             'symbols': otp.Tick(SYMBOL_NAME='AAPL'),
 ...         }
+...     },
+...     file_path='/home/test/queries.otq',
+... )  
+```
+
+Set query property MAX_CONCURRENCY for query_1:
+
+```
+>>> otp.functions.save_sources_to_single_file(
+...     {
+...         'query_1': {
+...             'source': src1,
+...             'query_properties': {
+...                 'MAX_CONCURRENCY': '4',
+...             },
+...         },
+...         'query_2': src2,
+...     },
+...     file_path='/home/test/queries.otq',
+... )  
+```

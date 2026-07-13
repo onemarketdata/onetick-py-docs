@@ -80,3 +80,24 @@ q = q.agg({
     'vwap': otp.agg.vwap('PRICE', 'SIZE')
 }, group_by=['EXCHANGE'])
 otp.run(q, start=s, end=e, symbols=['AAPL'])
+```
+
+Note that in non-running mode OneTick unconditionally divides the whole time interval
+into specified number of buckets.
+It means that you will always get this specified number of ticks in the result,
+even if you have less ticks in the input data.
+For example, aggregating this empty data will result in 10 ticks nonetheless:
+
+```python
+t = otp.Empty()
+t = t.agg({'COUNT': otp.agg.count()}, bucket_interval=0.1)
+otp.run(t, start=s, end=e)
+```
+
+A list of all aggregations appears `here`. It can also be retrieved with `dir(otp.agg)`.
+
+## Aggregation Use Cases
+
+`Creating Bars`
+
+`Golden Cross strategy`

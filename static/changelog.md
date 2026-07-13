@@ -4,11 +4,41 @@
 
 ### Added
 
-- Add parameter `show_num_orders_at_level` to order book sources
+- Added more docs and examples about `schema_policy` parameter in `otp.DataSource`
+- Allow setting `manual` schema with empty dictionary
 
 ### Changed
 
+- Add `onetick-py[render]` extra and remove `graphviz` from required dependencies
+
 ### Fixed
+
+- Don’t show entitlement warnings when getting database schema
+- Fixed setting multiple databases in order books sources
+- Add field `SOURCE` in `ob_snapshot` when needed
+- Fixed markdown documentation build dropping page content (removed obsolete 21 line footer stripping that emptied short pages)
+
+### Removed
+
+## [1.202.0] - 2026-07-06
+
+### Added
+
+- Add parameter `show_num_orders_at_level` to order book sources
+- Added `otp.Source.show_corrected_ticks`
+- Added `otp.Source.correct_tick_filter`
+- Add `include_memdb` parameter to database inspection functions
+- Add tests and docs for querying `OQD_EVENT` database
+
+### Changed
+
+- Remove schema validation in order book sources
+- Make Gitlab CI/CD more interruptible
+
+### Fixed
+
+- Fix `dynamic_tick` in loops in per-tick scripts
+- Fixed getting database loaded dates
 
 ### Removed
 
@@ -5595,3 +5625,24 @@
 ### Added
 
 - Ability to include reference to a locator into a locator using `Locator().add(Locator('path/to/another.locator')`
+- Default values for a location in the `DB` constructor.
+- Allowed `WRITE_TEXT` in the default locator
+
+## [1.2.4]
+
+### Changed
+
+- Predefined databases became singletons instead of instances. Example: before was `onetick.py.db.NYSE_TAQ()`,
+  but changed to `onetick.py.db.NYSE_TAQ`.
+
+## [1.2.3]
+
+### Fixed
+
+- Predefined db `NYSE_TAQ`
+
+## [1.2.2]
+
+### Added
+
+- Ability to add and remove “Admin user” to an ACL

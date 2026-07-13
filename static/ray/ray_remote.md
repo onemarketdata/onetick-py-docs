@@ -24,3 +24,24 @@ which in turn must be decorated with `@ray.remote(max_retries=1)` decorator to b
 Argument `max_retries=1` is good to avoid retrying for failing calls of remote function,
 which is most probable will be caused by mistakes in your `onetick.py` code.
 
+```
+import onetick.py as otp
+
+@ray.remote(max_retries=1)
+def example_otp_code():
+    # here your OTP code goes
+    ...
+    return results
+```
+
+Following code runs remote function on Ray instance and return the results.
+
+```
+result = ray.get(example_otp_code.remote())
+```
+
+When you finish, it is **necessary to shutdown your Ray connection** (don’t forget to do it, as it is could lead to memory consumption on Ray server):
+
+```
+ray.shutdown()
+```

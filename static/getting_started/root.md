@@ -93,3 +93,24 @@ print(res)
 
 ```
 import onetick.py as otp
+
+sym = r'NG\N24'
+start = otp.dt(2024, 2, 1, 10)
+еnd = start + otp.Minute(100)
+
+# Get trades
+trades = otp.DataSource('CME_SAMPLE', tick_type='TRD')
+print(otp.run(trades, start=start, end=еnd, symbols=sym))
+
+# Join trades with quotes
+quotes = otp.DataSource(db='CME_SAMPLE', tick_type='QTE')
+
+joined = otp.join_by_time([trades, quotes])
+
+res = otp.run(joined,
+              symbols=[sym],
+              start=start,
+              end=еnd)
+
+print(res)
+```

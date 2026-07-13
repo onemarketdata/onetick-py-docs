@@ -48,3 +48,24 @@ def fifo_computation_of_realized_profit(tick):
         tick.state_vars['BUY_DEQUE'].get_tick(0, buy_tick)
         tick.state_vars['SELL_DEQUE'].get_tick(0, sell_tick)
         if buy_tick['SIZE'] > sell_tick['SIZE']:
+            tick['PROFIT'] += sell_tick['SIZE'] * (sell_tick['PRICE'] - buy_tick['PRICE'])
+            buy_tick['SIZE'] -= sell_tick['SIZE']
+            sell_tick['SIZE'] = 0
+        else:
+            tick['PROFIT'] += buy_tick['SIZE'] * (sell_tick['PRICE'] - buy_tick['PRICE'])
+            sell_tick['SIZE'] -= buy_tick['SIZE']
+            buy_tick['SIZE'] = 0
+
+        if buy_tick['SIZE'] == 0:
+            tick.state_vars['BUY_DEQUE'].pop_front()
+        if sell_tick['SIZE'] == 0:
+            tick.state_vars['SELL_DEQUE'].pop_front()
+```
+
+Total realized profit can now be calculated by applying the function to every trade.
+
+```python
+trades = trades.script(fifo_computation_of_realized_profit)
+trades = trades.agg({'TOTAL_PROFIT': otp.agg.sum('PROFIT')}, running=True, all_fields=True)
+otp.run(trades)
+```

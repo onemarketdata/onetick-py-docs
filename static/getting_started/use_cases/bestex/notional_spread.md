@@ -27,3 +27,24 @@ arrival_orders, other_orders = orders[(orders['STATE'] == 'N')]
 # Join arrival orders with quotes based on timestamp
 arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
 
+# merge all ticks back with goal to apply aggregation properly then
+# especially to calculate 'QTY_FILLED' correctly
+merged_orders = arrival_orders_with_quotes + other_orders
+
+# Aggregate to get total executed quantity (QTY_FILLED) for each order
+# and carry forward arrival ask and bid prices
+orders_agg = merged_orders.agg({
+    'EXEC_QTY': otp.agg.sum('QTY_FILLED'),
+    'ARRIVAL_ASK_PRICE': otp.agg.first('ASK_PRICE'),
+    'ARRIVAL_BID_PRICE': otp.agg.first('BID_PRICE')
+}, group_by='ID')
+
+# Calculate the notional spread for each order
+orders_agg['NOTIONAL_SPREAD'] = orders_agg['EXEC_QTY'] * (orders_agg['ARRIVAL_ASK_PRICE'] - orders_agg['ARRIVAL_BID_PRICE'])
+
+# Select relevant fields
+orders_with_notional_spread = orders_agg[['ID', 'NOTIONAL_SPREAD']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_notional_spread, date=date)
+```

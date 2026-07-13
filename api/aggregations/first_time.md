@@ -136,3 +136,24 @@ Return timestamp of first tick
     Controls initial value for each bucket
     * **event_ts**
 
+      only ticks from current bucket used for calculations
+    * **state_ts**
+      * if there is a tick in bucket with timestamp = bucket start
+
+        only ticks in bucket used for calculation max value
+      * else
+
+        latest tick from previous bucket included in current bucket
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[0, 1000, 1500, 3000])
+>>> data = data.agg({'RESULT': otp.agg.first_time()})
+>>> otp.run(data)
+        Time     RESULT
+0 2003-12-04 2003-12-01
+```
+
+##### SEE ALSO
+**FIRST_TIME** OneTick event processor

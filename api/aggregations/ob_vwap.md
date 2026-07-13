@@ -130,3 +130,24 @@ Basic example:
 0  2024-02-01 10:05:00  17493.087642  17013.839286
 1  2024-02-01 10:10:00  17486.863024  17006.515027
 2  2024-02-01 10:15:00  17494.471485  17014.829879
+...
+```
+
+Selecting side via `side` parameter:
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = otp.agg.ob_vwap(bucket_interval=otp.Minute(5), side='BID').apply(data)    
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))          
+                  Time         VALUE
+0  2024-02-01 10:05:00  17013.839286
+1  2024-02-01 10:10:00  17006.515027
+2  2024-02-01 10:15:00  17014.829879
+...
+```
+
+##### SEE ALSO
+``onetick.py.ObVwap()``
+
+**OB_VWAP** OneTick event processor
+

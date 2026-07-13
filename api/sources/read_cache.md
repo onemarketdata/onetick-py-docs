@@ -53,3 +53,24 @@ Make cache query for specific time interval:
 ```
 >>> src = otp.ReadCache(
 ...    "some_cache",
+...    start=otp.datetime(2024, 1, 1, 12, 30),
+...    end=otp.datetime(2024, 1, 2, 18, 0),
+... )
+>>> otp.run(src)  
+```
+
+Override or set otq_params for one query:
+
+```
+>>> src = otp.ReadCache(
+...    "some_cache",
+...    otq_params={"some_param": "test_value"},
+... )
+>>> otp.run(src)  
+```
+
+##### SEE ALSO
+**READ_CACHE** OneTick event processor
+
+``onetick.py.create_cache()``
+

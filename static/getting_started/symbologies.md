@@ -52,3 +52,24 @@ mapping = otp.functions.join(figi, btkr, on=btkr['ORIGINAL_SYMBOL_NAME']==figi['
 mapping  = mapping.rename({'RIGHT_SYMBOL_NAME'   : 'BTKR',
                            'SYMBOL_NAME'         : 'FIGI',
                            'ORIGINAL_SYMBOL_NAME': 'DB_SYMBOL'})
+
+mapping = mapping[['FIGI', 'BTKR', 'DB_SYMBOL']]
+
+otp.run(mapping, start=s, end=e)
+```
+
+# Symbol name changes
+
+Symbol name changes are easy to handle with the `symbol_date` parameter
+of ``otp.run`` which provides the “as of” date for the symbols.
+For example, we can pass `META` while setting `symbol_date` to any date after 2022-06-09 or `FB` and `symbol_date` before 2022-06-09.
+
+```python
+trd = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+otp.run(trd, start=s, end=e, symbols='META', symbol_date=otp.dt(2023, 2, 2))
+```
+
+```python
+trd = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+otp.run(trd, start=s, end=e, symbols='FB', symbol_date=otp.dt(2021, 2, 2))
+```

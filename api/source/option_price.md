@@ -554,3 +554,24 @@ for key, val in res.to_dict(orient='list').items():
 ```
 
 ```
+VALUE=2.0045973669685
+DELTA=-0.2225317452764
+GAMMA=0.0200066930955
+THETA=-78.5502018957506
+VEGA=7.3997358024512
+RHO=-0.9694344974913
+```
+
+#### Benchmark comparison
+
+| Field   |     OneTick |   DU benchmark |   WA benchmark |
+|---------|-------------|----------------|----------------|
+| VALUE   |   2.0046    |      2.0046    |          2     |
+| DELTA   |  -0.222532  |     -0.222532  |         -0.223 |
+| GAMMA   |   0.0200067 |      0.0200067 |          0.02  |
+| THETA   | -78.5502    |    -78.5502    |        -78.55  |
+| VEGA    |   7.39974   |      7.39974   |          7.4   |
+| RHO     |  -0.969434  |     -0.969434  |         -0.969 |
+
+##### SEE ALSO
+**OPTION_PRICE** OneTick event processor

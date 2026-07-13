@@ -59,3 +59,24 @@ be specified via OneTick configuration.
 * **Returns:**
   A new source object with applied adjustments.
 * **Return type:**
+  ``onetick.py.Source``
+
+##### Examples
+
+```
+>>> src = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')
+>>> src = src[['PRICE']][:5]
+>>> src['ORIG_PRICE'] = src['PRICE']
+>>> src = src.corp_actions(adjustment_date=otp.date(2024, 2, 8),
+...                        fields="PRICE", apply_cash_dividend=True)
+>>> otp.run(src, date=otp.date(2024, 2, 9), symbol_date=otp.date(2024, 2, 8))
+                           Time   PRICE  ORIG_PRICE
+0 2024-02-09 04:00:00.010340517  188.56      188.32
+1 2024-02-09 04:00:00.011124015  188.56      188.32
+2 2024-02-09 04:00:00.011139241  188.64      188.40
+3 2024-02-09 04:00:00.034406735  188.93      188.69
+4 2024-02-09 04:00:00.038220459  188.93      188.69
+```
+
+##### SEE ALSO
+**CORP_ACTIONS** OneTick event processor

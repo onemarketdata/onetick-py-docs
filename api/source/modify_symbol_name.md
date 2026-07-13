@@ -24,3 +24,24 @@ Replacing with static string:
 >>> data = data[['PRICE']][:3]
 >>> data = data.modify_symbol_name(symbol_name='MSFT')
 >>> otp.run(data)
+                           Time   PRICE
+0 2024-02-01 04:00:00.016997102  400.15
+1 2024-02-01 04:00:00.024299525  402.00
+2 2024-02-01 04:00:00.024325756  402.00
+```
+
+Replacing with expression:
+
+```
+>>> data = otp.DataSource('US_COMP_SAMPLE', symbol='AAPL', tick_type='TRD', date=otp.dt(2024, 2, 1))
+>>> data = data[['PRICE']][:3]
+>>> data = data.modify_symbol_name(symbol_name=data['_SYMBOL_NAME'].str.replace('P', ''))
+>>> otp.run(data)
+                           Time  PRICE
+0 2024-02-01 04:00:00.097381367  14.33
+1 2024-02-01 04:00:00.138908789  14.37
+2 2024-02-01 04:00:00.726613365  14.36
+```
+
+##### SEE ALSO
+**MODIFY_SYMBOL_NAME** OneTick event processor

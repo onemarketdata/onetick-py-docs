@@ -39,3 +39,24 @@ The name of the added field can be changed:
 
 ```
 >>> data = otp.Ticks(A=[1, 2, 3])
+>>> data = data.insert_at_end(delimiter_name='LAST_TICK')
+>>> otp.run(data)
+                     Time  A  LAST_TICK
+0 2003-12-01 00:00:00.000  1          0
+1 2003-12-01 00:00:00.001  2          0
+2 2003-12-01 00:00:00.002  3          0
+3 2003-12-04 00:00:00.000  0          1
+```
+
+If parameter `propagate_ticks` is set to False, then only the last tick is returned:
+
+```
+>>> data = otp.Ticks(A=[1, 2, 3])
+>>> data = data.insert_at_end(propagate_ticks=False)
+>>> otp.run(data)
+        Time  A  AT_END
+0 2003-12-04  0       1
+```
+
+##### SEE ALSO
+**INSERT_AT_END** OneTick event processor

@@ -387,3 +387,24 @@ Here are two ways we could recommend:
 
 ## Sessions customization
 
+The default sessions like the `f_session` could be customized a bit.
+
+For example a developer can extend the default `OTQ_PATH` and `CSV_PATH` OneTick config variables
+using the `otq_path` and `csv_path` fixtures correspondingly.
+
+More about it in the `onetick-py-test plugin features`.
+
+Also a developer can create a fully custom session using ``otp.Session``
+and use it instead of the default fixtures, for example:
+
+```
+@pytest.fixture
+def my_session():
+    with otp.Session() as s:
+        yield s
+
+def test_something(my_session):
+    ...
+```
+
+This approach provides full flexibility.

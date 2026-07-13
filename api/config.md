@@ -77,7 +77,7 @@ Can be set using environment variable `OTP_DEFAULT_SYMBOL`.
 
 **The following properties can be changed:**
 
-#### tz *: `str`, NoneType* *= None*
+#### tz *: NoneType, `str`* *= None*
 
 Default timezone used for running queries and creating databases, e.g. with ``otp.run``. Default value is the local timezone of your machine.
 
@@ -95,7 +95,7 @@ Default database symbology.
 
 Can be set using environment variable `OTP_DEFAULT_SYMBOLOGY`.
 
-#### default_concurrency *: `str`, NoneType, `int`* *= None*
+#### default_concurrency *: NoneType, `str`, `int`* *= None*
 
 Default concurrency level used for running queries, e.g. with ``otp.run``. Default value is `None` which means that the value is adaptive and is set to 0 (meaning concurrency will be auto-assigned by OneTick server) on the latest OneTick versions where it is supported or to 1 (meaning no concurrency) on older versions. Special value `local_number_of_cores` can be used to set concurrency to the number of cores of the machine where python code executes (this corresponds to the previous default logic still expected by some users).
 
@@ -137,85 +137,85 @@ Default value for min_same_host_retry_interval_sec query FT property. It is an i
 
 Can be set using environment variable `OTP_MIN_SAME_HOST_RETRY_INTERVAL_SEC`.
 
-#### default_username *: `str`, NoneType* *= None*
+#### default_username *: NoneType, `str`* *= None*
 
 Default username to call queries. By default the name of the owner of the current process is used.
 
 Can be set using environment variable `OTP_DEFAULT_USERNAME`.
 
-#### default_auth_username *: `str`, NoneType* *= None*
+#### default_auth_username *: NoneType, `str`* *= None*
 
 Default username used for authentication.
 
 Can be set using environment variable `OTP_DEFAULT_AUTH_USERNAME`.
 
-#### default_password *: `str`, NoneType* *= None*
+#### default_password *: NoneType, `str`* *= None*
 
 Default password used for authentication.
 
 Can be set using environment variable `OTP_DEFAULT_PASSWORD`.
 
-#### http_address *: `str`, NoneType* *= None*
+#### http_address *: NoneType, `str`* *= None*
 
 Default HTTP server used as WebAPI endpoint.
 
 Can be set using environment variable `OTP_HTTP_ADDRESS`.
 
-#### http_username *: `str`, NoneType* *= None*
+#### http_username *: NoneType, `str`* *= None*
 
 Username used for WebAPI authentication.
 
 Can be set using environment variable `OTP_HTTP_USERNAME`.
 
-#### http_password *: `str`, NoneType* *= None*
+#### http_password *: NoneType, `str`* *= None*
 
 Password used for WebAPI authentication.
 
 Can be set using environment variable `OTP_HTTP_PASSWORD`.
 
-#### http_proxy *: `str`, NoneType* *= None*
+#### http_proxy *: NoneType, `str`* *= None*
 
 HTTP proxy used for WebAPI requests.
 
 Can be set using environment variable `HTTP_PROXY`.
 
-#### https_proxy *: `str`, NoneType* *= None*
+#### https_proxy *: NoneType, `str`* *= None*
 
 HTTPS proxy used for WebAPI requests.
 
 Can be set using environment variable `HTTPS_PROXY`.
 
-#### access_token *: `str`, NoneType* *= None*
+#### access_token *: NoneType, `str`* *= None*
 
 SSO access token for WebAPI endpoint.
 
 Can be set using environment variable `OTP_ACCESS_TOKEN`.
 
-#### client_id *: `str`, NoneType* *= None*
+#### client_id *: NoneType, `str`* *= None*
 
 Client ID for obtaining SSO access token.
 
 Can be set using environment variable `OTP_CLIENT_ID`.
 
-#### client_secret *: `str`, NoneType* *= None*
+#### client_secret *: NoneType, `str`* *= None*
 
 Client Secret for obtaining SSO access token.
 
 Can be set using environment variable `OTP_CLIENT_SECRET`.
 
-#### access_token_url *: `str`, NoneType* *= None*
+#### access_token_url *: NoneType, `str`* *= None*
 
 URL for obtaining SSO access token.
 
 Can be set using environment variable `OTP_ACCESS_TOKEN_URL`.
 
-#### access_token_scope *: `str`, NoneType* *= None*
+#### access_token_scope *: NoneType, `str`* *= None*
 
 Scope for obtaining SSO access token.
 
 Can be set using environment variable `OTP_ACCESS_TOKEN_SCOPE`.
 
-#### trusted_certificates_file *: `bool`, `str`, NoneType* *= None*
+#### trusted_certificates_file *: NoneType, `bool`, `str`* *= None*
 
 Either a boolean, in which case it controls whether we verify the server TLS certificate or a string with the path to the file with list of trusted Certificate Authority certificates for WebAPI requests. Default behaviour implies verification is enabled.
 
@@ -227,17 +227,17 @@ Expected maximum number of ticks per symbol (used for performance optimizations)
 
 Can be set using environment variable `OTP_MAX_EXPECTED_TICKS_PER_SYMBOL`.
 
-#### show_stack_info *: `bool`, `str`, `int`* *= False*
+#### show_stack_info *: `int`, `bool`, `str`* *= False*
 
 Show stack info (filename and line or stack trace) in OneTick exceptions.
 
-#### log_symbol *: `bool`, `str`, `int`* *= False*
+#### log_symbol *: `int`, `bool`, `str`* *= False*
 
 Log currently executed symbol. Note, this only works with unbound symbols. Note, in this case ``otp.run`` does not produce the output so it should be used only for debugging purposes.
 
 Can be set using environment variable `OTP_LOG_SYMBOL`.
 
-#### ignore_ticks_in_unentitled_time_range *: `str`, NoneType, `bool`, `int`* *= None*
+#### ignore_ticks_in_unentitled_time_range *: NoneType, `bool`, `str`, `int`* *= None*
 
 Default value for IGNORE_TICKS_IN_UNENTITLED_TIME_RANGE query property. By default it is set to None, which means that the property is not set in queries and the OneTick server may decide what to do, if configured.
 
@@ -255,7 +255,7 @@ The logging level string or path to the file with configuration. Check the docum
 
 Can be set using environment variable `OTP_LOGGING`.
 
-#### otq_debug_mode *: `bool`, `str`, `int`* *= False*
+#### otq_debug_mode *: `int`, `bool`, `str`* *= False*
 
 Enable .otq files debug mode. If set to True, onetick.py will keep all generated otq files and log their paths to the console.
 
@@ -265,15 +265,36 @@ Can be set using environment variable `OTP_OTQ_DEBUG_MODE`.
 
 Allow using lower case characters in field names that are being stored in Onetick databases. If set to False, onetick.py would not allow saving fields with lower case characters to a database.
 
-#### clean_up_tmp_files *: `bool`, `str`, `int`* *= True*
+#### clean_up_tmp_files *: `int`, `bool`, `str`* *= True*
 
 Control deleting temporary files created by onetick-py. Temporary files are OneTick configuration files and generated .otq queries.
 
 Can be set using environment variable `OTP_CLEAN_UP_TMP_FILES`.
 
-#### default_schema_policy *: `str`, NoneType* *= None*
+#### default_schema_policy *: NoneType, `str`* *= None*
 
 Default schema policy when querying onetick database. See parameter `schema_policy` in ``otp.DataSource`` for the list of supported values.
 
 Can be set using environment variable `OTP_DEFAULT_SCHEMA_POLICY`.
 
+#### disable_compatibility_checks *: `bool`* *= False*
+
+Disable compatibility checks when querying OneTick database. Using this parameter outside test environment could lead to unexpected errors.
+
+Can be set using environment variable `OTP_DISABLE_COMPATIBILITY_CHECKS`.
+
+#### print_symbol_errors *: `bool`* *= True*
+
+When calling otp.run that returns dataframe as result print symbol errors from OneTick as python warnings.
+
+Can be set using environment variable `OTP_PRINT_SYMBOL_ERRORS`.
+
+**The following properties are derived and thus read-only:**
+
+#### default_db_symbol *: `str`* *= US_COMP_SAMPLE::AAPL*
+
+Default symbol with database. Defined with ``default_db`` and ``default_symbol`` as string **default_db::default_symbol**.
+
+#### default_date *: NoneType* *= None*
+
+Default date. Defined as a date part of ``default_start_time``.

@@ -24,3 +24,24 @@ Render current ``Source`` graph.
   * **font_family** (*str* *,* *optional*) – 
 
     Font name
+
+    Default: **Monospace**
+  * **font_size** (*int* *,* *float* *,* *str* *,* *optional*) – Font size
+  * **kwargs** – Additional arguments to be passed to ``onetick.py.Source.to_otq()`` method (except
+    `file_name`, `file_suffix` and `query_name` parameters)
+* **Return type:**
+  Path to rendered image
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')  
+>>> data1, data2 = data[(data['PRICE'] > 50)]                                    
+>>> data = otp.merge([data1, data2])                                             
+>>> data.render_otq('./path/to/image.png')                                       
+```
+
+!`image`
+
+##### SEE ALSO
+``render_otq``

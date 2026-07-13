@@ -45,3 +45,24 @@ use ``show_data_quality()`` method to see them:
                      Time  DATA_QUALITY_TYPE DATA_QUALITY_NAME
 0 2003-12-01 00:00:00.000                  0                OK
 1 2003-12-01 00:00:00.001                  0                OK
+2 2003-12-01 00:00:00.002                  0                OK
+```
+
+Use `where` parameter to specify the condition when to insert ticks:
+
+```
+>>> data = otp.Ticks({'SIZE': [1, 200, 3]})
+>>> data = data.insert_data_quality_event('MISSING', where=data['SIZE'] > 100)
+>>> data = data.show_data_quality()
+>>> otp.run(data)
+                     Time  DATA_QUALITY_TYPE DATA_QUALITY_NAME
+0 2003-12-01 00:00:00.001                  2           MISSING
+```
+
+##### SEE ALSO
+**INSERT_DATA_QUALITY_EVENT** OneTick event processor
+
+``show_data_quality()``
+
+``intercept_data_quality()``
+

@@ -168,3 +168,24 @@ Basic example
 >>> data = data.exp_w_average('A', decay=2, bucket_interval=2, bucket_units='ticks')
 >>> otp.run(data)
                      Time         A
+0 2003-12-01 00:00:00.001  1.880797
+1 2003-12-01 00:00:00.003  2.984124
+2 2003-12-04 00:00:00.000  3.880797
+```
+
+You can switch to `half_life_index` as `decay_value_type`
+
+```
+>>> data = otp.Ticks({'A': [1.0, 2.0, 3.0, 3.0, 4.0]})
+>>> data = data.exp_w_average(
+...     'A', decay=2, decay_value_type='half_life_index', bucket_interval=2, bucket_units='ticks',
+... )
+>>> otp.run(data)
+                     Time         A
+0 2003-12-01 00:00:00.001  1.585786
+1 2003-12-01 00:00:00.003  2.773459
+2 2003-12-04 00:00:00.000  3.585786
+```
+
+##### SEE ALSO
+**EXP_W_AVERAGE** OneTick event processor

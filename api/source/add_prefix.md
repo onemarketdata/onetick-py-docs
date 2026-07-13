@@ -48,3 +48,24 @@ Parameter `ignore_columns` specifies columns to ignore:
 >>> otp.run(data)
         Time  A  B  C  test_D  test_E
 0 2003-12-01  1  2  3       4       5
+```
+
+Parameters `columns` and `ignore_columns` can’t be used at the same time:
+
+```
+>>> data = otp.Tick(A=1, B=2, C=3, D=4, E=5)
+>>> data.add_prefix('test_', columns=['B', 'C'], ignore_columns=['A'])
+Traceback (most recent call last):
+    ...
+ValueError: It is allowed to use only one of `columns` or `ignore_columns` parameters at a time
+```
+
+Columns can’t be renamed if their resulting name will be equal to existing column name:
+
+```
+>>> data = otp.Tick(X=1, XX=2)
+>>> data.add_prefix('X', columns=['X'])
+Traceback (most recent call last):
+    ...
+AttributeError: Column XX already exists, please, use another prefix
+```

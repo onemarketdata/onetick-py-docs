@@ -35,3 +35,24 @@ Generate tick with parametrized field value:
 0 2003-12-01  1
 ```
 
+Set bucket interval in aggregation as a parameter:
+
+```
+>>> t = otp.Ticks(A=[1, 2, 3, 4, 5, 6])
+>>> t = t.agg({'A': otp.agg.sum('A')},
+...           bucket_units='ticks', bucket_interval=otp.param('PARAM', dtype=int))
+>>> otp.run(t, query_params={'PARAM': 3})
+                     Time   A
+0 2003-12-01 00:00:00.002   6
+1 2003-12-01 00:00:00.005  15
+```
+
+Parameter `string_literal=False` can be used if you need string to be interpreted as an expression:
+
+```
+>>> t = otp.Tick(A=otp.param('PARAM', dtype=str),
+...              B=otp.param('PARAM', dtype=str, string_literal=False))
+>>> otp.run(t, query_params={'PARAM': 'TOSTRING(NAN())'})
+        Time                A    B
+0 2003-12-01  TOSTRING(NAN())  nan
+```

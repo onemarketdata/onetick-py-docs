@@ -51,3 +51,24 @@ Using `discard_on_match` parameter to invert the condition:
 >>> data = data.where(data['X'] % 2 == 1, discard_on_match=True)
 >>> otp.run(data)
                      Time  X
+0 2003-12-01 00:00:00.001  2
+1 2003-12-01 00:00:00.003  4
+```
+
+Using `stop_on_first_mismatch` parameter to not propagate ticks after first mismatch:
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4])
+>>> data = data.where(data['X'] % 2 == 1, stop_on_first_mismatch=True)
+>>> otp.run(data)
+        Time  X
+0 2003-12-01  1
+```
+
+##### SEE ALSO
+``Source.where_clause()``
+
+``Source.__getitem__()``
+
+**WHERE_CLAUSE** OneTick event processor
+

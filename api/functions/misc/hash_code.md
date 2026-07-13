@@ -41,3 +41,24 @@ Basic example:
 You can also pass ``Operation`` as a `value` parameter:
 
 ```
+>>> data = otp.Tick(A=otp.varstring('some_string'))
+>>> data['HASH'] = otp.hash_code(data['A'], 'sha_224')
+>>> otp.run(data)
+        Time            A                                                      HASH
+0 2003-12-01  some_string  12d3f96511450121e6343b5ace065ec9de7b2a946b86f7dfab8ac51f
+```
+
+For the same string stored in strings with different fixed sizes, the hash value may differ:
+
+```
+>>> test_str = 'example'
+>>> data = otp.Tick(A=otp.string`128`)
+>>> data['Fixed'] = otp.hash_code(data['A'], 'sha_1')
+>>> data['Var'] = otp.hash_code(otp.varstring(test_str), 'sha_1')
+>>> otp.run(data)
+        Time        A                                     Fixed                                       Var
+0 2003-12-01  example  bdab82ec533c09646e45f15dc4e7ad2d2d1a8ff1  c3499c2729730a7f807efb8676a92dcb6f8a3f8f
+```
+
+##### SEE ALSO
+**COMPUTE_HASH_CODE_STR** OneTick built-in function

@@ -92,3 +92,24 @@ Same effect will be if you don’t set `timestamp_column` and disable automatic 
         Time                Timestamp  SIDE  PRICE  SIZE SYMBOL_NAME
 0 2024-01-02  2024-01-01 12:00:00.001   BUY  50.05   100        AAPL
 1 2024-01-02  2024-01-01 12:00:02.000  SELL  50.05   150        AAPL
+2 2024-01-02  2024-01-01 12:00:02.500   BUY  49.95   200        AAPL
+3 2024-01-02  2024-01-01 12:00:03.100  SELL  49.98    80        AAPL
+4 2024-01-02  2024-01-01 12:00:03.250   BUY  50.02   250        AAPL
+```
+
+Setting `symbol_name_field` for setting symbol name from dataframe.
+In this example, let’s say, that we have column `SYMBOL` with symbol names.
+
+```
+>>> src = otp.ReadFromDataFrame(dataframe, symbol_name_field='SYMBOL')  
+>>> otp.run(src, date=otp.date(2024, 1, 1))  
+                     Time  SIDE  PRICE  SIZE SYMBOL
+0 2024-01-01 12:00:00.001   BUY  50.05   100   AAPL
+1 2024-01-01 12:00:02.000  SELL  50.05   150   AAPL
+2 2024-01-01 12:00:02.500   BUY  49.95   200   AAPL
+3 2024-01-01 12:00:03.100  SELL  49.98    80   AAPL
+4 2024-01-01 12:00:03.250   BUY  50.02   250   AAPL
+```
+
+##### SEE ALSO
+``onetick.py.LoadTicksFromDataFrame()``

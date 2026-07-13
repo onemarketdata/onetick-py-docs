@@ -37,3 +37,24 @@ merged_orders = arrival_orders_with_quotes + other_orders
 
 # Aggregate to carry forward arrival ask and bid prices, along with VWAP and 'SIDE' field
 orders_agg = merged_orders.agg({
+    'ARRIVAL_ASK_PRICE': otp.agg.first('ASK_PRICE'),
+    'ARRIVAL_BID_PRICE': otp.agg.first('BID_PRICE'),
+    'SIDE': otp.agg.first('SIDE'),
+    'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED')
+}, group_by='ID')
+
+# Calculate FT for each order using lambda functions
+orders_agg['FT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_ASK_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_BID_PRICE'])
+
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
+
+# Calculate PriceImprovements_bps
+orders_agg['PriceImprovements_bps'] = orders_agg['DIRECTION'] * 10000 * (orders_agg['FT'] - orders_agg['VWAP']) / orders_agg['FT']
+
+# Select relevant fields
+orders_with_price_improvement = orders_agg[['ID', 'PriceImprovements_bps']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_price_improvement, date=date)
+```

@@ -109,3 +109,24 @@ otp.run(orders, start=s, end=s + otp.Day(1))
 The code above provides an implementation for this use case. However, a more efficient implementation may be useful when the number of orders is large. It appears below.
 
 ```python
+def vwap(symbol):
+    q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+    q = q.agg({'market_vwap': otp.agg.vwap('PRICE','SIZE')})
+    return q
+
+orders = otp.Ticks(arrival=[s, s + otp.Milli(7934)],
+                   exit=[e, e + otp.Milli(9556)],
+                   sym=['AAPL', 'MSFT'])
+
+orders['_PARAM_START_TIME_NANOS'] = orders['arrival']
+orders['_PARAM_END_TIME_NANOS'] = orders['exit']
+orders['SYMBOL_NAME'] = orders['sym']
+```
+
+```python
+otp.run(vwap, symbols=orders, date=otp.dt(2024, 2, 1))
+```
+
+A separate query is executed for each order in parallel. Each order becomes a `symbol` that specifies the security and the start/end time. The logic in `vwap()` is executed for every (“unbound”) symbol. This is more efficient than calling `join_with_query` as it can be parallelized better. See “Databases, symbols, and tick types” under Concepts for more info.
+
+Note that the start and end parameters are not important for the run method as each of the symbols specifies its own start/end time in `_PARAM_START_TIME_NANOS` and `_PARAM_END_TIME_NANOS`.

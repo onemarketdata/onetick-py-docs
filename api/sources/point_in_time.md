@@ -96,3 +96,24 @@ print(otp.run(data))
 By default the number of milliseconds is used as an offset.
 You can also specify the number of ticks as an offset:
 
+```python
+data = otp.PointInTime(qte,
+                       times=[otp.dt(2003, 12, 1, 0, 0, 0, 3000)],
+                       offsets=[-1, 1],
+                       offset_type='num_ticks')
+print(otp.run(data))
+```
+
+```
+                     Time  ASK_PRICE  BID_PRICE               TICK_TIME  OFFSET
+0 2003-12-01 00:00:00.003         22         22 2003-12-01 00:00:00.002      -1
+1 2003-12-01 00:00:00.003         24         24 2003-12-01 00:00:00.004       1
+```
+
+##### SEE ALSO
+**POINT_IN_TIME** OneTick event processor
+
+``onetick.py.Source.point_in_time()``
+
+``onetick.py.join_by_time()``
+

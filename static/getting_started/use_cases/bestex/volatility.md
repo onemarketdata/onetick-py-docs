@@ -6,3 +6,24 @@ To calculate the volatility of a financial instrument using `onetick.py`, you’
 import onetick.py as otp
 
 # Define your symbol and the database
+symbol = 'TSLA'
+database = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
+
+# Load trades data from US_COMP_SAMPLE database
+trades = otp.DataSource(database, tick_type='TRD', symbol=symbol)
+
+def add_volatility(md: otp.Source):
+    md = md.agg({
+        'STDDEV': otp.agg.stddev('PRICE'),
+        'AVERAGE': otp.agg.average('PRICE'),
+    })
+    md['VOLATILITY'] = md['STDDEV'] / md['AVERAGE'] * 100
+    return md
+
+# Apply the volatility function
+volatility_data = add_volatility(trades)
+
+# Run the query for the specified date
+df = otp.run(volatility_data, date=date)
+```

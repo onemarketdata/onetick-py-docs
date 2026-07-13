@@ -306,3 +306,24 @@ Indexes can be used too:
 
 ```
 >>> data = otp.join_by_time([a, b, c], match_if_identical_times=True, source_fields_order=[1, 2, 0])
+>>> otp.run(data)
+                     Time  B  C  A
+0 2003-12-01 00:00:00.000  1  1  1
+1 2003-12-01 00:00:00.001  2  2  2
+```
+
+Use parameter symbols to specify bound symbols:
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4])
+>>> data = otp.join_by_time([data], symbols=['A', 'B'], match_if_identical_times=True)
+>>> otp.run(data)
+                     Time  A.X  B.X
+0 2003-12-01 00:00:00.000    1    1
+1 2003-12-01 00:00:00.001    2    2
+2 2003-12-01 00:00:00.002    3    3
+3 2003-12-01 00:00:00.003    4    4
+```
+
+##### SEE ALSO
+**JOIN_BY_TIME** OneTick event processor

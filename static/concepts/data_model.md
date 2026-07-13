@@ -179,3 +179,24 @@ instance of ``onetick.py.Operation`` (e.g., ``onetick.py.Source.apply()``).
 Retrieving ticks that satisfy a given condition (aka filtering) is done as follows:
 
 ```
+passed, not_passed = data[(data['FLAG'] > 0) & (data['STATE'] == 'F')]
+```
+
+Note that two new sources are returned: first is for the ticks that satisfy the condition
+and the second for the ones that do not.
+
+A typical filtering case looks like this:
+
+```
+data = data.where((data['FLAG'] > 0) & (data['STATE'] == 'F'))
+```
+
+There are also functions that combine multiple sources such
+as ``onetick.py.merge()`` or ``onetick.py.join_by_time()``
+
+```
+trades = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbol='APPL')
+quotes = otp.DataSource(db='US_COMP_SAMPLE', tick_type='QTE', symbol='AAPL')
+
+data = otp.join_by_time([trades, quotes])
+```

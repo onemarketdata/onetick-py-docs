@@ -9,3 +9,24 @@ import onetick.py as otp
 symbol = 'TSLA'
 orders_db = 'ORDERS_DB'
 quotes_db = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
+
+# Load orders and quotes data
+orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
+quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
+
+# Filter for new (arrival) orders
+arrival_orders = orders.where(orders['STATE'] == 'N')
+
+# Join arrival orders with quotes based on timestamp
+arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
+
+# Calculate the mid-price at the time of order arrival
+arrival_orders_with_quotes['ARRIVAL_MID_PRICE'] = (arrival_orders_with_quotes['ASK_PRICE'] + arrival_orders_with_quotes['BID_PRICE']) / 2
+
+# Select relevant fields, if necessary
+arrival_orders_with_quotes = arrival_orders_with_quotes[['ID', 'ARRIVAL_MID_PRICE']]
+
+# Run the query for the specified date
+df = otp.run(arrival_orders_with_quotes, date=date)
+```

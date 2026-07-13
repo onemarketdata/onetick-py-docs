@@ -67,3 +67,24 @@ otp.run(other, start=s, end=e, symbols=['AAPL'])
 
 We can retrieve ticks by index with the help of
 ``first`` and ``last``.
+
+The example below returns the second tick:
+
+```python
+q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
+# get the last of the first two ticks, thus getting the second tick
+q = q.first(2)
+q = q.last()
+otp.run(q, start=s, end=e, symbols=['AAPL'])
+```
+
+Python-like slice syntax is also supported:
+
+```python
+q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
+# get last three ticks
+q = q[-3:]
+otp.run(q, start=s, end=e, symbols=['AAPL'])
+```

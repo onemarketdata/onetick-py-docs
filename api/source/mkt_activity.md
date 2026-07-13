@@ -89,3 +89,24 @@ You can see PRE_MARKET (Rb) trades before 9:30,
 regular trades (R) from 9:30 to 16:00,
 and POST_MARKET trades (Ra) after 16:00.
 
+```
+>>> data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')
+>>> data = data.mkt_activity(calendar_name='CLOUD_DB_US_COMP')
+>>> data = data[['PRICE', 'SIZE', 'MKT_ACTIVITY']]
+>>> first = data.first(1, bucket_interval=(data['MKT_ACTIVITY'] != data['MKT_ACTIVITY'][-1]))
+>>> last = data.last(1, bucket_interval=(data['MKT_ACTIVITY'] != data['MKT_ACTIVITY'][-1]))
+>>> data = otp.merge([first, last])
+>>> otp.run(data, date=otp.date(2024, 2, 1))
+                           Time     PRICE  SIZE MKT_ACTIVITY
+0 2024-02-01 04:00:00.008283417  186.5000     6           Rb
+1 2024-02-01 09:29:59.963219812  184.1000   900           Rb
+2 2024-02-01 09:30:00.000961260  184.0100   302           Rr
+3 2024-02-01 15:59:59.990606937  186.8312     1           Rr
+4 2024-02-01 16:00:00.000287011  186.8900   100           Ra
+5 2024-02-01 19:59:59.547785229  181.4500    59           Ra
+```
+
+##### SEE ALSO
+**MKT_ACTIVITY** OneTick event processor
+``otp.RefData``
+``DB.ref_data``

@@ -377,3 +377,24 @@ Set `value` of the `field_name` of the tick.
   * **field_name** (str, ``otp.Operation``) – String field name or operation which returns field name.
   * **value** (int, ``otp.Operation``) – Datetime value to set or operation which return such value.
 
+##### Examples
+
+```
+>>> def another_query():
+...     return otp.Ticks(A=[1, 2, 3], X=[1.1, 2.2, 3.3])
+>>> def fun(tick):
+...     for t in tick.state_vars['LIST']:
+...         t.set_value('X', 0.0)
+>>> data = otp.Tick(A=1)
+>>> data.state_vars['LIST'] = otp.state.tick_list(otp.eval(another_query))
+>>> data = data.script(fun)
+```
+
+```
+>>> data = data.state_vars['LIST'].dump()
+>>> otp.run(data)
+                     Time  A    X
+0 2003-12-01 00:00:00.000  1  0.0
+1 2003-12-01 00:00:00.001  2  0.0
+2 2003-12-01 00:00:00.002  3  0.0
+```

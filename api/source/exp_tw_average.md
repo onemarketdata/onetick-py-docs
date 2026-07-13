@@ -157,3 +157,24 @@ Basic example
 >>> data = data.exp_tw_average('A', decay=2, bucket_interval=2, bucket_units='ticks')
 >>> otp.run(data)
                      Time         A
+0 2003-12-01 00:00:00.001  1.000000
+1 2003-12-01 00:00:00.003  2.500087
+2 2003-12-04 00:00:00.000  4.000000
+```
+
+You can switch to `lambda` as `decay_value_type`
+
+```
+>>> data = otp.Ticks({'A': [1.0, 2.0, 3.0, 3.0, 4.0]})
+>>> data = data.exp_tw_average(
+...     'A', decay=2, decay_value_type='lambda', bucket_interval=2, bucket_units='ticks',
+... )
+>>> otp.run(data)
+                     Time       A
+0 2003-12-01 00:00:00.001  1.0000
+1 2003-12-01 00:00:00.003  2.5005
+2 2003-12-04 00:00:00.000  4.0000
+```
+
+##### SEE ALSO
+**EXP_TW_AVERAGE** OneTick event processor

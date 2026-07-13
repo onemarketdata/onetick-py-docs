@@ -50,3 +50,24 @@ and field B set to specified value.
 >>> otp.run(data)
         Time  B  A
 0 2003-12-01  b  1
+1 2003-12-01     1
+```
+
+Insert two ticks only after first tick.
+
+```
+>>> data = otp.Ticks(A=[1, 2, 3])
+>>> data = data.insert_tick(where=data['A'] == 1,
+...                         insert_before=False,
+...                         num_ticks_to_insert=2)
+>>> otp.run(data)
+                     Time  A
+0 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.000  0
+2 2003-12-01 00:00:00.000  0
+3 2003-12-01 00:00:00.001  2
+4 2003-12-01 00:00:00.002  3
+```
+
+##### SEE ALSO
+**INSERT_TICK** OneTick event processor

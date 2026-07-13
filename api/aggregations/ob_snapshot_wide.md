@@ -143,3 +143,24 @@ the price, the size, and the time of the last update for a specified number of o
 
     When set to True, additional *NUM_ORDERS* field[s] will be added to each output tick.
     The values are computed by counting individual orders as they arrive and depart:
+    incremented when a new order appears at a price level and decremented when an order is removed.
+
+    Default is False.
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = otp.agg.ob_snapshot_wide(max_levels=3).apply(data)                         
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))           
+                 Time  BID_PRICE  BID_SIZE               BID_UPDATE_TIME  ASK_PRICE  ASK_SIZE                                       ASK_UPDATE_TIME  LEVEL
+0 2024-02-01 10:00:00   17351.25         1 2024-02-01 09:59:59.867609851   17351.75         1                         2024-02-01 09:59:59.701711193      1
+1 2024-02-01 10:00:00   17351.00         6 2024-02-01 09:59:59.867226023   17352.00         3                         2024-02-01 09:59:59.582195881      2
+2 2024-02-01 10:00:00   17350.75         2 2024-02-01 09:59:59.867226023   17352.25         3                         2024-02-01 09:59:59.580457957      3
+```
+
+##### SEE ALSO
+``onetick.py.ObSnapshotWide()``
+
+**OB_SNAPSHOT_WIDE** OneTick event processor
+

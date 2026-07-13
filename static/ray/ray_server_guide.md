@@ -47,3 +47,24 @@ ray stop
 
 ## Ray client configuration
 
+First, you need to install `onetick-query-stubs` package on your client machines. See `Ray client installation` for details (but skip `Connection to Ray from outer network` chapter).
+
+Use following code to initialize connection to the Ray server:
+
+```
+import ray
+ray.init("ray://<your_server_ip>:10001")
+```
+
+Now you can execute your functions with OneTick-Py code on the Ray server by adding `@ray.remote()` decorator on top of your functions.
+
+```python
+@ray.remote
+def my_function():
+    ... OTP code goes here ...
+
+ref = my_function.remote()
+result = ray.get(ref)
+```
+
+See `Example remote function` for details on how to use OneTick-Py with Ray.

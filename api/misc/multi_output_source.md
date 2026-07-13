@@ -87,3 +87,24 @@ and MultiOutputSource object will be constructed internally
 Retrieve a branch by its name.
 
 * **Parameters:**
+  **branch_name** (*str*) – The name of the branch to retrieve.
+* **Returns:**
+  The branch corresponding to the given name.
+* **Return type:**
+  otp.Source
+
+#### ``property main_branch *: `Source`*``
+
+Get the main branch.
+
+* **Returns:**
+  The main branch.
+* **Return type:**
+  otp.Source
+
+#### ``to_otq(file_name=None, file_suffix=None, query_name=None, symbols=None, start=None, end=None, timezone=None)``
+
+Constructs an onetick query graph and saves it to disk
+
+##### SEE ALSO
+``onetick.py.Source.to_otq()``

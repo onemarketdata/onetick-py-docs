@@ -141,3 +141,24 @@ Basic example:
 0  2024-02-01 10:05:00       12.0       10.0
 1  2024-02-01 10:10:00       12.0        5.0
 2  2024-02-01 10:15:00       11.0       13.0
+...
+```
+
+Selecting side via `side` parameter:
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')              
+>>> data = otp.agg.ob_size(bucket_interval=otp.Minute(5), max_levels=3, side='ASK').apply(data)  
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))                      
+                  Time  VALUE
+0  2024-02-01 10:05:00   12.0
+1  2024-02-01 10:10:00   12.0
+2  2024-02-01 10:15:00   11.0
+...
+```
+
+##### SEE ALSO
+``onetick.py.ObSize()``
+
+**OB_SIZE** OneTick event processor
+

@@ -130,3 +130,24 @@ You can also specify the number of ticks as an offset:
 data = qte.point_in_time(trd, offset_type='num_ticks', offsets=[-1, 1],
                          input_ts_fields_to_propagate=['ASK_PRICE', 'BID_PRICE'])
 print(otp.run(data))
+```
+
+```
+                     Time  ASK_PRICE  BID_PRICE  PRICE  SIZE               TICK_TIME  OFFSET
+0 2003-12-01 00:00:00.000         20         20      1   100 2003-12-01 00:00:00.001       1
+1 2003-12-01 00:00:00.001         21         21      3   300 2003-12-01 00:00:00.003       1
+2 2003-12-01 00:00:00.002         22         22      3   300 2003-12-01 00:00:00.003       1
+3 2003-12-01 00:00:00.003         23         23      1   100 2003-12-01 00:00:00.001      -1
+4 2003-12-01 00:00:00.003         23         23      5   500 2003-12-01 00:00:00.005       1
+5 2003-12-01 00:00:00.004         24         24      1   100 2003-12-01 00:00:00.001      -1
+6 2003-12-01 00:00:00.004         24         24      5   500 2003-12-01 00:00:00.005       1
+7 2003-12-01 00:00:00.005         25         25      3   300 2003-12-01 00:00:00.003      -1
+```
+
+##### SEE ALSO
+**POINT_IN_TIME** OneTick event processor
+
+``onetick.py.PointInTime()``
+
+``onetick.py.join_by_time()``
+

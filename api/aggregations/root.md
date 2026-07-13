@@ -245,3 +245,24 @@ Bucket interval can be set as a *float* if `bucket_units` is set to *seconds*:
 1 2003-12-01 00:00:00.004    7
 2 2003-12-01 00:00:00.006   11
 3 2003-12-01 00:00:00.008   15
+4 2003-12-01 00:00:00.010    0
+5 2003-12-01 00:00:00.012    0
+6 2003-12-01 00:00:00.014    0
+7 2003-12-01 00:00:00.016    0
+8 2003-12-01 00:00:00.018    0
+9 2003-12-01 00:00:00.020    0
+```
+
+## Other
+
+Aggregate over ``Operation`` instead of ``Column``:
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3], Y=[4, 5, 6])
+>>> data = data.agg({
+...     'SUM': otp.agg.sum(data['X'] * data['Y'])
+... })
+>>> otp.run(data)
+        Time  SUM
+0 2003-12-04   32
+```

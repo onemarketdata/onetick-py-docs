@@ -42,3 +42,24 @@ Note, that database name part of symbols is not taken into account.
     If set, will override the value specified in ``otp.run``.
   * **end** – Custom end time of the source.
     If set, will override the value specified in ``otp.run``.
+  * **symbols** – Symbol(s) from which data should be taken.
+    If set, will override the value specified in ``otp.run``.
+  * **query_parameters** (``otp.QueryParameters``) – Additional query properties to be set in the resulting .otq file.
+    They will be used if they are not overridden by other parameters or in ``otp.run``.
+
+##### Examples
+
+Get only the ticks that have needed symbols specified in field `TICKER`:
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4], TICKER=['A', 'B', 'A', 'C'])
+>>> data = otp.SplitQueryOutputBySymbol(data, data['TICKER'])
+>>> res = otp.run(data, symbols=['A', 'B'])
+>>> res['A']
+                     Time  X TICKER
+0 2003-12-01 00:00:00.000  1      A
+1 2003-12-01 00:00:00.002  3      A
+>>> res['B']
+                     Time  X TICKER
+0 2003-12-01 00:00:00.001  2      B
+```

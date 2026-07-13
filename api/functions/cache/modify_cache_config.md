@@ -21,3 +21,24 @@ Modify cache configuration via MODIFY_CACHE_CONFIG EP
   * **tick_type** (*str*) – Tick type.
   * **symbol** (str, list of str, list of otq.Symbol, ``onetick.py.Source``, `pandas.DataFrame`, optional) – `symbols` parameter of `otp.run()`.
   * **db** (*str*) – Database.
+
+##### Examples
+
+Simple cache config modification
+
+```
+>>> otp.modify_cache_config(  
+...    cache_name="some_cache",
+...    param_name="time_granularity",
+...    param_value=3,
+...    tick_type="TRD", symbol="SYM", db="LOCAL",
+... )
+```
+
+##### SEE ALSO
+**MODIFY_CACHE_CONFIG** OneTick event processor
+
+``onetick.py.ReadCache``
+
+``onetick.py.create_cache()``
+

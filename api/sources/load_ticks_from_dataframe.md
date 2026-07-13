@@ -47,3 +47,24 @@ with `symbols` parameter in ``otp.run``:
 >>> src = otp.ReadFromDataFrame(dataframe, symbol_name_field='SYMBOL_NAME')  
 >>> otp.run(data, date=otp.dt(2024, 1, 1), symbols=['AAA'])  
                      Time SYMBOL_NAME  PRICE
+0 2024-01-01 12:00:00.001         AAA  50.05
+1 2024-01-01 12:00:02.000         AAA  50.05
+2 2024-01-01 12:00:03.100         AAA  49.98
+```
+
+Same example for LoadTicksFromDataFrame. As you can see, ticks weren’t filtered by symbol name:
+
+```
+>>> dataframe['_SYMBOL'] = dataframe['SYMBOL_NAME']  
+>>> src = otp.LoadTicksFromDataFrame(dataframe)  
+>>> otp.run(src, date=otp.date(2024, 1, 1))  
+                     Time  PRICE _SYMBOL
+0 2024-01-01 12:00:00.001  50.05     AAA
+1 2024-01-01 12:00:02.000  50.05     AAA
+2 2024-01-01 12:00:02.500  49.95     BBB
+3 2024-01-01 12:00:03.100  49.98     AAA
+4 2024-01-01 12:00:03.250  50.02     BBB
+```
+
+##### SEE ALSO
+``onetick.py.ReadFromDataFrame()``

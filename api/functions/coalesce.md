@@ -47,3 +47,24 @@ ticks are considered to have the “same time”.
 
 ```
 >>> data1 = otp.Ticks({
+...     'A': [1, 2, 3],
+...     'offset': [0, 3000, 6000],
+... })
+>>> data2 = otp.Ticks({
+...     'A': [4, 5, 6],
+...     # 4 is delayed by less than one second from 1
+...     # 5 is delayed by one second from 2
+...     # 6 is delayed by more than one second from 3
+...     'offset': [999, 4000, 7001],
+... })
+>>> data = otp.coalesce([data2, data1], max_source_delay=1)
+>>> otp.run(data)[['Time', 'A']]
+                     Time  A
+0 2003-12-01 00:00:00.999  4
+1 2003-12-01 00:00:04.000  5
+2 2003-12-01 00:00:06.000  3
+3 2003-12-01 00:00:07.001  6
+```
+
+##### SEE ALSO
+**COALESCE** OneTick event processor

@@ -528,3 +528,24 @@ Equivalent query should return the same data values in the same order. Column na
 ### ``class SymbolExchange(data, symbology, exchange_symbology)``
 
 Bases: ``SectionStr``
+
+Specifies the exchange where a security is traded. Needs to be provided for the symbologies where
+the symbol name is unique across all exchanges.
+
+##### Examples
+
+```
+>>> data = 'IBM.N|19980825000000|20501231235959|NYSE||'
+>>> section = otp.RefDB.SymbolExchange(data, symbology='RIC', exchange_symbology='MIC')
+>>> print(section)
+<SYMBOL_EXCHANGE SYMBOLOGY="RIC" EXCHANGE_SYMBOLOGY="MIC">
+IBM.N|19980825000000|20501231235959|NYSE||
+</SYMBOL_EXCHANGE>
+```
+
+Equivalent query should return the same data values in the same order. Column names does not matter.
+
+* **Parameters:**
+  * **data** (*str* *|* *otp.Source*)
+  * **symbology** (*str*)
+  * **exchange_symbology** (*str*)

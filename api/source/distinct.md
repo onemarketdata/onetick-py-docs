@@ -92,3 +92,24 @@ Outputs all distinct values for a specified set of key fields.
       A tick on which `bucket_end_condition` evaluates to “true” belongs to the bucket being closed.
     * **new**
 
+      tick belongs to the new bucket.
+
+    This parameter is only used if `bucket_units` is set to “flexible”
+  * **selection** (*Literal* *[* *'first'* *,*  *'last'* *]* *,* *default=first*) – Controls the selection of the respective beginning or trailing part of ticks.
+* **Return type:**
+  `Source`
+
+##### Examples
+
+```
+>>> data = otp.Ticks(dict(x=[1, 3, 1, 5, 3]))
+>>> data = data.distinct('x')
+>>> otp.run(data)
+        Time  x
+0 2003-12-04  1
+1 2003-12-04  3
+2 2003-12-04  5
+```
+
+##### SEE ALSO
+**DISTINCT** OneTick event processor

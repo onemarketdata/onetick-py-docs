@@ -31,3 +31,24 @@ Filters ticks by time.
     If `inplace=True`, then it returns nothing. Otherwise method returns a new modified
     object. Default value is `False`.
   * **self** (*Source*)
+* **Returns:**
+  Returns `None` if `inplace=True`.
+* **Return type:**
+  ``Source`` or `None`
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')
+>>> data = data[['PRICE', 'SIZE']]
+>>> data = data.time_filter(start_time='040008000', end_time='040010000')
+>>> otp.run(data, date=otp.dt(2024, 2, 1))
+                           Time   PRICE  SIZE
+0 2024-02-01 04:00:08.500354204  185.72     1
+1 2024-02-01 04:00:08.506996841  185.70     1
+2 2024-02-01 04:00:08.507262225  185.72     1
+3 2024-02-01 04:00:09.461682352  185.72    11
+```
+
+##### SEE ALSO
+**TIME_FILTER** OneTick event processor

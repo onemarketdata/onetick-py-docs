@@ -181,3 +181,24 @@ Return minimum value of input `column`
     When set to **if_input_val_is_decimal** and the input field type changes during execution
     (e.g., from **DOUBLE** to **DECIMAL128** or from **DECIMAL128** to **DOUBLE**),
     the output field type is switched accordingly.
+    Switching from **DECIMAL128** to **DOUBLE** may result in loss of precision.
+
+    Note: `expect_decimals` can be used simultaneously with `large_ints` only if `expect_decimals`
+    is set to **if_input_val_is_decimal** and `large_ints` is set to **if_input_val_is_long_integer**.
+    In this mode, each parameter adapts to the detected input type.
+    If the input becomes **DECIMAL128**, `expect_decimals` applies its logic.
+    If the input becomes a 64-bit integer, `large_ints` applies its logic.
+    If the input becomes **DOUBLE**, both parameters revert to false behavior.
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4])
+>>> data = data.agg({'RESULT': otp.agg.min('X')})
+>>> otp.run(data)
+        Time  RESULT
+0 2003-12-04       1
+```
+
+##### SEE ALSO
+**LOW** OneTick event processor

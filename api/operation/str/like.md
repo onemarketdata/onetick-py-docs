@@ -62,3 +62,24 @@ Use backslash `\` character to escape special characters:
 
 This function can be used to filter out ticks:
 
+```
+>>> data = otp.Ticks(X=['a', 'ab', 'b_', 'b%'])
+>>> data = data.where(data['X'].str.like('a%'))
+>>> otp.run(data)
+                     Time   X
+0 2003-12-01 00:00:00.000   a
+1 2003-12-01 00:00:00.001  ab
+```
+
+`pattern` can only be a constant expression, like string or symbol parameter:
+
+```
+>>> data = otp.Ticks(X=['a', 'ab', 'b_', 'b%'])
+>>> data['LIKE'] = data['X'].str.like(data.Symbol['PATTERN', str])
+>>> otp.run(data, symbols=otp.Tick(SYMBOL_NAME='COMMON::AAPL', PATTERN='_'))['COMMON::AAPL']
+                     Time   X  LIKE
+0 2003-12-01 00:00:00.000   a   1.0
+1 2003-12-01 00:00:00.001  ab   0.0
+2 2003-12-01 00:00:00.002  b_   0.0
+3 2003-12-01 00:00:00.003  b%   0.0
+```

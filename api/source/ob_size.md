@@ -128,3 +128,24 @@ Returns the total size for a specified number of order book levels at the end of
   * **best_bid_price_field** (*Union* **[*str* *,* *onetick.py.core.column.Column* *]* *,* *default=None*) – If specified, this parameter represents the name of the field value of which represents the highest bid price
     starting from which the book bid size is to be computed.
     This value would also be used as the top price, relative to which `max_depth_for_price` would be computed.
+* **Return type:**
+  `Source`
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = data.ob_size(bucket_interval=otp.Minute(5), max_levels=3).apply(data)     
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))          
+                  Time  ASK_VALUE  BID_VALUE
+0  2024-02-01 10:05:00       12.0       10.0
+1  2024-02-01 10:10:00       12.0        5.0
+2  2024-02-01 10:15:00       11.0       13.0
+...
+```
+
+##### SEE ALSO
+``onetick.py.ObSize()``
+
+**OB_SIZE** OneTick event processor
+

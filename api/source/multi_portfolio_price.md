@@ -222,3 +222,24 @@ Pass parameters to the query from `portfolios_query` via `portfolios_query_param
 
 Use `otp.Source` object as `portfolios_query` (only for local queries)
 
+```
+>>> portfolios = otp.Ticks(
+...     SYMBOL_NAME=['US_COMP::AAPL', 'US_COMP::MSFT', 'US_COMP::AAPL'],
+...     PORTFOLIO_NAME=['PORTFOLIO_1', 'PORTFOLIO_1', 'PORTFOLIO_2'],
+...     WEIGHT=[1, 1, 2],
+... )
+>>> data = otp.DataSource(
+...     'US_COMP', tick_type='TRD', date=otp.dt(2022, 3, 1)
+... )
+>>> data = data.multi_portfolio_price(
+...     portfolios_query=portfolios,
+...     symbols=['US_COMP::AAPL', 'US_COMP::MSFT'],
+... )
+>>> otp.run(data)  
+        Time  VALUE  NUM_SYMBOLS PORTFOLIO_NAME
+0 2003-12-01   47.5            2    PORTFOLIO_1
+1 2003-12-01   46.0            1    PORTFOLIO_2
+```
+
+##### SEE ALSO
+**MULTI_PORTFOLIO_PRICE** OneTick event processor

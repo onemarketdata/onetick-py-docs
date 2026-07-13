@@ -67,3 +67,24 @@ Do not forget to update `the schema` if needed.
 
 ## Implementing OneTick built-in functions
 
+Another thing that can be inserted directly is OneTick built-in functions.
+These functions are used in expressions when adding or updating fields.
+These functions do not have special representation in `onetick.query`, so we can just use strings.
+
+Let’s use OneTick’s function `REPLACE` that replaces some substring in a string.
+For already implemented and more powerful version see method
+``onetick.py.Operation.str.replace``.
+
+Special class ``otp.raw``
+can be used to represent arbitrary OneTick expression.
+You only need to pass parameter `dtype` to let `onetick.py` internal logic know
+what is the returned type of this function
+and you will need to check that the types of arguments passed to this function are correct.
+
+```
+>>> data = otp.Tick(A='Hello world!')
+>>> data['B'] = otp.raw('REPLACE(A, "Hello", "Hi")', dtype=otp.string[64])
+>>> otp.run(data)
+        Time             A          B
+0 2003-12-01  Hello world!  Hi world!
+```

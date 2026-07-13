@@ -82,3 +82,24 @@ Let’s use it to illustrate what we are talking about.
 ```
 >>> data = otp.DataSource(db='SOME_DB', tick_type='TT', symbol='S1')
 >>> data_c = data.copy()
+>>> data['X'] = 1
+>>> data_c['X'] = 2
+>>> res = otp.merge([data, data_c])
+```
+
+the `res` object has the following calculation graph
+
+when the `data_c` has
+
+Some special cases require explicitly to have a *full* copy of the object even for operation ids.
+For that case we have the ``onetick.py.Source.deepcopy()`` method
+
+```
+>>> data = otp.DataSource(db='SOME_DB', tick_type='TT', symbol='S1')
+>>> data_c = data.deepcopy()
+>>> data['X'] = 1
+>>> data_c['X'] = 2
+>>> res = otp.merge([data, data_c])
+```
+
+In that case the `res` object has the following calculation graph:

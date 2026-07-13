@@ -125,3 +125,24 @@ Returns volume weighted average price
 
       tick belongs to the new bucket.
 
+    This parameter is only used if `bucket_units` is set to “flexible”
+  * **group_by** (*list* *,* *str* *or* *expression* *,* *default=None*) – When specified, each bucket is broken further into additional sub-buckets based on specified field values.
+    If ``Operation`` is used then GROUP_{i} column is added. Where i is index in group_by list.
+    For example, if Operation is the only element in `group_by` list then GROUP_0 field will be added.
+  * **groups_to_display** (*Literal* *[* *'all'* *,*  *'previous'* *]* *,* *default=all*) – Specifies for which sub-buckets (groups) ticks should be shown for each bucket interval.
+    By default **all** groups are shown at the end of each bucket interval.
+    If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
+    within a given bucket interval are shown.
+
+##### Examples
+
+```
+>>> data = otp.Ticks(P=[1, 2, 3, 4], S=[10, 20, 30, 40])
+>>> data = data.agg({'RESULT': otp.agg.vwap('P','S')})
+>>> otp.run(data)
+        Time  RESULT
+0 2003-12-04     3.0
+```
+
+##### SEE ALSO
+**VWAP** OneTick event processor

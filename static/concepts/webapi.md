@@ -35,3 +35,24 @@ The following features are not supported when using WebAPI mode:
     * `use_connection_pool`
     * `time_as_nsec`
     * `max_expected_ticks_per_symbol`
+    * `manual_dataframe_callback`
+
+OQD usage requires to have corresponding extension installed on the server side.
+
+Callbacks in `otp.run()` are partially supported, meaning it receives only the final result of the query,
+not tick-by-tick data arriving from the server. Callback class in WebAPI mode could have `process_ticks()` callback
+for processing the data after the query is finished.
+
+ODBC is not supported.
+
+WebAPI differs `otp.string[N]` field type on empty results: `<U4` turns to `<U64`
+
+`otp.RemoteTS` is not applicable, as all configuration is done on server side.
+
+`Source.dump()` is not supported.
+
+`otp.logf()` is not supported.
+
+`Session._log_file` is not supported.
+
+Some error messages could differs.

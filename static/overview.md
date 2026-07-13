@@ -67,3 +67,24 @@ section in the documentation.
 hosted by the customer in a local OneTick installation.
 
 ### Hosted OneTick
+
+- Hosted OneTick comes with high quality tick data, daily data, and reference data for 200+ global markets.
+- OneTick offers T+1 and real-time tick data that is normalized and quality checked.
+- OneTick supports a variety of symbologies and handles corporate action adjustments.
+- The installation is a simple `pip install` (details `here`).
+
+### Local OneTick
+
+- Manage all of your market data and order flow in the industry-leading tick management platform OneTick.
+- Have your users access and analyze the data via a simple and intuitive `onetick.py` API.
+- Managed services options are available.
+- Installation details are `here`.
+
+## OneTick
+
+`onetick-py` is part of a bigger tick management OneTick ecosystem. You may want to turn to OneTick for
+
+- Visual query designer.
+- Collecting, loading, and storing tick data.
+- Other APIs including C++, C#, Java, R, Matlab.
+- Learn more at `onetick.com/onetick-tick-analytics-platform`.

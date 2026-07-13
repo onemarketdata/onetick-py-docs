@@ -28,3 +28,24 @@ Use ``match()`` for this purpose.
 ```
 
 Other columns can be used as parameter `substr` too:
+
+```
+>>> data = otp.Ticks(X=['hello', 'big', 'world!'],
+...                  Y=['hel', 'wor', 'wor'])
+>>> data['CONTAINS'] = data['X'].str.contains(data['Y'])
+>>> otp.run(data)
+                     Time       X    Y  CONTAINS
+0 2003-12-01 00:00:00.000   hello  hel       1.0
+1 2003-12-01 00:00:00.001     big  wor       0.0
+2 2003-12-01 00:00:00.002  world!  wor       1.0
+```
+
+This method can also be used for filtering:
+
+```
+>>> data = otp.Ticks(X=['Hello', 'World'])
+>>> with_substr, wo_substr = data[data['X'].str.contains('Hel')]
+>>> otp.run(with_substr)
+        Time      X
+0 2003-12-01  Hello
+```

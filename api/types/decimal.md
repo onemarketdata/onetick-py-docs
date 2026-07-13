@@ -50,3 +50,24 @@ Note that converting from float (first row) may result in losing precision.
 >>> t['STR_A'] = t['A'].decimal.str(34)
 >>> otp.run(t)
         Time       A                                 STR_A
+0 2003-12-01  0.1000  0.1000000000000000055511151231257827
+1 2003-12-01  0.0100  0.0100000000000000000000000000000000
+2 2003-12-01  0.0010  0.0010000000000000000000000000000000
+3 2003-12-01  0.0001  0.0001000000000000000000000000000000
+```
+
+Note that ``otp.Ticks`` will convert everything from string under the hood,
+so even the float values will not lose precision:
+
+```
+>>> t = otp.Ticks({'A': [0.1, otp.decimal(0.01), otp.decimal('0.001'), otp.decimal(1e-4)]})
+>>> t['STR_A'] = t['A'].decimal.str(34)
+>>> otp.run(t)
+                     Time       A                                 STR_A
+0 2003-12-01 00:00:00.000  0.1000  0.1000000000000000000000000000000000
+1 2003-12-01 00:00:00.001  0.0100  0.0100000000000000000000000000000000
+2 2003-12-01 00:00:00.002  0.0010  0.0010000000000000000000000000000000
+3 2003-12-01 00:00:00.003  0.0001  0.0001000000000000000000000000000000
+```
+
+#### ``to_operation()``

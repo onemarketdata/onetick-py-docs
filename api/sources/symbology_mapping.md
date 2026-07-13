@@ -45,3 +45,24 @@ Getting mapping for OID symbology for one symbol:
 ```
 
 Getting mapping for all symbols in US_COMP_SAMPLE database in single source:
+
+```
+>>> data = otp.SymbologyMapping(dest_symbology='OID')
+>>> data = otp.merge([data],
+...                  symbols=otp.Symbols('US_COMP_SAMPLE', keep_db=True),
+...                  identify_input_ts=True)
+>>> data = data[['SYMBOL_NAME', 'MAPPED_SYMBOL_NAME']]
+>>> otp.run(data, symbol_date=otp.dt(2024, 2, 1), date=otp.dt(2024, 2, 1))  
+                   Time           SYMBOL_NAME MAPPED_SYMBOL_NAME
+0   2024-02-01 00:00:00     US_COMP_SAMPLE::A               3751
+1   2024-02-01 00:00:00   US_COMP_SAMPLE::AAL             322707
+2   2024-02-01 00:00:00  US_COMP_SAMPLE::AAPL               9706
+3   2024-02-01 00:00:00  US_COMP_SAMPLE::ABBV             289689
+4   2024-02-01 00:00:00  US_COMP_SAMPLE::ABNB             698663
+..                  ...                   ...                ...
+496 2024-02-01 00:00:00   US_COMP_SAMPLE::YUM             208045
+497 2024-02-01 00:00:00   US_COMP_SAMPLE::ZBH             208268
+498 2024-02-01 00:00:00  US_COMP_SAMPLE::ZBRA             208166
+499 2024-02-01 00:00:00   US_COMP_SAMPLE::ZTS             291586
+500 2024-02-01 06:00:00   US_COMP_SAMPLE::DAY             668642
+```

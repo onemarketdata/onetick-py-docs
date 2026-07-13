@@ -143,3 +143,24 @@ t = otp.Tick(A=1)
 t.render_otq()
 # '/tmp/test_user/run_20251202_181018_11054/flat-lemur.svg'
 ```
+
+In this file you will see the OneTick graph query visual representation:
+
+!`image`
+
+#### NOTE
+You can also try to use the older ``.render()`` method
+of the ``otp.Source``, however it produces less useful output by different methods.
+
+## Logging symbols
+
+Configuration parameter ``otp.config.log_symbol``
+and parameter `log_symbol` of function ``otp.run`` can be used to enable
+printing of each processed symbol to the standard output.
+
+Note that this method has some limitations:
+
+- In this case function ``otp.run`` is called in callback mode,
+  thus it doesn’t return pandas.DataFrame or other object.
+- This only works with unbound symbols, so it will not work
+  if ``otp.merge`` is used to merge symbols into one flow.

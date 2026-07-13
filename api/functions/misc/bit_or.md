@@ -20,3 +20,24 @@ Basic example:
 >>> otp.run(data)
         Time  A  OR
 0 2003-12-01  1   3
+```
+
+You can also pass ``Column`` as parameter:
+
+```
+>>> data = otp.Tick(A=1)
+>>> data['OR'] = otp.bit_or(data['A'], 0)
+>>> otp.run(data)
+        Time  A  OR
+0 2003-12-01  1   1
+```
+
+Or use ``Operation`` as parameter:
+
+```
+>>> data = otp.Tick(A=1)
+>>> data['OR'] = otp.bit_or(data['A'] * 2, 3)
+>>> otp.run(data)
+        Time  A  OR
+0 2003-12-01  1   3
+```

@@ -15,3 +15,24 @@ We chose the `pytest` framework because of:
 Another tool that we use for testing is our `onetick-py-test` pytest plugin
 that collects helpful things to ease testing and debugging with OneTick.
 
+It’s built on top of the `pytest` and `onetick-py` but needs to be installed separately as a python package.
+
+## Installation
+
+The `onetick-py-test` package currently is only available on the internal OneTick pip-servers.
+
+It can be installed as easily as `onetick-py` by using pip command.
+
+First option (available with OneTick VPN):
+
+```
+pip install -U --index-url https://pip.sol.onetick.com onetick-py-test
+```
+
+Second option (public server, ask your OneMarketData rep for a USERNAME and PASSWORD):
+
+```
+pip install -U --index-url https://USERNAME:PASSWORD@pip.distribution.sol.onetick.com/simple/ onetick-py-test
+```
+
+This command automatically installs the `pytest` package and the necessary dependencies.

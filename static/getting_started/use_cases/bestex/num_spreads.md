@@ -30,3 +30,24 @@ arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
 # Merge all ticks back to apply aggregation properly
 merged_orders = arrival_orders_with_quotes + other_orders
 
+# Aggregate to carry forward arrival ask and bid prices, along with VWAP and 'SIDE' field
+orders_agg = merged_orders.agg({
+    'ARRIVAL_ASK_PRICE': otp.agg.first('ASK_PRICE'),
+    'ARRIVAL_BID_PRICE': otp.agg.first('BID_PRICE'),
+    'SIDE': otp.agg.first('SIDE'),
+    'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED')
+}, group_by='ID')
+
+# Calculate NT and FT for each order using lambda functions
+orders_agg['NT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_BID_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_ASK_PRICE'])
+orders_agg['FT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_ASK_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_BID_PRICE'])
+
+# Calculate NUM_SPREADS
+orders_agg['NUM_SPREADS'] = orders_agg.apply(lambda tick: abs((tick['VWAP'] - tick['FT']) / (tick['FT'] - tick['NT'])) if (tick['FT'] - tick['NT']) != 0 else otp.nan)
+
+# Select relevant fields
+orders_with_num_spreads = orders_agg[['ID', 'NUM_SPREADS']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_num_spreads, date=date)
+```

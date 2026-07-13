@@ -97,3 +97,24 @@
 
       tick belongs to the new bucket.
 
+    This parameter is only used if `bucket_units` is set to “flexible”
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=['A', 'B', 'A', 'C', 'D'], SIZE=[10, 30, 20, 15, 14])
+>>> data = data.partition_evenly_into_groups(
+...     field_to_partition=data['X'],
+...     weight_field=data['SIZE'],
+...     number_of_groups=3,
+... )
+>>> otp.run(data)
+        Time FIELD_TO_PARTITION  GROUP_ID
+0 2003-12-04                  A         0
+1 2003-12-04                  B         1
+2 2003-12-04                  C         2
+3 2003-12-04                  D         2
+```
+
+##### SEE ALSO
+**PARTITION_EVENLY_INTO_GROUPS** OneTick event processor

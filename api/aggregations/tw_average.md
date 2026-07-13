@@ -150,3 +150,24 @@ Returns time weighted average of input field
         latest tick from previous bucket included in current bucket
 
 ##### Examples
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[0, 1000, 1500, 3000])
+>>> otp.run(data, start=otp.dt(2023, 4, 25), end=otp.dt(2023, 4, 25)+otp.Second(4))
+                     Time  X
+0 2023-04-25 00:00:00.000  1
+1 2023-04-25 00:00:01.000  2
+2 2023-04-25 00:00:01.500  3
+3 2023-04-25 00:00:03.000  4
+```
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[0, 1000, 1500, 3000])
+>>> data = data.agg({'RESULT': otp.agg.tw_average('X')})
+>>> otp.run(data, start=otp.dt(2023, 4, 25), end=otp.dt(2023, 4, 25)+otp.Second(4))
+        Time  RESULT
+0 2023-04-25 00:00:04  2.625
+```
+
+##### SEE ALSO
+**TW_AVERAGE** OneTick event processor

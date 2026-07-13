@@ -78,3 +78,24 @@ if you want specify such regex use parenthesis - **(a.b)**:
 ```
 >>> data = otp.Ticks({"COLUMN.A": [1, 2, 3], "COLUMN1A": [3, 2, 1],
 ...                   "COLUMN1B": ["a", "b", "c"], "COLUMN2A": ["c", "b", "a"]})
+>>> data = data.drop("COLUMN.A")
+>>> otp.run(data)
+                     Time  COLUMN1A COLUMN1B COLUMN2A
+0 2003-12-01 00:00:00.000         3        a        c
+1 2003-12-01 00:00:00.001         2        b        b
+2 2003-12-01 00:00:00.002         1        c        a
+```
+
+```
+>>> data = otp.Ticks({"COLUMN.A": [1, 2, 3], "COLUMN1A": [3, 2, 1],
+...                   "COLUMN1B": ["a", "b", "c"], "COLUMN2A": ["c", "b", "a"]})
+>>> data = data.drop("(COLUMN.A)")
+>>> otp.run(data)
+                     Time COLUMN1B
+0 2003-12-01 00:00:00.000        a
+1 2003-12-01 00:00:00.001        b
+2 2003-12-01 00:00:00.002        c
+```
+
+##### SEE ALSO
+**PASSTHROUGH** OneTick event processor

@@ -14,3 +14,24 @@ It is useful in the Jupyter case when you want to observe first `n` values.
   `DataFrame`
 
 ##### Examples
+
+```
+>>> data = otp.Ticks(X=list('abcdefgik'))
+>>> data.head()[['X']]
+    X
+0 a
+1 b
+2 c
+3 d
+4 e
+```
+
+##### SEE ALSO
+``onetick.py.agg.first()``
+
+``otp.run``
+
+``onetick.py.Source.tail()``
+
+``onetick.py.Source.count()``
+

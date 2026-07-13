@@ -34,3 +34,24 @@ Rename columns
 ...                     data['Y']: 'YY'})
 >>> otp.run(data)
         Time  XX  YY
+0 2003-12-01   1   2
+```
+
+```
+>>> data = otp.Tick(**{'X.X': 1, 'X.Y': 2})
+>>> data = data.rename({r'X\.(.*)': r'\1'}, use_regex=True)
+>>> otp.run(data)
+        Time   X   Y
+0 2003-12-01   1   2
+```
+
+```
+>>> data = otp.Tick(**{'X.X': 1, 'X.Y': 2})
+>>> data = data.rename({r'X\.(.*)': r'\1'}, use_regex=True, fields_to_skip=['X.Y'])
+>>> otp.run(data)
+        Time   X X.Y
+0 2003-12-01   1   2
+```
+
+##### SEE ALSO
+**RENAME** OneTick event processor

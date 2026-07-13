@@ -34,3 +34,24 @@ Selection case
 0 2003-12-01 00:00:00.000   3  A
 1 2003-12-01 00:00:00.001   2  A
 2 2003-12-01 00:00:00.002   1  A
+```
+
+Defining default values case (note the order)
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3])
+>>> data = data.table(Y=0.5, strict=False)
+>>> otp.run(data)
+                     Time   Y   X
+0 2003-12-01 00:00:00.000  0.5  1
+1 2003-12-01 00:00:00.001  0.5  2
+2 2003-12-01 00:00:00.002  0.5  3
+```
+
+##### SEE ALSO
+``Source.schema``
+
+``__getitem__()``: the table shortcut
+
+**TABLE** OneTick event processor
+

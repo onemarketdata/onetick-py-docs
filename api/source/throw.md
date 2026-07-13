@@ -85,3 +85,24 @@ Raising error codes from 1500 to 2000 indicates errors.
 Tick propagation stops only when error is raised.
 
 ```
+>>> t = otp.Ticks(A=[1, 2, 3, 4])
+>>> t = t.throw(message='warning A=1', scope='symbol', error_code=2, where=(t['A']==1))
+>>> t = t.throw(message='error A=3', scope='symbol', error_code=1502, where=(t['A']==3))
+>>> otp.run(t)  
+UserWarning: Symbol error: [2] warning A=1
+UserWarning: Symbol error: [1502] error A=3
+                     Time  A
+0 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.001  2
+```
+
+Right now the only supported interface to get errors and warnings
+is via `map` output structure and its methods:
+
+```
+>>> otp.run(t, symbols='AAPL', output_structure='map').output('AAPL').error
+[(2, 'warning A=1'), (1502, 'error A=3')]
+```
+
+##### SEE ALSO
+**THROW** OneTick event processor

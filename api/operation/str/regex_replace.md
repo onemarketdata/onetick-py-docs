@@ -30,3 +30,24 @@ Search for occurrences (case dependent) of `pat` and replace with `repl`.
 Parameter `replace_every` will replace all occurrences of `pat` in the string:
 
 ```
+>>> data = otp.Ticks(X=['A Table, A Chair, An Apple'])
+>>> data['Y'] = data['X'].str.regex_replace('An? ', 'The ', replace_every=True)
+>>> otp.run(data)
+        Time                           X                                Y
+0 2003-12-01  A Table, A Chair, An Apple  The Table, The Chair, The Apple
+```
+
+Capturing groups in regular expressions is supported:
+
+```
+>>> data = otp.Ticks(X=['11/12/1992', '9/22/1993', '3/30/1991'])
+>>> data['Y'] = data['X'].str.regex_replace(r'(\d{1,2})/(\d{1,2})/', r'\2.\1.')
+>>> otp.run(data)
+                     Time           X           Y
+0 2003-12-01 00:00:00.000  11/12/1992  12.11.1992
+1 2003-12-01 00:00:00.001   9/22/1993   22.9.1993
+2 2003-12-01 00:00:00.002   3/30/1991   30.3.1991
+```
+
+##### SEE ALSO
+``extract()``

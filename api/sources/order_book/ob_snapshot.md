@@ -1,6 +1,6 @@
 # otp.ObSnapshot
 
-### ``ObSnapshot(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, identify_source=False, show_full_detail=False, show_only_changes=False, book_delimiters=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None, db=None, symbol=<class 'onetick.py.utils.types.adaptive'>, tick_type=<class 'onetick.py.utils.types.adaptive'>, start=<class 'onetick.py.utils.types.adaptive'>, end=<class 'onetick.py.utils.types.adaptive'>, date=None, schema_policy=<class 'onetick.py.utils.types.adaptive'>, guess_schema=None, identify_input_ts=False, back_to_first_tick=0, keep_first_tick_timestamp=None, max_back_ticks_to_prepend=1, where_clause_for_back_ticks=None, symbols=None, presort=<class 'onetick.py.utils.types.adaptive'>, batch_size=None, concurrency=<class 'onetick.py.utils.types.default'>, schema=None, symbol_date=None, query_parameters=None, **kwargs)``
+### ``ObSnapshot(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, identify_source=None, show_full_detail=False, show_only_changes=False, book_delimiters=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None, db=None, symbol=<class 'onetick.py.utils.types.adaptive'>, tick_type=<class 'onetick.py.utils.types.adaptive'>, start=<class 'onetick.py.utils.types.adaptive'>, end=<class 'onetick.py.utils.types.adaptive'>, date=None, schema_policy=<class 'onetick.py.utils.types.adaptive'>, guess_schema=None, identify_input_ts=False, back_to_first_tick=0, keep_first_tick_timestamp=None, max_back_ticks_to_prepend=1, where_clause_for_back_ticks=None, symbols=None, presort=<class 'onetick.py.utils.types.adaptive'>, batch_size=None, concurrency=<class 'onetick.py.utils.types.default'>, schema=None, symbol_date=None, query_parameters=None, **kwargs)``
 
 Construct a source providing order book snapshot for a given `db`.
 This is just a shortcut for
@@ -123,12 +123,15 @@ This is just a shortcut for
     the price of a new bid tick get removed from the book, and all bid levels that have price higher or equal
     to the price of a new ask tick get removed from the book.
   * **dq_events_that_clear_book** (*list* **[*str* *]* *,* *default=None*) – A list of names of data quality events arrival of which should clear the order book.
-  * **identify_source** (*bool* *,* *default=False*) – When this parameter is set to “true” and the input stream is fed through the VIRTUAL_OB event processor
-    (with the QUOTE_SOURCE_FIELDS parameter specified) and group_by is not set to be “SOURCE”
-    it will separate a tick with the same price from different sources into multiple ticks.
-    The parameter can also be used when merging ticks from multiple feeds.
-    Each feed going into the merge would need an ADD_FIELD EP source value set for the VALUE parameter,
-    where the value would be different for each leg.
+  * **identify_source** (*Optional* **[*bool* *]* *,* *default=None*) – 
+
+    When this parameter is set to True, input ticks must have field **SOURCE**,
+    and the EP will produce a separate output tick for each value of **SOURCE** field.
+
+    If **SOURCE** field doesn’t exist,
+    it will be created automatically by setting it to  *\_SYMBOL_NAME* pseudo-field.
+
+    Default is False.
   * **show_full_detail** (*bool* *,* *default=False*) – When set to “true” and if the state key of the input ticks consists of some fields besides PRICE,
     output ticks will contain all fields from the input ticks for each price level.
     When set to “false” only PRICE, UPDATE_TIME, SIZE, LEVEL, and BUY_SELL_FLAG fields will be populated.
@@ -198,20 +201,42 @@ This is just a shortcut for
     If it is set along with the `start` and `end` parameters then last two are ignored.
   * **schema_policy** (‘tolerant’, ‘tolerant_strict’, ‘fail’, ‘fail_strict’, ‘manual’, ‘manual_strict’, default= ``onetick.py.adaptive``) – 
 
-    Schema deduction policy:
-    - ’tolerant’ (default)
-      The resulting schema is a combination of `schema` and database schema.
-      If the database schema can be deduced,
-      it’s checked to be type-compatible with a `schema`,
+    Schema deduction policy.
+
+    See `the schema concept guide` for more details about how data schema works in onetick-py.
+
+    Default schema policy is ``adaptive``:
+    - If database is specified with `db` parameter, then default schema policy is set to ‘tolerant’
+      and automatic schema deduction is enabled
+      (additional query will be called to get the schema from the database!).
+    - If only `tick_type` or `symbols` parameters are set, then default schema policy is set to ‘manual’.
+
+    Default schema policy can be changed with
+    ``otp.config.default_schema_policy``
+    configuration parameter.
+
+    If parameter `schema` is set, then `schema_policy` will be automatically set to `manual`
+    (unless it’s not set to other value).
+
+    If deprecated parameter `guess_schema` is set to True then default value is ‘fail’, if False then ‘manual’.
+    If `schema_policy` is set to `None` then default value is ‘tolerant’.
+
+    Supported parameter values:
+    - ’tolerant’
+      Additional query will be called to get the schema from the database.
+      The resulting ``otp.Source.schema`` is a combination of parameter `schema`
+      and the values from the database.
+      Database schema is checked to be type-compatible with parameter `schema`,
       and ValueError is raised if checks are failed.
       Also, with this policy database is scanned 5 days back to find the schema.
       It is useful when database is misconfigured or in case of holidays.
     - ’tolerant_strict’
-      The resulting schema will be `schema` if it’s not empty.
-      Otherwise, database schema is used.
-      If the database schema can be deduced,
-      it’s checked if it lacks fields from the `schema`
-      and it’s checked to be type-compatible with a `schema`
+      Additional query will be called to get the schema from the database.
+      The resulting ``otp.Source.schema``
+      will be set to parameter `schema` if it’s not empty.
+      Otherwise, schema from the database is used.
+      Database schema is checked if it lacks fields from the parameter `schema`
+      and it’s checked to be type-compatible with parameter `schema`
       and ValueError is raised if checks are failed.
       Also, with this policy database is scanned 5 days back to find the schema.
       It is useful when database is misconfigured or in case of holidays.
@@ -220,25 +245,19 @@ This is just a shortcut for
     - ’fail_strict’
       The same as ‘tolerant_strict’, but if the database schema can’t be deduced, raises an Exception.
     - ’manual’
-      The resulting schema is a combination of `schema` and database schema.
+      The resulting ``otp.Source.schema`` will be set to parameter `schema`.
       Compatibility with database schema will not be checked.
+      If some fields are not specified in `schema`, but exist in the database, they will not be dropped
+      and will be available in the results of ``otp.run`` unless they are dropped with
+      other source methods.
     - ’manual_strict’
-      The resulting schema will be exactly `schema`.
+      The resulting ``otp.Source.schema`` will be exactly `schema`,
+      other columns will be dropped from result if they exist in the database.
       Compatibility with database schema will not be checked.
-      If some fields specified in `schema` do not exist in the database,
-      their values will be set to some default value for a type
-      (0 for integers, NaNs for floats, empty string for strings, epoch for datetimes).
 
-    Default value is ``onetick.py.adaptive`` (if deprecated parameter `guess_schema` is not set).
-    If `guess_schema` is set to True then value is ‘fail’, if False then ‘manual’.
-    If `schema_policy` is set to `None` then default value is ‘tolerant’.
-
-    Default value can be changed with
-    ``otp.config.default_schema_policy``
-    configuration parameter.
-
-    If you set schema manually, while creating DataSource instance, and don’t set `schema_policy`,
-    it will be automatically set to `manual`.
+    If some fields specified in `schema` do not exist in the database,
+    their values will be set to some default value for a type
+    (0 for integers, NaNs for floats, empty string for strings, epoch for datetimes).
   * **guess_schema** (*bool* *,* *default=None*) – 
 
     #### Deprecated
@@ -346,4 +365,60 @@ This is just a shortcut for
     If the type is irrelevant, provide None as the type in question.
 
 ##### Examples
+
+```
+>>> data = otp.ObSnapshot(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24', max_levels=3)  
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))                        
+                 Time     PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG
+0 2024-02-01 10:00:00  17351.75     1      1 2024-02-01 09:59:59.701711193              1
+1 2024-02-01 10:00:00  17352.00     3      2 2024-02-01 09:59:59.582195881              1
+2 2024-02-01 10:00:00  17352.25     3      3 2024-02-01 09:59:59.580457957              1
+3 2024-02-01 10:00:00  17351.25     1      1 2024-02-01 09:59:59.867609851              0
+4 2024-02-01 10:00:00  17351.00     6      2 2024-02-01 09:59:59.867226023              0
+5 2024-02-01 10:00:00  17350.75     2      3 2024-02-01 09:59:59.867226023              0
+```
+
+Consolidated book across multiple venues:
+
+```
+>>> data = otp.ObSnapshot(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',      
+...                       tick_type='PRL_FULL', max_levels=3)                       
+>>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))         
+                 Time  PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG
+0 2026-06-03 12:00:00  81.89   483      1 2026-06-03 11:59:51.603506070              1
+1 2026-06-03 12:00:00  81.90   240      2 2026-06-03 11:59:56.917290352              1
+2 2026-06-03 12:00:00  81.91     1      3 2026-06-03 11:01:12.711931330              1
+3 2026-06-03 12:00:00  81.85   126      1 2026-06-03 11:59:54.366903930              0
+4 2026-06-03 12:00:00  81.84    19      2 2026-06-03 11:59:51.594276182              0
+5 2026-06-03 12:00:00  81.83    94      3 2026-06-03 11:59:56.124878028              0
+```
+
+Set parameter `identify_source` to get separate value for each venue in consolidated book:
+
+```
+>>> data = otp.ObSnapshot(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',         
+...                       tick_type='PRL_FULL', max_levels=3, identify_source=True)    
+>>> otp.run(data,start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))             
+                  Time  PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG      SOURCE
+0  2026-06-03 12:00:00  81.89   199      1 2026-06-03 11:59:51.719525779              1    ARCA::AA
+1  2026-06-03 12:00:00  81.89   184      1 2026-06-03 11:59:52.904264766              1  NASDAQ::AA
+2  2026-06-03 12:00:00  81.89   100      1 2026-06-03 11:59:51.603506070              1    NYSE::AA
+3  2026-06-03 12:00:00  81.90   240      2 2026-06-03 11:59:56.917290352              1    NYSE::AA
+4  2026-06-03 12:00:00  81.91     1      3 2026-06-03 11:59:51.719459239              1    NYSE::AA
+5  2026-06-03 12:00:00  81.85   104      1 2026-06-03 11:59:54.366903930              0    NYSE::AA
+6  2026-06-03 12:00:00  81.85    22      1 2026-06-03 11:59:56.012492880              0    ARCA::AA
+7  2026-06-03 12:00:00  81.84    19      2 2026-06-03 11:59:51.594276182              0  NASDAQ::AA
+8  2026-06-03 12:00:00  81.83    36      3 2026-06-03 11:59:56.124878028              0    NYSE::AA
+9  2026-06-03 12:00:00  81.83    21      3 2026-06-03 11:58:16.147880170              0  NASDAQ::AA
+10 2026-06-03 12:00:00  81.83    37      3 2026-06-03 11:59:51.831629802              0    ARCA::AA
+```
+
+##### SEE ALSO
+``onetick.py.DataSource``
+
+``onetick.py.Source.ob_snapshot()``
+
+``onetick.py.agg.ob_snapshot()``
+
+**OB_SNAPSHOT** OneTick event processor
 

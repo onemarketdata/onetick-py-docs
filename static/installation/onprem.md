@@ -79,3 +79,24 @@ You will still be able to use `onetick.query` too with this method.
 
 **PYTHONPATH** variable can be set like this:
 
+- for Linux add the following to your `.bashrc` or other initialization file:
+
+```
+export PYTHONPATH="/opt/one_market_data/one_tick/bin:$PYTHONPATH"
+export PYTHONPATH="/opt/one_market_data/one_tick/bin/python:$PYTHONPATH"
+```
+
+- for Windows add the following values to your **PYTHONPATH** variable:
+  > `C:\omd\one_market_data\one_tick\bin`
+  > 
+  > `C:\omd\one_market_data\one_tick\bin\python`
+  > 
+
+Note that on older OneTick versions you may also need to add `numpy` directory too.
+On newer versions this directory doesn’t exist and is not needed.
+The directory must be for the same python version as will be used by `onetick.py` (in the example for python 3.10).
+
+> `/opt/one_market_data/one_tick/bin/numpy/python310`   (Linux)
+> 
+> `C:\omd\one_market_data\one_tick\bin\numpy\python310` (Windows)
+> 

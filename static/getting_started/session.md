@@ -207,3 +207,24 @@ DB_LOCATOR.OTHER="/tmp/test_onetick/run_20250127_160920_16360/tangerine-earthwor
 After that both contexts can be used when running queries, thus making databases from different locators available:
 
 ```
+>>> data = otp.DataSource('A', tick_type='TT', symbols='S', schema_policy='manual')  
+>>> # running query without parameter *context* will run the query in **DEFAULT** context
+>>> print(otp.run(data))  
+        Time  A
+0 2003-12-01  1
+>>> data = otp.DataSource('B', tick_type='TT', symbols='S', schema_policy='manual')  
+>>> print(otp.run(data, context='OTHER'))  
+        Time  B
+0 2003-12-01  2
+```
+
+Some other functions also have parameter `context`, e.g. ``otp.databases``:
+
+```
+>>> otp.databases()  
+{'A': <onetick.py.db._inspection.DB at 0x7f520daa4160>,
+ 'COMMON': <onetick.py.db._inspection.DB at 0x7f520daa4280>,
+ 'DEMO_L1': <onetick.py.db._inspection.DB at 0x7f520daa4400>}
+>>> otp.databases(context='OTHER')  
+{'B': <onetick.py.db._inspection.DB at 0x7f52811c07f0>}
+```

@@ -117,3 +117,24 @@ Returns the size-weighted price computed over a specified number of order book l
     The query will not go back resulting number of days if it finds initial book state earlier.
     When book event processors are used after VIRTUAL_OB EP, this parameter should be set to 0.
     When set, this parameter takes precedence over the configuration parameter BOOKS.MAX_INITIALIZATION_DAYS.
+* **Return type:**
+  `Source`
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = data.ob_vwap(bucket_interval=otp.Minute(5)).apply(data)                   
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))          
+                  Time     ASK_VALUE     BID_VALUE
+0  2024-02-01 10:05:00  17493.087642  17013.839286
+1  2024-02-01 10:10:00  17486.863024  17006.515027
+2  2024-02-01 10:15:00  17494.471485  17014.829879
+...
+```
+
+##### SEE ALSO
+``onetick.py.ObVwap()``
+
+**OB_VWAP** OneTick event processor
+

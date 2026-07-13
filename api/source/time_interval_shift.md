@@ -85,3 +85,24 @@ but the ticks will have their timestamps changed to fit into original time range
 
 Note that tick generators
 ``otp.Tick`` and ``otp.Ticks``
+are not really affected by this method, they will have the same timestamps:
+
+```
+>>> t = otp.Tick(A=1)
+>>> otp.run(t)
+        Time  A
+0 2003-12-01  1
+```
+
+```
+>>> t = t.time_interval_shift(shift=otp.Second(1))
+>>> otp.run(t)
+        Time  A
+0 2003-12-01  1
+```
+
+##### SEE ALSO
+``onetick.py.Source.modify_query_times()``
+
+``onetick.py.Source.time_interval_change()``
+

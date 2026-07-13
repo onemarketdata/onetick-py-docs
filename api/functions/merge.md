@@ -131,3 +131,24 @@ Adding symbol parameters before merge:
 ```
 
 Use parameter `output_type_index` to specify which input class to use to create output object.
+It may be useful in case some custom user class was used as input:
+
+```
+>>> class CustomTick(otp.Tick):
+...     def custom_method(self):
+...         return 'custom_result'
+>>> data1 = otp.Tick(A=1)
+>>> data2 = CustomTick(B=2)
+>>> data = otp.merge([data1, data2], output_type_index=1)
+>>> type(data)
+<class 'onetick.py.functions.CustomTick'>
+>>> data.custom_method()
+'custom_result'
+>>> otp.run(data)
+        Time  A  B
+0 2003-12-01  1  0
+1 2003-12-01  0  2
+```
+
+##### SEE ALSO
+**MERGE** and **PRESORT** OneTick event processors

@@ -118,3 +118,24 @@ print(df)
 ```
 
 Passing parameters to the `query`:
+
+```python
+data = otp.Tick(A=1)
+data.state_vars['VAR'] = otp.state.tick_list()
+def fun(min_value):
+    t = otp.Ticks(X=[123, 234])
+    t = t.where(t['X'] > min_value)
+    return t
+data = data.state_vars['VAR'].modify_from_query(fun, params={'min_value': 200})
+data = data.state_vars['VAR'].dump()
+df = otp.run(data)
+print(df)
+```
+
+```
+                     Time    X
+0 2003-12-01 00:00:00.001  234
+```
+
+##### SEE ALSO
+**MODIFY_STATE_VAR_FROM_QUERY** OneTick event processor

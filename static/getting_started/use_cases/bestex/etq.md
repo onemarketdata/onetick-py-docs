@@ -34,3 +34,24 @@ merged_orders = arrival_orders_with_quotes + other_orders
 
 # Aggregate to carry forward ask and bid prices, along with VWAP, 'SIDE' field, and mid-price
 orders_agg = merged_orders.agg({
+    'ASK_PRICE': otp.agg.first('ASK_PRICE'),
+    'BID_PRICE': otp.agg.first('BID_PRICE'),
+    'SIDE': otp.agg.first('SIDE'),
+    'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED')
+}, group_by='ID')
+
+# Calculate Mid_Price
+orders_agg['MID_PRICE'] = (orders_agg['ASK_PRICE'] + orders_agg['BID_PRICE']) / 2
+
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
+
+# Calculate ETQ
+orders_agg['ETQ'] = (orders_agg['VWAP'] - orders_agg['MID_PRICE']) * 2 * orders_agg['DIRECTION'] / (orders_agg['ASK_PRICE'] - orders_agg['BID_PRICE'])
+
+# Select relevant fields
+orders_with_etq = orders_agg[['ID', 'ETQ']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_etq, date=date)
+```

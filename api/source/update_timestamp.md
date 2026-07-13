@@ -170,3 +170,24 @@ Parameter `max_delay_handling` can be used to specify how to handle ticks exceed
 ```
 
 Parameter `max_out_of_order_interval` can be used in case new timestamps are out of order:
+
+```
+>>> data = otp.DataSource('US_COMP_SAMPLE', symbols='AAPL', tick_type='TRD')
+>>> data['ORIG_TS'] = data['TIMESTAMP']
+>>> data = data.agg({'COUNT': otp.agg.count()}, running=True, all_fields=True)
+>>> data['NEW_TS'] = data['TIMESTAMP'] - otp.Minute(data['COUNT'] % 60)
+>>> data = data.update_timestamp('NEW_TS',
+...                              max_delay_of_new_timestamp=otp.Hour(1),
+...                              max_out_of_order_interval=otp.Hour(1))
+>>> df = otp.run(data, start=start - otp.Hour(2), end=end)
+>>> df.head()[['Time', 'PRICE', 'SIZE', 'ORIG_TS', 'COUNT']]
+                           Time   PRICE  SIZE                       ORIG_TS  COUNT
+0 2024-02-01 03:01:06.964168852  185.64     1 2024-02-01 04:00:06.964168852     59
+1 2024-02-01 03:02:06.964163033  185.64     1 2024-02-01 04:00:06.964163033     58
+2 2024-02-01 03:03:06.964159309  185.64     2 2024-02-01 04:00:06.964159309     57
+3 2024-02-01 03:04:06.964159135  185.65    50 2024-02-01 04:00:06.964159135     56
+4 2024-02-01 03:04:14.610956524  185.75     4 2024-02-01 04:03:14.610956524    119
+```
+
+##### SEE ALSO
+**UPDATE_TIMESTAMP** OneTick event processor

@@ -48,3 +48,24 @@ Drop ticks where **all** fields have `nan` values.
     X   Y
 0 0.0 1.0
 1 NaN 2.0
+2 4.0 NaN
+3 6.0 7.0
+```
+
+Drop ticks where **all** fields in **subset** of columns have `nan` values.
+
+```
+>>> data = otp.Ticks([[     'X',     'Y',    'Z'],
+...                   [     0.0,     1.0, otp.nan],
+...                   [ otp.nan,     2.0, otp.nan],
+...                   [     4.0, otp.nan, otp.nan],
+...                   [ otp.nan, otp.nan, otp.nan],
+...                   [     6.0,     7.0, otp.nan]])
+>>> data = data.dropna(how='all', subset=['X', 'Y'])
+>>> otp.run(data)[['X', 'Y', 'Z']]
+    X   Y   Z
+0 0.0 1.0 NaN
+1 NaN 2.0 NaN
+2 4.0 NaN NaN
+3 6.0 7.0 NaN
+```

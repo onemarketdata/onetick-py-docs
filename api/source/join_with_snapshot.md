@@ -170,3 +170,24 @@ Or we can join each tick with ticks from snapshot with symbol name from input ti
 
 ```
 >>> src = otp.Ticks(A=[1, 2], SYM=['AAA', 'CCC'])
+>>> src = src.join_with_snapshot(
+...     snapshot_name='some_snapshot', symbol_name_in_snapshot=src['SYM'],
+... )  
+>>> otp.run(src)  
+                     Time  A  SYM  X               TICK_TIME
+0 2003-12-01 00:00:00.000  1  AAA  1 2003-12-01 00:00:00.000
+1 2003-12-01 00:00:00.000  1  AAA  4 2003-12-01 00:00:00.003
+2 2003-12-01 00:00:00.001  2  CCC  3 2003-12-01 00:00:00.002
+```
+
+##### SEE ALSO
+**JOIN_WITH_SNAPSHOT** OneTick event processor
+
+``onetick.py.ReadSnapshot``
+
+``onetick.py.ShowSnapshotList``
+
+``onetick.py.FindSnapshotSymbols``
+
+``onetick.py.Source.save_snapshot()``
+

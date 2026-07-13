@@ -144,3 +144,24 @@ A reference to the underlying Config object that represents OneTick config file.
 * **Return type:**
   ``onetick.py.session.Config``
 
+#### ``property acl``
+
+A reference to the underlying ACL object that represents OneTick access control list file.
+
+* **Return type:**
+  ``onetick.py.session.ACL``
+
+#### ``property locator``
+
+A reference to the underlying Locator that represents OneTick locator file.
+
+* **Return type:**
+  ``onetick.py.session.Locator``
+
+#### ``property license``
+
+#### ``property ts_databases``
+
+#### ``property databases``
+
+#### ``property performance_metrics``

@@ -147,3 +147,24 @@ print(df)
 0 2003-12-01 00:00:00  1        AAPL 2003-12-01 00:00:00
 1 2003-12-01 02:00:00  3        AAPL 2003-12-01 02:00:00
 ```
+
+The schema of the data can’t be checked when constructing query at the Python level,
+so in order to use the fields of the source in other onetick-py methods,
+schema must be specified manually:
+
+```python
+data = otp.DataFile(path_to_arrow_file,
+                    schema={'A': int, 'SYMBOL_NAME': str, 'T_TIME': otp.nsectime})
+data['B'] = data['A'] * 2
+df = otp.run(data)
+print(df)
+```
+
+```
+        Time  A SYMBOL_NAME              T_TIME  B
+0 2003-12-04  1        AAPL 2003-12-01 00:00:00  2
+1 2003-12-04  3        AAPL 2003-12-01 02:00:00  6
+```
+
+##### SEE ALSO
+**DATA_FILE_QUERY** OneTick event processor

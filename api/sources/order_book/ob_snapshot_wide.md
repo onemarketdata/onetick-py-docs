@@ -180,20 +180,42 @@ This is just a shortcut for
     If it is set along with the `start` and `end` parameters then last two are ignored.
   * **schema_policy** (‘tolerant’, ‘tolerant_strict’, ‘fail’, ‘fail_strict’, ‘manual’, ‘manual_strict’, default= ``onetick.py.adaptive``) – 
 
-    Schema deduction policy:
-    - ’tolerant’ (default)
-      The resulting schema is a combination of `schema` and database schema.
-      If the database schema can be deduced,
-      it’s checked to be type-compatible with a `schema`,
+    Schema deduction policy.
+
+    See `the schema concept guide` for more details about how data schema works in onetick-py.
+
+    Default schema policy is ``adaptive``:
+    - If database is specified with `db` parameter, then default schema policy is set to ‘tolerant’
+      and automatic schema deduction is enabled
+      (additional query will be called to get the schema from the database!).
+    - If only `tick_type` or `symbols` parameters are set, then default schema policy is set to ‘manual’.
+
+    Default schema policy can be changed with
+    ``otp.config.default_schema_policy``
+    configuration parameter.
+
+    If parameter `schema` is set, then `schema_policy` will be automatically set to `manual`
+    (unless it’s not set to other value).
+
+    If deprecated parameter `guess_schema` is set to True then default value is ‘fail’, if False then ‘manual’.
+    If `schema_policy` is set to `None` then default value is ‘tolerant’.
+
+    Supported parameter values:
+    - ’tolerant’
+      Additional query will be called to get the schema from the database.
+      The resulting ``otp.Source.schema`` is a combination of parameter `schema`
+      and the values from the database.
+      Database schema is checked to be type-compatible with parameter `schema`,
       and ValueError is raised if checks are failed.
       Also, with this policy database is scanned 5 days back to find the schema.
       It is useful when database is misconfigured or in case of holidays.
     - ’tolerant_strict’
-      The resulting schema will be `schema` if it’s not empty.
-      Otherwise, database schema is used.
-      If the database schema can be deduced,
-      it’s checked if it lacks fields from the `schema`
-      and it’s checked to be type-compatible with a `schema`
+      Additional query will be called to get the schema from the database.
+      The resulting ``otp.Source.schema``
+      will be set to parameter `schema` if it’s not empty.
+      Otherwise, schema from the database is used.
+      Database schema is checked if it lacks fields from the parameter `schema`
+      and it’s checked to be type-compatible with parameter `schema`
       and ValueError is raised if checks are failed.
       Also, with this policy database is scanned 5 days back to find the schema.
       It is useful when database is misconfigured or in case of holidays.
@@ -202,25 +224,19 @@ This is just a shortcut for
     - ’fail_strict’
       The same as ‘tolerant_strict’, but if the database schema can’t be deduced, raises an Exception.
     - ’manual’
-      The resulting schema is a combination of `schema` and database schema.
+      The resulting ``otp.Source.schema`` will be set to parameter `schema`.
       Compatibility with database schema will not be checked.
+      If some fields are not specified in `schema`, but exist in the database, they will not be dropped
+      and will be available in the results of ``otp.run`` unless they are dropped with
+      other source methods.
     - ’manual_strict’
-      The resulting schema will be exactly `schema`.
+      The resulting ``otp.Source.schema`` will be exactly `schema`,
+      other columns will be dropped from result if they exist in the database.
       Compatibility with database schema will not be checked.
-      If some fields specified in `schema` do not exist in the database,
-      their values will be set to some default value for a type
-      (0 for integers, NaNs for floats, empty string for strings, epoch for datetimes).
 
-    Default value is ``onetick.py.adaptive`` (if deprecated parameter `guess_schema` is not set).
-    If `guess_schema` is set to True then value is ‘fail’, if False then ‘manual’.
-    If `schema_policy` is set to `None` then default value is ‘tolerant’.
-
-    Default value can be changed with
-    ``otp.config.default_schema_policy``
-    configuration parameter.
-
-    If you set schema manually, while creating DataSource instance, and don’t set `schema_policy`,
-    it will be automatically set to `manual`.
+    If some fields specified in `schema` do not exist in the database,
+    their values will be set to some default value for a type
+    (0 for integers, NaNs for floats, empty string for strings, epoch for datetimes).
   * **guess_schema** (*bool* *,* *default=None*) – 
 
     #### Deprecated
@@ -326,4 +342,37 @@ This is just a shortcut for
   * **kwargs** (*type* **[*str* *]*) – Deprecated. Use `schema` instead.
     List of <column name> -> <column type> pairs that the source is expected to have.
     If the type is irrelevant, provide None as the type in question.
+
+##### Examples
+
+```
+>>> data = otp.ObSnapshotWide(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24',
+...                           max_levels=3)                                  
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))  
+                 Time  BID_PRICE  BID_SIZE               BID_UPDATE_TIME  ASK_PRICE  ASK_SIZE                                       ASK_UPDATE_TIME  LEVEL
+0 2024-02-01 10:00:00   17351.25         1 2024-02-01 09:59:59.867609851   17351.75         1                         2024-02-01 09:59:59.701711193      1
+1 2024-02-01 10:00:00   17351.00         6 2024-02-01 09:59:59.867226023   17352.00         3                         2024-02-01 09:59:59.582195881      2
+2 2024-02-01 10:00:00   17350.75         2 2024-02-01 09:59:59.867226023   17352.25         3                         2024-02-01 09:59:59.580457957      3
+```
+
+Consolidated book across multiple venues:
+
+```
+>>> data = otp.ObSnapshotWide(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',      
+...                           tick_type='PRL_FULL', max_levels=3)                       
+>>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))             
+                 Time  BID_PRICE  BID_SIZE               BID_UPDATE_TIME          ASK_PRICE  ASK_SIZE               ASK_UPDATE_TIME  LEVEL
+0 2026-06-03 12:00:00      81.85       126 2026-06-03 11:59:54.366903930              81.89       483 2026-06-03 11:59:51.603506070      1
+1 2026-06-03 12:00:00      81.84        19 2026-06-03 11:59:51.594276182              81.90       240 2026-06-03 11:59:56.917290352      2
+2 2026-06-03 12:00:00      81.83        94 2026-06-03 11:59:56.124878028              81.91         1 2026-06-03 11:01:12.711931330      3
+```
+
+##### SEE ALSO
+``onetick.py.DataSource``
+
+``onetick.py.Source.ob_snapshot_wide()``
+
+``onetick.py.agg.ob_snapshot_wide()``
+
+**OB_SNAPSHOT_WIDE** OneTick event processor
 

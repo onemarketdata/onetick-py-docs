@@ -24,3 +24,24 @@ otp.run(
     end=otp.dt(2024, 2, 1, 10),
     timezone='EST5EDT'
 )
+```
+
+
+Note: OneTick Cloud has minute bars precomputed and available in \*_BARS databases under the tick type TRD_1M.
+
+
+Daily OHLCV data with the official closing prices is also available: see `OHLCV`.
+
+Note the use of ``apply_times_daily`` to limit each day’s interval to 9:30-4:00pm (plus one minute is added as the minute bar for 9:30-9:31 has the timestamp of 9:31).
+
+```python
+bars = otp.DataSource('US_COMP_BARS', tick_type='TRD_1M')
+bars = bars[['FIRST', 'HIGH', 'LOW', 'LAST', 'VOLUME']]
+otp.run(
+    bars,
+    symbols=['AAPL'],
+    start=otp.dt(2024, 2, 1, 9, 31),
+    end=otp.dt(2024, 2, 1, 16, 1),
+    timezone='EST5EDT',
+    apply_times_daily=True)
+```

@@ -173,3 +173,24 @@ Group ticks by column `X` and keep last 2 ticks from each group:
 >>> src = src.save_snapshot(
 ...     snapshot_name='some_snapshot', group_by=[src['X']], num_ticks=2, keep_snapshot_after_query=True,
 ... )  
+>>> otp.run(src)  
+>>> src = otp.ReadSnapshot(snapshot_name='some_snapshot')  
+>>> otp.run(src)  
+        Time  X  Y               TICK_TIME
+0 2003-12-01  0  2 2003-12-01 00:00:00.001
+1 2003-12-01  0  3 2003-12-01 00:00:00.002
+2 2003-12-01  1  5 2003-12-01 00:00:00.004
+3 2003-12-01  1  6 2003-12-01 00:00:00.005
+```
+
+##### SEE ALSO
+**SAVE_SNAPSHOT** OneTick event processor
+
+``onetick.py.ReadSnapshot``
+
+``onetick.py.ShowSnapshotList``
+
+``onetick.py.FindSnapshotSymbols``
+
+``onetick.py.Source.join_with_snapshot()``
+

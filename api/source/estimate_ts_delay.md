@@ -178,3 +178,24 @@ other = other[::2]
 data = trd.estimate_ts_delay(other, 'PRICE', 'PRICE', bucket_interval=10, bucket_time='start')
 df = otp.run(data, start=otp.dt(2003, 12, 1, 9), end=otp.dt(2003, 12, 1, 10))
 print(df)
+```
+
+```
+                   Time  DELAY_MSEC  CORRELATION
+0   2003-12-01 09:00:00         0.0     1.000000
+1   2003-12-01 09:00:10         0.0     1.000000
+2   2003-12-01 09:00:20         0.0     1.000000
+3   2003-12-01 09:00:30         0.0     0.999115
+4   2003-12-01 09:00:40     -1000.0     0.706111
+..                  ...         ...          ...
+355 2003-12-01 09:59:10         0.0     0.983786
+356 2003-12-01 09:59:20         0.0     1.000000
+357 2003-12-01 09:59:30         NaN          NaN
+358 2003-12-01 09:59:40      -306.0     0.680049
+359 2003-12-01 09:59:50         0.0     0.752731
+
+[360 rows x 3 columns]
+```
+
+##### SEE ALSO
+**ESTIMATE_TS_DELAY** OneTick event processor

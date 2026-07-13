@@ -108,3 +108,24 @@ Join last standing quote from each exchange to trades:
 ...                                                                value_fields=['ASK_PRICE', 'BID_PRICE'])
 >>> trd = trd_qte.where(trd_qte['TICK_TYPE'] == 'TRD')
 >>> trd.drop(['ASK_PRICE', 'BID_PRICE', 'EXCHANGE'], inplace=True)
+>>> trd = trd.join_with_collection('LAST_QUOTE_PER_EXCHANGE')
+>>> otp.run(trd)[['PRICE', 'SIZE', 'EXCHANGE', 'ASK_PRICE', 'BID_PRICE']]
+    PRICE  SIZE EXCHANGE  ASK_PRICE  BID_PRICE
+0   10.10   100        N      10.20      10.10
+1   10.10   100        C      10.18      10.17
+2   10.20    50        N      10.20      10.10
+3   10.20    50        C      10.18      10.17
+4   10.20    50        Q      10.18      10.17
+5   10.15   100        N      10.20      10.10
+6   10.15   100        C      10.18      10.17
+7   10.15   100        Q      10.15      10.10
+8   10.23    60        N      10.32      10.31
+9   10.23    60        C      10.31      10.23
+10  10.23    60        Q      10.15      10.10
+11  10.40   200        N      10.32      10.31
+12  10.40   200        C      10.44      10.40
+13  10.40   200        Q      10.15      10.10
+```
+
+##### SEE ALSO
+**JOIN_WITH_COLLECTION_SUMMARY** OneTick event processor

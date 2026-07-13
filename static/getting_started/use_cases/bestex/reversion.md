@@ -45,3 +45,24 @@ joined_orders_with_quotes = otp.join_by_time([orders] + [quotes] + qte_by_markou
 # Propagate MID_PRICE at each markout post-execution
 agg_fields = {
     'EXIT_MID_PRICE': otp.agg.last('MID_PRICE'),
+    'SIDE': otp.agg.first('SIDE'),
+    'EXECUTED_QTY': otp.agg.sum('QTY_FILLED')
+}
+for m in post_exec_markouts:
+    agg_fields[f'MID_PRICE_{m}_post_exec'] = otp.agg.last(f'MID_PRICE_{m}_post_exec')
+
+orders_agg = joined_orders_with_quotes.agg(agg_fields, group_by='ID')
+
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
+
+# Calculate Reversion in basis points for each markout
+for m in post_exec_markouts:
+    orders_agg[f'Rev_{m}_bps'] = orders_agg['DIRECTION'] * (orders_agg['EXIT_MID_PRICE'] - orders_agg[f'MID_PRICE_{m}_post_exec']) * 10000 / orders_agg['EXIT_MID_PRICE']
+
+# Select relevant fields
+orders_with_rev = orders_agg[['ID', 'EXECUTED_QTY'] + [f'Rev_{m}_bps' for m in post_exec_markouts]]
+
+# Run the query for the specified date
+df = otp.run(orders_with_rev, date=date)
+```

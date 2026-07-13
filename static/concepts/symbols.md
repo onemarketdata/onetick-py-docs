@@ -240,3 +240,24 @@ Equivalently, symbol parameters can be accessed by wrapping a function around th
 
 It is allowed to specify query interval per symbol using special fields `_PARAM_START_TIME_NANOS` and `_PARAM_START_TIME_NANOS`
 
+```
+>>> custom_symbols = otp.Ticks(SYMBOL_NAME=['AAPL', 'MSFT'],
+...                            _PARAM_START_TIME_NANOS=[otp.dt(2024, 2, 1, 10, 30), otp.dt(2024, 2, 1, 11)],
+...                            _PARAM_END_TIME_NANOS=[otp.dt(2024, 2, 1, 11), otp.dt(2024, 2, 1, 11, 30)])
+>>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD')
+>>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')})
+>>> data['SYMBOL'] = data.Symbol.name
+>>> dict(sorted(otp.run(data, date=otp.dt(2024, 2, 1), symbols=custom_symbols).items()))
+{'AAPL':                  Time   VOLUME SYMBOL
+         0 2024-02-01 11:00:00  3283224   AAPL,
+ 'MSFT':                  Time   VOLUME SYMBOL
+         0 2024-02-01 11:30:00  1587813   MSFT}
+```
+
+Note that per symbol intervals should be inside the `query interval`.
+
+## Associated symbols
+
+Associated symbols is a technique when unbound symbols are used to define bound symbols or symbols in related queries.
+It is expressed using the ``otp.eval`` and a symbol parameter. More details can be
+found in the API doc for the ``otp.eval``

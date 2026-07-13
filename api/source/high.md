@@ -129,3 +129,24 @@ Select `n` ticks with the highest values in the `column` field
       only ticks from current bucket used for calculations
     * **state_ts**
       * if there is a tick in bucket with timestamp = bucket start
+
+        only ticks in bucket used for calculation max value
+      * else
+
+        latest tick from previous bucket included in current bucket
+* **Return type:**
+  `Source`
+
+##### Examples
+
+```
+>>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[0, 1000, 1500, 3000])
+>>> data = data.high(['X'], 2)
+>>> otp.run(data)
+                     Time  X
+0 2003-12-01 00:00:01.500  3
+1 2003-12-01 00:00:03.000  4
+```
+
+##### SEE ALSO
+**HIGH_TICK** OneTick event processor

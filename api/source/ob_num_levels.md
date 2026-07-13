@@ -55,3 +55,24 @@ Returns the number of levels in the order book at the end of each bucket.
 * **Return type:**
   `Source`
 
+#### NOTE
+This EP supports only seconds as `bucket_interval`.
+
+##### Examples
+
+```
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
+>>> data = otp.agg.ob_num_levels(bucket_interval=otp.Second(300)).apply(data)        
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))          
+                  Time  ASK_VALUE  BID_VALUE
+0  2024-02-01 10:05:00      743.0      830.0
+1  2024-02-01 10:10:00      753.0      820.0
+2  2024-02-01 10:15:00      741.0      831.0
+...
+```
+
+##### SEE ALSO
+``onetick.py.ObNumLevels()``
+
+**OB_NUM_LEVELS** OneTick event processor
+

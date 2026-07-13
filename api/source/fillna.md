@@ -53,3 +53,24 @@ The value can also be a constant:
 >>> data = data.fillna(data['A'])
 >>> otp.run(data)
                      Time  A     B
+0 2003-12-01 00:00:00.000  0    0.0
+1 2003-12-01 00:00:00.001  1    2.2
+2 2003-12-01 00:00:00.002  2    2.0
+3 2003-12-01 00:00:00.003  3    3.3
+```
+
+Parameter `columns` can be used to specify the columns where values will be replaced:
+
+```
+>>> data = otp.Ticks({'A': [0, 1, 2, 3], 'B': [otp.nan, 2.2, otp.nan, 3.3], 'C': [otp.nan, 2.2, otp.nan, 3.3]})
+>>> data = data.fillna(columns=['B'])
+>>> otp.run(data)
+                     Time  A    B    C
+0 2003-12-01 00:00:00.000  0  NaN  NaN
+1 2003-12-01 00:00:00.001  1  2.2  2.2
+2 2003-12-01 00:00:00.002  2  2.2  NaN
+3 2003-12-01 00:00:00.003  3  3.3  3.3
+```
+
+##### SEE ALSO
+``onetick.py.Operation.fillna()``
