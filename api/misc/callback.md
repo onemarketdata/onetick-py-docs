@@ -150,17 +150,20 @@ If you are making query through WebAPI mode, use `process_ticks` callback method
 
 #### ``process_ticks(ticks)``
 
-Called after getting all ticks for WebAPI queries.
+This method is used in WebAPI mode instead of `process_tick`.
 
-Due to limitation of WebAPI mode `process_tick` callback method, which invoked on each tick, isn’t supported.
-Instead, WebAPI supports `process_ticks` method which invoked for processing the data
-after the query is finished.
-All ticks are returned on the `ticks` variable.
+It is called after getting one batch of ticks.
+The size of batch can be changed with parameters
+`bs_ticks` and bs_time_msec\` in ``otp.run``.
+
+All ticks are returned in the `ticks` variable – dictionary of columns names to the list of values.
 
 * **Parameters:**
   **ticks** (*dict*) – mapping of field names to field values
 
 ##### Examples
+
+Ticks result:
 
 ```
 >>> t = otp.Tick(A=1)
@@ -172,8 +175,45 @@ All ticks are returned on the `ticks` variable.
 ...         self.result = ticks
 >>> callback = ProcessTicksCallback()
 >>> otp.run(t, callback=callback)  
->>> callback.result  
+>>> callback.result                
 {'Time': array(['2003-12-01T00:00:00.000000000'], dtype='datetime64[ns]'), 'A': array([1])}
+```
+
+Let’s create callback printing the number of ticks in a batch:
+
+```
+>>> class ProcessTicksCallback(otp.CallbackBase):
+...     def __init__(self):
+...         super().__init__()
+...         self.tick_count = 0
+...
+...     def process_ticks(self, ticks):
+...         number_of_ticks = len(ticks['Time'])
+...         self.tick_count += number_of_ticks
+...         print(f"[Got {number_of_ticks:5} ticks. Total: {self.tick_count:6}.]")
+```
+
+Batches specified with `bs_ticks` parameter are returned:
+
+```
+>>> qte = otp.DataSource(db='US_COMP_REPLAY', tick_type='QTE', schema_policy='manual',  
+...                      symbols=otp.Symbols('US_COMP_REPLAY', for_tick_type='QTE'))    
+>>> otp.run(qte,                                                                        
+...         start=otp.now(),                                                            
+...         end=otp.now() + otp.Second(3),                                              
+...         timezone='UTC',                                                             
+...         running=True,                                                               
+...         callback=ProcessTicksCallback(),                                            
+...         bs_ticks=5000)                                                              
+[Got  5000 ticks. Total:   5000.]
+[Got  5000 ticks. Total:  10000.]
+[Got  5000 ticks. Total:  15000.]
+[Got  5000 ticks. Total:  20000.]
+[Got  5000 ticks. Total:  25000.]
+[Got  5000 ticks. Total:  30000.]
+[Got  5000 ticks. Total:  35000.]
+[Got  5000 ticks. Total:  40000.]
+....
 ```
 
 #### ``process_sorting_order(sorted_by_time_flag)``

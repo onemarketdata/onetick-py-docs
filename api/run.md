@@ -1,6 +1,6 @@
 # otp.run
 
-### ``run(query, *, symbols=None, start=utils.adaptive, end=utils.adaptive, date=None, start_time_expression=None, end_time_expression=None, timezone=utils.default, context=utils.default, username=None, alternative_username=None, password=None, batch_size=utils.default, running=None, query_properties=None, concurrency=utils.default, apply_times_daily=None, symbol_date=None, query_params=None, time_as_nsec=True, treat_byte_arrays_as_strings=True, output_matrix_per_field=False, output_structure=None, return_utc_times=None, connection=None, callback=None, svg_path=None, use_connection_pool=False, node_name=None, require_dict=False, max_expected_ticks_per_symbol=None, log_symbol=utils.default, encoding=None, manual_dataframe_callback=False, print_symbol_errors=utils.default, preserve_decimal_flag=None)``
+### ``run(query, *, symbols=None, start=utils.adaptive, end=utils.adaptive, date=None, start_time_expression=None, end_time_expression=None, timezone=utils.default, context=utils.default, username=None, alternative_username=None, password=None, batch_size=utils.default, running=None, query_properties=None, concurrency=utils.default, apply_times_daily=None, symbol_date=None, query_params=None, time_as_nsec=True, treat_byte_arrays_as_strings=True, output_matrix_per_field=False, output_structure=None, return_utc_times=None, connection=None, callback=None, svg_path=None, use_connection_pool=False, node_name=None, require_dict=False, max_expected_ticks_per_symbol=None, log_symbol=utils.default, encoding=None, manual_dataframe_callback=False, print_symbol_errors=utils.default, preserve_decimal_flag=None, bs_ticks=None, bs_time_msec=None)``
 
 Executes a query and returns its result.
 
@@ -141,6 +141,35 @@ Executes a query and returns its result.
     If set to False (default), they are returned as float values, with possible precision loss.
     If set to True, they are returned as ``decimal.Decimal`` objects without precision loss.
     This parameter may not be supported on older OneTick versions.
+  * **bs_ticks** (*int*) – 
+
+    (Used only in WebAPI mode)
+
+    This parameter determines the maximum number of ticks in a batch.
+    It shows how often to send a chunk of response.
+    Default is 5000 ticks.
+
+    See callback mode example in ``onetick.py.CallbackBase.process_ticks()`` method.
+
+    #### NOTE
+    Because each batch contains a copy of the schema and metadata, under some circumstances,
+    the duplicated memory can take up to 30-50% of overall used memory.
+
+    Usually smaller values of `bs_ticks` may negatively affect performance.
+    Larger values, especially for queries returning a large number of ticks,
+    are generally to be preferred,
+    however too large values can also lead to network overload and high memory usage.
+
+    We recommend a value between 100 and 10000. Default value is 5000.
+  * **bs_time_msec** (*int*) – 
+
+    (Used only in WebAPI mode)
+
+    Time latency in milliseconds that is used in CEP queries only.
+    If during CEP `bs_ticks` number of ticks gets accumulated sooner than the `bs_time_msec` expires,
+    they will be sent immediately.
+
+    By default this parameter is 0 which means propagate ticks immediately (i.e., on every tick)
 * **Returns:**
   result of the query
 * **Return type:**

@@ -4,19 +4,49 @@
 
 ### Added
 
+### Changed
+
+### Fixed
+
+- Don’t show entitlement warnings when getting database schema (again)
+
+### Removed
+
+## [1.204.0] - 2026-07-20
+
+### Added
+
+- Added support of new build string format for compatibility checks
+
+### Changed
+
+### Fixed
+
+- Do not import `NumPy_OneTickQuery` internal library
+
+### Removed
+
+## [1.203.0] - 2026-07-13
+
+### Added
+
 - Added more docs and examples about `schema_policy` parameter in `otp.DataSource`
 - Allow setting `manual` schema with empty dictionary
+- Add parameters `bs_ticks` and `bs_time_msec` to `otp.run`
+- Add `DB._show_last_tick_descriptor()` and use it when getting schema in `otp.DataSource`
+- Add logging to some `DB` methods
 
 ### Changed
 
 - Add `onetick-py[render]` extra and remove `graphviz` from required dependencies
+- Pin `sphinx-markdown-builder` to 0.6.10 for reproducible markdown docs builds
 
 ### Fixed
 
 - Don’t show entitlement warnings when getting database schema
 - Fixed setting multiple databases in order books sources
 - Add field `SOURCE` in `ob_snapshot` when needed
-- Fixed markdown documentation build dropping page content (removed obsolete 21 line footer stripping that emptied short pages)
+- Fixed markdown docs build emptying and truncating pages (removed obsolete 21 line footer stripping)
 
 ### Removed
 
