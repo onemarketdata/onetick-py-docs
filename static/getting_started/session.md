@@ -1,52 +1,114 @@
-# Session: configuring OneTick databases and ACL
 
-`onetick-py` provides flexible tools for managing sessions and importing both existing and temporary databases.
+
+# otp.Session: set up OneTick configuration files
+
+`onetick-py` provides tools for managing OneTick configuration files and databases
+required to run OneTick locally (without WebAPI).
+
+#### NOTE
+In WebAPI mode creating OneTick configuration files is not needed, because it’s managed by WebAPI OneTick server.
+
+## Existing OneTick configuration
+
+OneTick uses **ONE_TICK_CONFIG** environment variable to get the path to the configuration file.
+
+If this variable is already set, then `onetick-py` can be used right away,
+even without creating ``otp.Session`` object:
+
+```
+>>> import os                                                                                      
+>>> from pathlib import Path                                                                       
+>>> os.environ['ONE_TICK_CONFIG'] = 'one_tick_config.txt'                                          
+>>> Path('one_tick_config.txt').write_text('DB_LOCATOR.DEFAULT=one_tick_locator.txt')              
+>>> Path('one_tick_locator.txt').write_text('<VERSION_INFO VERSION="2"/><DATABASES></DATABASES>')  
+
+>>> import onetick.py as otp                                
+>>> t = otp.Tick(A=1)                                       
+>>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))  
+        Time  A
+0 2022-01-01  1
+```
 
 ## Creating session
 
-Session could be created via ``otp.Session`` class object.
+Session can be created with ``otp.Session`` class:
 
 ```
-session = otp.Session()
-# make required queries
-session.close()
+>>> import onetick.py as otp                                
+>>> session = otp.Session()                                 
+>>> # make required queries
+>>> t = otp.Tick(A=1)                                       
+>>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))  
+        Time  A
+0 2022-01-01  1
+>>> session.close()
 ```
+
+To avoid manually closing session, you can create it as a python context manager:
+
+```
+>>> import onetick.py as otp                                         
+>>> with otp.Session() as session:                                   
+...     # make required queries
+...     t = otp.Tick(A=1)                                            
+...     df = otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))  
+...     print(df)                                                    
+        Time  A
+0 2022-01-01  1
+```
+
+## Setting up custom OneTick configuration
 
 If you want override default temporary config, you can either pass path to config file or
 ``otp.Config`` object as ``otp.Session`` `config`
 constructor parameter.
 
 ```
-config = otp.Config()
+config = otp.Config('/path/to/config')
 session = otp.Session(config)
 ```
 
-To avoid manually closing session, you can create it using context manager.
+## Setting up custom database locator
+
+If you want to create default configuration files, but override the locator file,
+you can use ``otp.Locator`` object:
 
 ```
-with otp.Session(config) as session:
-    # make required queries
+config=otp.Config(
+    locator=otp.Locator('/path/to/locator')
+)
+session = otp.Session(config)
 ```
 
-## Setting up ACL
+The object ``otp.RemoteTS`` can also be used
+to automatically create locator file pointing to the remote server:
 
-By default, a temporary generated `otp.session.ACL` object is created for every
+```
+config=otp.Config(
+    locator=otp.RemoteTS('path.to.the.server.com:50015')
+)
+session = otp.Session(config)
+```
+
+## Setting up custom ACL
+
+By default, a temporary generated ``otp.ACL`` object is created for every
 ``otp.Config`` and respectively for each session.
 
 However you could pass path to ACL configuration file if you need to load custom ACL.
 
 ```
-acl = otp.session.ACL('path/to/acl/config')
+acl = otp.ACL('/path/to/acl')
 config = otp.Config(acl=acl)
 session = otp.Session(config)
 ```
 
-You can also add entities to the ACL by using `otp.session.ACL.add` method or
-remove entities using `otp.session.ACL.remove`.
+You can also add entities to the ACL by using ``otp.ACL.add`` method or
+remove entities using ``otp.ACL.remove``.
 
 ```
-session.acl.add(otp.session.ACL.User('new_user'))
-session.acl.remove(otp.session.ACL.User('old_user'))
+session.acl.add(otp.ACL.User('new_user'))
+session.acl.remove(otp.ACL.User('old_user'))
 ```
 
 ## Creating temporary database
@@ -66,15 +128,13 @@ To add data to temporary database use ``otp.DB.add`` method:
 ```
 
 Alternatively, if you already have the data you want to add to the database, you could pass
-``onetick.py.Source`` object as ``onetick.py.DB`` constructor second parameter:
+``otp.Source`` object as ``otp.DB`` constructor second parameter:
 
 ```
 >>> data = otp.Ticks(A=[1, 2, 3])
 >>> db = otp.DB('DB_NAME', data)
 >>> session.use(db)  
 ```
-
-In fact, this is the only way to initialize temporary database with a raw `Pandas` dataframe.
 
 ## Working with existing databases
 
@@ -106,6 +166,40 @@ for `location` and `db` sections of database description in a locator configurat
 ```
 
 See `OneTick Locator Variables` OneTick documentation for available locator configuration variables.
+
+## Remote databases
+
+Remote servers can be added to OneTick database locator too
+by passing ``otp.RemoteTS`` object
+to the ``otp.Session.use`` method:
+
+```
+session.use(otp.RemoteTS('path.to.the.server.com:50015'))
+```
+
+Or they can be added when creating ``otp.Session``:
+
+```
+>>> import onetick.py as otp                                      
+>>> with otp.Session(                                             
+...     config=otp.Config(                                        
+...         locator=otp.RemoteTS('path.to.the.server.com:50015')  
+...     )                                                         
+... ):                                                            
+...     # get available databases
+...     print(otp.databases(as_table=True)['DB_NAME'])            
+0                ABAXX
+1          ABAXX_DAILY
+2            ABU_DHABI
+3       ABU_DHABI_BARS
+4      ABU_DHABI_DAILY
+            ...
+793        XETRA_DAILY
+794          ZHENGZHOU
+795     ZHENGZHOU_BARS
+796    ZHENGZHOU_DAILY
+797            __OQD__
+```
 
 ## Derived databases
 

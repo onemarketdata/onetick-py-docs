@@ -4,24 +4,33 @@
 
 Bases: ``object``
 
-A class for setting up working OneTick session. It keeps configuration files during
-the session and allows to manage them. When instance is out of scope, then instance
-cleans up config files and configuration.
+A class for setting up working OneTick configuration environment.
+
+It keeps configuration files during the session and allows to manage them.
+
+When instance is out of scope, then instance cleans up config files and configuration.
 You can leave the scope manually with method ``close()``.
 Also, session is closed automatically if this object is used as a context manager.
 
 #### NOTE
-It is allowed to have only one alive session instance in the process.
+This class is a singleton, so it’s allowed to have only one alive session instance in the process.
 
 If you don’t use Session’s instance, then `ONE_TICK_CONFIG` environment variable
 should be set to be able to work with OneTick.
 
-If config file is not set then temporary is generated.
-Config includes locator and acl file, and if they are not set, then they are generated.
+If `config` file is not set then temporary is generated.
+Config includes OneTick locator and ACL files, and if they are not set, then they are generated.
+
+##### SEE ALSO
+`Session Guide`
 
 * **Parameters:**
-  * **config** (str, ``onetick.py.session.Config``, optional) – Path to an existing OneTick config file; if it is not set, then config will be generated.
-    If config is not set, then temporary config is generated. Default is None.
+  * **config** (str, ``otp.Config``, optional) – 
+
+    Path to an existing OneTick configuration file or object.
+
+    If it’s not set (default), then configuration will be generated automatically
+    (see ``otp.Config`` for details).
   * **clean_up** (*bool* *,* *optional*) – 
 
     A flag to control cleaning up process: if it is True then all temporary generated files will
@@ -37,14 +46,16 @@ Config includes locator and acl file, and if they are not set, then they are gen
   * **override_env** (*bool* *,* *optional*) – 
 
     If flag is True, then unconditionally `ONE_TICK_CONFIG` environment variable will be overridden
-    with a config that belongs to a Session. Otherwise `ONE_TICK_CONFIG`
-    will be defined in the scope of session only when it is not defined externally.
+    with a config that belongs to a Session.
+
+    Otherwise `ONE_TICK_CONFIG` variable
+    will be set in the scope of session only when it is not defined externally.
     For example, it is helpful when you test ascii_loader that uses ‘ONE_TICK_CONFIG’ only.
 
-    Default is False ( default is False, because overriding external environment variable
-    might be not obvious and desirable )
-  * **redirect_logs** (*bool* *,* *optional*) – If flag is True, then OneTick logs  will be redirected into a temporary log file. Otherwise
-    logs will be mixed with output. Default is True.
+    Default is False (because overriding external environment variable might be not obvious and desirable).
+  * **redirect_logs** (*bool* *,* *optional*) – If flag is True, then OneTick logs  will be redirected into a temporary log file.
+    Otherwise logs will be mixed with output.
+    Default is True.
   * **gather_performance_metrics** (*bool* *,* *optional*) – 
 
     If flag is True, then enables performance metrics gathering, by setting `DUMP_PERF_METRICS` config parameter.
@@ -65,7 +76,7 @@ Config includes locator and acl file, and if they are not set, then they are gen
 
 ##### Examples
 
-If session is defined with environment, OneTick can be used right away:
+If OneTick configuration is defined with environment, onetick-py can be used right away:
 
 ```
 >>> 'ONE_TICK_CONFIG' in os.environ
@@ -79,6 +90,34 @@ True
 0 2024-02-01 04:00:00.008283417  186.50
 1 2024-02-01 04:00:00.008290927  185.59
 2 2024-02-01 04:00:00.008291153  185.49
+```
+
+Otherwise you need to create the ``otp.Session`` object before making queries:
+
+```
+>>> session = otp.Session()                                  
+>>> t = otp.Tick(A=1)                                        
+>>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))   
+        Time  A
+0 2022-01-01  1
+```
+
+Session must be closed before creating another session:
+
+```
+>>> session.close()   
+```
+
+Session can be created as a python context manager.
+In this case it doesn’t need to be closed manually:
+
+```
+>>> with otp.Session() as session:                                    
+...     t = otp.Tick(A=1)                                             
+...     df = otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))   
+...     print(df)                                                     
+        Time  A
+0 2022-01-01  1
 ```
 
 Collecting performance metrics with `gather_performance_metrics` parameter:
@@ -104,6 +143,12 @@ Collecting performance metrics with `gather_performance_metrics` parameter:
     'disk_write': {'name': 'Disk Write', 'value': 172906, 'units': 'bytes'}
 }
 ```
+
+##### SEE ALSO
+`Session Guide`
+``otp.Config``
+``otp.Locator``
+``otp.ACL``
 
 #### ``use(*items)``
 
@@ -135,7 +180,7 @@ The shortcut for `.use(otp.DB(stub_name))`
 
 #### ``close()``
 
-Close session
+Close session, allowing to create another ``otp.Session`` object.
 
 #### ``property config``
 

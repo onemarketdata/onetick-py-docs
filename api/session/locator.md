@@ -1,12 +1,18 @@
-# otp.session.Locator
+# otp.Locator
 
 ### ``class Locator(path=None, clean_up=utils.default, copy=True, empty=False, session_ref=None)``
 
 Class representing OneTick database locator.
 Locator is the file that describes database name, location and other options.
 
+This object can be used when creating ``otp.Config`` object.
+
 * **Parameters:**
-  * **path** (*str*) – A path to custom locator file. Default is None, that means to generate a temporary locator.
+  * **path** (*str*) – 
+
+    A path to custom locator file.
+
+    Default is None, which means to generate locator file automatically.
   * **clean_up** (*bool*) – 
 
     If True, then temporary locator will be removed when Locator object will be destroyed. It is
@@ -18,5 +24,30 @@ Locator is the file that describes database name, location and other options.
     usage. It might be used when you want to work with a custom locator, but don’t want to change
     the original file; in that case a custom locator will be copied into a temporary locator and
     every request for modification will be executed for that temporary locator. Default is True.
-  * **empty** (*bool*) – If True, then a temporary locator will have no databases, otherwise it will have default
-    otp.config.default_db and COMMON databases. Default is False.
+  * **empty** (*bool*) – 
+
+    If True, then a temporary locator will have no databases.
+
+    Default is False, which means it will include some default databases like COMMON
+    and ``otp.config.default_db``.
+
+##### Examples
+
+Locator object can be created with existing path:
+
+```
+>>> locator = otp.Locator('/path/to/the/locator')  
+```
+
+Or it can be created automatically with some default values:
+
+```
+>>> locator = otp.Locator()  
+>>> locator.path             
+'/tmp/test_username/run_20260722_145505_4775/observant-jackrabbit.locator'
+```
+
+##### SEE ALSO
+``otp.Session``
+``otp.Config``
+``otp.ACL``

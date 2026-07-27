@@ -14,9 +14,14 @@ Saves data result to OneTick database.
     If this parameter is not set, the \_TICK_TYPE pseudo-field is used.
     If it is empty, an attempt is made to retrieve
     the tick type from the field named TICK_TYPE.
-  * **date** (``otp.datetime`` or None) – date where to save data.
+  * **date** (``otp.datetime``           or ``otp.expr`` or None) – 
+
+    Date where to save data.
     Should be set to None if writing to accelerator or memory database.
     By default, it is set to otp.config.default_date.
+
+    Can also be set to ``otp.expr``
+    to be able to set date dynamically (see examples).
   * **start_date** (``otp.datetime`` or None) – Start date for data to save. It is inclusive.
     Cannot be used with `date` parameter.
     Also cannot be used with `inplace` set to `True`.
@@ -109,6 +114,22 @@ Then read from the same database:
 0 2003-12-01 00:00:00.000  1
 1 2003-12-01 00:00:00.001  2
 2 2003-12-01 00:00:00.002  3
+```
+
+Optimized copying of one database to another day by day
+using ``otp.expr`` and parameter `apply_times_daily`:
+
+```
+>>> read_db = otp.DB('READ_DB')                                                                
+>>> symbols = otp.Symbols('READ_DB', for_tick_type='TT')                                       
+>>> data = otp.DataSource('READ_DB', tick_type='TT', symbols=symbols, schema_policy='manual')  
+>>> data = data.write('WRITE_DB', date=data['_START_TIME'].dt.strftime('%Y%m%d').expr)         
+>>> otp.run(data,                                                                              
+...         start=otp.dt(2003, 12, 1),                                                         
+...         end=otp.dt(2003, 12, 3),                                                           
+...         timezone='EST5EDT',                                                                
+...         apply_times_daily=True,                                                            
+...         concurrency=16)                                                                    
 ```
 
 ##### SEE ALSO

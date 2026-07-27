@@ -6,7 +6,7 @@ Bases: ``object``
 
 Class representing remote tick-server.
 Can be ``used``
-in ``Session`` as well as the local databases.
+in ``otp.Session`` as well as the local databases.
 
 * **Parameters:**
   * **host** (str, ``LoadBalancing``, ``FaultTolerance``) – 
@@ -14,7 +14,8 @@ in ``Session`` as well as the local databases.
     In case of string: string with this format: `[proto://]hostname:port[/resource]`.
     Parameters in square brackets are optional.
 
-    Otherwise, configuration of LoadBalancing and/or FaultTolerance (please, check corresponding classes)
+    Otherwise, configuration can be set with ``LoadBalancing``
+    and/or ``FaultTolerance`` objects.
   * **port** (*int* *,* *str* *,* *optional*) – The port number of the remote tick-server.
     If not specified here, can be specified in the `host` parameter.
   * **protocol** (*str* *,* *optional*) – The protocol to connect with.
@@ -37,9 +38,10 @@ Additionally specify web-socket protocol and resource of the remote server:
 >>> session.use(otp.RemoteTS('wss://data.onetick.com:443/omdwebapi/websocket'))  
 ```
 
-Combination of LoadBalancing and FaultTolerance can be used for host parameter:
+Combination of ``LoadBalancing``
+and ``FaultTolerance`` can be used for host parameter:
 
 ```
->>> RemoteTS(FaultTolerance(LoadBalancing('host1:4001', 'host2:4002'),
-...                         LoadBalancing('host3:4003', 'host3:4004')) 
+>>> otp.RemoteTS(otp.FaultTolerance(otp.LoadBalancing('host1:4001', 'host2:4002'),
+...                                 otp.LoadBalancing('host3:4003', 'host3:4004')) 
 ```
