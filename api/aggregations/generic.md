@@ -21,7 +21,7 @@ Also, all tick fields not contained in the Python-level schema in a passed to ge
 `Source` object will be removed.
 
 * **Parameters:**
-  * **query_fun** (*Callable*) – Function that takes ``Source`` as a parameter,
+  * **query_fun** (*collections.abc.Callable*) – Function that takes ``Source`` as a parameter,
     applies some aggregation logic to it
     and returns ``Source`` as a result.
     Note that currently only methods that support dynamic symbol change
