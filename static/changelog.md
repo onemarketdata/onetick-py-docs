@@ -8,22 +8,7 @@
 
 ### Fixed
 
-### Removed
-
-## [1.206.0] - 2026-08-03
-
-### Added
-
-- Add `onetick read` application
-
-### Changed
-
-- Update `ruff>=0.16.0`
-
-### Fixed
-
 - Fixed EFS docs publish job not publishing the release documentation (SDS-3864)
-- Fixed errors on new `ruff`
 
 ### Removed
 
