@@ -1,1 +1,0 @@
-# Cache related functions
