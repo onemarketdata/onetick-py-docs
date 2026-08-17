@@ -25,10 +25,10 @@ Uses **CHARACTER_PRESENT** EP.
 Select ticks that have the N or T in EXCHANGE field:
 
 ```
->>> data = otp.DataSource('TEST_DATABASE', tick_type='TRD', symbols='A')  
->>> data = data[['PRICE', 'SIZE', 'EXCHANGE']]  
->>> data = data.character_present(field=data['EXCHANGE'], characters='NT')  
->>> otp.run(data)  
+>>> data = otp.DataSource('TEST_DATABASE', tick_type='TRD', symbols='A')
+>>> data = data[['PRICE', 'SIZE', 'EXCHANGE']]
+>>> data = data.character_present(field=data['EXCHANGE'], characters='NT')
+>>> otp.run(data)
                      Time  PRICE   SIZE EXCHANGE
 0 2003-12-01 00:00:00.000  28.44  55100        N
 1 2003-12-01 00:00:00.001  28.44    100        T
@@ -40,12 +40,12 @@ Select ticks that have the N or T in EXCHANGE field:
 Select ticks that have the N or T in EXCHANGE field and character set in OLD_EXCHANGE field:
 
 ```
->>> data = otp.DataSource('TEST_DATABASE', tick_type='TRD', symbols='A')  
->>> data = data.character_present(  
+>>> data = otp.DataSource('TEST_DATABASE', tick_type='TRD', symbols='A')
+>>> data = data.character_present(
 ...     field=data['EXCHANGE'], characters='NT', characters_field=data['OLD_EXCHANGE'],
 ... )
->>> data = data[['PRICE', 'SIZE', 'EXCHANGE']]  
->>> otp.run(data)  
+>>> data = data[['PRICE', 'SIZE', 'EXCHANGE']]
+>>> otp.run(data)
                      Time  PRICE   SIZE EXCHANGE
 0 2003-12-01 00:00:00.000  28.44  55100        N
 1 2003-12-01 00:00:00.001  28.44    100        B

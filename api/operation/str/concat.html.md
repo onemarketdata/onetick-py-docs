@@ -1,6 +1,6 @@
 # otp.Operation.str.concat
 
-### ``concat(other)``
+#### \_StrAccessor.concat(other)
 
 Returns a string that is the result of concatenating to `others`.
 

@@ -1,6 +1,6 @@
 # otp.Operation.str.startswith
 
-### ``startswith(value)``
+#### \_StrAccessor.startswith(value)
 
 Checks if the Operation starts with a string.
 

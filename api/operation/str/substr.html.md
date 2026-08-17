@@ -1,6 +1,6 @@
 # otp.Operation.str.substr
 
-### ``substr(start, n_bytes=None, rtrim=False)``
+#### \_StrAccessor.substr(start, n_bytes=None, rtrim=False)
 
 Return `n_bytes` characters starting from `start`.
 

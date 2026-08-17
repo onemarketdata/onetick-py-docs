@@ -1,6 +1,6 @@
 # otp.math.frand
 
-### ``frand(min_value=0, max_value=1, *, seed=None)``
+### ``frand(min_value=0, max_value=1, , seed=None)``
 
 Returns a pseudo-random value in the range between `min_value` and `max_value`.
 
@@ -17,7 +17,7 @@ Returns a pseudo-random value in the range between `min_value` and `max_value`.
 
 ```
 >>> data = otp.Tick(A=otp.math.frand())
->>> otp.run(data)  
+>>> otp.run(data)
         Time  A     FRAND
 0 2003-12-01  1  0.667519
 ```

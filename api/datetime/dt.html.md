@@ -1,6 +1,6 @@
 # otp.dt (otp.datetime)
 
-### ``class datetime(first_arg, month=None, day=None, hour=None, minute=None, second=None, microsecond=None, nanosecond=None, *, tzinfo=None, tz=None)``
+### ``class datetime(first_arg, month=None, day=None, hour=None, minute=None, second=None, microsecond=None, nanosecond=None, , tzinfo=None, tz=None)``
 
 Bases: `AbstractTime`
 
@@ -156,7 +156,7 @@ Return the day of the week as an integer, where Monday is 0 and Sunday is 6.
 0
 ```
 
-#### ``classmethod strptime(date_string, format, *, tz=None, tzinfo=None)``
+#### ``classmethod strptime(date_string, format, , tz=None, tzinfo=None)``
 
 Parse a string to datetime according to a format.
 

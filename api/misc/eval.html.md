@@ -84,7 +84,7 @@ Use `otp.eval` with meta fields:
 >>> t = otp.DataSource('US_COMP_SAMPLE::TRD')
 >>> t = t[['PRICE', 'SIZE']]
 >>> t = t.where(otp.eval(filter_by_tt, tick_type=t['_TICK_TYPE']))
->>> otp.run(t, date=otp.dt(2024, 2, 1))  
+>>> otp.run(t, date=otp.dt(2024, 2, 1))
                               Time   PRICE  SIZE
 0    2024-02-01 10:53:56.130163522  192.42     6
 1    2024-02-01 12:58:30.442440693  192.60   200

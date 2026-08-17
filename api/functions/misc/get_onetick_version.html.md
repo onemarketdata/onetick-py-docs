@@ -16,7 +16,7 @@ Usually it’s the same server where the database specified in ``otp.run`` resid
 
 ```
 >>> data = otp.Tick(VERSION=otp.get_onetick_version())
->>> otp.run(data, symbols='US_COMP_SAMPLE::')  
+>>> otp.run(data, symbols='US_COMP_SAMPLE::')
         Time                                      VERSION
 0 2003-12-01  BUILD_rel_20250727_update2 (20250727120000)
 ```

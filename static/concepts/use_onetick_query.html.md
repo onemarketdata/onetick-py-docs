@@ -73,7 +73,7 @@ These functions do not have special representation in `onetick.query`, so we can
 
 Let’s use OneTick’s function `REPLACE` that replaces some substring in a string.
 For already implemented and more powerful version see method
-``onetick.py.Operation.str.replace``.
+`onetick.py.Operation.str.replace`.
 
 Special class ``otp.raw``
 can be used to represent arbitrary OneTick expression.

@@ -272,7 +272,7 @@ Note that default schema policy is **tolerant** and
 But the fields from the database will still be available in results:
 
 ```
->>> otp.run(data[:1], date=otp.dt(2024, 2, 1))  
+>>> otp.run(data[:1], date=otp.dt(2024, 2, 1))
                            Time EXCHANGE  COND STOP_STOCK SOURCE TRF TTE TICKER  PRICE        DELETED_TIME ...
 0 2024-02-01 04:00:00.008283417        K  @ TI                 N       0   AAPL  186.5 1969-12-31 19:00:00 ...
 ```
@@ -282,7 +282,7 @@ and can be omitted from the previous example:
 
 ```
 >>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL', schema={})
->>> otp.run(data[:1], date=otp.dt(2024, 2, 1))  
+>>> otp.run(data[:1], date=otp.dt(2024, 2, 1))
                            Time EXCHANGE  COND STOP_STOCK SOURCE TRF TTE TICKER  PRICE        DELETED_TIME ...
 0 2024-02-01 04:00:00.008283417        K  @ TI                 N       0   AAPL  186.5 1969-12-31 19:00:00 ...
 ```
@@ -441,7 +441,7 @@ Schema policy **fail** raises an exception if the schema cannot be deduced:
 
 ```
 >>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL', date=otp.dt(2021, 3, 1),
-...                       schema_policy='fail')  
+...                       schema_policy='fail')
 Traceback (most recent call last):
   ...
 ValueError: No ticks found in database(-s) US_COMP_SAMPLE::TRD

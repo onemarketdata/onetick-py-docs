@@ -1,6 +1,6 @@
 # otp.Operation.dt.second
 
-### ``second(timezone)``
+#### \_DtAccessor.second(timezone)
 
 Return the second.
 

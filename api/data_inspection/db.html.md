@@ -38,8 +38,8 @@ All dates are returned in GMT timezone.
 By default access fields from the basic configuration of the database are returned:
 
 ```
->>> db = otp.databases()['US_COMP_SAMPLE']  
->>> db.access_info()                        
+>>> db = otp.databases()['US_COMP_SAMPLE']
+>>> db.access_info()
 {'DB_NAME': 'US_COMP_SAMPLE',
  'READ_ACCESS': 1,
  'WRITE_ACCESS': 0,
@@ -65,7 +65,7 @@ By default access fields from the basic configuration of the database are return
 Set parameter `deep_scan` to True to return access fields from each available host and time interval:
 
 ```
->>> db.access_info(deep_scan=True)  
+>>> db.access_info(deep_scan=True)
           DB_NAME  READ_ACCESS  WRITE_ACCESS  MIN_AGE_SET  MIN_AGE_MSEC  MAX_AGE_SET  ...                       CEP_ACCESS  DESTROY_ACCESS MEMDB_ACCESS         SERVER_ADDRESS INTERVAL_START  INTERVAL_END
 0  US_COMP_SAMPLE            1             0            0             0            0  ...                                1               0            1                    ...     2024-01-01    2038-01-01
 ```
@@ -96,7 +96,7 @@ Shows the specified configuration for a database.
 
 ```
 >>> db = otp.databases()['US_COMP_SAMPLE']
->>> print(db.show_config()['LOCATOR_STRING'])  
+>>> print(db.show_config()['LOCATOR_STRING'])
 <DB ARCHIVE_COMPRESSION_TYPE="NATIVE_PLUS_GZIP" ... DAY_BOUNDARY_TZ="EST5EDT" ... ID="US_COMP_SAMPLE" ...>
 <LOCATIONS >
     <LOCATION ACCESS_METHOD="file" END_TIME="20380101000000" LOCATION="..." ... />
@@ -107,7 +107,7 @@ Shows the specified configuration for a database.
 
 ```
 >>> db = otp.databases()['US_COMP_SAMPLE']
->>> db.show_config(config_type='db_time_intervals')  
+>>> db.show_config(config_type='db_time_intervals')
 {'START_DATE': 1704067200000,
  'END_DATE': 2145916800000,
  'GROWABLE_ARCHIVE_FLAG': 0,
@@ -154,7 +154,7 @@ Returns list of dates in GMT timezone for which data is available.
 
 ```
 >>> db = otp.databases()['US_COMP_SAMPLE']
->>> db.dates()  
+>>> db.dates()
 [datetime.date(2024, 1, 2), ..., datetime.date(2024, 3, 28)]
 ```
 
@@ -325,7 +325,7 @@ Show stats for a particular date for a database *US_COMP_SAMPLE*:
 
 ```
 >>> db = otp.databases()['US_COMP_SAMPLE']
->>> db.show_archive_stats(date=otp.dt(2024, 2, 1))  
+>>> db.show_archive_stats(date=otp.dt(2024, 2, 1))
                  Time  COMPRESSION_TYPE TIME_RANGE_VALIDITY LOWEST_LOADED_DATETIME HIGHEST_LOADED_DATETIME  ...              TOTAL_TICKS  TOTAL_SYMBOLS   TOTAL_SIZE  ARCHIVE_MODIFICATION_TIME NATIVE_COMPR_HEADERS_SIZE
 0 2024-02-01 00:00:00  NATIVE_PLUS_GZIP               VALID    2024-01-31 05:00:00     2024-02-01 01:15:00  ...                777458840           3371  10091704128        2025-11-05 06:09:55                        -1
 1 2024-02-01 05:00:00  NATIVE_PLUS_GZIP               VALID    2024-02-01 05:00:00     2024-02-02 01:15:00  ...                826170303           3308  10603315515        2025-11-05 06:08:18                        -1
@@ -376,7 +376,7 @@ Show calendars for a database US_COMP_SAMPLE in the given range:
 ...             date=otp.dt(2024, 1, 1),
 ...             symbol='AAPL',
 ...             timezone='EST5EDT',
-...             symbol_date=otp.dt(2024, 1, 1))  
+...             symbol_date=otp.dt(2024, 1, 1))
           Time END_DATETIME       CALENDAR_NAME SESSION_NAME SESSION_FLAGS DAY_PATTERN  START_HHMMSS              END_HHMMSS          TIMEZONE  PRIORITY                    DESCRIPTION
 0   2024-01-01   2024-01-02  BBG_EQUITY_EXCH_US     DAY_TYPE             R   0.0.12345             0                  240000  America/New_York         0                    @US_DEFAULT
 1   2024-01-01   2024-01-02  BBG_EQUITY_EXCH_US   PRE_MARKET             b   0.0.12345         40000                   93000  America/New_York         0                    @US_DEFAULT

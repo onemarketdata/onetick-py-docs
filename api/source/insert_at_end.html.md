@@ -1,6 +1,6 @@
 # otp.Source.insert_at_end
 
-#### ``Source.insert_at_end(*, propagate_ticks=True, delimiter_name='AT_END', inplace=False)``
+#### ``Source.insert_at_end(, propagate_ticks=True, delimiter_name='AT_END', inplace=False)``
 
 This function adds a field `delimiter_name`,
 which is set to zero for all inbound ticks

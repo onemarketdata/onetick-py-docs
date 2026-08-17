@@ -134,9 +134,9 @@ Returns the total size for a specified number of order book levels at the end of
 ##### Examples
 
 ```
->>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
->>> data = data.ob_size(bucket_interval=otp.Minute(5), max_levels=3).apply(data)     
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))          
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')
+>>> data = data.ob_size(bucket_interval=otp.Minute(5), max_levels=3).apply(data)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))
                   Time  ASK_VALUE  BID_VALUE
 0  2024-02-01 10:05:00       12.0       10.0
 1  2024-02-01 10:10:00       12.0        5.0

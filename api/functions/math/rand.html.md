@@ -19,7 +19,7 @@ each time a query is invoked.
 ```
 >>> data = otp.Tick(A=1)
 >>> data['RAND'] = otp.math.rand(1, 1000)
->>> otp.run(data)  
+>>> otp.run(data)
         Time  A  RAND
 0 2003-12-01  1   155
 ```

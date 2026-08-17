@@ -17,7 +17,7 @@ FaultTolerance class is used only with ``RemoteTS``.
 ##### Examples
 
 ```
->>> FaultTolerance('host1:4001', 'host2:4002', 'host3:4003') 
+>>> FaultTolerance('host1:4001', 'host2:4002', 'host3:4003')
 ```
 
 It is possible to have multiple load-balancing groups thus mixing together fault tolerance and load-balancing.
@@ -26,5 +26,5 @@ which is from left to right.
 
 ```
 >>> FaultTolerance(LoadBalancing('host1:4001', 'host2:4002'),
-...                LoadBalancing('host3:4003', 'host3:4004')) 
+...                LoadBalancing('host3:4003', 'host3:4004'))
 ```

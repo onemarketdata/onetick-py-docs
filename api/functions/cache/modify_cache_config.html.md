@@ -27,7 +27,7 @@ Modify cache configuration via MODIFY_CACHE_CONFIG EP
 Simple cache config modification
 
 ```
->>> otp.modify_cache_config(  
+>>> otp.modify_cache_config(
 ...    cache_name="some_cache",
 ...    param_name="time_granularity",
 ...    param_value=3,

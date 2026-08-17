@@ -1,6 +1,6 @@
 # otp.Operation.str.insert
 
-### ``insert(start, length, value)``
+#### \_StrAccessor.insert(start, length, value)
 
 Returns a string where `length` characters have been deleted from string,
 beginning at `start`, and where `value` has been inserted into string, beginning at `start`.

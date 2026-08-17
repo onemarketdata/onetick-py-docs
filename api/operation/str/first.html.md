@@ -1,6 +1,6 @@
 # otp.Operation.str.first
 
-### ``first(count=1)``
+#### \_StrAccessor.first(count=1)
 
 Returns first `count` symbols.
 

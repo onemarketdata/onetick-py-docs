@@ -347,8 +347,8 @@ This is just a shortcut for
 
 ```
 >>> data = otp.ObSnapshotWide(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24',
-...                           max_levels=3)                                  
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))  
+...                           max_levels=3)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))
                  Time  BID_PRICE  BID_SIZE               BID_UPDATE_TIME  ASK_PRICE  ASK_SIZE                                       ASK_UPDATE_TIME  LEVEL
 0 2024-02-01 10:00:00   17351.25         1 2024-02-01 09:59:59.867609851   17351.75         1                         2024-02-01 09:59:59.701711193      1
 1 2024-02-01 10:00:00   17351.00         6 2024-02-01 09:59:59.867226023   17352.00         3                         2024-02-01 09:59:59.582195881      2
@@ -358,9 +358,9 @@ This is just a shortcut for
 Consolidated book across multiple venues:
 
 ```
->>> data = otp.ObSnapshotWide(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',      
-...                           tick_type='PRL_FULL', max_levels=3)                       
->>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))             
+>>> data = otp.ObSnapshotWide(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',
+...                           tick_type='PRL_FULL', max_levels=3)
+>>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))
                  Time  BID_PRICE  BID_SIZE               BID_UPDATE_TIME          ASK_PRICE  ASK_SIZE               ASK_UPDATE_TIME  LEVEL
 0 2026-06-03 12:00:00      81.85       126 2026-06-03 11:59:54.366903930              81.89       483 2026-06-03 11:59:51.603506070      1
 1 2026-06-03 12:00:00      81.84        19 2026-06-03 11:59:51.594276182              81.90       240 2026-06-03 11:59:56.917290352      2

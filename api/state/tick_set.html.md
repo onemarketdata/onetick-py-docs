@@ -36,6 +36,8 @@ Defines a state tick set.
 
 ### ``class TickSet(*args, insertion_policy, key_fields, **kwargs)``
 
+Bases: `_TickSequence`
+
 Represents a tick set.
 This class should only be created with ``onetick.py.state.tick_set()`` function
 and should be added to the ``onetick.py.Source.state_vars()`` dictionary
@@ -229,7 +231,7 @@ Throw an exception if the key is not found (there is no `default_value` when `th
 >>> data = otp.Tick(A=555, B=2)
 >>> data.state_vars['SET'] = otp.state.tick_set('oldest', 'A', otp.eval(otp.Tick(A=1, B=4)))
 >>> data['B'] = data.state_vars['SET'].find('B', throw=True)
->>> otp.run(data) 
+>>> otp.run(data)
 Traceback (most recent call last):
 Exception: 9: ERROR:
 ```

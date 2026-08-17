@@ -1,6 +1,6 @@
 # otp.Operation.str.regex_replace
 
-### ``regex_replace(pat, repl, *, replace_every=False, caseless=False)``
+#### \_StrAccessor.regex_replace(pat, repl, , replace_every=False, caseless=False)
 
 Search for occurrences (case dependent) of `pat` and replace with `repl`.
 

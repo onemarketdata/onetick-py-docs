@@ -80,7 +80,7 @@ Find symbols for snapshot some_snapshot in database S1:
 
 ```
 >>> src = otp.FindSnapshotSymbols(snapshot_name='some_snapshot', db='S1')
->>> otp.run(src, symbols='S1::')  
+>>> otp.run(src, symbols='S1::')
         Time SYMBOL_NAME
 0 2003-12-01    S1::AAPL
 1 2003-12-01    S1::AAAA
@@ -91,7 +91,7 @@ Use `pattern` parameter to filter symbol names:
 
 ```
 >>> src = otp.FindSnapshotSymbols(snapshot_name='some_snapshot', db='S1', pattern='A%')
->>> otp.run(src, symbols='S1::')  
+>>> otp.run(src, symbols='S1::')
         Time SYMBOL_NAME
 0 2003-12-01    S1::AAPL
 1 2003-12-01    S1::AAAA
@@ -103,7 +103,7 @@ Select symbol names not matched by pattern:
 >>> src = otp.FindSnapshotSymbols(
 ...     snapshot_name='some_snapshot', db='S1', pattern='A%', discard_on_match=True,
 ... )
->>> otp.run(src, symbols='S1::')  
+>>> otp.run(src, symbols='S1::')
         Time SYMBOL_NAME
 0 2003-12-01    S1::MSFT
 ```

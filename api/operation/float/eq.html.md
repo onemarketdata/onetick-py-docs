@@ -1,6 +1,6 @@
 # otp.Operation.float.eq
 
-### ``eq(other, delta)``
+#### \_FloatAccessor.eq(other, delta)
 
 Compare two double values between themselves according to `delta` relative difference.
 Calculated as `abs(column - other) <= delta`.

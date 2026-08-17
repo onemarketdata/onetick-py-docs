@@ -1,6 +1,6 @@
 # otp.Operation.str.repeat
 
-### ``repeat(repeats)``
+#### \_StrAccessor.repeat(repeats)
 
 Duplicate a string `repeats` times.
 

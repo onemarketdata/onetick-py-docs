@@ -24,8 +24,8 @@ This method is helpful for debugging.
 ##### Examples
 
 ```
->>> data.dump(label='Debug point', where=data['PRICE'] > 99.3, columns=['PRICE', 'QTY'])    
->>> data.dump(columns="X", callback=lambda x: x.first(), label="first")     
+>>> data.dump(label='Debug point', where=data['PRICE'] > 99.3, columns=['PRICE', 'QTY'])
+>>> data.dump(columns="X", callback=lambda x: x.first(), label="first")
 ```
 
 ##### SEE ALSO

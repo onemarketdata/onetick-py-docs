@@ -108,7 +108,7 @@ But it will not work if new time range is wider than original:
 ```
 >>> t = data.modify_query_times(start=data['_START_TIME'] - otp.Milli(1),
 ...                             output_timestamp=data['TIMESTAMP'])
->>> otp.run(t, start=start, end=end)  
+>>> otp.run(t, start=start, end=end)
 Traceback (most recent call last):
 Exception...timestamp is falling out of initial start/end time range...
 ```
@@ -137,7 +137,7 @@ Remember that `start` and `end` parameters can’t depend on ticks:
 >>> t['X'] = 12345
 >>> t = t.modify_query_times(start=t['_START_TIME'] + t['X'] - t['X'],
 ...                          end=t['_END_TIME'] - otp.Milli(1))
->>> otp.run(t, start=start, end=end) 
+>>> otp.run(t, start=start, end=end)
 Traceback (most recent call last):
 Exception...parameter must not depend on ticks...
 ```
@@ -159,7 +159,7 @@ For example, modifying query times for a branch that will be merged later:
 >>> t1, t2 = data[data['PRICE'] > 1.3]
 >>> t2 = t2.modify_query_times(start=start + otp.Milli(1))
 >>> t = otp.merge([t1, t2])
->>> otp.run(t, start=start, end=end) 
+>>> otp.run(t, start=start, end=end)
 Traceback (most recent call last):
 Exception...Invalid graph...time bound to a node...an intermediate node in one of the cycles in graph...
 ```

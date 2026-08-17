@@ -73,8 +73,8 @@ Simple ticks join with snapshot:
 
 ```
 >>> src = otp.Ticks(A=[1, 2])
->>> src = src.join_with_snapshot(snapshot_name='some_snapshot')  
->>> otp.run(src)  
+>>> src = src.join_with_snapshot(snapshot_name='some_snapshot')
+>>> otp.run(src)
                      Time  A  X  Y               TICK_TIME
 0 2003-12-01 00:00:00.000  1  1  4 2003-12-01 00:00:00.000
 1 2003-12-01 00:00:00.000  1  2  5 2003-12-01 00:00:00.001
@@ -88,8 +88,8 @@ Add prefix `T.` for fields from snapshot:
 >>> src = otp.Ticks(A=[1, 2])
 >>> src = src.join_with_snapshot(
 ...     snapshot_name='some_snapshot', prefix_for_output_ticks='T.',
-... )  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
                      Time  A  T.X  T.Y             T.TICK_TIME
 0 2003-12-01 00:00:00.000  1    1    4 2003-12-01 00:00:00.000
 1 2003-12-01 00:00:00.000  1    2    5 2003-12-01 00:00:00.001
@@ -103,8 +103,8 @@ To get only specific fields from snapshot use parameter `snapshot_fields`:
 >>> src = otp.Ticks(A=[1, 2])
 >>> src = src.join_with_snapshot(
 ...     snapshot_name='some_snapshot', snapshot_fields=['Y'],
-... )  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
                      Time  A  Y
 0 2003-12-01 00:00:00.000  1  4
 1 2003-12-01 00:00:00.000  1  5
@@ -124,8 +124,8 @@ parameter with example of joining ticks with absent snapshot:
 ...         'C': (float, src['A'] * 2),
 ...         'D': 50,
 ...     },
-... )  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
                      Time  A            B    C     D
 0 2003-12-01 00:00:00.000  1  Some string  2.0  50.0
 1 2003-12-01 00:00:00.001  2  Some string  2.0  50.0
@@ -134,7 +134,7 @@ parameter with example of joining ticks with absent snapshot:
 In this case, schema for `src` object will be automatically detected from values for this parameter:
 
 ```
->>> src.schema  
+>>> src.schema
 {'A': <class 'int'>, 'B': <class 'str'>, 'C': <class 'float'>, 'D': <class 'int'>}
 ```
 
@@ -148,7 +148,7 @@ Let’s create snapshot with different symbol names inside:
 >>> src = src.save_snapshot(
 ...     snapshot_name='some_snapshot', num_ticks=5, keep_snapshot_after_query=True, symbol_name_field='Y',
 ... )
->>> otp.run(src)  
+>>> otp.run(src)
 ```
 
 Now we can join input only with ticks from snapshot with specified symbol name:
@@ -157,8 +157,8 @@ Now we can join input only with ticks from snapshot with specified symbol name:
 >>> src = otp.Ticks(A=[1, 2])
 >>> src = src.join_with_snapshot(
 ...     snapshot_name='some_snapshot', symbol_name_in_snapshot='AAA',
-... )  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
                      Time  A  X               TICK_TIME
 0 2003-12-01 00:00:00.000  1  1 2003-12-01 00:00:00.000
 1 2003-12-01 00:00:00.000  1  4 2003-12-01 00:00:00.003
@@ -172,8 +172,8 @@ Or we can join each tick with ticks from snapshot with symbol name from input ti
 >>> src = otp.Ticks(A=[1, 2], SYM=['AAA', 'CCC'])
 >>> src = src.join_with_snapshot(
 ...     snapshot_name='some_snapshot', symbol_name_in_snapshot=src['SYM'],
-... )  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
                      Time  A  SYM  X               TICK_TIME
 0 2003-12-01 00:00:00.000  1  AAA  1 2003-12-01 00:00:00.000
 1 2003-12-01 00:00:00.000  1  AAA  4 2003-12-01 00:00:00.003

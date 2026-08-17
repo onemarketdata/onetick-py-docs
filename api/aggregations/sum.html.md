@@ -173,10 +173,10 @@ Note that **seconds** bucket unit doesn’t take into account daylight-saving ti
 so you may not get expected results when using, for example, 24 \* 60 \* 60 seconds as bucket interval.
 
 ```
->>> data = otp.DataSource('CME', symbols=r'NQ\H23', tick_type='TRD')  
->>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')},  
+>>> data = otp.DataSource('CME', symbols=r'NQ\H23', tick_type='TRD')
+>>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')},
 ...                 bucket_interval=24*60*60, bucket_units='seconds', bucket_time='start')
->>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')  
+>>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')
                  Time  VOLUME
 0 2023-03-11 00:00:00       0
 1 2023-03-12 00:00:00   66190
@@ -187,10 +187,10 @@ so you may not get expected results when using, for example, 24 \* 60 \* 60 seco
 In such case use **days** bucket unit instead:
 
 ```
->>> data = otp.DataSource('CME', symbols=r'NQ\H23', tick_type='TRD')  
->>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')},  
+>>> data = otp.DataSource('CME', symbols=r'NQ\H23', tick_type='TRD')
+>>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')},
 ...                 bucket_interval=1, bucket_units='days', bucket_time='start')
->>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')  
+>>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')
         Time  VOLUME
 0 2023-03-11       0
 1 2023-03-12   62940

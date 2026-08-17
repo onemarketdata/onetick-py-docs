@@ -1,6 +1,6 @@
 # otp.Operation.str.len
 
-### ``len()``
+#### \_StrAccessor.len()
 
 Get the length of a string.
 

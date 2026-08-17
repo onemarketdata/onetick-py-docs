@@ -2,6 +2,8 @@
 
 ### ``class long(value, *args, **kwargs)``
 
+Bases: `_integer`
+
 OneTick data type representing signed long integer.
 
 The size of the type is not specified and may vary across different systems.

@@ -1,6 +1,6 @@
 # otp.Operation.str.contains
 
-### ``contains(substr)``
+#### \_StrAccessor.contains(substr)
 
 Check if the string contains `substr`.
 

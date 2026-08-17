@@ -1,6 +1,6 @@
 # otp.Operation.str.ilike
 
-### ``ilike(pattern)``
+#### \_StrAccessor.ilike(pattern)
 
 Check if the value is case insensitive matched with SQL-like `pattern`.
 

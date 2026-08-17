@@ -16,15 +16,15 @@ If this variable is already set, then `onetick-py` can be used right away,
 even without creating ``otp.Session`` object:
 
 ```
->>> import os                                                                                      
->>> from pathlib import Path                                                                       
->>> os.environ['ONE_TICK_CONFIG'] = 'one_tick_config.txt'                                          
->>> Path('one_tick_config.txt').write_text('DB_LOCATOR.DEFAULT=one_tick_locator.txt')              
->>> Path('one_tick_locator.txt').write_text('<VERSION_INFO VERSION="2"/><DATABASES></DATABASES>')  
+>>> import os
+>>> from pathlib import Path
+>>> os.environ['ONE_TICK_CONFIG'] = 'one_tick_config.txt'
+>>> Path('one_tick_config.txt').write_text('DB_LOCATOR.DEFAULT=one_tick_locator.txt')
+>>> Path('one_tick_locator.txt').write_text('<VERSION_INFO VERSION="2"/><DATABASES></DATABASES>')
 
->>> import onetick.py as otp                                
->>> t = otp.Tick(A=1)                                       
->>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))  
+>>> import onetick.py as otp
+>>> t = otp.Tick(A=1)
+>>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))
         Time  A
 0 2022-01-01  1
 ```
@@ -34,11 +34,11 @@ even without creating ``otp.Session`` object:
 Session can be created with ``otp.Session`` class:
 
 ```
->>> import onetick.py as otp                                
->>> session = otp.Session()                                 
+>>> import onetick.py as otp
+>>> session = otp.Session()
 >>> # make required queries
->>> t = otp.Tick(A=1)                                       
->>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))  
+>>> t = otp.Tick(A=1)
+>>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))
         Time  A
 0 2022-01-01  1
 >>> session.close()
@@ -47,12 +47,12 @@ Session can be created with ``otp.Session`` class:
 To avoid manually closing session, you can create it as a python context manager:
 
 ```
->>> import onetick.py as otp                                         
->>> with otp.Session() as session:                                   
+>>> import onetick.py as otp
+>>> with otp.Session() as session:
 ...     # make required queries
-...     t = otp.Tick(A=1)                                            
-...     df = otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))  
-...     print(df)                                                    
+...     t = otp.Tick(A=1)
+...     df = otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))
+...     print(df)
         Time  A
 0 2022-01-01  1
 ```
@@ -118,7 +118,7 @@ pass it to the ``otp.Session.use`` method.
 
 ```
 >>> db = otp.DB('DB_NAME')
->>> session.use(db)  
+>>> session.use(db)
 ```
 
 To add data to temporary database use ``otp.DB.add`` method:
@@ -133,7 +133,7 @@ Alternatively, if you already have the data you want to add to the database, you
 ```
 >>> data = otp.Ticks(A=[1, 2, 3])
 >>> db = otp.DB('DB_NAME', data)
->>> session.use(db)  
+>>> session.use(db)
 ```
 
 ## Working with existing databases
@@ -143,7 +143,7 @@ However, you need to specify locations to load database from via `db_locations` 
 
 ```
 >>> db = otp.DB('NEW_DB', db_locations=[{'location': '/home/user/data/NEW_DB'}])
->>> session.use(db)  
+>>> session.use(db)
 ```
 
 Additional locator configuration variables could be set via `db_locations` and `db_properties` parameters,
@@ -180,14 +180,14 @@ session.use(otp.RemoteTS('path.to.the.server.com:50015'))
 Or they can be added when creating ``otp.Session``:
 
 ```
->>> import onetick.py as otp                                      
->>> with otp.Session(                                             
-...     config=otp.Config(                                        
-...         locator=otp.RemoteTS('path.to.the.server.com:50015')  
-...     )                                                         
-... ):                                                            
+>>> import onetick.py as otp
+>>> with otp.Session(
+...     config=otp.Config(
+...         locator=otp.RemoteTS('path.to.the.server.com:50015')
+...     )
+... ):
 ...     # get available databases
-...     print(otp.databases(as_table=True)['DB_NAME'])            
+...     print(otp.databases(as_table=True)['DB_NAME'])
 0                ABAXX
 1          ABAXX_DAILY
 2            ABU_DHABI
@@ -208,9 +208,9 @@ Of course, a parent database must be added to create a derived database.
 
 ```
 >>> db = otp.DB('DB_NAME')
->>> session.use(db)  
+>>> session.use(db)
 >>> derived_db = otp.DB('DB_NAME//DERIVED_LABEL')
->>> session.use(derived_db)  
+>>> session.use(derived_db)
 ```
 
 You can also add data to derived database.
@@ -218,8 +218,8 @@ You can also add data to derived database.
 ```
 >>> data = otp.Ticks(A=[1, 2, 3])
 >>> derived_db = otp.DB('DB_NAME//DERIVED_LABEL')
->>> session.use(derived_db)  
->>> derived_db.add(data)  
+>>> session.use(derived_db)
+>>> derived_db.add(data)
 ```
 
 See `Derived Databases` OneTick documentation for more info about derived databases.
@@ -266,9 +266,9 @@ Default context is named **DEFAULT** and is created automatically by ``otp.Sessi
 You can see it by reading the configuration file and seeing **DB_LOCATOR.DEFAULT** variable:
 
 ```
->>> session = otp.Session()   
->>> with open(session.config.path) as r:   
-...     print(r.read())   
+>>> session = otp.Session()
+>>> with open(session.config.path) as r:
+...     print(r.read())
 ONE_TICK_CONFIG.ALLOW_ENV_VARS=Yes
 ...
 ACCESS_CONTROL_FILE="/tmp/test_onetick/run_20250127_160920_16360/beige-malkoha.acl"
@@ -281,15 +281,15 @@ Additional contexts can be created by adding other *DB_LOCATOR.* variables to On
 Let’s create context **OTHER**, and create databases in both contexts:
 
 ```
->>> default_locator = otp.Locator()  
->>> default_locator.add(otp.DB('A', otp.Tick(A=1), tick_type='TT', symbol='S'))  
->>> other_locator = otp.Locator(empty=True)  
->>> other_locator.add(otp.DB('B', otp.Tick(B=2), tick_type='TT', symbol='S'))  
->>> config = otp.Config(locator=default_locator,  
+>>> default_locator = otp.Locator()
+>>> default_locator.add(otp.DB('A', otp.Tick(A=1), tick_type='TT', symbol='S'))
+>>> other_locator = otp.Locator(empty=True)
+>>> other_locator.add(otp.DB('B', otp.Tick(B=2), tick_type='TT', symbol='S'))
+>>> config = otp.Config(locator=default_locator,
 ...                     variables={'DB_LOCATOR.OTHER': other_locator.path})
->>> session = otp.Session(config)  
->>> with open(session.config.path) as r:  
-...     print(r.read())  
+>>> session = otp.Session(config)
+>>> with open(session.config.path) as r:
+...     print(r.read())
 ONE_TICK_CONFIG.ALLOW_ENV_VARS=Yes
 ...
 ACCESS_CONTROL_FILE="/tmp/test_onetick/run_20250127_160920_16360/ultra-inchworm.acl"
@@ -301,13 +301,13 @@ DB_LOCATOR.OTHER="/tmp/test_onetick/run_20250127_160920_16360/tangerine-earthwor
 After that both contexts can be used when running queries, thus making databases from different locators available:
 
 ```
->>> data = otp.DataSource('A', tick_type='TT', symbols='S', schema_policy='manual')  
+>>> data = otp.DataSource('A', tick_type='TT', symbols='S', schema_policy='manual')
 >>> # running query without parameter *context* will run the query in **DEFAULT** context
->>> print(otp.run(data))  
+>>> print(otp.run(data))
         Time  A
 0 2003-12-01  1
->>> data = otp.DataSource('B', tick_type='TT', symbols='S', schema_policy='manual')  
->>> print(otp.run(data, context='OTHER'))  
+>>> data = otp.DataSource('B', tick_type='TT', symbols='S', schema_policy='manual')
+>>> print(otp.run(data, context='OTHER'))
         Time  B
 0 2003-12-01  2
 ```
@@ -315,10 +315,10 @@ After that both contexts can be used when running queries, thus making databases
 Some other functions also have parameter `context`, e.g. ``otp.databases``:
 
 ```
->>> otp.databases()  
+>>> otp.databases()
 {'A': <onetick.py.db._inspection.DB at 0x7f520daa4160>,
  'COMMON': <onetick.py.db._inspection.DB at 0x7f520daa4280>,
  'DEMO_L1': <onetick.py.db._inspection.DB at 0x7f520daa4400>}
->>> otp.databases(context='OTHER')  
+>>> otp.databases(context='OTHER')
 {'B': <onetick.py.db._inspection.DB at 0x7f52811c07f0>}
 ```

@@ -1,6 +1,6 @@
 # otp.Operation.str.ltrim
 
-### ``ltrim()``
+#### \_StrAccessor.ltrim()
 
 Removes the leading white spaces from a string.
 

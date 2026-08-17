@@ -18,7 +18,7 @@ Constructs SQL query object.
 Select two fields from a single tick type and symbol and return first three ticks from a single day:
 
 ```
->>> otp.run(  
+>>> otp.run(
 ...     otp.SqlQuery(
 ...         "select PRICE,SIZE from US_COMP_SAMPLE.TRD"
 ...         " where symbol_name = 'AAPL'"
@@ -35,7 +35,7 @@ Select two fields from a single tick type and symbol and return first three tick
 Join quotes and trades:
 
 ```
->>> otp.run(  
+>>> otp.run(
 ...     otp.SqlQuery(
 ...         "select t.PRICE,q.ASK_PRICE,q.BID_PRICE"
 ...         " from US_COMP_SAMPLE.TRD t join US_COMP_SAMPLE.QTE q"
@@ -53,7 +53,7 @@ Join quotes and trades:
 Calculate average price of trades across several symbols:
 
 ```
->>> otp.run(  
+>>> otp.run(
 ...     otp.SqlQuery(
 ...         "select COUNT(*) as COUNT, AVG(PRICE) as AVG_PRICE"
 ...         " from US_COMP_SAMPLE.TRD"

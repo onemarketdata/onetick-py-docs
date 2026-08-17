@@ -38,7 +38,7 @@ Gets all available databases in the `context`.
 Get the dictionary of database names and objects:
 
 ```
->>> otp.databases()  
+>>> otp.databases()
 {'ABU_DHABI': <onetick.py.db._inspection.DB at 0x7f9413a5e8e0>,
  'ABU_DHABI_BARS': <onetick.py.db._inspection.DB at 0x7f9413a5ef40>,
  'ABU_DHABI_DAILY': <onetick.py.db._inspection.DB at 0x7f9413a5eac0>,
@@ -51,7 +51,7 @@ Get the dictionary of database names and objects:
 Get a table with database info:
 
 ```
->>> otp.databases(as_table=True)  
+>>> otp.databases(as_table=True)
            Time            DB_NAME  READ_ACCESS  WRITE_ACCESS         ...
 0    2003-01-01          ABU_DHABI            1             0         ...
 1    2003-01-01     ABU_DHABI_BARS            1             1         ...

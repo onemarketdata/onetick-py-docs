@@ -1,6 +1,6 @@
 # otp.Operation.str.lower
 
-### ``lower()``
+#### \_StrAccessor.lower()
 
 Convert a string to lower case.
 

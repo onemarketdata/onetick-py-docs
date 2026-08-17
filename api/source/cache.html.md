@@ -64,7 +64,7 @@ Simple usage
 ...    cache_name="some_cache",
 ...    tick_type="TRD", symbol="SYM", db="LOCAL",
 ... )
->>> df = otp.run(data)  
+>>> df = otp.run(data)
 ```
 
 ##### SEE ALSO

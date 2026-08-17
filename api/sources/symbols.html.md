@@ -97,8 +97,8 @@ Additional fields that can be added to Symbols will be converted to symbol param
 This class can be used to get a list of all symbols in the database:
 
 ```
->>> data = otp.Symbols('US_COMP_SAMPLE', date=otp.dt(2024, 2, 1))  
->>> otp.run(data)                                                  
+>>> data = otp.Symbols('US_COMP_SAMPLE', date=otp.dt(2024, 2, 1))
+>>> otp.run(data)
           Time  SYMBOL_NAME
 0   2024-02-01            A
 1   2024-02-01          AAL
@@ -116,8 +116,8 @@ This class can be used to get a list of all symbols in the database:
 By default database name and time interval will be inherited from ``otp.run``:
 
 ```
->>> data = otp.Symbols()                                                
->>> otp.run(data, symbols='US_COMP_SAMPLE::', date=otp.dt(2024, 2, 1))  
+>>> data = otp.Symbols()
+>>> otp.run(data, symbols='US_COMP_SAMPLE::', date=otp.dt(2024, 2, 1))
           Time  SYMBOL_NAME
 0   2024-02-01            A
 1   2024-02-01          AAL
@@ -129,10 +129,10 @@ Parameter `keep_db` can be used to show database name in the output.
 It is useful when querying symbols for many databases:
 
 ```
->>> data = otp.Symbols(keep_db=True)                                        
->>> data = data.first(2)                                                    
->>> data = otp.merge([data], symbols=['US_COMP_SAMPLE::', 'CME_SAMPLE::'])  
->>> otp.run(data, date=otp.dt(2024, 2, 1))                                  
+>>> data = otp.Symbols(keep_db=True)
+>>> data = data.first(2)
+>>> data = otp.merge([data], symbols=['US_COMP_SAMPLE::', 'CME_SAMPLE::'])
+>>> otp.run(data, date=otp.dt(2024, 2, 1))
         Time          SYMBOL_NAME
 0 2024-02-01    US_COMP_SAMPLE::A
 1 2024-02-01  US_COMP_SAMPLE::AAL
@@ -145,8 +145,8 @@ By default symbols for all tick types are returned.
 You can set parameter `show_tick_type` to print the tick type for each symbol:
 
 ```
->>> data = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True)  
->>> otp.run(data, date=otp.dt(2024, 2, 1))                     
+>>> data = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True)
+>>> otp.run(data, date=otp.dt(2024, 2, 1))
            Time  SYMBOL_NAME  TICK_TYPE
 0    2024-02-01            A        DAY
 1    2024-02-01            A       LULD
@@ -159,8 +159,8 @@ You can set parameter `show_tick_type` to print the tick type for each symbol:
 Parameter `for_tick_type` can be used to specify a single tick type for which to return symbols:
 
 ```
->>> data = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True, for_tick_type='TRD')  
->>> otp.run(data, date=otp.dt(2024, 2, 1))                                          
+>>> data = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True, for_tick_type='TRD')
+>>> otp.run(data, date=otp.dt(2024, 2, 1))
           Time  SYMBOL_NAME  TICK_TYPE
 0   2024-02-01            A        TRD
 1   2024-02-01          AAL        TRD
@@ -174,8 +174,8 @@ Parameter `pattern` can be used to specify the pattern to filter symbol names:
 
 ```
 >>> data = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True, for_tick_type='TRD',
-...                    pattern='AAP_')      
->>> otp.run(data, date=otp.dt(2024, 2, 1))  
+...                    pattern='AAP_')
+>>> otp.run(data, date=otp.dt(2024, 2, 1))
         Time SYMBOL_NAME TICK_TYPE
 0 2024-02-01        AAPL       TRD
 ```
@@ -184,8 +184,8 @@ Parameter `discard_on_match` can be used to use `pattern` to filter out symbols 
 
 ```
 >>> data = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True, for_tick_type='TRD',
-...                    pattern='AAP_', discard_on_match=True)  
->>> otp.run(data, date=otp.dt(2024, 2, 1))                     
+...                    pattern='AAP_', discard_on_match=True)
+>>> otp.run(data, date=otp.dt(2024, 2, 1))
           Time  SYMBOL_NAME  TICK_TYPE
 0   2024-02-01            A        TRD
 1   2024-02-01          AAL        TRD
@@ -198,11 +198,11 @@ Parameter `discard_on_match` can be used to use `pattern` to filter out symbols 
 `otp.Symbols` object can be used to specify symbols for the main query:
 
 ```
->>> symbols = otp.Symbols('US_COMP_SAMPLE')                           
->>> symbols = symbols.first(3)                                        
->>> data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')          
->>> result = otp.run(data, symbols=symbols, date=otp.dt(2024, 2, 1))  
->>> result['AAPL'][['Time', 'PRICE', 'SIZE']]                         
+>>> symbols = otp.Symbols('US_COMP_SAMPLE')
+>>> symbols = symbols.first(3)
+>>> data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+>>> result = otp.run(data, symbols=symbols, date=otp.dt(2024, 2, 1))
+>>> result['AAPL'][['Time', 'PRICE', 'SIZE']]
                                 Time   PRICE  SIZE
 0      2024-02-01 04:00:00.008283417  186.50     6
 1      2024-02-01 04:00:00.008290927  185.59     1
@@ -213,7 +213,7 @@ Parameter `discard_on_match` can be used to use `pattern` to filter out symbols 
 ```
 
 ```
->>> result['AAL'][['Time', 'PRICE', 'SIZE']]                          
+>>> result['AAL'][['Time', 'PRICE', 'SIZE']]
                                 Time  PRICE  SIZE
 0      2024-02-01 04:00:00.097381367  14.33     1
 1      2024-02-01 04:00:00.138908789  14.37     1
@@ -226,14 +226,14 @@ Parameter `discard_on_match` can be used to use `pattern` to filter out symbols 
 Additional fields of the `otp.Symbols` can be used in the main query as symbol parameters:
 
 ```
->>> symbols = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True, for_tick_type='TRD')  
->>> symbols['PARAM'] = symbols['SYMBOL_NAME'] + '__' + symbols['TICK_TYPE']            
->>> data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')                           
->>> data = data.first(1)                                                               
->>> data['S_PARAM'] = data.Symbol['PARAM', str]                                        
->>> data = otp.merge([data], symbols=symbols)                                          
->>> data = data[['PRICE', 'SIZE', 'S_PARAM']]                                          
->>> otp.run(data, date=otp.dt(2024, 2, 1))                                             
+>>> symbols = otp.Symbols('US_COMP_SAMPLE', show_tick_type=True, for_tick_type='TRD')
+>>> symbols['PARAM'] = symbols['SYMBOL_NAME'] + '__' + symbols['TICK_TYPE']
+>>> data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
+>>> data = data.first(1)
+>>> data['S_PARAM'] = data.Symbol['PARAM', str]
+>>> data = otp.merge([data], symbols=symbols)
+>>> data = data[['PRICE', 'SIZE', 'S_PARAM']]
+>>> otp.run(data, date=otp.dt(2024, 2, 1))
                              Time    PRICE  SIZE    S_PARAM
 0   2024-02-01 04:00:00.001974784  193.800     4   HSY__TRD
 1   2024-02-01 04:00:00.003547904   57.810    18   OXY__TRD
@@ -249,8 +249,8 @@ Note that some symbols may not have a translation in target symbology, so their 
 
 ```
 >>> data = otp.Symbols('US_COMP_SAMPLE', for_tick_type='TRD',
-...                    symbology='FGV', show_original_symbols=True)                   
->>> otp.run(data, start=otp.dt(2024, 2, 1, 9, 30), end=otp.dt(2024, 2, 1, 9, 30, 1))  
+...                    symbology='FGV', show_original_symbols=True)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 9, 30), end=otp.dt(2024, 2, 1, 9, 30, 1))
                    Time   SYMBOL_NAME ORIGINAL_SYMBOL_NAME
 0   2024-02-01 09:30:00  BBG000C2V3D6                    A
 1   2024-02-01 09:30:00  BBG005P7Q881                  AAL

@@ -2,6 +2,8 @@
 
 ### ``class DB(name=None, src=None, date=None, symbol=None, tick_type=None, kind='archive', db_properties=None, db_locations=None, db_raw_data=None, db_feed=None, write=True, clean_up=utils.default, destroy_access=False, minimum_start_date=None, maximum_end_date=None)``
 
+Bases: `_DB`
+
 A class representing OneTick databases when configuring
 ``locators`` and ``ACL``.
 
@@ -88,12 +90,12 @@ You can specify a derived db by using `//` as a separator:
 You can add an existing OneTick database to the locator or create a new one:
 
 ```
->>> existing_db = otp.DB('MY_DB',  
+>>> existing_db = otp.DB('MY_DB',
 ...                      db_locations=[{'location': '/home/user/data/MY_DB',
 ...                                     'start_time': datetime(2003, 1, 1),
 ...                                     'end_time': datetime(2010, 1, 1),
 ...                                     'day_boundary_tz': 'EST5EDT'}])
->>> session.use(existing_db)  
+>>> session.use(existing_db)
 ```
 
 #### ``add(src, date=None, start=None, end=None, symbol=None, tick_type=None, timezone=None, **kwargs)``
@@ -146,62 +148,6 @@ We can get the same data by specifying the same parameters:
 2 2003-01-01 00:00:00.002  6
 ```
 
-#### ``property properties``
-
-Get dict of database properties.
-
-* **Return type:**
-  `dict`
-
-##### Examples
-
-```
->>> otp.DB('X').properties  
-{'symbology': 'BZX',
- 'archive_compression_type': 'NATIVE_PLUS_GZIP',
- 'tick_timestamp_type': 'NANOS'}
-```
-
-#### ``property locations``
-
-Get list of database locations.
-
-* **Return type:**
-  `list` of `dict`
-
-##### Examples
-
-```
->>> otp.DB('X').locations 
-[{'access_method': 'file',
-  'start_time': '20021230000000',
-  'end_time': '21000101000000',
-  ...}]
-```
-
-#### ``property raw_data``
-
-Get dict of database raw configurations.
-
-* **Return type:**
-  `dict` of `dict`
-
-##### Examples
-
-```
->>> db = otp.DB('RAW_EXAMPLE',
-...     db_raw_data=[{
-...         'id': 'PRIMARY_A',
-...         'prefix': 'DATA.',
-...         'locations': [
-...             {'mount': 'mount1'}
-...         ]
-...     }]
-... )
->>> db.raw_data 
-[{'id': 'PRIMARY_A', 'prefix': 'DATA.', 'locations': [{'mount': 'mount1', 'access_method': 'file', ...}]}]
-```
-
 #### ``property feed``
 
 Get dict of database feed configuration.
@@ -224,4 +170,60 @@ Get dict of database feed configuration.
 ... )
 >>> db.feed
 {'type': 'rawdb', 'raw_source': 'PRIMARY_A', 'format': 'native'}
+```
+
+#### ``property locations``
+
+Get list of database locations.
+
+* **Return type:**
+  `list` of `dict`
+
+##### Examples
+
+```
+>>> otp.DB('X').locations
+[{'access_method': 'file',
+  'start_time': '20021230000000',
+  'end_time': '21000101000000',
+  ...}]
+```
+
+#### ``property properties``
+
+Get dict of database properties.
+
+* **Return type:**
+  `dict`
+
+##### Examples
+
+```
+>>> otp.DB('X').properties
+{'symbology': 'BZX',
+ 'archive_compression_type': 'NATIVE_PLUS_GZIP',
+ 'tick_timestamp_type': 'NANOS'}
+```
+
+#### ``property raw_data``
+
+Get dict of database raw configurations.
+
+* **Return type:**
+  `dict` of `dict`
+
+##### Examples
+
+```
+>>> db = otp.DB('RAW_EXAMPLE',
+...     db_raw_data=[{
+...         'id': 'PRIMARY_A',
+...         'prefix': 'DATA.',
+...         'locations': [
+...             {'mount': 'mount1'}
+...         ]
+...     }]
+... )
+>>> db.raw_data
+[{'id': 'PRIMARY_A', 'prefix': 'DATA.', 'locations': [{'mount': 'mount1', 'access_method': 'file', ...}]}]
 ```

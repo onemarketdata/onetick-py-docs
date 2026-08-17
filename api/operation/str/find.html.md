@@ -1,6 +1,6 @@
 # otp.Operation.str.find
 
-### ``find(sub, start=0)``
+#### \_StrAccessor.find(sub, start=0)
 
 Find the index of `sub` in the string. If not found, returns `-1`.
 

@@ -45,7 +45,7 @@ Simple cache read:
 ...    cache_name="some_cache", query=query_func, tick_type="TRD", db="DEMO_L1",
 ... )
 >>> src = otp.ReadCache("some_cache")
->>> otp.run(src)  
+>>> otp.run(src)
 ```
 
 Make cache query for specific time interval:
@@ -56,7 +56,7 @@ Make cache query for specific time interval:
 ...    start=otp.datetime(2024, 1, 1, 12, 30),
 ...    end=otp.datetime(2024, 1, 2, 18, 0),
 ... )
->>> otp.run(src)  
+>>> otp.run(src)
 ```
 
 Override or set otq_params for one query:
@@ -66,7 +66,7 @@ Override or set otq_params for one query:
 ...    "some_cache",
 ...    otq_params={"some_param": "test_value"},
 ... )
->>> otp.run(src)  
+>>> otp.run(src)
 ```
 
 ##### SEE ALSO

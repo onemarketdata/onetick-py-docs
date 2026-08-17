@@ -17,5 +17,5 @@ Other parameters could be specified through the `kwargs`.
 
 ```
 >>> data = otp.Ticks(X=[1, 2, 3])
->>> data.plot(y='X', kind='bar')  
+>>> data.plot(y='X', kind='bar')
 ```

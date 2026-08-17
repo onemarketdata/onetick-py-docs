@@ -1,6 +1,6 @@
 # otp.Operation.str.extract
 
-### ``extract(pat, rewrite='\\\\0', caseless=False)``
+#### \_StrAccessor.extract(pat, rewrite='\\\\0', caseless=False)
 
 Match the string against a regular expression specified by `pat` and return the first match.
 The `rewrite` parameter can optionally be used to arrange the matched substrings and embed them within the

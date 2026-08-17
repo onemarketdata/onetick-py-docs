@@ -2,6 +2,8 @@
 
 ### ``class ulong(value, *args, **kwargs)``
 
+Bases: `_integer`
+
 OneTick data type representing unsigned long integer.
 
 The size of the type is not specified and may vary across different systems.

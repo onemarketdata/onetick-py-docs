@@ -3,6 +3,6 @@
 Get OneTick main directory:
 
 ```
->>> otp.__main_one_tick_dir__  
+>>> otp.__main_one_tick_dir__
 '/opt/one_market_data/one_tick'
 ```

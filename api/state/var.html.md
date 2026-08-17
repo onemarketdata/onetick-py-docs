@@ -27,6 +27,8 @@ Defines a state variable. Supports int, float and string values.
 
 ### *class* \_StateColumn(name, dtype, obj_ref, default_value, scope)
 
+Bases: `_StateBase`, ``Column``
+
 #### ``modify_from_query(*args, **kwargs)``
 
 Modifies a ``state variable``

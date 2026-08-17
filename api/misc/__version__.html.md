@@ -3,6 +3,6 @@
 Get current `onetick.py` version:
 
 ```
->>> otp.__version__  
+>>> otp.__version__
 '1.118.0'
 ```

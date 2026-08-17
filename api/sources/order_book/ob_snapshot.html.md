@@ -367,8 +367,8 @@ This is just a shortcut for
 ##### Examples
 
 ```
->>> data = otp.ObSnapshot(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24', max_levels=3)  
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))                        
+>>> data = otp.ObSnapshot(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24', max_levels=3)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))
                  Time     PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG
 0 2024-02-01 10:00:00  17351.75     1      1 2024-02-01 09:59:59.701711193              1
 1 2024-02-01 10:00:00  17352.00     3      2 2024-02-01 09:59:59.582195881              1
@@ -381,9 +381,9 @@ This is just a shortcut for
 Consolidated book across multiple venues:
 
 ```
->>> data = otp.ObSnapshot(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',      
-...                       tick_type='PRL_FULL', max_levels=3)                       
->>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))         
+>>> data = otp.ObSnapshot(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',
+...                       tick_type='PRL_FULL', max_levels=3)
+>>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))
                  Time  PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG
 0 2026-06-03 12:00:00  81.89   483      1 2026-06-03 11:59:51.603506070              1
 1 2026-06-03 12:00:00  81.90   240      2 2026-06-03 11:59:56.917290352              1
@@ -396,9 +396,9 @@ Consolidated book across multiple venues:
 Set parameter `identify_source` to get separate value for each venue in consolidated book:
 
 ```
->>> data = otp.ObSnapshot(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',         
-...                       tick_type='PRL_FULL', max_levels=3, identify_source=True)    
->>> otp.run(data,start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))             
+>>> data = otp.ObSnapshot(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',
+...                       tick_type='PRL_FULL', max_levels=3, identify_source=True)
+>>> otp.run(data,start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))
                   Time  PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG      SOURCE
 0  2026-06-03 12:00:00  81.89   199      1 2026-06-03 11:59:51.719525779              1    ARCA::AA
 1  2026-06-03 12:00:00  81.89   184      1 2026-06-03 11:59:52.904264766              1  NASDAQ::AA

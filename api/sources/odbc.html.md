@@ -142,8 +142,8 @@ Connect with database’s `dsn`, manually set schema, get all data from TEST_TAB
 
 ```
 >>> data = otp.ODBC(dsn='testdb_dsn', sql='select * from TEST_TABLE',
-...                 schema={'A': str, 'B': int, 'C': float, 'D': otp.nsectime})  
->>> otp.run(data)  
+...                 schema={'A': str, 'B': int, 'C': float, 'D': otp.nsectime})
+>>> otp.run(data)
         Time   A     B        C                       D
 0 2003-12-04  A1  1975  8.12345 2022-01-01 12:13:14.111
 1 2003-12-04  A2  1971  7.98765 2022-01-02 22:23:24.222
@@ -153,8 +153,8 @@ Connect using `connection_string` parameter:
 
 ```
 >>> data = otp.ODBC(connection_string='DRIVER={SQLite3};Database=/path/to/the/database',
-...                 sql='select * from TEST_TABLE')  
->>> otp.run(data)  
+...                 sql='select * from TEST_TABLE')
+>>> otp.run(data)
         Time   A     B        C                       D
 0 2003-12-04  A1  1975  8.12345 2022-01-01 12:13:14.111
 1 2003-12-04  A2  1971  7.98765 2022-01-02 22:23:24.222
@@ -167,8 +167,8 @@ Substitute start time placeholder with `start_expr` parameter:
 ...     dsn='testdb_dsn',
 ...     sql='select * from TEST_TIMESTAMP where TIMESTAMP >= "<_START_TIME>"',
 ...     start_expr=(otp.meta_fields['START_TIME'] + otp.Day(1)).dt.strftime('%Y-%m-%d %H:%M:%S.%q')
-... )  
->>> otp.run(data, start=otp.dt(2022, 1, 1), end=otp.dt(2022, 1, 3))  
+... )
+>>> otp.run(data, start=otp.dt(2022, 1, 1), end=otp.dt(2022, 1, 3))
                      Time  A
 0 2022-01-02 22:23:24.222  2
 ```
@@ -178,8 +178,8 @@ Use parameter `allow_unordered_ticks` if needed:
 ```
 >>> data = otp.ODBC(dsn='testdb_dsn',
 ...                 sql='select * from TEST_UNORDERED',
-...                 allow_unordered_ticks=True)  
->>> otp.run(data, start=otp.dt(2022, 1, 1), end=otp.dt(2022, 1, 3))  
+...                 allow_unordered_ticks=True)
+>>> otp.run(data, start=otp.dt(2022, 1, 1), end=otp.dt(2022, 1, 3))
                      Time  A
 0 2022-01-02 22:23:24.222  2
 1 2022-01-01 12:13:14.111  1

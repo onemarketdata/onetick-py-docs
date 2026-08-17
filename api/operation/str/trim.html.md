@@ -1,6 +1,6 @@
 # otp.Operation.str.trim
 
-### ``trim()``
+#### \_StrAccessor.trim()
 
 Removes white spaces from both sides of the string.
 

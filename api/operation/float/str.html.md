@@ -1,6 +1,6 @@
 # otp.Operation.float.str
 
-### ``str(length=10, precision=6)``
+#### \_FloatAccessor.str(length=10, precision=6)
 
 Converts float to str.
 

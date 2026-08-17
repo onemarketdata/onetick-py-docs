@@ -1,6 +1,6 @@
 # otp.Operation.str.replace
 
-### ``replace(pat, repl)``
+#### \_StrAccessor.replace(pat, repl)
 
 Search for occurrences (case dependent) of `pat` and replace with `repl`.
 

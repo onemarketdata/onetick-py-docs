@@ -1,6 +1,6 @@
 # otp.Operation.str.rtrim
 
-### ``rtrim()``
+#### \_StrAccessor.rtrim()
 
 Removes the trailing white spaces from a string.
 

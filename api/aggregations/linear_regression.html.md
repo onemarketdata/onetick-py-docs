@@ -142,8 +142,8 @@ by the formula: Y = SLOPE \* X + INTERCEPT, where SLOPE and INTERCEPT are the ca
 >>> data = data.linear_regression(
 ...     dependent_variable_field_name=data['Y'],
 ...     independent_variable_field_name=data['X'],
-... )  
->>> otp.run(data)  
+... )
+>>> otp.run(data)
         Time  SLOPE  INTERCEPT
 0 2003-12-04   -0.3        6.7
 ```

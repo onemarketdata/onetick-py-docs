@@ -17,5 +17,5 @@ LoadBalancing class is used only with ``RemoteTS`` and
 ##### Examples
 
 ```
->>> LoadBalancing('host1:4001', 'host2:4002', 'host3:4003') 
+>>> LoadBalancing('host1:4001', 'host2:4002', 'host3:4003')
 ```

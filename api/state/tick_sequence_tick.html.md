@@ -2,6 +2,8 @@
 
 ### ``class TickSequenceTick(name, owner=None)``
 
+Bases: `_TickSequenceTickMixin`, ``ABC``
+
 Tick object that can be accessed only in per-tick script.
 This object is a first per-tick script function argument.
 This object is the loop variable of for-cycle in the code of per-tick script

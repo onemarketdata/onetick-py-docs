@@ -1,6 +1,6 @@
 # otp.Source.to_graph
 
-#### ``Source.to_graph(symbols=None, start=None, end=None, *, add_passthrough=True)``
+#### ``Source.to_graph(symbols=None, start=None, end=None, , add_passthrough=True)``
 
 Construct an `onetick.query.GraphQuery` object.
 

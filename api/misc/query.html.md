@@ -33,15 +33,15 @@ specify a query.
 Adding local query and applying it to the source:
 
 ```
->>> q = otp.query('/otqs/some.otq::some_query', PARAM1='val1', PARAM2=3.14)  
+>>> q = otp.query('/otqs/some.otq::some_query', PARAM1='val1', PARAM2=3.14)
 >>> t = otp.Tick(A=1)
->>> t = t.apply(q)  
+>>> t = t.apply(q)
 ```
 
 Adding remote query:
 
 ```
->>> otp.query('remote://DATABASE::/otqs/some.otq::some_query', PARAM1='val1', PARAM2=3.14)  
+>>> otp.query('remote://DATABASE::/otqs/some.otq::some_query', PARAM1='val1', PARAM2=3.14)
 <onetick.py.sources.query.query object at ...>
 ```
 
@@ -94,7 +94,7 @@ The config allows to specify different query options.
 ##### Examples
 
 ```
->>> otp.query('/otqs/some.otq::some_query', otp.query.config(output_columns=[('X': int)]))  
+>>> otp.query('/otqs/some.otq::some_query', otp.query.config(output_columns=[('X': int)]))
 ```
 
 * **Raises:**
@@ -108,8 +108,8 @@ This object can be used to get a specified output pin of the query as a new ``on
 ##### Examples
 
 ```
->>> query = otp.query('/otqs/some.otq::some_query', PARAM1='val1')  
->>> query()['OUT']  
+>>> query = otp.query('/otqs/some.otq::some_query', PARAM1='val1')
+>>> query()['OUT']
 <onetick.py.core.source.Source at ...>
 ```
 

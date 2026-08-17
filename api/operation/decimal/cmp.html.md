@@ -1,6 +1,6 @@
 # otp.Operation.decimal.cmp
 
-### ``cmp(other, eps)``
+#### \_DecimalAccessor.cmp(other, eps)
 
 Compare two decimal values according to `eps` relative difference.
 
@@ -33,7 +33,7 @@ Two numbers are considered to be equal if:
 ...     EPS=[0.01, 0.1, 0.1, 0.0001, 0.01]
 ... )
 >>> data['Y'] = data['X'].decimal.cmp(data['OTHER'], data['EPS'])
->>> otp.run(data)  
+>>> otp.run(data)
                      Time          X     OTHER     EPS    Y
 0 2003-12-01 00:00:00.000   2.170000   2.10000  0.0100  1.0
 1 2003-12-01 00:00:00.001   2.170000   2.10000  0.1000  0.0

@@ -65,8 +65,8 @@ to the real-time part of data.
 Simple query from `some_table`
 
 ```
->>> src = otp.ReadFromKdb('kdb-server:5000', 'some_table')  
->>> otp.run(src, symbol='LOCAL::AAPL')                      
+>>> src = otp.ReadFromKdb('kdb-server:5000', 'some_table')
+>>> otp.run(src, symbol='LOCAL::AAPL')
                            Time                date            time      price  size   sym
 0 2003-12-01 04:42:42.156933546 2003-11-30 19:00:00  34962156933546  68.668341   300  AAPL
 1 2003-12-01 08:59:33.463062196 2003-11-30 19:00:00  50373463062196  64.309823    60  AAPL
@@ -83,8 +83,8 @@ Rename fields from previous query and keep only them
 ...         'PRICE': (float, 'price'),
 ...         'SIZE': (int, 'size')
 ...     },
-... )                                   
->>> otp.run(src, symbol='LOCAL::AAPL')  
+... )
+>>> otp.run(src, symbol='LOCAL::AAPL')
                            Time      PRICE  SIZE
 0 2003-12-01 04:42:42.156933546  68.668341   300
 1 2003-12-01 08:59:33.463062196  64.309823    60
@@ -95,8 +95,8 @@ Rename fields from previous query and keep only them
 Pass query as `query` parameter instead of table name. In this case filtering by symbol wouldn’t work.
 
 ```
->>> src = otp.ReadFromKdb('kdb-server:5000', 'select from some_table')  
->>> otp.run(src, symbol='LOCAL::ANY')                                   
+>>> src = otp.ReadFromKdb('kdb-server:5000', 'select from some_table')
+>>> otp.run(src, symbol='LOCAL::ANY')
                  Time                date            time      price  size   sym
 0 2199-12-31 19:00:00 2003-11-30 19:00:00  12311440987139  65.868242   170  AAPL
 1 2199-12-31 19:00:00 2003-11-30 19:00:00  33435228341817  95.989642   248  MSFT

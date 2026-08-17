@@ -30,7 +30,7 @@ depending on python and asyncio back-end implementation.
 Calling ``otp.run_async`` will create a “coroutine” object:
 
 ```
->>> otp.run_async(data) 
+>>> otp.run_async(data)
 <coroutine object run_async at ...>
 ```
 
@@ -68,6 +68,6 @@ so total execution time will be around 3 seconds instead of 6:
 0 2003-12-01 00:00:00.000  1
 1 2003-12-01 00:00:00.001  2
 2 2003-12-01 00:00:00.002  3
->>> print('Finished in', time.time() - start_time, 'seconds') 
+>>> print('Finished in', time.time() - start_time, 'seconds')
 Finished in 3.0108885765075684 seconds
 ```

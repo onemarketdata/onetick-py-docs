@@ -254,8 +254,8 @@ This is just a shortcut for
 
 ```
 >>> data = otp.ObNumLevels(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24',
-...                        bucket_interval=otp.Second(300))                  
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))  
+...                        bucket_interval=otp.Second(300))
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))
                   Time  ASK_VALUE  BID_VALUE
 0  2024-02-01 10:05:00      743.0      830.0
 1  2024-02-01 10:10:00      753.0      820.0
@@ -266,9 +266,9 @@ This is just a shortcut for
 Consolidated book across multiple venues:
 
 ```
->>> data = otp.ObNumLevels(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',      
-...                        tick_type='PRL_FULL')                                     
->>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))          
+>>> data = otp.ObNumLevels(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',
+...                        tick_type='PRL_FULL')
+>>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))
                  Time  ASK_VALUE  BID_VALUE
 0 2026-06-03 12:00:00      442.0      968.0
 ```

@@ -1,6 +1,6 @@
 # otp.Operation.decimal.str
 
-### ``str(precision=8)``
+#### \_DecimalAccessor.str(precision=8)
 
 Converts decimal to str.
 

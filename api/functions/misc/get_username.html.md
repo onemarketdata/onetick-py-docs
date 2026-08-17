@@ -12,7 +12,7 @@ and authenticated login name of the user.
 
 ```
 >>> data = otp.Tick(USER=otp.get_username())
->>> otp.run(data)  
+>>> otp.run(data)
         Time               USER
 0 2003-12-01  onetick (onetick)
 ```

@@ -120,14 +120,14 @@ Save ticks to a snapshot in a memory:
 
 ```
 >>> src = otp.Ticks(X=[1, 2, 3, 4, 5])
->>> src = src.save_snapshot(snapshot_name='some_snapshot')  
->>> otp.run(src)  
+>>> src = src.save_snapshot(snapshot_name='some_snapshot')
+>>> otp.run(src)
 ```
 
 If you want to use snapshot, stored in memory, after query, use parameter `keep_snapshot_after_query`:
 
 ```
->>> src = src.save_snapshot(snapshot_name='some_snapshot', keep_snapshot_after_query=True)  
+>>> src = src.save_snapshot(snapshot_name='some_snapshot', keep_snapshot_after_query=True)
 ```
 
 Snapshot will be associated with default database. You can set database via `database` parameter:
@@ -135,10 +135,10 @@ Snapshot will be associated with default database. You can set database via `dat
 ```
 >>> src = src.save_snapshot(
 ...     snapshot_name='some_snapshot', database='SOME_DATABASE', keep_snapshot_after_query=True
-... )  
->>> otp.run(src)  
->>> src = otp.ShowSnapshotList()  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
+>>> src = otp.ShowSnapshotList()
+>>> otp.run(src)
         Time  SNAPSHOT_NAME STORAGE_TYPE        DB_NAME
 0 2003-12-01  some_snapshot       MEMORY  SOME_DATABASE
 ```
@@ -147,7 +147,7 @@ By default, only one last tick per group, if it set, or from all ticks per symbo
 You can change this number by setting `num_ticks` parameter:
 
 ```
->>> src = src.save_snapshot(snapshot_name='some_snapshot', num_ticks=100)  
+>>> src = src.save_snapshot(snapshot_name='some_snapshot', num_ticks=100)
 ```
 
 Setting symbol name for every tick in snapshot from source field:
@@ -156,10 +156,10 @@ Setting symbol name for every tick in snapshot from source field:
 >>> src = otp.Ticks(X=[1, 2, 3], SYMBOL_FIELD=['A', 'B', 'C'])
 >>> src = src.save_snapshot(
 ...     snapshot_name='some_snapshot', symbol_name_field='SYMBOL_FIELD', keep_snapshot_after_query=True,
-... )  
->>> otp.run(src)  
->>> src = otp.FindSnapshotSymbols(snapshot_name='some_snapshot')  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
+>>> src = otp.FindSnapshotSymbols(snapshot_name='some_snapshot')
+>>> otp.run(src)
         Time SYMBOL_NAME
 0 2003-12-01  DEMO_L1::A
 1 2003-12-01  DEMO_L1::B
@@ -172,10 +172,10 @@ Group ticks by column `X` and keep last 2 ticks from each group:
 >>> src = otp.Ticks(X=[0, 0, 0, 1, 1, 1], Y=[1, 2, 3, 4, 5, 6])
 >>> src = src.save_snapshot(
 ...     snapshot_name='some_snapshot', group_by=[src['X']], num_ticks=2, keep_snapshot_after_query=True,
-... )  
->>> otp.run(src)  
->>> src = otp.ReadSnapshot(snapshot_name='some_snapshot')  
->>> otp.run(src)  
+... )
+>>> otp.run(src)
+>>> src = otp.ReadSnapshot(snapshot_name='some_snapshot')
+>>> otp.run(src)
         Time  X  Y               TICK_TIME
 0 2003-12-01  0  2 2003-12-01 00:00:00.001
 1 2003-12-01  0  3 2003-12-01 00:00:00.002

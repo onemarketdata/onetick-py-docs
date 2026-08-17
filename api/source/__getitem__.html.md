@@ -95,7 +95,7 @@ Slice with list will keep all columns, but change order:
 Slice can be used as short-cut for ``Source.copy()``:
 
 ```
->>> data[:] 
+>>> data[:]
 <onetick.py.sources.ticks.Tick object at ...>
 ```
 

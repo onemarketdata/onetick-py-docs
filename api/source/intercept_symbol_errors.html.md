@@ -34,7 +34,7 @@ Intercepting data quality events will remove them from the data flow:
 >>> data = data.throw('WRONG', scope='symbol')
 >>> data = data.intercept_symbol_errors()
 >>> data = data.show_symbol_errors()
->>> otp.run(data)  
+>>> otp.run(data)
 Empty DataFrame
 ...
 ```

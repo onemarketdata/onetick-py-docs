@@ -1,6 +1,6 @@
 # otp.Operation.str.strptime
 
-### ``strptime(format='%Y/%m/%d %H:%M:%S.%J', timezone=None, unit=None)``
+#### \_StrAccessor.strptime(format='%Y/%m/%d %H:%M:%S.%J', timezone=None, unit=None)
 
 Converts the formatted time to the number of nanoseconds (datetime) since 1970/01/01 GMT.
 

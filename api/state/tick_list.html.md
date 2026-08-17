@@ -33,6 +33,8 @@ Defines a state tick list.
 
 ### ``class TickList(name, obj_ref, default_value, scope, schema=None, **kwargs)``
 
+Bases: `_TickSequence`
+
 Represents a tick list.
 This class should only be created with ``onetick.py.state.tick_list()`` function
 and should be added to the ``onetick.py.Source.state_vars()`` dictionary

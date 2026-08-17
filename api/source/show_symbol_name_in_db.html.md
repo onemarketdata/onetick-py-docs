@@ -22,12 +22,12 @@ Notice how actual symbol name can be different for each tick,
 e.g. in this case it is different for each month.
 
 ```
->>> data = otp.DataSource('TDI_FUT', tick_type='TRD')  
->>> data = data[['PRICE']]  
->>> data = data.first(bucket_interval=31, bucket_units='days')  
->>> data['SYMBOL_NAME'] = data.Symbol.name  
->>> data = data.show_symbol_name_in_db()  
->>> otp.run(data,  
+>>> data = otp.DataSource('TDI_FUT', tick_type='TRD')
+>>> data = data[['PRICE']]
+>>> data = data.first(bucket_interval=31, bucket_units='days')
+>>> data['SYMBOL_NAME'] = data.Symbol.name
+>>> data = data.show_symbol_name_in_db()
+>>> otp.run(data,
 ...         symbols='ES_r_tdi', symbol_date=otp.dt(2023, 3, 1),
 ...         start=otp.dt(2023, 3, 1), end=otp.dt(2023, 5, 1))
                      Time    PRICE SYMBOL_NAME SYMBOL_NAME_IN_DB

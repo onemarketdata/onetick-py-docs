@@ -143,9 +143,9 @@ VWAP, best and worst price, total size, and number of levels, for one or both si
 ##### Examples
 
 ```
->>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
->>> data = data.ob_summary(max_levels=3)                                              
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))           
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')
+>>> data = data.ob_summary(max_levels=3)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))
                  Time  BID_SIZE      BID_VWAP  BEST_BID_PRICE  WORST_BID_PRICE  NUM_BID_LEVELS  ASK_SIZE                              ASK_VWAP  BEST_ASK_PRICE  WORST_ASK_PRICE  NUM_ASK_LEVELS
 0 2024-02-01 10:00:00         9  17350.972222        17351.25         17350.75               3         7                          17352.071429        17351.75         17352.25               3
 ```

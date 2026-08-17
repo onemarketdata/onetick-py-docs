@@ -44,8 +44,8 @@ Let’s look at differences. Here’s ``onetick.py.ReadFromDataFrame()`` output
 with `symbols` parameter in ``otp.run``:
 
 ```
->>> src = otp.ReadFromDataFrame(dataframe, symbol_name_field='SYMBOL_NAME')  
->>> otp.run(data, date=otp.dt(2024, 1, 1), symbols=['AAA'])  
+>>> src = otp.ReadFromDataFrame(dataframe, symbol_name_field='SYMBOL_NAME')
+>>> otp.run(data, date=otp.dt(2024, 1, 1), symbols=['AAA'])
                      Time SYMBOL_NAME  PRICE
 0 2024-01-01 12:00:00.001         AAA  50.05
 1 2024-01-01 12:00:02.000         AAA  50.05
@@ -55,9 +55,9 @@ with `symbols` parameter in ``otp.run``:
 Same example for LoadTicksFromDataFrame. As you can see, ticks weren’t filtered by symbol name:
 
 ```
->>> dataframe['_SYMBOL'] = dataframe['SYMBOL_NAME']  
->>> src = otp.LoadTicksFromDataFrame(dataframe)  
->>> otp.run(src, date=otp.date(2024, 1, 1))  
+>>> dataframe['_SYMBOL'] = dataframe['SYMBOL_NAME']
+>>> src = otp.LoadTicksFromDataFrame(dataframe)
+>>> otp.run(src, date=otp.date(2024, 1, 1))
                      Time  PRICE _SYMBOL
 0 2024-01-01 12:00:00.001  50.05     AAA
 1 2024-01-01 12:00:02.000  50.05     AAA

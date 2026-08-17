@@ -41,6 +41,6 @@ Create the .otq file from a ``otp.Source`` object:
 
 ```
 >>> t = otp.Tick(A=1)
->>> t.to_otq()  
+>>> t.to_otq()
 '/tmp/test_user/run_20251202_181018_11054/impetuous-bullfrog.to_otq.otq::query'
 ```

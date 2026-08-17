@@ -1,6 +1,6 @@
 # otp.Operation.dt.hour
 
-### ``hour(timezone)``
+#### \_DtAccessor.hour(timezone)
 
 Return the hour.
 

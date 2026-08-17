@@ -38,8 +38,8 @@ Simple usage:
 
 ```
 >>> data = otp.Ticks(A=[1, 2, 3])
->>> data = data.write_parquet("/path/to/parquet/file")  
->>> otp.run(data)  
+>>> data = data.write_parquet("/path/to/parquet/file")
+>>> otp.run(data)
 ```
 
 ##### SEE ALSO

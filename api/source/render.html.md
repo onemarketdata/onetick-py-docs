@@ -15,5 +15,5 @@ Note that it’s required to have `graphviz` package installed.
 >>> data = otp.Tick(X=3)
 >>> data1, data2 = data[(data['X'] > 2)]
 >>> data = otp.merge([data1, data2])
->>> data.render()  
+>>> data.render()
 ```

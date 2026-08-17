@@ -1,6 +1,6 @@
 # otp.run
 
-### ``run(query, *, symbols=None, start=utils.adaptive, end=utils.adaptive, date=None, start_time_expression=None, end_time_expression=None, timezone=utils.default, context=utils.default, username=None, alternative_username=None, password=None, batch_size=utils.default, running=None, query_properties=None, concurrency=utils.default, apply_times_daily=None, symbol_date=None, query_params=None, time_as_nsec=True, treat_byte_arrays_as_strings=True, output_matrix_per_field=False, output_structure=None, return_utc_times=None, connection=None, callback=None, svg_path=None, use_connection_pool=False, node_name=None, require_dict=False, max_expected_ticks_per_symbol=None, log_symbol=utils.default, encoding=None, manual_dataframe_callback=False, print_symbol_errors=utils.default, preserve_decimal_flag=None, bs_ticks=None, bs_time_msec=None)``
+### ``run(query, , symbols=None, start=utils.adaptive, end=utils.adaptive, date=None, start_time_expression=None, end_time_expression=None, timezone=utils.default, context=utils.default, username=None, alternative_username=None, password=None, batch_size=utils.default, running=None, query_properties=None, concurrency=utils.default, apply_times_daily=None, symbol_date=None, query_params=None, time_as_nsec=True, treat_byte_arrays_as_strings=True, output_matrix_per_field=False, output_structure=None, return_utc_times=None, connection=None, callback=None, svg_path=None, use_connection_pool=False, node_name=None, require_dict=False, max_expected_ticks_per_symbol=None, log_symbol=utils.default, encoding=None, manual_dataframe_callback=False, print_symbol_errors=utils.default, preserve_decimal_flag=None, bs_ticks=None, bs_time_msec=None)``
 
 Executes a query and returns its result.
 
@@ -262,7 +262,7 @@ Debugging unbound symbols with `log_symbol` parameter:
 ```
 >>> data = otp.Tick(X=1)
 >>> symbols = otp.Ticks({'SYMBOL_NAME': ['A', 'B'], 'PARAM': [1, 2]})
->>> otp.run(query, symbols=symbols, log_symbol=True)  
+>>> otp.run(query, symbols=symbols, log_symbol=True)
 Running query <onetick.py.sources.ticks.Tick object at ...>
 Processing symbol A
 Processing symbol B

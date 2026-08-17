@@ -175,8 +175,8 @@ A  B
 2  4
 >>> data = otp.CSV(file_contents=file_contents,
 ...                field_delimiter='        ',
-...                use_field_delimiters_for_title=True)  
->>> otp.run(data)  
+...                use_field_delimiters_for_title=True)
+>>> otp.run(data)
                      Time  A  B
 0 2003-12-01 00:00:00.000  1  3
 1 2003-12-01 00:00:00.001  2  4

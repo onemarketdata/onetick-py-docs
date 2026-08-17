@@ -2,6 +2,8 @@
 
 ### ``class ACL(path=None, clean_up=utils.default, copy=True, session_ref=None)``
 
+Bases: `_FileHandler`
+
 Class representing OneTick database access list file.
 
 ACL is the file that describes the list of the users
@@ -33,14 +35,14 @@ This object can be used when creating ``otp.Config`` object.
 ACL object can be created with existing path:
 
 ```
->>> acl = otp.ACL('/path/to/the/acl')  
+>>> acl = otp.ACL('/path/to/the/acl')
 ```
 
 Or it can be created automatically with some default values:
 
 ```
->>> acl = otp.ACL()  
->>> acl.path         
+>>> acl = otp.ACL()
+>>> acl.path
 '/tmp/test_username/run_20260722_145505_4775/feathered-dragon.acl'
 ```
 

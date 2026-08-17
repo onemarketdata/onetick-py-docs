@@ -1,6 +1,6 @@
 # otp.Operation.str.slice
 
-### ``slice(start=None, stop=None)``
+#### \_StrAccessor.slice(start=None, stop=None)
 
 Returns slice.
 

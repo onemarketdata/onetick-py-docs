@@ -3,6 +3,6 @@
 Get current OneTick build number:
 
 ```
->>> otp.__build__  
+>>> otp.__build__
 '20240530120000'
 ```

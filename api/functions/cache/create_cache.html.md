@@ -56,7 +56,7 @@ Cache is only populated when an attempt is made to read the data from it via ``o
 Simple cache creation from .otq file on OneTick server under `OTQ_FILE_PATH`
 
 ```
->>> otp.create_cache(  
+>>> otp.create_cache(
 ...    cache_name="some_cache", query="CACHE_EXAMPLE.otq::slowquery",
 ...    tick_type="TRD", db="LOCAL",
 ... )
@@ -75,7 +75,7 @@ Cache creation from function
 Create cache for time intervals with different datetime types:
 
 ```
->>> otp.create_cache(  
+>>> otp.create_cache(
 ...    cache_name="some_cache",
 ...    query="query_example.otq::query"),
 ...    inheritability=False,
@@ -93,7 +93,7 @@ Create cache for time intervals with different datetime types:
 Create cache with OTQ params:
 
 ```
->>> otp.create_cache(  
+>>> otp.create_cache(
 ...    cache_name="some_cache",
 ...    query="query_example.otq::query"),
 ...    otq_params={"some_param": "some_value"},

@@ -1,6 +1,6 @@
 # otp.QueryParameters
 
-### ``class QueryParameters(*, symbol_date=None, concurrency=None, batch_size=None, running=None, query_properties=None)``
+### ``class QueryParameters(, symbol_date=None, concurrency=None, batch_size=None, running=None, query_properties=None)``
 
 Bases: ``object``
 

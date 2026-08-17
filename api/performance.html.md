@@ -21,7 +21,7 @@ If it is not set, then temporary ``onetick.py.utils.temp.TmpFile`` is generated 
 ```
 >>> t = otp.Tick(A=1)
 >>> otq_file, summary_file = otp.perf.measure_perf(t)
->>> with open(summary_file) as f:  
+>>> with open(summary_file) as f:
 ...    print(f.read())
 Running result of ...
 ...
@@ -46,7 +46,7 @@ Parsed result is accessible via public properties of the class.
 >>> t = otp.Tick(A=1)
 >>> otq_file, summary_file = otp.perf.measure_perf(t)
 >>> result = otp.perf.PerformanceSummaryFile(summary_file)
->>> print(result.ordinary_summary.dataframe)  
+>>> print(result.ordinary_summary.dataframe)
 index      EP_name  tag ...
     0  PASSTHROUGH    0 ...
 ...
@@ -96,7 +96,7 @@ Parsed result is accessible via public properties of the class.
 ```
 >>> t = otp.Tick(A=1)
 >>> result = otp.perf.MeasurePerformance(t)
->>> print(result.ordinary_summary.dataframe)  
+>>> print(result.ordinary_summary.dataframe)
 index      EP_name  tag ...
     0  PASSTHROUGH    0 ...
 ...
@@ -150,6 +150,8 @@ list of corresponding entries objects
 mapping of EP tags to corresponding entry objects
 
 ### *class* OrdinarySummaryEntry
+
+Bases: `DebugSummaryEntry`, `_OrdinarySummaryEntry`
 
 Data class for each line of ordinary performance summary.
 
@@ -317,6 +319,8 @@ mapping of EP tags to corresponding entry objects
 
 ### *class* PresortSummaryEntry
 
+Bases: `DebugSummaryEntry`, `_PresortSummaryEntry`
+
 Data class for each line of PRESORT performance summary.
 
 * **Parameters:**
@@ -430,6 +434,8 @@ list of corresponding entries objects
 mapping of EP tags to corresponding entry objects
 
 ### *class* CEPSummaryEntry
+
+Bases: `DebugSummaryEntry`, `_CEPSummaryEntry`
 
 Data class for each line of CEP performance summary.
 

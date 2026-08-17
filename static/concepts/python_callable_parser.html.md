@@ -339,6 +339,8 @@ get their names and types.
 
 ### *class* TickDescriptorFields
 
+Bases: `_TickSequence`
+
 Class for declaring tick descriptor fields in per-tick script.
 Can only be iterated, doesn’t have methods and parameters.
 
@@ -359,6 +361,8 @@ Can only be iterated, doesn’t have methods and parameters.
 ``TickDescriptorField``
 
 ### ``class TickDescriptorField(name, **\_)``
+
+Bases: `_TickSequenceTickBase`
 
 Tick descriptor field object.
 Can be accessed only while iterating over

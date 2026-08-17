@@ -38,7 +38,7 @@ By default, this method will throw an exception on the first tick with empty mes
 ```
 >>> t = otp.Tick(A=1)
 >>> t = t.throw()
->>> otp.run(t)  
+>>> otp.run(t)
 Traceback (most recent call last):
     ...
 Exception: ...: In THROW: ...
@@ -50,7 +50,7 @@ You can specify exception message and condition (note that exception now is rais
 ```
 >>> t = otp.Ticks(A=[1, 2])
 >>> t = t.throw(message='A is ' + t['A'].apply(str), where=(t['A']==2))
->>> otp.run(t)  
+>>> otp.run(t)
 Traceback (most recent call last):
     ...
 Exception: ...: In THROW: A is 2. ...
@@ -73,7 +73,7 @@ If you need exception to be thrown always, you can use `throw_before_query_execu
 ```
 >>> t = otp.Empty()
 >>> t = t.throw(throw_before_query_execution=True)
->>> otp.run(t)  
+>>> otp.run(t)
 Traceback (most recent call last):
     ...
 Exception: ...: In THROW: ...
@@ -88,7 +88,7 @@ Tick propagation stops only when error is raised.
 >>> t = otp.Ticks(A=[1, 2, 3, 4])
 >>> t = t.throw(message='warning A=1', scope='symbol', error_code=2, where=(t['A']==1))
 >>> t = t.throw(message='error A=3', scope='symbol', error_code=1502, where=(t['A']==3))
->>> otp.run(t)  
+>>> otp.run(t)
 UserWarning: Symbol error: [2] warning A=1
 UserWarning: Symbol error: [1502] error A=3
                      Time  A

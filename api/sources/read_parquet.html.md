@@ -39,21 +39,21 @@ Simple Parquet file read:
 
 ```
 >>> data = otp.ReadParquet("/path/to/parquet/file")
->>> otp.run(data)  
+>>> otp.run(data)
 ```
 
 Read Parquet file and filter fields:
 
 ```
 >>> data = otp.ReadParquet("/path/to/parquet/file", fields=["some_field", "another_field"])
->>> otp.run(data)  
+>>> otp.run(data)
 ```
 
 Read Parquet file and filter rows:
 
 ```
 >>> data = otp.ReadParquet("/path/to/parquet/file", where="PRICE > 20")
->>> otp.run(data)  
+>>> otp.run(data)
 ```
 
 ##### SEE ALSO

@@ -120,16 +120,16 @@ Optimized copying of one database to another day by day
 using ``otp.expr`` and parameter `apply_times_daily`:
 
 ```
->>> read_db = otp.DB('READ_DB')                                                                
->>> symbols = otp.Symbols('READ_DB', for_tick_type='TT')                                       
->>> data = otp.DataSource('READ_DB', tick_type='TT', symbols=symbols, schema_policy='manual')  
->>> data = data.write('WRITE_DB', date=data['_START_TIME'].dt.strftime('%Y%m%d').expr)         
->>> otp.run(data,                                                                              
-...         start=otp.dt(2003, 12, 1),                                                         
-...         end=otp.dt(2003, 12, 3),                                                           
-...         timezone='EST5EDT',                                                                
-...         apply_times_daily=True,                                                            
-...         concurrency=16)                                                                    
+>>> read_db = otp.DB('READ_DB')
+>>> symbols = otp.Symbols('READ_DB', for_tick_type='TT')
+>>> data = otp.DataSource('READ_DB', tick_type='TT', symbols=symbols, schema_policy='manual')
+>>> data = data.write('WRITE_DB', date=data['_START_TIME'].dt.strftime('%Y%m%d').expr)
+>>> otp.run(data,
+...         start=otp.dt(2003, 12, 1),
+...         end=otp.dt(2003, 12, 3),
+...         timezone='EST5EDT',
+...         apply_times_daily=True,
+...         concurrency=16)
 ```
 
 ##### SEE ALSO

@@ -2,6 +2,8 @@
 
 ### ``class Locator(path=None, clean_up=utils.default, copy=True, empty=False, session_ref=None)``
 
+Bases: `_FileHandler`
+
 Class representing OneTick database locator.
 Locator is the file that describes database name, location and other options.
 
@@ -36,14 +38,14 @@ This object can be used when creating ``otp.Config`` object.
 Locator object can be created with existing path:
 
 ```
->>> locator = otp.Locator('/path/to/the/locator')  
+>>> locator = otp.Locator('/path/to/the/locator')
 ```
 
 Or it can be created automatically with some default values:
 
 ```
->>> locator = otp.Locator()  
->>> locator.path             
+>>> locator = otp.Locator()
+>>> locator.path
 '/tmp/test_username/run_20260722_145505_4775/observant-jackrabbit.locator'
 ```
 

@@ -27,6 +27,8 @@ Dynamic ticks should be declared at the beginning of the script, before any code
 
 ### *class* \_DynamicTick(name)
 
+Bases: `_TickSequenceTickMixin`
+
 This tick type allow to add and update fields dynamically.
 This tick can be inserted to all tick sequences.
 

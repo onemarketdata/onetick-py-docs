@@ -1,6 +1,6 @@
 # otp.Operation.str.endswith
 
-### ``endswith(value)``
+#### \_StrAccessor.endswith(value)
 
 Checks if the Operation ends with a string.
 

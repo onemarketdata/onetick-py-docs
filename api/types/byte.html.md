@@ -2,6 +2,8 @@
 
 ### ``class byte(value, *args, **kwargs)``
 
+Bases: `_integer`
+
 OneTick data type representing byte integer.
 
 The size of the type is not specified and may vary across different systems.

@@ -93,7 +93,7 @@ Data provided as a `otp.Source`:
 >>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.Section('SECTION_NAME', ticks, {'ATTR1': 'VAL1', 'ATTR2': 'VAL2'})
->>> print(section) 
+>>> print(section)
 <SECTION_NAME ATTR1="VAL1" ATTR2="VAL2" OTQ_QUERY=...>
 </SECTION_NAME>
 ```
@@ -130,7 +130,7 @@ Equivalent `otp.Source`:
 >>> data['END_DATETIME'] = [otp.dt(2010, 1, 3, tz='EST5EDT'), otp.dt(2010, 1, 4, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolNameHistory(ticks, symbology='CORE')
->>> print(section) 
+>>> print(section)
 <SYMBOL_NAME_HISTORY SYMBOLOGY="CORE" OTQ_QUERY=...>
 </SYMBOL_NAME_HISTORY>
 ```
@@ -168,7 +168,7 @@ Equivalent `otp.Source`:
 >>> data['END_DATETIME'] = [otp.dt(2010, 1, 3, tz='EST5EDT'), otp.dt(2010, 1, 4, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbologyMapping(ticks, source_symbology='TICKER', dest_symbology='CORE')
->>> print(section) 
+>>> print(section)
 <SYMBOLOGY_MAPPING SOURCE_SYMBOLOGY="TICKER" DEST_SYMBOLOGY="CORE" OTQ_QUERY=...>
 </SYMBOLOGY_MAPPING>
 ```
@@ -207,7 +207,7 @@ Equivalent `otp.Source`:
 >>> data['ADJUSTMENT_TYPE_NAME'] = ['SPLIT']
 >>> ticks = otp.Ticks(**data, offset=[0], db='LOCAL')
 >>> section = otp.RefDB.CorpActions(ticks, symbology='CORE')
->>> print(section) 
+>>> print(section)
 <CORP_ACTIONS SYMBOLOGY="CORE" OTQ_QUERY=...>
 </CORP_ACTIONS>
 ```
@@ -247,7 +247,7 @@ Equivalent `otp.Source`:
 >>> data['ADDITIVE_ADJUSTMENT'] = [3, None]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.ContinuousContracts(ticks, symbology='CORE')
->>> print(section) 
+>>> print(section)
 <CONTINUOUS_CONTRACTS SYMBOLOGY="CORE" OTQ_QUERY=...>
 </CONTINUOUS_CONTRACTS>
 ```
@@ -287,7 +287,7 @@ Equivalent `otp.Source`:
 >>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolCurrency(ticks, symbology='CORE')
->>> print(section) 
+>>> print(section)
 <SYMBOL_CURRENCY SYMBOLOGY="CORE" OTQ_QUERY=...>
 </SYMBOL_CURRENCY>
 ```
@@ -335,7 +335,7 @@ Equivalent `otp.Source`:
 >>> data['DESCRIPTION'] = ['DESCRIPTION1', 'DESCRIPTION2']
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.Calendar(ticks)
->>> print(section) 
+>>> print(section)
 <CALENDAR  OTQ_QUERY=...>
 </CALENDAR>
 ```
@@ -376,7 +376,7 @@ Equivalent `otp.Source`:
 >>> data['CALENDAR_NAME'] = ['CAL1', 'CAL2']
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolCalendar(ticks, symbology='CORE')
->>> print(section) 
+>>> print(section)
 <SYMBOL_CALENDAR SYMBOLOGY="CORE" OTQ_QUERY=...>
 </SYMBOL_CALENDAR>
 ```
@@ -411,7 +411,7 @@ Equivalent `otp.Source`:
 >>> data['DESCRIPTION'] = ['', '']
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolCalendar(ticks, symbology='CORE')
->>> print(section) 
+>>> print(section)
 <SYMBOL_CALENDAR SYMBOLOGY="CORE" OTQ_QUERY=...>
 </SYMBOL_CALENDAR>
 ```
@@ -443,7 +443,7 @@ Data provided as a `otp.Source`:
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> ticks = ticks.table(SYMBOL_NAME=otp.string[128], START_DATETIME=otp.msectime, END_DATETIME=otp.msectime)
 >>> section = otp.RefDB.SectionStr('SECTION_NAME', ticks, {'ATTR1': 'VAL1', 'ATTR2': 'VAL2'})
->>> print(section) 
+>>> print(section)
 <SECTION_NAME ATTR1="VAL1" ATTR2="VAL2">
 SYM1|20100101093000|20100101110000
 SYM2|20100101110000|20100103140000

@@ -25,7 +25,7 @@ This method doesn’t set the name of the OneTick graph node.
 By default source has no name and some predefined values are used when generating .otq file:
 
 ```
->>> t.to_otq()  
+>>> t.to_otq()
 '/tmp/test_user/run_20240126_152546_1391/magnificent-wolverine.to_otq.otq::query'
 ```
 
@@ -34,7 +34,7 @@ and as the name of the query inside this file:
 
 ```
 >>> t.set_name('main')
->>> t.to_otq()  
+>>> t.to_otq()
 '/tmp/test_user/run_20240126_152546_1391/dandelion-angelfish.main.to_otq.otq::main'
 ```
 

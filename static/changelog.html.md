@@ -8,6 +8,23 @@
 
 ### Fixed
 
+- Fix building documentation on the latest `Sphinx`
+
+### Removed
+
+## [1.208.0] - 2026-08-17
+
+### Added
+
+### Changed
+
+- Remove `jupyter-book` from dependencies
+- Update dependencies with security issues in `uv.lock`
+
+### Fixed
+
+- Do not upload Gitlab job’s artifacts to Github
+
 ### Removed
 
 ## [1.207.0] - 2026-08-10
@@ -1705,7 +1722,7 @@
 ### Added
 
 - Separate installation page for remote Cloud Server usage through WebAPI.
-- Added `webapi` extra to `setup.py` for installing `onetick.query_webapi` module
+- Added `webapi` extra to setup.py for installing `onetick.query_webapi` module
   with simple command `pip install onetick-py[webapi]`
 
 ### Changed
@@ -4415,7 +4432,7 @@
 
 ### Changed
 
-- `run.sh` script that is generated for test cases now uses explicitly passed port by default and not `MAIN_TS_PORT`
+- run.sh script that is generated for test cases now uses explicitly passed port by default and not `MAIN_TS_PORT`
 
 ### Fixed
 
@@ -4986,7 +5003,7 @@
 
 ### Changed
 
-- Moved `conftest.py` logic into the onetick-py-test==1.1.21, and moved dependency forward
+- Moved conftest.py logic into the onetick-py-test==1.1.21, and moved dependency forward
 
 ## [1.3.60]
 
@@ -5015,7 +5032,7 @@
 ### Added
 
 - auto escaping in `otp.query` parameters
-- ability to use `onetick.py` expression as `otp.query` parameters
+- ability to use onetick.py expression as `otp.query` parameters
 
 ## [1.3.57]
 

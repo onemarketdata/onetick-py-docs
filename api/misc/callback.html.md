@@ -174,8 +174,8 @@ Ticks result:
 ...     def process_ticks(self, ticks):
 ...         self.result = ticks
 >>> callback = ProcessTicksCallback()
->>> otp.run(t, callback=callback)  
->>> callback.result                
+>>> otp.run(t, callback=callback)
+>>> callback.result
 {'Time': array(['2003-12-01T00:00:00.000000000'], dtype='datetime64[ns]'), 'A': array([1])}
 ```
 
@@ -196,15 +196,15 @@ Let’s create callback printing the number of ticks in a batch:
 Batches specified with `bs_ticks` parameter are returned:
 
 ```
->>> qte = otp.DataSource(db='US_COMP_REPLAY', tick_type='QTE', schema_policy='manual',  
-...                      symbols=otp.Symbols('US_COMP_REPLAY', for_tick_type='QTE'))    
->>> otp.run(qte,                                                                        
-...         start=otp.now(),                                                            
-...         end=otp.now() + otp.Second(3),                                              
-...         timezone='UTC',                                                             
-...         running=True,                                                               
-...         callback=ProcessTicksCallback(),                                            
-...         bs_ticks=5000)                                                              
+>>> qte = otp.DataSource(db='US_COMP_REPLAY', tick_type='QTE', schema_policy='manual',
+...                      symbols=otp.Symbols('US_COMP_REPLAY', for_tick_type='QTE'))
+>>> otp.run(qte,
+...         start=otp.now(),
+...         end=otp.now() + otp.Second(3),
+...         timezone='UTC',
+...         running=True,
+...         callback=ProcessTicksCallback(),
+...         bs_ticks=5000)
 [Got  5000 ticks. Total:   5000.]
 [Got  5000 ticks. Total:  10000.]
 [Got  5000 ticks. Total:  15000.]

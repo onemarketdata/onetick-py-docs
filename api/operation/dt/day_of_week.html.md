@@ -1,6 +1,6 @@
 # otp.Operation.dt.day_of_week
 
-### ``day_of_week(start_index, start_day, timezone)``
+#### \_DtAccessor.day_of_week(start_index, start_day, timezone)
 
 Return the day of the week.
 

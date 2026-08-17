@@ -1,6 +1,6 @@
 # otp.Operation.str.token
 
-### ``token(sep=' ', n=0)``
+#### \_StrAccessor.token(sep=' ', n=0)
 
 Breaks the value into tokens based on the delimiter `sep`
 and returns token at position `n` (zero-based).

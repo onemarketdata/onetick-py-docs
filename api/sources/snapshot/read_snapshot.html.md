@@ -56,7 +56,7 @@ Read snapshot from memory:
 
 ```
 >>> src = otp.ReadSnapshot(snapshot_name='some_snapshot')
->>> otp.run(src)  
+>>> otp.run(src)
         Time  PRICE  SIZE               TICK_TIME
 0 2003-12-01  100.2   500 2003-12-01 00:00:00.000
 1 2003-12-01   98.3   250 2003-12-01 00:00:00.001

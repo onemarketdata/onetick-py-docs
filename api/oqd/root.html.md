@@ -36,7 +36,7 @@ OQD consists of two parts:
 Also some OQD databases (with `OQD_` prefix) are available for querying directly:
 
 ```
->>> [db for db in otp.databases() if db.startswith('OQD_')]  
+>>> [db for db in otp.databases() if db.startswith('OQD_')]
 ['OQD_BBGBSYM',
  'OQD_BBGBTKR',
  'OQD_BBGFGC',

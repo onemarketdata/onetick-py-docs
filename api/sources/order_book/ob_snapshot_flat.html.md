@@ -333,8 +333,8 @@ This is just a shortcut for
 
 ```
 >>> data = otp.ObSnapshotFlat(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24',
-...                           max_levels=3)                                  
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))  
+...                           max_levels=3)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))
                  Time  BID_PRICE1  BID_SIZE1              BID_UPDATE_TIME1  ASK_PRICE1  ASK_SIZE1 ...
 0 2024-02-01 10:00:00    17351.25          1 2024-02-01 09:59:59.867609851    17351.75          1 ...
 ```
@@ -342,9 +342,9 @@ This is just a shortcut for
 Consolidated book across multiple venues:
 
 ```
->>> data = otp.ObSnapshotFlat(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',      
-...                           tick_type='PRL_FULL', max_levels=3)                       
->>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))             
+>>> data = otp.ObSnapshotFlat(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',
+...                           tick_type='PRL_FULL', max_levels=3)
+>>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))
                  Time  BID_PRICE1  BID_SIZE1              BID_UPDATE_TIME1  ASK_PRICE1  ASK_SIZE1  ...
 0 2026-06-03 12:00:00       81.85        126 2026-06-03 11:59:54.366903930       81.89        483  ...
 ```

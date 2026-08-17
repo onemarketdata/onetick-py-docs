@@ -186,12 +186,12 @@ in case of a tick attribute.
 Basic example:
 
 ```
->>> data = otp.DataSource('SOME_DB', symbol='AAA', tick_type='TT')  
+>>> data = otp.DataSource('SOME_DB', symbol='AAA', tick_type='TT')
 >>> data = data.implied_vol(
 ...     interest_rate=0.05, option_type_field=data['OPTION_TYPE'],
 ...     strike_price_field=data['STRIKE_PRICE'], days_till_expiration_field=data['DAYS_TILL_EXPIRATION'],
-... )  
->>> otp.run(data)  
+... )
+>>> otp.run(data)
         Time     VALUE
 0 2003-12-04  0.889491
 ```
@@ -203,12 +203,12 @@ Specifying `interest_rate` and `strike_price` as symbol parameters:
 ...     'SYMBOL_NAME': ['TEST'],
 ...     'INTEREST_RATE': [0.05],
 ...     'STRIKE_PRICE': [100.0],
-... })  
->>> data = otp.DataSource('SOME_DB', symbol='AAA', tick_type='TT')  
+... })
+>>> data = otp.DataSource('SOME_DB', symbol='AAA', tick_type='TT')
 >>> data = data.implied_vol(
 ...     option_type_field=data['OPTION_TYPE'], days_till_expiration_field=data['DAYS_TILL_EXPIRATION'],
-... )  
->>> otp.run(data)  
+... )
+>>> otp.run(data)
         Time     VALUE
 0 2003-12-04  0.889491
 ```

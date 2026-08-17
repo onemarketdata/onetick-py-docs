@@ -59,8 +59,8 @@ And then calculate profit and loss metric for it.
 First let’s use string `buy_sell_flag_field` field:
 
 ```
->>> data = trades.pnl_realized(buy_sell_flag_field='SIDE')  
->>> otp.run(data)[['Time', 'PRICE', 'SIZE', 'SIDE', 'PNL_REALIZED']]  
+>>> data = trades.pnl_realized(buy_sell_flag_field='SIDE')
+>>> otp.run(data)[['Time', 'PRICE', 'SIZE', 'SIDE', 'PNL_REALIZED']]
                       Time  PRICE  SIZE  SIDE  PNL_REALIZED
 0  2003-12-01 00:00:00.000    1.0   700     B           0.0
 1  2003-12-01 00:00:00.001    2.0    20     B           0.0
@@ -78,8 +78,8 @@ First let’s use string `buy_sell_flag_field` field:
 We can get the same result using integer `buy_sell_flag_field` field:
 
 ```
->>> data = trades.pnl_realized(buy_sell_flag_field='SELL_FLAG')  
->>> otp.run(data)[['Time', 'PRICE', 'SIZE', 'SELL_FLAG', 'PNL_REALIZED']]  
+>>> data = trades.pnl_realized(buy_sell_flag_field='SELL_FLAG')
+>>> otp.run(data)[['Time', 'PRICE', 'SIZE', 'SELL_FLAG', 'PNL_REALIZED']]
                       Time  PRICE  SIZE  SELL_FLAG  PNL_REALIZED
 0  2003-12-01 00:00:00.000    1.0   700          0           0.0
 1  2003-12-01 00:00:00.001    2.0    20          0           0.0

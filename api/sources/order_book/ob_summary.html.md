@@ -337,8 +337,8 @@ This is just a shortcut for
 ##### Examples
 
 ```
->>> data = otp.ObSummary(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24', max_levels=3)  
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))                        
+>>> data = otp.ObSummary(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24', max_levels=3)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))
                  Time  BID_SIZE      BID_VWAP  BEST_BID_PRICE  WORST_BID_PRICE  NUM_BID_LEVELS  ASK_SIZE                              ASK_VWAP  BEST_ASK_PRICE  WORST_ASK_PRICE  NUM_ASK_LEVELS
 0 2024-02-01 10:00:00         9  17350.972222        17351.25         17350.75               3         7                          17352.071429        17351.75         17352.25               3
 ```
@@ -346,9 +346,9 @@ This is just a shortcut for
 Consolidated book across multiple venues:
 
 ```
->>> data = otp.ObSummary(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',      
-...                      tick_type='PRL_FULL', max_levels=3)                       
->>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))        
+>>> data = otp.ObSummary(db=['ARCA', 'AMEX', 'NASDAQ', 'NYSE'], symbols='AA',
+...                      tick_type='PRL_FULL', max_levels=3)
+>>> otp.run(data, start=otp.dt(2026, 6, 3, 12), end=otp.dt(2026, 6, 3, 12))
                  Time  BID_SIZE   BID_VWAP  BEST_BID_PRICE  WORST_BID_PRICE  NUM_BID_LEVELS  ASK_SIZE           ASK_VWAP  BEST_ASK_PRICE  WORST_ASK_PRICE  NUM_ASK_LEVELS
 0 2026-06-03 12:00:00       239  81.841339           81.85            81.83               3       724          81.893343           81.89            81.91               3
 ```

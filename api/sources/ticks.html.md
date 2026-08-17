@@ -88,8 +88,8 @@ DataFrame should have a `Time` column containing datetime objects.
 >>> time_array = [start_datetime + otp.Hour(1) + otp.Nano(1)]
 >>> a_array = [start_datetime - otp.Day(15) - otp.Nano(7)]
 >>> df = pd.DataFrame({'Time': time_array,'A': a_array})
->>> data = otp.Ticks(df)  
->>> otp.run(data, start=start_datetime, end=start_datetime + otp.Day(1))  
+>>> data = otp.Ticks(df)
+>>> otp.run(data, start=start_datetime, end=start_datetime + otp.Day(1))
                            Time                             A
 0 2023-01-01 13:00:00.000000001 2022-12-17 11:59:59.999999993
 ```

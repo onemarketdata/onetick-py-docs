@@ -123,9 +123,9 @@ Returns the size-weighted price computed over a specified number of order book l
 ##### Examples
 
 ```
->>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
->>> data = data.ob_vwap(bucket_interval=otp.Minute(5)).apply(data)                   
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))          
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')
+>>> data = data.ob_vwap(bucket_interval=otp.Minute(5)).apply(data)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 11))
                   Time     ASK_VALUE     BID_VALUE
 0  2024-02-01 10:05:00  17493.087642  17013.839286
 1  2024-02-01 10:10:00  17486.863024  17006.515027

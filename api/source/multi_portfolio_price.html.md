@@ -176,7 +176,7 @@ Basic example, by default this EP takes `PRICE` column as input
 ...     portfolios_query='some_query.otq::portfolios_query',
 ...     symbols=['US_COMP::AAPL', 'US_COMP::MSFT', 'US_COMP::ORCL'],
 ... )
->>> otp.run(data)  
+>>> otp.run(data)
         Time  VALUE  NUM_SYMBOLS PORTFOLIO_NAME
 0 2003-12-01   95.0            3    PORTFOLIO_1
 1 2003-12-01   47.5            1    PORTFOLIO_2
@@ -195,7 +195,7 @@ Override `weight` returned by `portfolios_query` with `weight_field_name`
 ...     weight_field_name='WEIGHT',
 ...     symbols=['US_COMP::AAPL', 'US_COMP::MSFT', 'US_COMP::ORCL'],
 ... )
->>> otp.run(data)  
+>>> otp.run(data)
         Time  VALUE  NUM_SYMBOLS PORTFOLIO_NAME
 0 2003-12-01   38.0            3    PORTFOLIO_1
 1 2003-12-01   19.0            1    PORTFOLIO_2
@@ -213,7 +213,7 @@ Pass parameters to the query from `portfolios_query` via `portfolios_query_param
 ...     symbols=['US_COMP::AAPL', 'US_COMP::MSFT', 'US_COMP::ORCL'],
 ...     portfolios_query_params={'PORTFOLIO_1_NAME': 'CUSTOM_NAME'}
 ... )
->>> otp.run(data)  
+>>> otp.run(data)
         Time  VALUE  NUM_SYMBOLS PORTFOLIO_NAME
 0 2003-12-01   95.0            3    CUSTOM_NAME
 1 2003-12-01   47.5            1    PORTFOLIO_2
@@ -235,7 +235,7 @@ Use `otp.Source` object as `portfolios_query` (only for local queries)
 ...     portfolios_query=portfolios,
 ...     symbols=['US_COMP::AAPL', 'US_COMP::MSFT'],
 ... )
->>> otp.run(data)  
+>>> otp.run(data)
         Time  VALUE  NUM_SYMBOLS PORTFOLIO_NAME
 0 2003-12-01   47.5            2    PORTFOLIO_1
 1 2003-12-01   46.0            1    PORTFOLIO_2

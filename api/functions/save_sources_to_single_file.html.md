@@ -41,7 +41,7 @@ Save multiple sources src1 and src2 to one file /home/test/queries.otq as query_
 ...         'query_2': src2,
 ...     },
 ...     file_path='/home/test/queries.otq',
-... )  
+... )
 ```
 
 Set start and end time for query_1 and symbol name for query_2:
@@ -60,7 +60,7 @@ Set start and end time for query_1 and symbol name for query_2:
 ...         }
 ...     },
 ...     file_path='/home/test/queries.otq',
-... )  
+... )
 ```
 
 Set query property MAX_CONCURRENCY for query_1:
@@ -77,5 +77,5 @@ Set query property MAX_CONCURRENCY for query_1:
 ...         'query_2': src2,
 ...     },
 ...     file_path='/home/test/queries.otq',
-... )  
+... )
 ```

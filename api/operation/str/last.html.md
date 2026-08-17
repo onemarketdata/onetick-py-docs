@@ -1,6 +1,6 @@
 # otp.Operation.str.last
 
-### ``last(count=1)``
+#### \_StrAccessor.last(count=1)
 
 Returns last `count` symbols.
 

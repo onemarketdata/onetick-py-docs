@@ -1,6 +1,6 @@
 # otp.utils.TmpDir
 
-### ``class TmpDir(rel_path='', *, suffix='', clean_up=default, base_dir=default)``
+### ``class TmpDir(rel_path='', , suffix='', clean_up=default, base_dir=default)``
 
 Bases: ``PathLike``, `CleanUpFinalizer`
 

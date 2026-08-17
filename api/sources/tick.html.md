@@ -12,7 +12,7 @@ By default a single tick for the whole query time interval is generated.
     If specified, then parameter `kwargs` can’t be used.
   * **offset** (int, `datetime offset`,                ``otp.timedelta``) – Tick timestamp offset from query start time in offset_part.
     Default is 0 (tick timestamp will be the same as query start time).
-  * **offset_part** (*one* *of*  *[**nanosecond* *,* *millisecond* *,* *second* *,* *minute* *,* *hour* *,*                             *day* *,* *dayofyear* *,* *weekday* *,* *week* *,* *month* *,* *quarter* *,* *year* *]*) – Unit of time to calculate `offset` from.
+  * **offset_part** (*one* *of*  **[*nanosecond* *,* *millisecond* *,* *second* *,* *minute* *,* *hour* *,*                             *day* *,* *dayofyear* *,* *weekday* *,* *week* *,* *month* *,* *quarter* *,* *year* *]*) – Unit of time to calculate `offset` from.
     Could be omitted if `datetime offset` or
     ``otp.timedelta`` objects are set as `offset`,
     otherwise by default it is set to ‘millisecond’.

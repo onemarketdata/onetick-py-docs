@@ -1,6 +1,6 @@
 # otp.Operation.dt.day_of_month
 
-### ``day_of_month(timezone)``
+#### \_DtAccessor.day_of_month(timezone)
 
 Return the day of the month.
 

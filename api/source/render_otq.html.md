@@ -35,10 +35,10 @@ Render current ``Source`` graph.
 ##### Examples
 
 ```
->>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')  
->>> data1, data2 = data[(data['PRICE'] > 50)]                                    
->>> data = otp.merge([data1, data2])                                             
->>> data.render_otq('./path/to/image.png')                                       
+>>> data = otp.DataSource(db='US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')
+>>> data1, data2 = data[(data['PRICE'] > 50)]
+>>> data = otp.merge([data1, data2])
+>>> data.render_otq('./path/to/image.png')
 ```
 
 !`image`

@@ -1,6 +1,6 @@
 # otp.Operation.str.get
 
-### ``get(i)``
+#### \_StrAccessor.get(i)
 
 Returns the character at the position indicated by the 0-based index; and empty string,
 if position is greater or equal to the length.

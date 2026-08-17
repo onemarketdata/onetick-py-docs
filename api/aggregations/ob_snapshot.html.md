@@ -171,9 +171,9 @@ the price, the size, the side, and the time of the last update for a specified n
 ##### Examples
 
 ```
->>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')  
->>> data = otp.agg.ob_snapshot(max_levels=3).apply(data)                             
->>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))          
+>>> data = otp.DataSource(db='CME_SAMPLE', tick_type='PRL_FULL', symbols=r'NQ\H24')
+>>> data = otp.agg.ob_snapshot(max_levels=3).apply(data)
+>>> otp.run(data, start=otp.dt(2024, 2, 1, 10), end=otp.dt(2024, 2, 1, 10))
                  Time     PRICE  SIZE  LEVEL                   UPDATE_TIME  BUY_SELL_FLAG
 0 2024-02-01 10:00:00  17351.75     1      1 2024-02-01 09:59:59.701711193              1
 1 2024-02-01 10:00:00  17352.00     3      2 2024-02-01 09:59:59.582195881              1

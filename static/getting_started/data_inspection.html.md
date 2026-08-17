@@ -16,7 +16,7 @@ Let’s look at the available methods for data inspection.
 First of all you could list available databases.
 
 ```
->>> otp.databases()  
+>>> otp.databases()
 {..., 'US_COMP_SAMPLE': ...}
 ```
 
@@ -24,7 +24,7 @@ To list dates for which data is available in the database, you can use
 ``DB.dates`` method.
 
 ```
->>> otp.databases()['US_COMP_SAMPLE'].dates()  
+>>> otp.databases()['US_COMP_SAMPLE'].dates()
 [datetime.date(2024, 1, 2), datetime.date(2024, 1, 3), ...]
 ```
 
@@ -72,7 +72,7 @@ the list of symbols for a specific date.
 If date not specified, the last available for selected database date will be used.
 
 ```
->>> otp.databases()['US_COMP_SAMPLE'].symbols(tick_type='TRD', date=otp.dt(2024, 2, 1))  
+>>> otp.databases()['US_COMP_SAMPLE'].symbols(tick_type='TRD', date=otp.dt(2024, 2, 1))
 ['A', 'AAL', 'AAPL', ...]
 ```
 

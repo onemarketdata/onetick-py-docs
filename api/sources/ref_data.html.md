@@ -39,9 +39,9 @@ as well as names of continuous contracts in database symbology.
 Show calendars for a database US_COMP_SAMPLE:
 
 ```
->>> src = otp.RefData('all_calendars')  
+>>> src = otp.RefData('all_calendars')
 >>> otp.run(src, symbols='US_COMP_SAMPLE::AAPL',
-...         date=otp.dt(2024, 2, 1), symbol_date=otp.dt(2024, 2, 1), timezone='EST5EDT')  
+...         date=otp.dt(2024, 2, 1), symbol_date=otp.dt(2024, 2, 1), timezone='EST5EDT')
          Time END_DATETIME       CALENDAR_NAME SESSION_NAME SESSION_FLAGS DAY_PATTERN                     START_HHMMSS  END_HHMMSS          TIMEZONE  PRIORITY                    DESCRIPTION
 0  2024-02-01   2024-03-29  BBG_EQUITY_EXCH_US     DAY_TYPE             R   0.0.12345                                0      240000  America/New_York         0                    @US_DEFAULT
 1  2024-02-01   2024-03-29  BBG_EQUITY_EXCH_US   PRE_MARKET             b   0.0.12345                            40000       93000  America/New_York         0                    @US_DEFAULT

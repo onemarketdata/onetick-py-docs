@@ -81,7 +81,7 @@ If OneTick configuration is defined with environment, onetick-py can be used rig
 ```
 >>> 'ONE_TICK_CONFIG' in os.environ
 True
->>> list(otp.databases())  
+>>> list(otp.databases())
 [..., 'US_COMP_SAMPLE', ...]
 >>> data = otp.DataSource('US_COMP_SAMPLE', symbol='AAPL', tick_type='TRD')
 >>> data = data[['PRICE']][:3]
@@ -95,9 +95,9 @@ True
 Otherwise you need to create the ``otp.Session`` object before making queries:
 
 ```
->>> session = otp.Session()                                  
->>> t = otp.Tick(A=1)                                        
->>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))   
+>>> session = otp.Session()
+>>> t = otp.Tick(A=1)
+>>> otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))
         Time  A
 0 2022-01-01  1
 ```
@@ -105,17 +105,17 @@ Otherwise you need to create the ``otp.Session`` object before making queries:
 Session must be closed before creating another session:
 
 ```
->>> session.close()   
+>>> session.close()
 ```
 
 Session can be created as a python context manager.
 In this case it doesn’t need to be closed manually:
 
 ```
->>> with otp.Session() as session:                                    
-...     t = otp.Tick(A=1)                                             
-...     df = otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))   
-...     print(df)                                                     
+>>> with otp.Session() as session:
+...     t = otp.Tick(A=1)
+...     df = otp.run(t, symbols='LOCAL::', date=otp.dt(2022, 1, 1))
+...     print(df)
         Time  A
 0 2022-01-01  1
 ```
@@ -123,14 +123,14 @@ In this case it doesn’t need to be closed manually:
 Collecting performance metrics with `gather_performance_metrics` parameter:
 
 ```
->>> with otp.Session(gather_performance_metrics=True) as session:    
-...    data_a = otp.DataSource('DB_A', symbol='S1', tick_type='TT')  
-...    data_b = otp.DataSource('DB_B', symbol='S1', tick_type='TT')  
-...    _ = otp.run(otp.merge([data_a, data_b]))                      
+>>> with otp.Session(gather_performance_metrics=True) as session:
+...    data_a = otp.DataSource('DB_A', symbol='S1', tick_type='TT')
+...    data_b = otp.DataSource('DB_B', symbol='S1', tick_type='TT')
+...    _ = otp.run(otp.merge([data_a, data_b]))
 ```
 
 ```
->>> session.performance_metrics                                      
+>>> session.performance_metrics
 {
     'user_time': {'name': 'User Time', 'value': 3.39063, 'units': 's'},
     'system_time': {'name': 'System Time', 'value': 1.07813, 'units': 's'},
@@ -162,11 +162,11 @@ Makes DB or TS available inside the session.
 (note that `session` is created before this example)
 
 ```
->>> list(otp.databases()) 
+>>> list(otp.databases())
 [..., 'US_COMP_SAMPLE', ...]
 >>> new_db = otp.DB('ZZZZ')
 >>> session.use(new_db)
->>> list(otp.databases()) 
+>>> list(otp.databases())
 [..., 'US_COMP_SAMPLE', ..., 'ZZZZ', ...]
 ```
 

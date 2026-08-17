@@ -34,7 +34,7 @@ Intercepting data quality events will remove them from the data flow:
 >>> data = data.insert_data_quality_event('OK')
 >>> data = data.intercept_data_quality()
 >>> data = data.show_data_quality()
->>> otp.run(data)  
+>>> otp.run(data)
 Empty DataFrame
 ...
 ```

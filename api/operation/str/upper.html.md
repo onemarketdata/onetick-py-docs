@@ -1,6 +1,6 @@
 # otp.Operation.str.upper
 
-### ``upper()``
+#### \_StrAccessor.upper()
 
 Converts a string to upper case.
 

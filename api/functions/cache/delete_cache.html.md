@@ -19,7 +19,7 @@ Delete cache via DELETE_CACHE EP
 Simple cache deletion
 
 ```
->>> otp.delete_cache(  
+>>> otp.delete_cache(
 ...    cache_name="some_cache", tick_type="TRD", symbol="SYM", db="LOCAL",
 ... )
 ```

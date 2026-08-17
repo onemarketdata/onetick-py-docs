@@ -2,6 +2,8 @@
 
 ### ``class Config(config=None, locator=None, acl=None, otq_path=None, csv_path=None, clean_up=utils.default, copy=True, session_ref=None, license=None, variables=None)``
 
+Bases: `_FileHandler`
+
 The object to create and modify OneTick main configuration file.
 
 This object can be used when creating ``otp.Session`` object.
@@ -54,32 +56,32 @@ This object can be used when creating ``otp.Session`` object.
 Configuration object can be created with existing path:
 
 ```
->>> config = otp.Config('/path/to/the/config')  
+>>> config = otp.Config('/path/to/the/config')
 ```
 
 Or it can be created automatically with some default values:
 
 ```
->>> config = otp.Config()  
->>> config.path            
+>>> config = otp.Config()
+>>> config.path
 '/tmp/test_username/run_20260722_145505_4775/carrot-unicorn.cfg'
 ```
 
 Custom locator and ACL files can be specified:
 
 ```
->>> config = otp.Config(           
-...     locator=otp.Locator(...),  
-...     acl=otp.ACL(...)           
-... )                              
+>>> config = otp.Config(
+...     locator=otp.Locator(...),
+...     acl=otp.ACL(...)
+... )
 ```
 
 ``otp.RemoteTS`` object can also be specified as `locator`:
 
 ```
->>> config = otp.Config(                                       
-...     locator=otp.RemoteTS('path.to.the.server.com:50015'),  
-... )                                                          
+>>> config = otp.Config(
+...     locator=otp.RemoteTS('path.to.the.server.com:50015'),
+... )
 ```
 
 ##### SEE ALSO

@@ -12,7 +12,7 @@ print it to the standard output, then remove the file.
 
 ```
 >>> data = otp.Tick(A=1)
->>> data.print_otq()  
+>>> data.print_otq()
 [query]
 COMMENT =
 CPU_NUMBER = 1

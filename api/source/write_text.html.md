@@ -1,6 +1,6 @@
 # otp.Source.write_text
 
-#### ``Source.write_text(*, propagate_ticks=True, output_headers=True, output_types_in_headers=False, order=None, prepend_symbol_name=True, prepended_symbol_name_size=0, prepend_timestamp=True, separator=',', formats_of_fields=None, double_format='%f', output_dir=None, output_file=None, error_file=None, warning_file=None, data_quality_file=None, treat_input_as_binary=False, flush=True, append=False, allow_concurrent_write=False, inplace=False)``
+#### ``Source.write_text(, propagate_ticks=True, output_headers=True, output_types_in_headers=False, order=None, prepend_symbol_name=True, prepended_symbol_name_size=0, prepend_timestamp=True, separator=',', formats_of_fields=None, double_format='%f', output_dir=None, output_file=None, error_file=None, warning_file=None, data_quality_file=None, treat_input_as_binary=False, flush=True, append=False, allow_concurrent_write=False, inplace=False)``
 
 Writes the input tick series to a text file or standard output.
 
@@ -114,7 +114,7 @@ By default the text is written to the standard output:
 ```
 >>> data = otp.Ticks(A=[1, 2, 3])
 >>> write = data.write_text()
->>> _ = otp.run(write)  
+>>> _ = otp.run(write)
 #SYMBOL_NAME,TIMESTAMP,A
 AAPL,20031201050000.000000,1
 AAPL,20031201050000.001000,2
@@ -125,9 +125,9 @@ Output file can also be specified:
 
 ```
 >>> write = data.write_text(output_file='result.csv')
->>> _ = otp.run(write)  
->>> with open('result.csv') as f:  
-...     print(f.read())  
+>>> _ = otp.run(write)
+>>> with open('result.csv') as f:
+...     print(f.read())
 #SYMBOL_NAME,TIMESTAMP,A
 AAPL,20031201050000.000000,1
 AAPL,20031201050000.001000,2
@@ -139,7 +139,7 @@ Symbol name, timestamp of the tick and can be removed from the output:
 ```
 >>> write = data.write_text(prepend_timestamp=False,
 ...                         prepend_symbol_name=False)
->>> _ = otp.run(write)  
+>>> _ = otp.run(write)
 #A
 1
 2
@@ -150,7 +150,7 @@ The header can also be removed from the output:
 
 ```
 >>> write = data.write_text(output_headers=False)
->>> _ = otp.run(write)  
+>>> _ = otp.run(write)
 AAPL,20031201050000.000000,1
 AAPL,20031201050000.001000,2
 AAPL,20031201050000.002000,3
@@ -162,7 +162,7 @@ The order of fields and separator character can be specified:
 >>> write = data.write_text(order=['A', 'TIMESTAMP'],
 ...                         separator='\t',
 ...                         prepend_symbol_name=False)
->>> _ = otp.run(write)  
+>>> _ = otp.run(write)
 #A  TIMESTAMP
 1   20031201050000.000000
 2   20031201050000.001000
@@ -176,7 +176,7 @@ The formatting can be specified for each field:
 ...     'TIMESTAMP': '%|GMT|%Y-%m-%d %H:%M:%S.%q',
 ...     'A': '%3d'
 ... })
->>> _ = otp.run(write)  
+>>> _ = otp.run(write)
 #SYMBOL_NAME,TIMESTAMP,A
 AAPL,2003-12-01 05:00:00.000,  1
 AAPL,2003-12-01 05:00:00.001,  2

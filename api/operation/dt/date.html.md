@@ -1,6 +1,6 @@
 # otp.Operation.dt.date
 
-### ``date()``
+#### \_DtAccessor.date()
 
 Return a new ``onetick.py.nsectime`` type operation filled with date only.
 

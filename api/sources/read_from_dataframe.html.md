@@ -36,7 +36,7 @@ Load `pandas.DataFrame` as data source
 Let’s assume that we have the following pandas dataframe:
 
 ```
->>> print(dataframe)  
+>>> print(dataframe)
                  Timestamp  SIDE  PRICE  SIZE
 0  2024-01-01 12:00:00.001   BUY  50.05   100
 1  2024-01-01 12:00:02.000  SELL  50.05   150
@@ -48,8 +48,8 @@ Let’s assume that we have the following pandas dataframe:
 Simple dataframe loading, timestamp column will be automatically detected and converted to datetime:
 
 ```
->>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL')  
->>> otp.run(src, date=otp.date(2024, 1, 1))  
+>>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL')
+>>> otp.run(src, date=otp.date(2024, 1, 1))
                      Time  SIDE  PRICE  SIZE SYMBOL_NAME
 0 2024-01-01 12:00:00.001   BUY  50.05   100        AAPL
 1 2024-01-01 12:00:02.000  SELL  50.05   150        AAPL
@@ -61,8 +61,8 @@ Simple dataframe loading, timestamp column will be automatically detected and co
 Setting custom timestamp_column. For example, if we have `DATA_TIMES` column, instead of `Timestamps`
 
 ```
->>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL', timestamp_column='DATA_TIMES')  
->>> otp.run(src, date=otp.date(2024, 1, 1))  
+>>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL', timestamp_column='DATA_TIMES')
+>>> otp.run(src, date=otp.date(2024, 1, 1))
                      Time  SIDE  PRICE  SIZE SYMBOL_NAME
 0 2024-01-01 12:00:00.001   BUY  50.05   100        AAPL
 1 2024-01-01 12:00:02.000  SELL  50.05   150        AAPL
@@ -74,8 +74,8 @@ Setting custom timestamp_column. For example, if we have `DATA_TIMES` column, in
 You can load data even without time data. `Time` column will be set as query end time.
 
 ```
->>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL')  
->>> otp.run(src, date=otp.date(2024, 1, 1))  
+>>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL')
+>>> otp.run(src, date=otp.date(2024, 1, 1))
         Time  SIDE  PRICE  SIZE SYMBOL_NAME
 0 2024-01-02   BUY  50.05   100        AAPL
 1 2024-01-02  SELL  50.05   150        AAPL
@@ -87,8 +87,8 @@ You can load data even without time data. `Time` column will be set as query end
 Same effect will be if you don’t set `timestamp_column` and disable automatic timestamp detection:
 
 ```
->>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL', timestamp_column=None)  
->>> otp.run(src, date=otp.date(2024, 1, 1))  
+>>> src = otp.ReadFromDataFrame(dataframe, symbol='AAPL', timestamp_column=None)
+>>> otp.run(src, date=otp.date(2024, 1, 1))
         Time                Timestamp  SIDE  PRICE  SIZE SYMBOL_NAME
 0 2024-01-02  2024-01-01 12:00:00.001   BUY  50.05   100        AAPL
 1 2024-01-02  2024-01-01 12:00:02.000  SELL  50.05   150        AAPL
@@ -101,8 +101,8 @@ Setting `symbol_name_field` for setting symbol name from dataframe.
 In this example, let’s say, that we have column `SYMBOL` with symbol names.
 
 ```
->>> src = otp.ReadFromDataFrame(dataframe, symbol_name_field='SYMBOL')  
->>> otp.run(src, date=otp.date(2024, 1, 1))  
+>>> src = otp.ReadFromDataFrame(dataframe, symbol_name_field='SYMBOL')
+>>> otp.run(src, date=otp.date(2024, 1, 1))
                      Time  SIDE  PRICE  SIZE SYMBOL
 0 2024-01-01 12:00:00.001   BUY  50.05   100   AAPL
 1 2024-01-01 12:00:02.000  SELL  50.05   150   AAPL

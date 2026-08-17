@@ -38,7 +38,7 @@ Render queries from .otq files.
 Render single file:
 
 ```
->>> otp.utils.render_otq("./test.otq")  
+>>> otp.utils.render_otq("./test.otq")
 ```
 
 !`image`
@@ -46,7 +46,7 @@ Render single file:
 Render multiple files:
 
 ```
->>> otp.utils.render_otq(["./first.otq", "./second.otq"])  
+>>> otp.utils.render_otq(["./first.otq", "./second.otq"])
 ```
 
 !`image`
@@ -54,11 +54,11 @@ Render multiple files:
 Render specific queries from multiple files:
 
 ```
->>> otp.utils.render_otq(["./first.otq", "./second.otq::some_query"])  
+>>> otp.utils.render_otq(["./first.otq", "./second.otq::some_query"])
 ```
 
 Change font type to **Times New Roman** and text size to **10**:
 
 ```
->>> otp.utils.render_otq("./test.otq", font_family="Times-Roman", font_size=10)  
+>>> otp.utils.render_otq("./test.otq", font_family="Times-Roman", font_size=10)
 ```

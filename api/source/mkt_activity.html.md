@@ -77,10 +77,10 @@ Parameter `calendar_name` can also be specified as a column.
 In this case calendar name can be different for each tick:
 
 ```
->>> data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')  
->>> data['CALENDAR_NAME'] = ...                                               
->>> data = data.mkt_activity(calendar_name=data['CALENDAR_NAME'])             
->>> otp.run(data, date=otp.date(2024, 2, 1))                                  
+>>> data = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD', symbols='AAPL')
+>>> data['CALENDAR_NAME'] = ...
+>>> data = data.mkt_activity(calendar_name=data['CALENDAR_NAME'])
+>>> otp.run(data, date=otp.date(2024, 2, 1))
 ```
 
 In this example you can see how market activity status is changing during the day.

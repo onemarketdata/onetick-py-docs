@@ -23,9 +23,9 @@ in format of exchange names in RefDB and in tick data.
 Get ticks from primary exchange:
 
 ```
->>> src = otp.DataSource('SOME_DB', tick_type='TRD', symbols='AAA', date=otp.date(2003, 12, 1))  
->>> src, _ = src.primary_exch()  
->>> otp.run(src, symbol_date=otp.date(2003, 12, 1))  
+>>> src = otp.DataSource('SOME_DB', tick_type='TRD', symbols='AAA', date=otp.date(2003, 12, 1))
+>>> src, _ = src.primary_exch()
+>>> otp.run(src, symbol_date=otp.date(2003, 12, 1))
                      Time  PRICE  SIZE EXCHANGE
 0 2003-12-01 00:00:00.001   26.5   150        B
 1 2003-12-01 00:00:00.002   25.7    20        B
@@ -34,12 +34,12 @@ Get ticks from primary exchange:
 Get all ticks, but mark ticks from primary exchange in column `T`:
 
 ```
->>> src = otp.DataSource('SOME_DB', tick_type='TRD', symbols='AAA', date=otp.date(2003, 12, 1))  
->>> primary, other = src.primary_exch()  
->>> primary['T'] = 1  
->>> other['T'] = 0  
->>> data = otp.merge([primary, other])  
->>> otp.run(src, symbol_date=otp.date(2003, 12, 1))  
+>>> src = otp.DataSource('SOME_DB', tick_type='TRD', symbols='AAA', date=otp.date(2003, 12, 1))
+>>> primary, other = src.primary_exch()
+>>> primary['T'] = 1
+>>> other['T'] = 0
+>>> data = otp.merge([primary, other])
+>>> otp.run(src, symbol_date=otp.date(2003, 12, 1))
                      Time  PRICE  SIZE EXCHANGE  T
 0 2003-12-01 00:00:00.000   25.2   100        A  0
 1 2003-12-01 00:00:00.001   26.5   150        B  1

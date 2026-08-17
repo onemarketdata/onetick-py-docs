@@ -1,6 +1,6 @@
 # otp.Operation.str.like
 
-### ``like(pattern)``
+#### \_StrAccessor.like(pattern)
 
 Check if the value is matched with SQL-like `pattern`.
 
