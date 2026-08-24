@@ -1,6 +1,6 @@
 # otp.Source.write_parquet
 
-#### ``Source.write_parquet(output_path, compression_type='snappy', num_tick_per_row_group=1000, partitioning_keys='', propagate_input_ticks=False, inplace=False)``
+#### ``Source.write_parquet(output_path, compression_type='snappy', partitioning_keys='', propagate_input_ticks=False, inplace=False, **kwargs)``
 
 Writes the input tick series to parquet data file.
 
@@ -12,7 +12,6 @@ Input must not have field ‘time’ as that field will also be added by the EP 
     Non-partitioned: Path to the parquet file.
   * **compression_type** (*str*) – Compression type for parquet files.
     Should be one of these: gzip, lz4, none, snappy (default), zstd.
-  * **num_tick_per_row_group** (*int*) – Number of rows per row group.
   * **partitioning_keys** (*list* *,* *str*) – 
 
     List of fields (list or comma-separated string) to be used as keys for partitioning.

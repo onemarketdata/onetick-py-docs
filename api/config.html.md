@@ -215,7 +215,7 @@ Scope for obtaining SSO access token.
 
 Can be set using environment variable `OTP_ACCESS_TOKEN_SCOPE`.
 
-#### trusted_certificates_file *: `bool`, NoneType, `str`* *= None*
+#### trusted_certificates_file *: `str`, `bool`, NoneType* *= None*
 
 Either a boolean, in which case it controls whether we verify the server TLS certificate or a string with the path to the file with list of trusted Certificate Authority certificates for WebAPI requests. Default behaviour implies verification is enabled.
 
@@ -288,6 +288,12 @@ Can be set using environment variable `OTP_DISABLE_COMPATIBILITY_CHECKS`.
 When calling otp.run that returns dataframe as result print symbol errors from OneTick as python warnings.
 
 Can be set using environment variable `OTP_PRINT_SYMBOL_ERRORS`.
+
+#### query_auto_termination_time_limit *: NoneType, `int`* *= None*
+
+Maximum number of seconds after which the query is terminated (exception will be raised). By default the value is not set, meaning waiting any amount of time until the query finishes normally.
+
+Can be set using environment variable `OTP_QUERY_AUTO_TERMINATION_TIME_LIMIT`.
 
 **The following properties are derived and thus read-only:**
 

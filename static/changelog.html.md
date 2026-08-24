@@ -4,6 +4,22 @@
 
 ### Added
 
+- Add `otp.config.query_auto_termination_time_limit`
+
+### Changed
+
+### Fixed
+
+- Fix exception when creating session in WebAPI testing
+
+### Removed
+
+- Remove parameter `num_tick_per_row_group` in `write_parquet`
+
+## [1.209.0] - 2026-08-24
+
+### Added
+
 ### Changed
 
 ### Fixed
