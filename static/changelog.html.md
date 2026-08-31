@@ -5,12 +5,15 @@
 ### Added
 
 - Add `otp.config.query_auto_termination_time_limit`
+- Add more examples from OneTick Cloud
+- Add `otp.Source.write_iceberg`
 
 ### Changed
 
 ### Fixed
 
 - Fix exception when creating session in WebAPI testing
+- Fix `otp.timedelta` not working with `otp.Operation`
 
 ### Removed
 
