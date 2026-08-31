@@ -143,6 +143,5 @@ such properties as symbol name and tick type manually.
 * `otp.Source.where`
 * `otp.Source.where_clause`
 * `otp.Source.write`
-* `otp.Source.write_iceberg`
 * `otp.Source.write_parquet`
 * `otp.Source.write_text`
