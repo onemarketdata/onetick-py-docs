@@ -1,6 +1,6 @@
 # otp.agg.ob_vwap
 
-### ``ob_vwap(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1)``
+### ``ob_vwap(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1, max_notional_value=None)``
 
 Returns the size-weighted price computed over a specified number of order book levels at the end of each interval.
 
@@ -117,6 +117,15 @@ Returns the size-weighted price computed over a specified number of order book l
     The query will not go back resulting number of days if it finds initial book state earlier.
     When book event processors are used after VIRTUAL_OB EP, this parameter should be set to 0.
     When set, this parameter takes precedence over the configuration parameter BOOKS.MAX_INITIALIZATION_DAYS.
+  * **max_notional_value** (*Optional* **[*float* *]* *,* *default=None*) – 
+
+    The maximum total notional value (i.e., the combined `PRICE × SIZE` across top several levels of the book)
+    that determines the number of order book levels that need to be part of the order book computation.
+
+    If that number of levels exceeds `max_levels`, only `max_levels` levels of the book will be computed.
+    The notional in excess of `max_notional_value`, from the last included level, is not taken into account.
+
+    By default is not set.
 
 ##### Examples
 

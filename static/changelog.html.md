@@ -4,13 +4,48 @@
 
 ### Added
 
-- Add `otp.config.query_auto_termination_time_limit`
+- Add more code coverage reports
+- Add parameter `max_notional_value` to some Order Book aggregations and sources
 
 ### Changed
 
 ### Fixed
 
+### Removed
+
+## [1.211.0] - 2026-09-07
+
+### Added
+
+- Add new value `num_lookback_periods` for parameter `decay_value_type` in `otp.agg.exp_w_average`
+
+### Changed
+
+### Fixed
+
+- Fix parameter `decay_value_type` in `otp.agg.exp_tw_average`
+- Raise exception when setting empty key fields in tick sets
+
+### Removed
+
+## [1.210.0] - 2026-09-02
+
+### Added
+
+- Add `otp.config.query_auto_termination_time_limit`
+- Add more examples from OneTick Cloud
+- Add `otp.Source.write_iceberg`
+
+### Changed
+
+- Delete `ds-framework` testing from CI/CD
+
+### Fixed
+
 - Fix exception when creating session in WebAPI testing
+- Fix `otp.timedelta` not working with `otp.Operation`
+- Fix disabling compatibility checks when running doctests
+- Fixed `otp.LoadTicksFromDataFrame` returned `SYMBOL_NAME` field if `symbol` or `symbol_field_name` wasn’t set
 
 ### Removed
 

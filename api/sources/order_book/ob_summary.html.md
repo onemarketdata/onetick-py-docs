@@ -1,6 +1,6 @@
 # otp.ObSummary
 
-### ``ObSummary(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, min_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, db=None, symbol=<class 'onetick.py.utils.types.adaptive'>, tick_type=<class 'onetick.py.utils.types.adaptive'>, start=<class 'onetick.py.utils.types.adaptive'>, end=<class 'onetick.py.utils.types.adaptive'>, date=None, schema_policy=<class 'onetick.py.utils.types.adaptive'>, guess_schema=None, identify_input_ts=False, back_to_first_tick=0, keep_first_tick_timestamp=None, max_back_ticks_to_prepend=1, where_clause_for_back_ticks=None, symbols=None, presort=<class 'onetick.py.utils.types.adaptive'>, batch_size=None, concurrency=<class 'onetick.py.utils.types.default'>, schema=None, symbol_date=None, query_parameters=None, **kwargs)``
+### ``ObSummary(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, min_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, max_notional_value=None, db=None, symbol=<class 'onetick.py.utils.types.adaptive'>, tick_type=<class 'onetick.py.utils.types.adaptive'>, start=<class 'onetick.py.utils.types.adaptive'>, end=<class 'onetick.py.utils.types.adaptive'>, date=None, schema_policy=<class 'onetick.py.utils.types.adaptive'>, guess_schema=None, identify_input_ts=False, back_to_first_tick=0, keep_first_tick_timestamp=None, max_back_ticks_to_prepend=1, where_clause_for_back_ticks=None, symbols=None, presort=<class 'onetick.py.utils.types.adaptive'>, batch_size=None, concurrency=<class 'onetick.py.utils.types.default'>, schema=None, symbol_date=None, query_parameters=None, **kwargs)``
 
 Construct a source providing order book summary for a given `db`.
 This is just a shortcut for
@@ -138,6 +138,15 @@ This is just a shortcut for
     If set, market order ticks (they have price NaN) are included into the order book,
     and are at the order book’s top level.
     > Default is False.
+  * **max_notional_value** (*Optional* **[*float* *]* *,* *default=None*) – 
+
+    The maximum total notional value (i.e., the combined `PRICE × SIZE` across top several levels of the book)
+    that determines the number of order book levels that need to be part of the order book computation.
+
+    If that number of levels exceeds `max_levels`, only `max_levels` levels of the book will be computed.
+    The notional in excess of `max_notional_value`, from the last included level, is not taken into account.
+
+    By default is not set.
   * **db** (str, list of str, ``otp.DB``, default=None) – 
 
     Name(s) of the database or the database object(s).

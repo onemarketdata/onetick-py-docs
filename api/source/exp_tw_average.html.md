@@ -1,24 +1,27 @@
 # otp.Source.exp_tw_average
 
-#### ``Source.exp_tw_average(decay, decay_value_type='half_life_index', running=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', all_fields=False, group_by=None, groups_to_display='all', end_condition_per_group=False)``
+#### ``Source.exp_tw_average(decay, decay_value_type='half_life_seconds', running=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', all_fields=False, group_by=None, groups_to_display='all', end_condition_per_group=False)``
 
-`EXP_TW_AVERAGE` aggregation.
+Exponentially Time-Weighted Average aggregation.
 
 For each bucket, computes the **exponentially time-weighted average** value of a specified numeric field.
+
 The weight of each point in the time series is computed relative to the end time of the bucket,
-so that the value which is in effect during some infinitely small time interval delta t
-has weight **(delta t)\*exp(-Lambda\*(end_time - t))**,
-where Lambda is a constant, end_time represents end time of the bucket,
-and t represents the timestamp of that infinitely small time interval.
+so that the value which is in effect during some infinitely small time interval **delta t**
+has weight `(delta t)*exp(-Lambda*(end_time - t))`,
+where **Lambda** is a constant, **end_time** represents end time of the bucket,
+and **t** represents the timestamp of that infinitely small time interval.
 
 * **Parameters:**
-  * **decay** (*float*) – Weight decay. If **decay_value_type** is set to `lambda`,
-    **decay** provides the value of the **Lambda** variable in the aforementioned formula.
-    Otherwise, if **decay_value_type** is set to `half_life_index`, **decay** specifies the necessary number
-    of consecutive ticks, the first one of which would have twice less the weight of the last one.
-    The **Lambda** value is then calculated using this number.
-  * **decay_value_type** (*Literal* *[* *'lambda'* *,*  *'half_life_index'* *]* *,* *default=half_life_index*) – The decay value can specified either directly or indirectly, controlled respectively by
-    **lambda** and **half_life_index** values of this parameter.
+  * **decay** (*float*) – 
+
+    Weight decay:
+    * If `decay_value_type` is `half_life_seconds`,
+      `decay` specifies the duration of time interval between `T(N-1)` and `T(N)`,
+      where the weight of data point `T(N-1)` is two times less than the weight of data point `T(N)`.
+    * If `decay_value_type` is `lambda`,
+      `decay` provides the value of the **Lambda** variable in the above-mentioned formula for weight decay.
+  * **decay_value_type** (*Literal* *[* *'lambda'* *,*  *'half_life_seconds'* *]* *,* *default=half_life_seconds*) – Possible values are `lambda` and `half_life_seconds`.
   * **running** (*bool* *,* *default=False*) – 
 
     See `Aggregation buckets guide` to see examples of how this parameter works.

@@ -2,9 +2,10 @@
 
 #### ``Source.exp_w_average(decay, decay_value_type='lambda', running=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', all_fields=False, group_by=None, groups_to_display='all', end_condition_per_group=False, time_series_type='state_ts')``
 
-`EXP_W_AVERAGE` aggregation.
+Exponentially Weighted Average aggregation.
 
 For each bucket, computes the **exponentially weighted average** value of the specified numeric attribute.
+
 Weights of data points in a bucket decrease exponentially in the direction from the most recent tick
 to the most aged one, being equal to `exp(-Lambda * N)` for a fixed weight decay value **Lambda**,
 where **N** ranges over **0, 1, 2, …** as ticks in reverse order of their arrival are treated.
@@ -12,13 +13,29 @@ Once the weights are known, the average is found using the formula `sum(weight*v
 where the sum is computed across all data points.
 
 * **Parameters:**
-  * **decay** (*float*) – Weight decay. If **decay_value_type** is set to `lambda`,
-    **decay** provides the value of the **Lambda** variable in the aforementioned formula.
-    Otherwise, if **decay_value_type** is set to `half_life_index`, **decay** specifies the necessary number
-    of consecutive ticks, the first one of which would have twice less the weight of the last one.
-    The **Lambda** value is then calculated using this number.
-  * **decay_value_type** (*Literal* *[* *'lambda'* *,*  *'half_life_index'* *]* *,* *default=lambda*) – The decay value can specified either directly or indirectly, controlled respectively by
-    **lambda** and **half_life_index** values of this parameter.
+  * **decay** (*float*) – 
+
+    Weight decay:
+    * If `decay_value_type` is set to `lambda`,
+      `decay` provides the value of the **Lambda** variable in the aforementioned formula.
+    * If `decay_value_type` is set to `half_life_index`, `decay` specifies the necessary number
+      of consecutive ticks, the first one of which would have twice less the weight of the last one.
+      The **Lambda** value is then calculated using this number.
+    * If `decay_value_type` is set to `num_lookback_periods`, `decay` specifies the EMA period N,
+      matching the conventional smoothing-factor formula `alpha = 2/(N+1)` used by common EMA implementations
+      (e.g. pandas `ewm(span=N, adjust=False)`, QuestDB `avg(value,'period',N))`.
+  * **decay_value_type** (*Literal* *[* *'lambda'* *,*  *'half_life_index'* *,*  *'num_lookback_periods'* *]* *,* *default=lambda*) – 
+
+    The decay value can specified either directly or indirectly, controlled respectively by
+    `lambda`, `half_life_index` and `num_lookback_periods` values of this parameter:
+    * `lambda` and `half_life_index` are two equivalent ways of specifying
+      the same normalized weighted-average computation (`sum(weight*value)/sum(weight)`, as described above).
+    * `num_lookback_periods` selects a different, unnormalized accumulation instead:
+      a plain recursive exponential moving average, `value = alpha*price + (1-alpha)*value`,
+      matching the `adjust=False` behavior of pandas’ `ewm` and of QuestDB’s EMA window function.
+      This is not just a different unit for **Lambda** - unlike `lambda`/`half_life_index`,
+      which always agree bit-for-bit with each other, `num_lookback_periods` can produce different values
+      during the “warm-up” period right after a bucket reset, converging to the same values only asymptotically.
   * **running** (*bool* *,* *default=False*) – 
 
     See `Aggregation buckets guide` to see examples of how this parameter works.

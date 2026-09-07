@@ -47,3 +47,13 @@ Adding ``otp.timedelta`` object to ``otp.date``:
 >>> otp.date(2022, 1, 1) + otp.timedelta(weeks=1, nanoseconds=1)
 2022-01-08 00:00:00.000000001
 ```
+
+Adding ``otp.timedelta`` object to ``otp.Operation``:
+
+```
+>>> t = otp.Tick(A=1)
+>>> t['X'] = t['_START_TIME'] + otp.timedelta(hours=5)
+>>> otp.run(t, date=otp.dt(2022, 1, 1))
+        Time  A                   X
+0 2022-01-01  1 2022-01-01 05:00:00
+```
