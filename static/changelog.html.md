@@ -11,9 +11,6 @@
 
 ### Fixed
 
-- Fix `SonarQube` issues
-- Fix `DB.dates()` returning duplicate dates
-
 ### Removed
 
 ## [1.211.0] - 2026-09-07
