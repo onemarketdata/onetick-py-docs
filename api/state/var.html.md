@@ -14,15 +14,15 @@ Defines a state variable. Supports int, float and string values.
 ##### Examples
 
 ```
->>> data = otp.Ticks(X=[0, 1, 2])
+>>> data = otp.Ticks(dict(X=[0, 1, 2]))
 >>> data.state_vars['SUM'] = otp.state.var(0)
 >>> data.state_vars['SUM'] += data['X']
 >>> data['SUM'] = data.state_vars['SUM']
->>> otp.run(data)
-                     Time  X  SUM
-0 2003-12-01 00:00:00.000  0    0
-1 2003-12-01 00:00:00.001  1    1
-2 2003-12-01 00:00:00.002  2    3
+>>> otp.run(data)[['X', 'SUM']]
+   X  SUM
+0  0    0
+1  1    1
+2  2    3
 ```
 
 ### *class* \_StateColumn(name, dtype, obj_ref, default_value, scope)
@@ -96,7 +96,7 @@ print(df)
 ```
                      Time  A    X
 0 2003-12-01 00:00:00.000  1  123
-1 2003-12-01 00:00:00.001  2    7
+1 2003-12-01 00:00:00.001  2  7
 2 2003-12-01 00:00:00.002  3  123
 ```
 

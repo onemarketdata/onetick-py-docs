@@ -1,6 +1,6 @@
 # otp.run
 
-### ``run(query, , symbols=None, start=utils.adaptive, end=utils.adaptive, date=None, start_time_expression=None, end_time_expression=None, timezone=utils.default, context=utils.default, username=None, alternative_username=None, password=None, batch_size=utils.default, running=None, query_properties=None, concurrency=utils.default, apply_times_daily=None, symbol_date=None, query_params=None, time_as_nsec=True, treat_byte_arrays_as_strings=True, output_matrix_per_field=False, output_structure=None, return_utc_times=None, connection=None, callback=None, svg_path=None, use_connection_pool=False, node_name=None, require_dict=False, max_expected_ticks_per_symbol=None, log_symbol=utils.default, encoding=None, manual_dataframe_callback=False, print_symbol_errors=utils.default, preserve_decimal_flag=None, bs_ticks=None, bs_time_msec=None, compression=None)``
+### ``run(query, , symbols=None, start=utils.adaptive, end=utils.adaptive, date=None, start_time_expression=None, end_time_expression=None, timezone=utils.default, context=utils.default, username=None, alternative_username=None, password=None, batch_size=utils.default, running=None, query_properties=None, concurrency=utils.default, apply_times_daily=None, symbol_date=None, query_params=None, time_as_nsec=True, treat_byte_arrays_as_strings=True, output_matrix_per_field=False, output_structure=None, return_utc_times=None, connection=None, callback=None, svg_path=None, use_connection_pool=False, node_name=None, require_dict=False, max_expected_ticks_per_symbol=None, log_symbol=utils.default, encoding=None, manual_dataframe_callback=False, print_symbol_errors=utils.default, preserve_decimal_flag=None, bs_ticks=None, bs_time_msec=None)``
 
 Executes a query and returns its result.
 
@@ -62,7 +62,7 @@ Executes a query and returns its result.
     Not supported for WebAPI mode.
   * **running** (*bool* *,* *optional*) – Set to True for CEP (Complex Event Processing) real-time streaming queries.
     Default is False.
-  * **query_properties** (*dict* *,* *optional*) – Query properties, see OneTick server documentation for available options.
+  * **query_properties** (*dict* *,* *optional*) – Query properties, such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
   * **concurrency** (*int* *,* *optional*) – The maximum number of CPU cores to use to process the query.
     By default, the value from
     ``otp.config.default_concurrency`` is used.
@@ -143,7 +143,7 @@ Executes a query and returns its result.
     This parameter may not be supported on older OneTick versions.
   * **bs_ticks** (*int*) – 
 
-    (Used only in WebAPI mode).
+    (Used only in WebAPI mode)
 
     This parameter determines the maximum number of ticks in a batch.
     It shows how often to send a chunk of response.
@@ -163,19 +163,13 @@ Executes a query and returns its result.
     We recommend a value between 100 and 10000. Default value is 5000.
   * **bs_time_msec** (*int*) – 
 
-    (Used only in WebAPI mode).
+    (Used only in WebAPI mode)
 
     Time latency in milliseconds that is used in CEP queries only.
     If during CEP `bs_ticks` number of ticks gets accumulated sooner than the `bs_time_msec` expires,
     they will be sent immediately.
 
     By default this parameter is 0 which means propagate ticks immediately (i.e., on every tick)
-  * **compression** (*str*) – 
-
-    (Used only in WebAPI mode).
-
-    The type of compression used when sending the data between client and server.
-    Available values are `none`, `gzip` and `zstd` (default).
 * **Returns:**
   result of the query
 * **Return type:**
@@ -340,7 +334,7 @@ When `start`/`end` are timezone-naive, it also defines their timezone:
 
 ```
 >>> data = otp.Tick(A=1)
->>> otp.run(data, start=otp.dt(2003, 12, 1), end=otp.dt(2003, 12, 2), timezone='America/New_York')
+>>> otp.run(data, start=otp.dt(2003, 12, 1), end=otp.dt(2003, 12, 2), timezone='EST5EDT')
         Time  A
 0 2003-12-01  1
 ```

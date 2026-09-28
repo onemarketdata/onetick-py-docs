@@ -15,7 +15,7 @@ Return the sum of column and `other` value.
 >>> t['B'] = t['B'] + 1
 >>> t['C'] = t['C'] + '_suffix'
 >>> t['D'] = t['D'] + otp.Day(1)
->>> otp.run(t)
-        Time    A    B         C          D
-0 2003-12-01  3.3  3.3  c_suffix 2022-05-13
+>>> otp.run(t)[['A', 'B', 'C', 'D']]
+     A    B         C          D
+0  3.3  3.3  c_suffix 2022-05-13
 ```

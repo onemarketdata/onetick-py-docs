@@ -138,7 +138,7 @@ Returns Pearson correlation coefficient value between two numeric fields.
 
 ```
 >>> data = otp.Ticks(P=[1, 2, 3, 4], S=[10, 20, 30, 40])
->>> data = data.agg({'RESULT': otp.agg.correlation('P', 'S')})
+>>> data = data.agg({'RESULT': otp.agg.correlation('P','S')})
 >>> otp.run(data)
         Time  RESULT
 0 2003-12-04     1.0

@@ -1,23 +1,17 @@
 # otp.agg.option_price
 
-### ``option_price(volatility, interest_rate, compute_model, number_of_steps, compute_delta, compute_gamma, compute_theta, compute_vega, compute_rho, volatility_field_name, interest_rate_field_name, option_type_field_name, strike_price_field_name, days_in_year, days_till_expiration_field_name, expiration_date_field_name, underlying_price_field_name, all_fields_for_running, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new')``
+### ``option_price(volatility, interest_rate, compute_model, number_of_steps, compute_delta, compute_gamma, compute_theta, compute_vega, compute_rho, volatility_field_name, interest_rate_field_name, option_type_field_name, strike_price_field_name, days_in_year, days_till_expiration_field_name, expiration_date_field_name, all_fields_for_running, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new')``
 
 This aggregation requires several parameters to compute the option price.
-
-Those are, *OPTION_TYPE*, *STRIKE_PRICE*,
-*EXPIRATION_DATE* or *DAYS_TILL_EXPIRATION*, *VOLATILITY*, and *INTEREST_RATE*.
-
+Those are, OPTION_TYPE, STRIKE_PRICE, EXPIRATION_DATE or DAYS_TILL_EXPIRATION, VOLATILITY, and INTEREST_RATE.
 Each parameter can be specified, either via a symbol parameter with the same name or via a tick field,
 by specifying the name of that field as an EP parameter, as follows.
-
-Besides, `volatility` and `interest_rate` can also be specified as parameters.
-If they are also specified as fields, the parameters value are ignored.
-
-In either case, the *OPTION_TYPE* value must be set to either CALL or PUT (case insensitive).
-*EXPIRATION_DATE* is in YYYYMMDD format, a string in case of a symbol parameter and
+Besides, VOLATILITY and INTEREST_RATE can also be specified as parameters. If they are also specified as fields,
+the parameters value are ignored.
+In either case, the OPTION_TYPE value must be set to either CALL or PUT (case insensitive).
+EXPIRATION_DATE is in YYYYMMDD format, a string in case of a symbol parameter and
 an integer in case of a tick attribute.
-
-Additionally, *NUMBER_OF_STEPS* should be specified in case of Cox-Ross-Rubinstein method.
+Additionally, NUMBER_OF_STEPS should be specified in case of Cox-Ross-Rubinstein method.
 
 * **Parameters:**
   * **volatility** (*float*) – The historical volatility of the asset’s returns.
@@ -52,8 +46,6 @@ Additionally, *NUMBER_OF_STEPS* should be specified in case of Cox-Ross-Rubinste
     Default: empty
   * **expiration_date_field_name** (*str*) – Specifies name of the field, which carries the expiration date of the option, in YYYYMMDD format.
     Default: empty
-  * **underlying_price_field_name** (*str*) – Specifies name of the field, which carries the underlying price of the option.
-    Default: PRICE
   * **all_fields_for_running** (*bool*) – Specifies whether all input tick fields should be present in the output ticks when `running` is set to True.
     Default: False.
   * **running** (*bool* *,* *default=False*) – 

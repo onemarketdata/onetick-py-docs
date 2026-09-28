@@ -61,9 +61,7 @@ If the above conditions are not met, reference database content is entirely rewr
 
 Bases: ``object``
 
-Specification of a reference database section.
-
-Section content can be specified as a string or source.
+Specification of a reference database section. Section content can be specified as a string or source.
 The format of string and output columns of source must correspond with the section documentation.
 
 * **Parameters:**
@@ -89,13 +87,10 @@ SYM2|20100101110000|20100103140000
 Data provided as a `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['SYM1', 'SYM2'],
-...     'START_DATETIME': [otp.dt(2010, 1, 1, 9, 30, tz='America/New_York'),
-...                        otp.dt(2010, 1, 1, 11, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 1, 11, tz='America/New_York'),
-...                      otp.dt(2010, 1, 3, 14, tz='America/New_York')],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['SYM1', 'SYM2']
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 1, 9, 30, tz='EST5EDT'), otp.dt(2010, 1, 1, 11, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.Section('SECTION_NAME', ticks, {'ATTR1': 'VAL1', 'ATTR2': 'VAL2'})
 >>> print(section)
@@ -109,9 +104,7 @@ where OTQ_QUERY is path to `otp.Source`, dumped to disk as temporary .otq file.
 
 Bases: ``Section``
 
-Describes symbol changes for the same security.
-
-The continuity can be expressed in terms of any symbol type
+Describes symbol changes for the same security. The continuity can be expressed in terms of any symbol type
 and can be specified on the security level or the security+exchange level (more explicit).
 
 ##### Examples
@@ -128,16 +121,13 @@ CORE_A||20100101093000|20100101110000|CORE_B||20100101110000|20100103140000|
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['CORE_A'] * 2,
-...     'SYMBOL_NAME_IN_HISTORY': ['CORE_A', 'CORE_B'],
-...     'SYMBOL_START_DATETIME': [otp.dt(2010, 1, 2, tz='America/New_York')] * 2,
-...     'SYMBOL_END_DATETIME': [otp.dt(2010, 1, 5, tz='America/New_York')] * 2,
-...     'START_DATETIME': [otp.dt(2010, 1, 2, tz='America/New_York'),
-...                        otp.dt(2010, 1, 3, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 3, tz='America/New_York'),
-...                      otp.dt(2010, 1, 4, tz='America/New_York')],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['CORE_A'] * 2
+>>> data['SYMBOL_NAME_IN_HISTORY'] = ['CORE_A', 'CORE_B']
+>>> data['SYMBOL_START_DATETIME'] = [otp.dt(2010, 1, 2, tz='EST5EDT')] * 2
+>>> data['SYMBOL_END_DATETIME'] = [otp.dt(2010, 1, 5, tz='EST5EDT')] * 2
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 2, tz='EST5EDT'), otp.dt(2010, 1, 3, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 3, tz='EST5EDT'), otp.dt(2010, 1, 4, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolNameHistory(ticks, symbology='CORE')
 >>> print(section)
@@ -171,14 +161,11 @@ B||20100101110000|20100103140000|CORE_B|
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['A', 'B'],
-...     'MAPPED_SYMBOL_NAME': ['CORE_A', 'CORE_B'],
-...     'START_DATETIME': [otp.dt(2010, 1, 2, tz='America/New_York'),
-...                        otp.dt(2010, 1, 3, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 3, tz='America/New_York'),
-...                      otp.dt(2010, 1, 4, tz='America/New_York')],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['A', 'B']
+>>> data['MAPPED_SYMBOL_NAME'] = ['CORE_A', 'CORE_B']
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 2, tz='EST5EDT'), otp.dt(2010, 1, 3, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 3, tz='EST5EDT'), otp.dt(2010, 1, 4, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbologyMapping(ticks, source_symbology='TICKER', dest_symbology='CORE')
 >>> print(section)
@@ -212,13 +199,12 @@ CORE_C||20100103180000|0.25|0.0|SPLIT
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['CORE_C'],
-...     'EFFECTIVE_DATETIME': [otp.dt(2010, 1, 3, 18, tz='America/New_York')],
-...     'MULTIPLICATIVE_ADJUSTMENT': [0.25],
-...     'ADDITIVE_ADJUSTMENT': [0.0],
-...     'ADJUSTMENT_TYPE_NAME': ['SPLIT'],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['CORE_C']
+>>> data['EFFECTIVE_DATETIME'] = [otp.dt(2010, 1, 3, 18, tz='EST5EDT')]
+>>> data['MULTIPLICATIVE_ADJUSTMENT'] = [0.25]
+>>> data['ADDITIVE_ADJUSTMENT'] = [0.0]
+>>> data['ADJUSTMENT_TYPE_NAME'] = ['SPLIT']
 >>> ticks = otp.Ticks(**data, offset=[0], db='LOCAL')
 >>> section = otp.RefDB.CorpActions(ticks, symbology='CORE')
 >>> print(section)
@@ -234,9 +220,7 @@ Equivalent `otp.Source`:
 
 Bases: ``Section``
 
-Describes continuous contracts.
-
-Continuity is expressed in terms of stitched history
+Describes continuous contracts. Continuity is expressed in terms of stitched history
 of real contracts and rollover adjustments in between them and can be specified
 on the continuous contract level or continuous contract+exchange level (more explicit).
 
@@ -254,16 +238,13 @@ CC||CORE_A||20100101093000|20100101110000|0.5|0|CORE_B||20100101110000|201001031
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'CONTINUOUS_CONTRACT_NAME': ['CC'] * 2,
-...     'SYMBOL_NAME': ['CORE_A', 'CORE_B'],
-...     'START_DATETIME': [otp.dt(2010, 1, 2, tz='America/New_York'),
-...                        otp.dt(2010, 1, 3, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 3, tz='America/New_York'),
-...                      otp.dt(2010, 1, 4, tz='America/New_York')],
-...     'MULTIPLICATIVE_ADJUSTMENT': [0.5, None],
-...     'ADDITIVE_ADJUSTMENT': [3, None],
-... }
+>>> data = dict()
+>>> data['CONTINUOUS_CONTRACT_NAME'] = ['CC'] * 2
+>>> data['SYMBOL_NAME'] = ['CORE_A', 'CORE_B']
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 2, tz='EST5EDT'), otp.dt(2010, 1, 3, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 3, tz='EST5EDT'), otp.dt(2010, 1, 4, tz='EST5EDT')]
+>>> data['MULTIPLICATIVE_ADJUSTMENT'] = [0.5, None]
+>>> data['ADDITIVE_ADJUSTMENT'] = [3, None]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.ContinuousContracts(ticks, symbology='CORE')
 >>> print(section)
@@ -279,9 +260,7 @@ Equivalent `otp.Source`:
 
 Bases: ``Section``
 
-Specifies symbols’ currencies in 3-letter ISO codes for currencies.
-
-These are used for currency conversion
+Specifies symbols’ currencies in 3-letter ISO codes for currencies. These are used for currency conversion
 (e.g., when calculating portfolio price for a list of securities with different currencies).
 
 ##### Examples
@@ -300,15 +279,12 @@ CORE_B||20100101110000|20100103140000|RUB|1.8
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['CORE_A', 'CORE_B'],
-...     'CURRENCY': ['USD', 'RUB'],
-...     'MULTIPLIER': [1., 1.8],
-...     'START_DATETIME': [otp.dt(2010, 1, 1, 9, 30, tz='America/New_York'),
-...                        otp.dt(2010, 1, 1, 11, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 1, 11, tz='America/New_York'),
-...                      otp.dt(2010, 1, 3, 14, tz='America/New_York')],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['CORE_A', 'CORE_B',]
+>>> data['CURRENCY'] = ['USD', 'RUB']
+>>> data['MULTIPLIER'] = [1., 1.8]
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 1, 9, 30, tz='EST5EDT'), otp.dt(2010, 1, 1, 11, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolCurrency(ticks, symbology='CORE')
 >>> print(section)
@@ -324,9 +300,7 @@ Equivalent `otp.Source`:
 
 Bases: ``Section``
 
-Specifies a named calendar.
-
-Needed to analyze tick data during specific market time intervals (i.e., during
+Specifies a named calendar. Needed to analyze tick data during specific market time intervals (i.e., during
 normal trading hours). Can either be used directly in queries as described below, or referred to
 from the SYMBOL_CALENDAR and EXCH_CALENDAR sections.
 
@@ -347,21 +321,18 @@ CAL2|20100101110000|20100103140000|Holiday|F|0.0.12345|094000|170000|GMT|0|DESCR
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'CALENDAR_NAME': ['CAL1', 'CAL2'],
-...     'START_DATETIME': [otp.dt(2010, 1, 1, 9, 30, tz='America/New_York'),
-...                        otp.dt(2010, 1, 1, 11, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 1, 11, tz='America/New_York'),
-...                      otp.dt(2010, 1, 3, 14, tz='America/New_York')],
-...     'SESSION_NAME': ['Regular', 'Holiday'],
-...     'SESSION_FLAGS': ['R', 'H'],
-...     'DAY_PATTERN': ['0.0.12345', '0.0.12345'],
-...     'START_HHMMSS': ['093000', '094000'],
-...     'END_HHMMSS': ['160000', '170000'],
-...     'TIMEZONE': ['GMT', 'GMT'],
-...     'PRIORITY': [1, 0],
-...     'DESCRIPTION': ['DESCRIPTION1', 'DESCRIPTION2'],
-... }
+>>> data = dict()
+>>> data['CALENDAR_NAME'] = ['CAL1', 'CAL2']
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 1, 9, 30, tz='EST5EDT'), otp.dt(2010, 1, 1, 11, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
+>>> data['SESSION_NAME'] = ['Regular', 'Holiday']
+>>> data['SESSION_FLAGS'] = ['R', 'H']
+>>> data['DAY_PATTERN'] = ['0.0.12345', '0.0.12345']
+>>> data['START_HHMMSS'] = ['093000', '094000']
+>>> data['END_HHMMSS'] = ['160000', '170000']
+>>> data['TIMEZONE'] = ['GMT', 'GMT']
+>>> data['PRIORITY'] = [1, 0]
+>>> data['DESCRIPTION'] = ['DESCRIPTION1', 'DESCRIPTION2']
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.Calendar(ticks)
 >>> print(section)
@@ -376,9 +347,7 @@ Equivalent `otp.Source`:
 
 Bases: ``Section``
 
-Specifies a calendar for a symbol.
-
-Needed to analyze tick data during specific market time intervals
+Specifies a calendar for a symbol. Needed to analyze tick data during specific market time intervals
 (i.e., during normal trading hours). Can either be specified directly or refer to a named calendar by its name
 (see the CALENDAR section).
 
@@ -400,14 +369,11 @@ CORE_B|20100101110000|20100103140000|CAL2
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['CORE_A', 'CORE_B'],
-...     'START_DATETIME': [otp.dt(2010, 1, 1, 9, 30, tz='America/New_York'),
-...                        otp.dt(2010, 1, 1, 11, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 1, 11, tz='America/New_York'),
-...                      otp.dt(2010, 1, 3, 14, tz='America/New_York')],
-...     'CALENDAR_NAME': ['CAL1', 'CAL2'],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['CORE_A', 'CORE_B']
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 1, 9, 30, tz='EST5EDT'), otp.dt(2010, 1, 1, 11, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
+>>> data['CALENDAR_NAME'] = ['CAL1', 'CAL2']
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolCalendar(ticks, symbology='CORE')
 >>> print(section)
@@ -431,21 +397,18 @@ CORE_B|20100101110000|20100103140000|Regular|F|0.0.12345|093000|160000|EST5EDT|1
 Equivalent `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['CORE_A', 'CORE_B'],
-...     'START_DATETIME': [otp.dt(2010, 1, 1, 9, 30, tz='America/New_York'),
-...                        otp.dt(2010, 1, 1, 11, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 1, 11, tz='America/New_York'),
-...                      otp.dt(2010, 1, 3, 14, tz='America/New_York')],
-...     'SESSION_NAME': ['Regular', 'Regular'],
-...     'SESSION_FLAGS': ['R', 'F'],
-...     'DAY_PATTERN': ['0.0.12345', '0.0.12345'],
-...     'START_HHMMSS': ['093000', '160000'],
-...     'END_HHMMSS': ['CAL1', 'CAL2'],
-...     'TIMEZONE': ['EST5EDT', 'EST5EDT'],
-...     'PRIORITY': [1, 1],
-...     'DESCRIPTION': ['', ''],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['CORE_A', 'CORE_B']
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 1, 9, 30, tz='EST5EDT'), otp.dt(2010, 1, 1, 11, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
+>>> data['SESSION_NAME'] = ['Regular', 'Regular']
+>>> data['SESSION_FLAGS'] = ['R', 'F']
+>>> data['DAY_PATTERN'] = ['0.0.12345', '0.0.12345']
+>>> data['START_HHMMSS'] = ['093000', '160000']
+>>> data['END_HHMMSS'] = ['CAL1', 'CAL2']
+>>> data['TIMEZONE'] = ['EST5EDT', 'EST5EDT']
+>>> data['PRIORITY'] = [1, 1]
+>>> data['DESCRIPTION'] = ['', '']
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> section = otp.RefDB.SymbolCalendar(ticks, symbology='CORE')
 >>> print(section)
@@ -462,7 +425,6 @@ Equivalent `otp.Source`:
 Bases: ``Section``
 
 Specification of a reference database section that can be specified only as a string.
-
 Section content still can be provided as a `otp.Source`, but the `otp.Source` is executed and
 result data is used as string in section. It’s up to user to provide `otp.Source` with correct number
 and order of columns.
@@ -474,13 +436,10 @@ Data provided as a string returns the same result as `otp.RefDB.Section`.
 Data provided as a `otp.Source`:
 
 ```
->>> data = {
-...     'SYMBOL_NAME': ['SYM1', 'SYM2'],
-...     'START_DATETIME': [otp.dt(2010, 1, 1, 9, 30, tz='America/New_York'),
-...                        otp.dt(2010, 1, 1, 11, tz='America/New_York')],
-...     'END_DATETIME': [otp.dt(2010, 1, 1, 11, tz='America/New_York'),
-...                      otp.dt(2010, 1, 3, 14, tz='America/New_York')],
-... }
+>>> data = dict()
+>>> data['SYMBOL_NAME'] = ['SYM1', 'SYM2']
+>>> data['START_DATETIME'] = [otp.dt(2010, 1, 1, 9, 30, tz='EST5EDT'), otp.dt(2010, 1, 1, 11, tz='EST5EDT')]
+>>> data['END_DATETIME'] = [otp.dt(2010, 1, 1, 11, tz='EST5EDT'), otp.dt(2010, 1, 3, 14, tz='EST5EDT')]
 >>> ticks = otp.Ticks(**data, offset=[0] * 2, db='LOCAL')
 >>> ticks = ticks.table(SYMBOL_NAME=otp.string[128], START_DATETIME=otp.msectime, END_DATETIME=otp.msectime)
 >>> section = otp.RefDB.SectionStr('SECTION_NAME', ticks, {'ATTR1': 'VAL1', 'ATTR2': 'VAL2'})
@@ -502,9 +461,7 @@ where OTQ_QUERY is path to `otp.Source`, dumped to disk as temporary .otq file.
 
 Bases: ``SectionStr``
 
-Specifies symbols’ primary exchanges.
-
-Used to extract and analyze tick data for a security on
+Specifies symbols’ primary exchanges. Used to extract and analyze tick data for a security on
 its primary exchange, without having to explicitly specify the name of the primary exchange.
 
 ##### Examples
@@ -531,9 +488,7 @@ Equivalent query should return the same data values in the same order. Column na
 
 Bases: ``SectionStr``
 
-Specifies symbols’ primary exchanges.
-
-Used to extract and analyze tick data for a security on
+Specifies symbols’ primary exchanges. Used to extract and analyze tick data for a security on
 its primary exchange, without having to explicitly specify the name of the primary exchange.
 
 ##### Examples
@@ -574,9 +529,8 @@ Equivalent query should return the same data values in the same order. Column na
 
 Bases: ``SectionStr``
 
-Specifies the exchange where a security is traded.
-
-Needs to be provided for the symbologies where the symbol name is unique across all exchanges.
+Specifies the exchange where a security is traded. Needs to be provided for the symbologies where
+the symbol name is unique across all exchanges.
 
 ##### Examples
 

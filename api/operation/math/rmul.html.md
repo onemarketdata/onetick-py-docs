@@ -9,9 +9,9 @@
 >>> t['A'] *= t['B']
 >>> t['B'] *= 2
 >>> t['C'] *= 3
->>> otp.run(t)
-        Time    A    B    C
-0 2003-12-01  2.3  4.6  ccc
+>>> otp.run(t)[['A', 'B', 'C']]
+     A    B    C
+0  2.3  4.6  ccc
 ```
 
 ##### SEE ALSO

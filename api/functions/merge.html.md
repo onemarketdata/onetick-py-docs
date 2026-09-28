@@ -9,20 +9,9 @@ Merges ticks from the `sources` into a single output ordered by the timestamp.
   * **align_schema** (*bool*) – If set to True, then table is added right after merge.
     We recommended to keep True to prevent problems with
     different tick schemas. Default: True
-  * **symbols** (str, list of str or functions, ``Source``, `pandas.DataFrame`,             `onetick.query.GraphQuery`) – 
-
-    Symbol(s) to run the query for passed as a string, a list of strings, or as a “symbols” query which results
+  * **symbols** (str, list of str or functions, ``Source``, `onetick.query.GraphQuery`) – Symbol(s) to run the query for passed as a string, a list of strings, or as a “symbols” query which results
     include the `SYMBOL_NAME` column. The start/end times for the
     symbols query will taken from the ``run()`` params.
-
-    A `pandas.DataFrame` with the `SYMBOL_NAME` column can be passed too.
-    Its other columns are interpreted as symbol parameters, and the optional
-    `_PARAM_START_TIME` and `_PARAM_END_TIME` columns set the query interval per symbol.
-    Note that per symbol intervals should be inside the query interval.
-    Timezone-naive values are interpreted in the timezone passed to
-    ``otp.run``, while timezone-aware values keep their own timezone.
-    The columns `offset`, `time` and `timestamp` (the last one in any case) aren’t allowed.
-
     See `symbols` for more details.
   * **identify_input_ts** (*bool*) – If set to False, the fields *SYMBOL_NAME* and *TICK_TYPE* are not appended to the output ticks.
   * **presort** (*bool*) – Add the **PRESORT** EP before merging.
@@ -115,26 +104,14 @@ Merge series from multiple symbols into one series:
 Use `identify_input_ts` and other parameters to add information about symbol to each tick:
 
 ```
->>> symbols = otp.Ticks(SYMBOL_NAME=['US_COMP_SAMPLE::AAPL', 'US_COMP_SAMPLE::MSFT'])
->>> data = otp.DataSource(tick_type='TRD', schema={'PRICE': float, 'SIZE': float})
->>> data = data.limit(5)
+>>> symbols = otp.Ticks(SYMBOL_NAME=['COMMON::S1', 'DEMO_L1::S2'])
+>>> data = otp.Tick(A=1, db=None, tick_type='TT')
 >>> data = otp.merge([data], symbols=symbols, identify_input_ts=True,
 ...                  separate_db_name=True, add_symbol_index=True, added_field_name_suffix='__')
->>> otp.run(data,
-...         start=otp.dt(2024, 2, 1, 9, 30),
-...         end=otp.dt(2024, 2, 1, 16),
-...         timezone='America/New_York')
-                           Time   PRICE   SIZE ... SYMBOL_NAME__       DB_NAME__ TICK_TYPE__ SYMBOL_INDEX__
-0 2024-02-01 09:30:00.000961260  184.01  302.0 ...          AAPL  US_COMP_SAMPLE         TRD              1
-1 2024-02-01 09:30:00.000961491  184.00  100.0 ...          AAPL  US_COMP_SAMPLE         TRD              1
-2 2024-02-01 09:30:00.000961701  184.00    1.0 ...          AAPL  US_COMP_SAMPLE         TRD              1
-3 2024-02-01 09:30:00.000973163  184.00    1.0 ...          AAPL  US_COMP_SAMPLE         TRD              1
-4 2024-02-01 09:30:00.000973355  184.00    5.0 ...          AAPL  US_COMP_SAMPLE         TRD              1
-5 2024-02-01 09:30:00.001821667  401.90   25.0 ...          MSFT  US_COMP_SAMPLE         TRD              2
-6 2024-02-01 09:30:00.001825700  401.89   50.0 ...          MSFT  US_COMP_SAMPLE         TRD              2
-7 2024-02-01 09:30:00.001849062  401.88   25.0 ...          MSFT  US_COMP_SAMPLE         TRD              2
-8 2024-02-01 09:30:00.002566542  401.98    7.0 ...          MSFT  US_COMP_SAMPLE         TRD              2
-9 2024-02-01 09:30:00.002826318  401.88    1.0 ...          MSFT  US_COMP_SAMPLE         TRD              2
+>>> otp.run(data)
+        Time  A SYMBOL_NAME__ DB_NAME__ TICK_TYPE__  SYMBOL_INDEX__
+0 2003-12-01  1            S1    COMMON          TT               1
+1 2003-12-01  1            S2   DEMO_L1          TT               2
 ```
 
 Adding symbol parameters before merge:
@@ -143,15 +120,14 @@ Adding symbol parameters before merge:
 >>> symbols = otp.Ticks(SYMBOL_NAME=['S1', 'S2'], param=[1, -1])
 >>> def func(symbol):
 ...     pre = otp.Ticks(X=[1])
-...     pre['SYMBOL_NAME'] = symbol.name
-...     pre['PARAM'] = symbol.param
-...     pre = pre.drop('X')
+...     pre["SYMBOL_NAME"] = symbol.name
+...     pre["PARAM"] = symbol.param
 ...     return pre
 >>> data = otp.merge([func], symbols=symbols)
->>> otp.run(data)
-        Time  SYMBOL_NAME  PARAM
-0 2003-12-01           S1      1
-1 2003-12-01           S2     -1
+>>> otp.run(data)[['PARAM', 'SYMBOL_NAME']]
+   PARAM SYMBOL_NAME
+0      1          S1
+1     -1          S2
 ```
 
 Use parameter `output_type_index` to specify which input class to use to create output object.

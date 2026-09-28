@@ -17,7 +17,7 @@ export OTP_DEFAULT_DB="US_COMP_SAMPLE"
 export OTP_DEFAULT_SYMBOL="AAPL"
 export OTP_DEFAULT_START_TIME="2024/02/01 00:00:00"
 export OTP_DEFAULT_END_TIME="2024/02/02 00:00:00"
-export OTP_DEFAULT_TZ="America/New_York"
+export OTP_DEFAULT_TZ="EST5EDT"
 ```
 
 On Windows:
@@ -27,7 +27,7 @@ set OTP_DEFAULT_DB=US_COMP_SAMPLE
 set OTP_DEFAULT_SYMBOL=AAPL
 set OTP_DEFAULT_START_TIME=2024/02/01 00:00:00
 set OTP_DEFAULT_END_TIME=2024/02/02 00:00:00
-set OTP_DEFAULT_TZ=America/New_York
+set OTP_DEFAULT_TZ=EST5EDT
 ```
 
 In the python code on any system (before importing `onetick-py`):
@@ -38,7 +38,7 @@ os.environ['OTP_DEFAULT_DB'] = 'US_COMP_SAMPLE'
 os.environ['OTP_DEFAULT_SYMBOL'] = 'AAPL'
 os.environ['OTP_DEFAULT_START_TIME'] = '2024/02/01 00:00:00'
 os.environ['OTP_DEFAULT_END_TIME'] = '2024/02/02 00:00:00'
-os.environ['OTP_DEFAULT_TZ'] = 'America/New_York'
+os.environ['OTP_DEFAULT_TZ'] = 'EST5EDT'
 ```
 
 See details about `onetick-py` configuration in `Configuration`.

@@ -3,7 +3,6 @@
 ### ``generic(query_fun, bucket_delimiter=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, running=False, group_by=None, groups_to_display='all', end_condition_per_group=False, boundary_tick_bucket='new')``
 
 Generic aggregation.
-
 Aggregation logic is provided in `query_fun` parameter
 and this logic is applied for ticks in each bucket.
 Currently, this aggregation can be used only with `.apply()` method.
@@ -166,11 +165,11 @@ Passing parameters to aggregation function:
 >>> data = otp.Ticks({'A': [1, 2, 1]})
 >>> def count_values(source, value):
 ...     values = source.where(source['A'] == value)
-...     return values.agg({'COUNT': otp.agg.count()})
+...     return values.agg({'count': otp.agg.count()})
 >>> data = otp.agg.generic(count_values).apply(data, value=1)
 >>> otp.run(data)
-        Time  COUNT
-0 2003-12-04      2
+        Time  count
+0 2003-12-04  2
 ```
 
 Getting first 3 ticks from 5 milliseconds buckets:

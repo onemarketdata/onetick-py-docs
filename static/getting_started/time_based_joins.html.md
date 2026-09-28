@@ -48,16 +48,16 @@ otp.run(qte, start=s, end=e, symbols=['AAPL'])
 We “enhance” the trades with the information from the quotes.
 
 ```python
-enhanced = otp.join_by_time([trd, qte])
-otp.run(enhanced, start=s, end=e, symbols=['AAPL'])
+enh_trd = otp.join_by_time([trd, qte])
+otp.run(enh_trd, start=s, end=e, symbols=['AAPL'])
 ```
 
 In other words, each trade is joined with the quote that was active at the time the trade took place. We can examine the quote time to make sure it’s before the trade time.
 
 ```python
-qte['QUOTE_TIME'] = qte['Time']
-enhanced = otp.join_by_time([trd, qte])
-otp.run(enhanced, start=s, end=e, symbols=['AAPL'])
+qte['quote_time'] = qte['Time']
+enh_trd = otp.join_by_time([trd, qte])
+otp.run(enh_trd, start=s, end=e, symbols=['AAPL'])
 ```
 
 ## Join-by-time Use Cases
@@ -72,7 +72,7 @@ Let’s find the market vwap for a given time range (i.e., for a given `start` a
 
 ```python
 q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
-q = q.agg({'MARKET_VWAP': otp.agg.vwap('PRICE', 'SIZE')})
+q = q.agg({'market_vwap': otp.agg.vwap('PRICE', 'SIZE')})
 otp.run(q, start=s, end=e, symbols=['AAPL'])
 ```
 
@@ -90,7 +90,7 @@ We can wrap the code that finds vwap into a function and call it for each order 
 ```python
 def vwap(symbol):
     q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
-    q = q.agg({'MARKET_VWAP': otp.agg.vwap('PRICE', 'SIZE')})
+    q = q.agg({'market_vwap': otp.agg.vwap('PRICE', 'SIZE')})
     return q
 
 orders = otp.Ticks(arrival=[s, s + otp.Milli(7934)],
@@ -109,7 +109,7 @@ The code above provides an implementation for this use case. However, a more eff
 ```python
 def vwap(symbol):
     q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
-    q = q.agg({'MARKET_VWAP': otp.agg.vwap('PRICE','SIZE')})
+    q = q.agg({'market_vwap': otp.agg.vwap('PRICE','SIZE')})
     return q
 
 orders = otp.Ticks(arrival=[s, s + otp.Milli(7934)],

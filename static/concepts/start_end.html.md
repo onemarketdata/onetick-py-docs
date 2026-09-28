@@ -44,11 +44,8 @@ otp.run(trades)
 ```
 
 Every source can specify its own interval and different sources can have different intervals.
-
 For example, below we specify the intervals to compute the volume on March 1
-in one source and the volume on March 2 in another source.
-
-We then merge the two sources and the user does not need to worry
+in one source and the volume on March 2 in another source. We then merge the two sources and the user does not need to worry
 about setting the interval for the resulting query.
 
 ```
@@ -89,9 +86,9 @@ for the `start` and `end` parameters when they are not set. The default values a
 
 
 
-The `start` and `end` parameters take the standard ``datetime.datetime`` values as well as
+The `start` and `end` parameters take the standard datetime.datetime values as well as
 ``otp.dt`` values. The ``otp.dt`` class is introduced to support
-nanoseconds and DST as the standard python ``datetime.datetime`` class does not support them.
+nanoseconds and DST as the standard python `datetime.datetime` class does not support them.
 
 ``otp.dt`` could be used in any `onetick.py` api call that allows date or time as an input:
 

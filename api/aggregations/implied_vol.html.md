@@ -10,15 +10,12 @@ based on the Black-Scholes option pricing model.
 This EP requires a time series of ticks, having the `PRICE` and `OPTION_PRICE` attributes.
 
 It also requires several parameters to compute the implied volatility.
-
-Those are, *OPTION_TYPE*, *STRIKE_PRICE*, *EXPIRATION_DATE* or *DAYS_TILL_EXPIRATION* and *INTEREST_RATE*.
+Those are, `OPTION_TYPE`, `STRIKE_PRICE`, `EXPIRATION_DATE` or `DAYS_TILL_EXPIRATION` and `INTEREST_RATE`.
 Each parameter can be specified either via a symbol parameter with the same name, or via a tick field,
 by specifying name of that field as an EP parameter.
-
 Besides, `interest_rate` can also be specified as aggregation parameter.
-
-In either case *OPTION_TYPE* must have either `CALL` value, or `PUT`.
-*EXPIRATION_DATE* is in `YYYYMMDD` format, a string in case of a symbol parameter and an integer
+In either case `OPTION_TYPE` must have either `CALL` value, or `PUT`.
+`EXPIRATION_DATE` is in `YYYYMMDD` format, a string in case of a symbol parameter and an integer
 in case of a tick attribute.
 
 * **Parameters:**
@@ -186,51 +183,34 @@ in case of a tick attribute.
 
 ##### Examples
 
-Calculating implied volume for US_OPTIONS database:
+Basic example:
 
 ```
->>> trd = otp.DataSource('US_OPTIONS', tick_type='TRD')
->>> trd = trd[['PRICE']]
->>> trd = trd.rename({'PRICE': 'OPTION_PRICE'})
->>> stat = otp.DataSource('US_OPTIONS', tick_type='STAT', back_to_first_tick=86400)
->>> stat = stat[['STRIKE_PRICE', 'EXPIRATION_DATE', 'CALL_PUT_IND']]
->>> underlying = otp.DataSource('US_COMP', tick_type='TRD', symbols='AAPL')
->>> underlying = underlying[['PRICE']]
->>> data = otp.join_by_time([trd, stat, underlying])
->>> data['OPTION_TYPE'] = data.if_else(data['CALL_PUT_IND'] == 'C', 'CALL', 'PUT')
->>> data['DAYS_LEFT'] = otp.Day(
-...     data['EXPIRATION_DATE'].str.to_datetime('%Y%m%d') - data['TIMESTAMP'].dt.date_trunc('day')
-... )
->>> data = data.drop(['CALL_PUT_IND'])
+>>> data = otp.DataSource('SOME_DB', symbol='AAA', tick_type='TT')
 >>> data = data.implied_vol(
-...     running=True,
-...     all_fields=True,
-...     interest_rate=0.0425,
-...     price_field='PRICE',
-...     option_price_field='OPTION_PRICE',
-...     option_type_field='OPTION_TYPE',
-...     strike_price_field='STRIKE_PRICE',
-...     days_till_expiration_field='DAYS_LEFT',
-...     days_in_year=366,
-...     method='bisections',
+...     interest_rate=0.05, option_type_field=data['OPTION_TYPE'],
+...     strike_price_field=data['STRIKE_PRICE'], days_till_expiration_field=data['DAYS_TILL_EXPIRATION'],
 ... )
->>> otp.run(data,
-...         start=otp.dt(2025, 2, 4, 9, 30, 0),
-...         end=otp.dt(2025, 2, 4, 16, 0, 0),
-...         timezone='America/New_York',
-...         symbols='AAPL  250207C00220000')
-                       Time  OPTION_PRICE  STRIKE_PRICE EXPIRATION_DATE     PRICE OPTION_TYPE  DAYS_LEFT     VALUE
-0   2025-02-04 09:30:02.259          8.11         220.0        20250207  227.0000        CALL          3  0.432166
-1   2025-02-04 09:30:06.167          8.40         220.0        20250207  227.0388        CALL          3  0.475541
-2   2025-02-04 09:31:05.692          8.67         220.0        20250207  227.7500        CALL          3  0.423598
-3   2025-02-04 09:31:05.692          8.67         220.0        20250207  227.7500        CALL          3  0.423598
-4   2025-02-04 09:31:07.080          8.55         220.0        20250207  227.6600        CALL          3  0.414989
-..                      ...           ...           ...             ...       ...         ...        ...       ...
-202 2025-02-04 15:26:07.186         12.70         220.0        20250207  232.3800        CALL          3  0.405716
-203 2025-02-04 15:44:25.863         12.54         220.0        20250207  232.2052        CALL          3  0.406920
-204 2025-02-04 15:57:41.427         13.30         220.0        20250207  232.9999        CALL          3  0.412861
-205 2025-02-04 15:58:12.969         13.24         220.0        20250207  232.9700        CALL          3  0.399551
-206 2025-02-04 15:58:41.955         13.32         220.0        20250207  233.0508        CALL          3  0.401080
+>>> otp.run(data)
+        Time     VALUE
+0 2003-12-04  0.889491
+```
+
+Specifying `interest_rate` and `strike_price` as symbol parameters:
+
+```
+>>> sym = otp.Ticks({
+...     'SYMBOL_NAME': ['TEST'],
+...     'INTEREST_RATE': [0.05],
+...     'STRIKE_PRICE': [100.0],
+... })
+>>> data = otp.DataSource('SOME_DB', symbol='AAA', tick_type='TT')
+>>> data = data.implied_vol(
+...     option_type_field=data['OPTION_TYPE'], days_till_expiration_field=data['DAYS_TILL_EXPIRATION'],
+... )
+>>> otp.run(data)
+        Time     VALUE
+0 2003-12-04  0.889491
 ```
 
 ##### SEE ALSO

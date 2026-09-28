@@ -20,11 +20,10 @@ from onetick.py.otq import otq
 ## Implementing EP that is the source of ticks
 
 Some OneTick event processors are the source of ticks and they have a special interface in `onetick.py`:
-``otp.Source``.
+``onetick.py.Source``.
 
 Let’s use the simplest source of ticks `otq.TickGenerator` as an example.
-
-(For already implemented and more powerful version see class ``otp.Tick``)
+For already implemented and more powerful version see class ``onetick.py.Tick``.
 
 ```
 >>> data = otp.Source(otq.TickGenerator(fields='long A = 1'))
@@ -51,12 +50,9 @@ by the `onetick.query` classes and functions.
 
 If OneTick’s event processor is not a source of ticks then it can be sinked.
 
-We can use method ``otp.Source.sink`` to do this.
-
+We can use method ``onetick.py.Source.sink()`` to do this.
 Let’s use event processor `otq.AddField` as an example.
-
-(For already implemented and more powerful version
-see method ``otp.Source.__setitem__``)
+For already implemented and more powerful version see method ``onetick.py.Source.__setitem__()``.
 
 Do not forget to update `the schema` if needed.
 
@@ -72,14 +68,12 @@ Do not forget to update `the schema` if needed.
 ## Implementing OneTick built-in functions
 
 Another thing that can be inserted directly is OneTick built-in functions.
-
 These functions are used in expressions when adding or updating fields.
 These functions do not have special representation in `onetick.query`, so we can just use strings.
 
 Let’s use OneTick’s function `REPLACE` that replaces some substring in a string.
-
-(For already implemented and more powerful version see method
-``onetick.py.Operation.str.replace``)
+For already implemented and more powerful version see method
+`onetick.py.Operation.str.replace`.
 
 Special class ``otp.raw``
 can be used to represent arbitrary OneTick expression.

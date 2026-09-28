@@ -94,7 +94,7 @@ You can add an existing OneTick database to the locator or create a new one:
 ...                      db_locations=[{'location': '/home/user/data/MY_DB',
 ...                                     'start_time': datetime(2003, 1, 1),
 ...                                     'end_time': datetime(2010, 1, 1),
-...                                     'day_boundary_tz': 'America/New_York'}])
+...                                     'day_boundary_tz': 'EST5EDT'}])
 >>> session.use(existing_db)
 ```
 

@@ -2,7 +2,7 @@
 
 #### \_DtAccessor.week(timezone)
 
-Returns the week number.
+Returns the week.
 
 * **Parameters:**
   **timezone** (*str* *|* *Operation* *|* *Column*) – Name of the timezone, an operation or a column with it.

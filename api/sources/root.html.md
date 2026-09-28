@@ -12,7 +12,6 @@
 * `otp.Query`
 * `otp.ReadCache`
 * `otp.ReadFromDataFrame`
-* `otp.ReadFromIceberg`
 * `otp.ReadFromKdb`
 * `otp.ReadParquet`
 * `otp.RefData`

@@ -11,7 +11,7 @@ otp.run(
     symbols=['AAPL'],
     start=otp.dt(2024, 2, 1, 9, 30),
     end=otp.dt(2024, 2, 1, 9, 30, 1),
-    timezone='America/New_York',
+    timezone='EST5EDT',
 )
 ```
 

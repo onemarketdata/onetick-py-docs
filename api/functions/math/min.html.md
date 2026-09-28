@@ -3,7 +3,6 @@
 ### ``min(*objs)``
 
 Returns minimum value from list of `objs`.
-
 The objects must be of the same type.
 
 * **Parameters:**

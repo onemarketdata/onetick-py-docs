@@ -42,11 +42,11 @@ Defines unordered tick set.
 ...                                                       otp.Ticks(B=[1, 1, 2, 2, 3, 3]),
 ...                                                       max_distinct_keys=5)
 >>> data = data.state_vars['SET'].dump()
->>> otp.run(data)
-        Time  B
-0 2003-12-01  1
-1 2003-12-01  2
-2 2003-12-01  3
+>>> otp.run(data)[['B']]
+   B
+0  1
+1  2
+2  3
 ```
 
 ### ``class TickSetUnordered(*args, max_distinct_keys=-1, **kwargs)``
@@ -143,14 +143,16 @@ Timestamps of all propagated ticks are equal to the input tick’s TIMESTAMP.
 ##### Examples
 
 ```
+>>> def another_query():
+...     return otp.Ticks(B=[1, 2, 3])
 >>> data = otp.Tick(A=1)
->>> data.state_vars['SET'] = otp.state.tick_set('oldest', 'B', otp.Ticks(B=[1, 2, 3]))
+>>> data.state_vars['SET'] = otp.state.tick_set('oldest', 'B', otp.eval(another_query))
 >>> data = data.state_vars['SET'].dump()
->>> otp.run(data)
-        Time  B
-0 2003-12-01  1
-1 2003-12-01  2
-2 2003-12-01  3
+>>> otp.run(data)[['B']]
+   B
+0  1
+1  2
+2  3
 ```
 
 #### ``erase(*key_values, **named_keys)``
@@ -600,7 +602,7 @@ print(df)
 ```
                      Time  A    X
 0 2003-12-01 00:00:00.000  1  123
-1 2003-12-01 00:00:00.001  2    7
+1 2003-12-01 00:00:00.001  2  7
 2 2003-12-01 00:00:00.002  3  123
 ```
 

@@ -6,7 +6,7 @@ Ranking **running** aggregation.
 
 Sorts a series of ticks over a bucket interval
 using a specified set of tick fields specified in `rank_by`
-and adds a new field **RANKING**
+and adds a new field `RANKING`
 with the position of the tick in the sort order
 or the percentage of ticks with values less than (or equal) to the value of the tick.
 
@@ -19,10 +19,8 @@ Does not change the order of the ticks.
     sorting direction. Default direction is `desc`.
   * **show_rank_as** (*str*) – 
     - `order`: calculate number that represents the position of the tick in the sort order
-    - `percent_le_values`: calculate the percentage of ticks that have higher or equal value
-      of the position in the sort order, relative to the tick
-    - `percent_lt_values`: calculate the percentage of ticks that have higher value
-      of the position in the sort order, relative to the tick
+    - `percent_le_values`: calculate the percentage of ticks that have higher or equal value           of the position in the sort order, relative to the tick
+    - `percent_lt_values`: calculate the percentage of ticks that have higher value           of the position in the sort order, relative to the tick
     - `percentile_standard`: calculate Percentile Rank of the tick in the sort order.
   * **include_tick** (*bool* *,* *default=False*) – Specifies whether the current tick should be included in calculations
     if `show_rank_as` is `percent_lt_values` or `percentile_standard`.

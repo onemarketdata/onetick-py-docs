@@ -100,11 +100,11 @@ Outputs all distinct values for a specified set of key fields.
 ##### Examples
 
 ```
->>> data = otp.Ticks(X=[1, 3, 1, 5, 3])
->>> agg = otp.agg.distinct('X')
->>> data = agg.apply(data)
+>>> data = otp.Ticks(dict(x=[1, 3, 1, 5, 3]))
+>>> d = otp.agg.distinct('x')
+>>> data = d.apply(data)
 >>> otp.run(data)
-        Time  X
+        Time  x
 0 2003-12-04  1
 1 2003-12-04  3
 2 2003-12-04  5

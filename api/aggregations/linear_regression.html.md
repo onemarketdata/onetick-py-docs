@@ -6,11 +6,9 @@
 
 For each bucket, computes the linear regression parameters slope and intercept of specified input fields
 `dependent_variable_field_name` and `independent_variable_field_name`.
-
-Adds computed parameters as **SLOPE** and **INTERCEPT** fields in output time series.
+Adds computed parameters as SLOPE and INTERCEPT fields in output time series.
 The relationship between the dependent variable (`Y`) and the independent variable (`X`) is defined
-by the formula: `Y = SLOPE * X + INTERCEPT`,
-where `SLOPE` and `INTERCEPT` are the calculated output parameters.
+by the formula: Y = SLOPE \* X + INTERCEPT, where SLOPE and INTERCEPT are the calculated output parameters.
 
 * **Parameters:**
   * **dependent_variable_field_name** (*Union* **[*str* *,* *onetick.py.core.column.Column* *]*) – Specifies the attribute used as the dependent variable in the calculation of the slope and intercept.

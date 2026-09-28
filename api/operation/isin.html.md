@@ -44,22 +44,22 @@ This function’s result can be used as filter expression:
 
 ```
 >>> data = otp.Ticks(A=[1, 2, 3, 0])
->>> data = data.where(data['A'].isin(0, 1))
->>> otp.run(data)
-                     Time  A
-0 2003-12-01 00:00:00.000  1
-1 2003-12-01 00:00:00.003  0
+>>> yes, no = data[data["A"].isin(0, 1)]
+>>> otp.run(yes)[["A"]]
+   A
+0  1
+1  0
 ```
 
 ``Columns`` and ``operations`` are also supported:
 
 ```
->>> data = otp.Ticks(A=['ab', 'cv', 'bc', 'a', 'd'], B=['a', 'c', 'b', 'a', 'a'])
->>> data = data.where(data['A'].isin(data['B'], data['B'] + 'b'))
->>> otp.run(data)
-                     Time   A  B
-0 2003-12-01 00:00:00.000  ab  a
-1 2003-12-01 00:00:00.003   a  a
+>>> data = otp.Ticks(A=["ab", "cv", "bc", "a", "d"], B=["a", "c", "b", "a", "a"])
+>>> yes, no = data[data["A"].isin(data["B"], data["B"] + "b")]
+>>> otp.run(yes)[["A", "B"]]
+    A  B
+0  ab  a
+1   a  a
 ```
 
 ##### SEE ALSO

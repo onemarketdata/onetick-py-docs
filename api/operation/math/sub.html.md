@@ -14,7 +14,7 @@ Subtract `other` value from column.
 >>> t['A'] = t['A'] - t['B']
 >>> t['B'] = t['B'] - 1
 >>> t['D'] = t['D'] - otp.Day(1)
->>> otp.run(t)
-        Time    A    B          D
-0 2003-12-01 -1.3  1.3 2022-05-11
+>>> otp.run(t)[['A', 'B', 'D']]
+     A    B          D
+0 -1.3  1.3 2022-05-11
 ```

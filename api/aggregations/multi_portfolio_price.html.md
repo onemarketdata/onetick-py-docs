@@ -167,7 +167,9 @@ For each bucket, computes weighted portfolio price for multiple portfolios.
 Basic example, by default this EP takes `PRICE` column as input
 
 ```
->>> data = otp.DataSource('US_COMP', tick_type='TRD', date=otp.dt(2022, 3, 1))
+>>> data = otp.DataSource(
+...     'US_COMP', tick_type='TRD', date=otp.dt(2022, 3, 1)
+... )
 >>> data = data.multi_portfolio_price(
 ...     portfolios_query='some_query.otq::portfolios_query',
 ...     symbols=['US_COMP::AAPL', 'US_COMP::MSFT', 'US_COMP::ORCL'],
@@ -182,7 +184,9 @@ Basic example, by default this EP takes `PRICE` column as input
 Override `weight` returned by `portfolios_query` with `weight_field_name`
 
 ```
->>> data = otp.DataSource('US_COMP', tick_type='TRD', date=otp.dt(2022, 3, 1))
+>>> data = otp.DataSource(
+...     'US_COMP', tick_type='TRD', date=otp.dt(2022, 3, 1)
+... )
 >>> data['WEIGHT'] = 2
 >>> data = data.multi_portfolio_price(
 ...     portfolios_query='some_query.otq::portfolios_query',
@@ -208,10 +212,10 @@ Pass parameters to the query from `portfolios_query` via `portfolios_query_param
 ...     portfolios_query_params={'PORTFOLIO_1_NAME': 'CUSTOM_NAME'}
 ... )
 >>> otp.run(data)
-        Time  VALUE  NUM_SYMBOLS  PORTFOLIO_NAME
-0 2003-12-01   95.0            3     CUSTOM_NAME
-1 2003-12-01   47.5            1     PORTFOLIO_2
-2 2003-12-01   32.5            2     PORTFOLIO_3
+        Time  VALUE  NUM_SYMBOLS PORTFOLIO_NAME
+0 2003-12-01   95.0            3    CUSTOM_NAME
+1 2003-12-01   47.5            1    PORTFOLIO_2
+2 2003-12-01   32.5            2    PORTFOLIO_3
 ```
 
 Use `otp.Source` object as `portfolios_query` (only for local queries)
@@ -222,15 +226,17 @@ Use `otp.Source` object as `portfolios_query` (only for local queries)
 ...     PORTFOLIO_NAME=['PORTFOLIO_1', 'PORTFOLIO_1', 'PORTFOLIO_2'],
 ...     WEIGHT=[1, 1, 2],
 ... )
->>> data = otp.DataSource('US_COMP', tick_type='TRD', date=otp.dt(2022, 3, 1))
+>>> data = otp.DataSource(
+...     'US_COMP', tick_type='TRD', date=otp.dt(2022, 3, 1)
+... )
 >>> data = data.multi_portfolio_price(
 ...     portfolios_query=portfolios,
 ...     symbols=['US_COMP::AAPL', 'US_COMP::MSFT'],
 ... )
 >>> otp.run(data)
-        Time  VALUE  NUM_SYMBOLS  PORTFOLIO_NAME
-0 2003-12-01   47.5            2     PORTFOLIO_1
-1 2003-12-01   46.0            1     PORTFOLIO_2
+        Time  VALUE  NUM_SYMBOLS PORTFOLIO_NAME
+0 2003-12-01   47.5            2    PORTFOLIO_1
+1 2003-12-01   46.0            1    PORTFOLIO_2
 ```
 
 ##### SEE ALSO

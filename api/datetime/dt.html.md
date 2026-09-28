@@ -240,7 +240,7 @@ Localize a timezone-naive datetime object to the specified timezone
 
 ```
 >>> d = otp.datetime(2021, 6, 3)
->>> d.tz_localize('America/New_York')
+>>> d.tz_localize("EST5EDT")
 2021-06-03 00:00:00-04:00
 ```
 
@@ -258,8 +258,8 @@ Convert a timezone-aware datetime object to a different timezone
 ##### Examples
 
 ```
->>> d = otp.datetime(2021, 6, 3, tz='America/New_York')
->>> d.tz_convert('Europe/Moscow')
+>>> d = otp.datetime(2021, 6, 3, tz="EST5EDT")
+>>> d.tz_convert("Europe/Moscow")
 2021-06-03 07:00:00+03:00
 ```
 
@@ -274,11 +274,10 @@ Convert ``otp.datetime`` object to
 ##### Examples
 
 ```
->>> t = otp.Ticks(TZ=['America/New_York', 'GMT'])
+>>> t = otp.Ticks(TZ=['EST5EDT', 'GMT'])
 >>> t['DT'] = otp.dt(2022, 1, 1).to_operation(timezone=t['TZ'])
->>> df = otp.run(t, timezone='GMT')
->>> df[['TZ', 'DT']]
-                 TZ                   DT
-0  America/New_York  2022-01-01 05:00:00
-1               GMT  2022-01-01 00:00:00
+>>> otp.run(t, timezone='GMT')[['TZ', 'DT']]
+        TZ                  DT
+0  EST5EDT 2022-01-01 05:00:00
+1      GMT 2022-01-01 00:00:00
 ```

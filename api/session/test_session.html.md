@@ -10,7 +10,7 @@ but also defines default required ``otp.config`` values.
 Using this session object is the equivalent of defining these configuration values:
 
 ```
-otp.config['tz'] = 'America/New_York'
+otp.config['tz'] = 'EST5EDT'
 otp.config['default_db'] = 'DEMO_L1'
 otp.config['default_symbol'] = 'AAPL'
 otp.config['default_start_time'] = otp.datetime(2003, 12, 1, 0, 0, 0)

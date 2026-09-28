@@ -2,7 +2,7 @@
 
 ### ``vwap(price_column, size_column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all')``
 
-Returns volume weighted average price.
+Returns volume weighted average price
 
 * **Parameters:**
   * **price_column** (*str* *or* *Column    price column for vwap*)
@@ -138,7 +138,7 @@ Returns volume weighted average price.
 
 ```
 >>> data = otp.Ticks(P=[1, 2, 3, 4], S=[10, 20, 30, 40])
->>> data = data.agg({'RESULT': otp.agg.vwap('P', 'S')})
+>>> data = data.agg({'RESULT': otp.agg.vwap('P','S')})
 >>> otp.run(data)
         Time  RESULT
 0 2003-12-04     3.0

@@ -215,7 +215,7 @@ Scope for obtaining SSO access token.
 
 Can be set using environment variable `OTP_ACCESS_TOKEN_SCOPE`.
 
-#### trusted_certificates_file *: `bool`, NoneType, `str`* *= None*
+#### trusted_certificates_file *: `str`, `bool`, NoneType* *= None*
 
 Either a boolean, in which case it controls whether we verify the server TLS certificate or a string with the path to the file with list of trusted Certificate Authority certificates for WebAPI requests. Default behaviour implies verification is enabled.
 

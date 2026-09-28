@@ -28,11 +28,12 @@ Add to or subtract from ``otp.datetime`` object:
 Use offset in columns:
 
 ```
->>> t = otp.Tick(T=otp.datetime(2012, 12, 12, 12))
->>> t['T'] += otp.Month(1)
+>>> t = otp.Tick(A=1)
+>>> t['T'] = otp.datetime(2012, 12, 12, 12)
+>>> t['T'] += otp.Month(t['A'])
 >>> otp.run(t)
-        Time                    T
-0 2003-12-01  2013-01-12 12:00:00
+        Time                   T  A
+0 2003-12-01 2013-01-12 12:00:00  1
 ```
 
 Use it to calculate difference between two dates:

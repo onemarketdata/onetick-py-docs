@@ -36,7 +36,7 @@ Gets available derived databases.
   * **as_table** (*bool*) – If False (default), this function returns a dictionary of database names and database objects.
     If True, returns a `pandas.DataFrame` table where each row contains the info for each database.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    see OneTick server documentation for available options.
+    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
 * **Returns:**
   * Dict where keys are database names and values are ``DB`` objects
   * or `pandas.DataFrame` object depending on `as_table` parameter.

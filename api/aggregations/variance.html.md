@@ -2,7 +2,7 @@
 
 ### ``variance(biased, column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all')``
 
-Implement variance aggregation.
+Implement variance aggregation
 
 * **Parameters:**
   * **biased** (*bool*) – Switches between biased and unbiased variance calculation.
@@ -152,7 +152,7 @@ Implement variance aggregation.
 >>> data = data.agg({'RESULT': otp.agg.variance('X', biased=True)})
 >>> otp.run(data)
         Time  RESULT
-0 2003-12-04    1.04
+0 2003-12-04     1.04
 ```
 
 ##### SEE ALSO

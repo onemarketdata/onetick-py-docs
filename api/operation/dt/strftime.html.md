@@ -40,10 +40,9 @@ the string specified by `format` for a specified `timezone`.
 ##### Examples
 
 ```
->>> data = otp.Ticks(A=[otp.dt(2019, 1, 1, 1, 1, 1),
-...                     otp.dt(2019, 2, 2, 2, 2, 2)])
->>> data['B'] = data['A'].dt.strftime('%d.%m.%Y')
->>> otp.run(data)[['A', 'B']]
+>>> t = otp.Ticks(A=[otp.dt(2019, 1, 1, 1, 1, 1), otp.dt(2019, 2, 2, 2, 2, 2)])
+>>> t['B'] = t['A'].dt.strftime('%d.%m.%Y')
+>>> otp.run(t)[['A', 'B']]
                     A           B
 0 2019-01-01 01:01:01  01.01.2019
 1 2019-02-02 02:02:02  02.02.2019

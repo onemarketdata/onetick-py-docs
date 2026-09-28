@@ -62,16 +62,14 @@ the `symbol_name` parameter is set to empty string.
 ##### Examples
 
 ```
->>> t = otp.Tick(A=1, db='US_COMP_SAMPLE')
+>>> t = otp.Tick(A=1)
 >>> class SymbolNameCallback(otp.CallbackBase):
 ...     def process_symbol_name(self, symbol_name):
 ...         self.symbol_name = symbol_name
 >>> callback = SymbolNameCallback()
->>> otp.run(t, callback=callback,
-...         date=otp.dt(2024, 2, 1),
-...         symbols='US_COMP_SAMPLE::AAPL')
+>>> otp.run(t, callback=callback, symbols='DEMO_L1::X')
 >>> callback.symbol_name
-'US_COMP_SAMPLE::AAPL'
+'DEMO_L1::X'
 ```
 
 #### ``process_symbol_group_name(symbol_group_name)``
@@ -80,9 +78,6 @@ Called when a named group of securities, i.e. portfolio, is processed.
 
 * **Parameters:**
   **symbol_group_name** (*str*) – The name of security group.
-
-#### NOTE
-Not supported in WebAPI mode.
 
 #### ``process_tick_type(tick_type)``
 
@@ -93,9 +88,6 @@ It is called immediately after ``process_symbol_name()``.
 
 * **Parameters:**
   **tick_type** (*str*) – The name of tick type.
-
-#### NOTE
-Not supported in WebAPI mode.
 
 ##### Examples
 
@@ -119,9 +111,6 @@ and every time before tick structure changes.
   **tick_descriptor** (*list* *of* *tuple*) – First element of each tuple is field’s name
   and the second one is a dictionary `{'type': string_field_type}`.
 
-#### NOTE
-Not supported in WebAPI mode.
-
 ##### Examples
 
 ```
@@ -144,7 +133,7 @@ Called to deliver each tick.
   * **time** (``datetime.datetime``) – timestamp of the tick in GMT timezone.
 
 #### NOTE
-Not supported in WebAPI mode, use ``process_ticks()`` callback method instead.
+If you are making query through WebAPI mode, use `process_ticks` callback method instead.
 
 ##### Examples
 
@@ -161,7 +150,7 @@ Not supported in WebAPI mode, use ``process_ticks()`` callback method instead.
 
 #### ``process_ticks(ticks)``
 
-This method is used in WebAPI mode instead of ``process_tick()``.
+This method is used in WebAPI mode instead of `process_tick`.
 
 It is called after getting one batch of ticks.
 The size of batch can be changed with parameters
@@ -234,9 +223,6 @@ will be ordered by time.
 
 * **Parameters:**
   **sorted_by_time_flag** (*bool*) – Indicates whether the incoming ticks will be sorted by time.
-
-#### NOTE
-Not supported in WebAPI mode.
 
 #### ``process_data_quality_change(symbol_name, data_quality, time)``
 

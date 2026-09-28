@@ -17,11 +17,11 @@ import onetick.py as otp
 trd = otp.DataSource(tick_type='TRD', schema={'PRICE': float})
 trd = trd[['PRICE']]
 
-trd = trd.agg({'SHORT': otp.agg.mean('PRICE')}, bucket_interval=60, running=True, all_fields=True)
-trd = trd.agg({'LONG': otp.agg.mean('PRICE')}, bucket_interval=60 * 5, running=True, all_fields=True)
+trd = trd.agg({'short': otp.agg.mean('PRICE')}, bucket_interval=60, running=True, all_fields=True)
+trd = trd.agg({'long': otp.agg.mean('PRICE')}, bucket_interval=60 * 5, running=True, all_fields=True)
 
-trd['BUY'] = (trd['SHORT'][-1] < trd['LONG'][-1]) & (trd['SHORT'] > trd['LONG'])
-trd['SELL'] = (trd['SHORT'][-1] > trd['LONG'][-1]) & (trd['SHORT'] < trd['LONG'])
+trd['buy'] = (trd['short'][-1] < trd['long'][-1]) & (trd['short'] > trd['long'])
+trd['sell'] = (trd['short'][-1] > trd['long'][-1]) & (trd['short'] < trd['long'])
 ```
 
 We define a callback that for every tick (i.e., on every trade) will
@@ -33,15 +33,15 @@ We define a callback that for every tick (i.e., on every trade) will
 ```python
 class GoldenCrossCallback(otp.CallbackBase):
     def process_tick(self, tick, time):
-        if not tick['BUY'] and not tick['SELL']:
+        if not tick['buy'] and not tick['sell']:
             # print('.', end='')
             return
         # print()
         # print()
         print(time, tick)
-        if tick['BUY']:
+        if tick['buy']:
             print('BUY')
-        if tick['SELL']:
+        if tick['sell']:
             print('SELL')
         print()
 ```

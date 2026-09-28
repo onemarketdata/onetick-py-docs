@@ -34,8 +34,8 @@ an ``Operation`` object:
 >>> t = otp.Tick(A=1)
 >>> t['X'] = otp.decimal(1) / 0
 >>> otp.run(t)
-        Time  A    X
-0 2003-12-01  1  inf
+        Time    A    X
+0 2003-12-01    1  inf
 ```
 
 Note that converting from float (first row) may result in losing precision.

@@ -13,7 +13,7 @@ Return modulo of division of int column by `other` value.
 >>> t = otp.Tick(A=3, B=3)
 >>> t['A'] = t['A'] % t['B']
 >>> t['B'] = t['B'] % 2
->>> otp.run(t)
-        Time  A  B
-0 2003-12-01  0  1
+>>> otp.run(t)[['A', 'B']]
+   A  B
+0  0  1
 ```

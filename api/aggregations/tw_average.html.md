@@ -2,7 +2,7 @@
 
 ### ``tw_average(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', time_series_type='state_ts')``
 
-Returns time weighted average of input field.
+Returns time weighted average of input field
 
 * **Parameters:**
   * **column** (*str* *or* *Column* *or* *Operation*) – String with the name of the column to be aggregated or ``Column`` object.
@@ -153,7 +153,7 @@ Returns time weighted average of input field.
 
 ```
 >>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[0, 1000, 1500, 3000])
->>> otp.run(data, start=otp.dt(2023, 4, 25), end=otp.dt(2023, 4, 25) + otp.Second(4))
+>>> otp.run(data, start=otp.dt(2023, 4, 25), end=otp.dt(2023, 4, 25)+otp.Second(4))
                      Time  X
 0 2023-04-25 00:00:00.000  1
 1 2023-04-25 00:00:01.000  2
@@ -164,9 +164,9 @@ Returns time weighted average of input field.
 ```
 >>> data = otp.Ticks(X=[1, 2, 3, 4], offset=[0, 1000, 1500, 3000])
 >>> data = data.agg({'RESULT': otp.agg.tw_average('X')})
->>> otp.run(data, start=otp.dt(2023, 4, 25), end=otp.dt(2023, 4, 25) + otp.Second(4))
-                 Time  RESULT
-0 2023-04-25 00:00:04   2.625
+>>> otp.run(data, start=otp.dt(2023, 4, 25), end=otp.dt(2023, 4, 25)+otp.Second(4))
+        Time  RESULT
+0 2023-04-25 00:00:04  2.625
 ```
 
 ##### SEE ALSO

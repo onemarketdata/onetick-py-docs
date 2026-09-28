@@ -23,9 +23,9 @@ We can aggregate over the entire queried interval by default:
 q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
 q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
 q = q.agg({
-    'VOLUME': otp.agg.sum('SIZE'),
-    'VWAP': otp.agg.vwap('PRICE', 'SIZE'),
-    'COUNT': otp.agg.count(),
+    'volume': otp.agg.sum('SIZE'),
+    'vwap': otp.agg.vwap('PRICE', 'SIZE'),
+    'count': otp.agg.count(),
 })
 otp.run(q, start=s, end=e, symbols=['AAPL'])
 ```
@@ -36,8 +36,8 @@ Or over fixed buckets (aka bars or windows), for example 100 milliseconds bucket
 q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
 q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
 q = q.agg({
-    'VOLUME': otp.agg.sum('SIZE'),
-    'VWAP': otp.agg.vwap('PRICE', 'SIZE')
+    'volume': otp.agg.sum('SIZE'),
+    'vwap': otp.agg.vwap('PRICE', 'SIZE')
 }, bucket_interval=.1)
 otp.run(q, start=s, end=e, symbols=['AAPL'])
 ```
@@ -48,8 +48,8 @@ Or over a sliding window:
 q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
 q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
 q = q.agg({
-    'VOLUME': otp.agg.sum('SIZE'),
-    'VWAP': otp.agg.vwap('PRICE', 'SIZE')
+    'volume': otp.agg.sum('SIZE'),
+    'vwap': otp.agg.vwap('PRICE', 'SIZE')
 }, bucket_interval=.1, running=True)
 otp.run(q, start=s, end=e, symbols=['AAPL'])
 ```
@@ -62,8 +62,8 @@ We can display all fields of the incoming tick along with the current values of 
 q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
 q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
 q = q.agg({
-    'VOLUME': otp.agg.sum('SIZE'),
-    'VWAP': otp.agg.vwap('PRICE', 'SIZE')
+    'volume': otp.agg.sum('SIZE'),
+    'vwap': otp.agg.vwap('PRICE', 'SIZE')
 }, bucket_interval=.1, running=True, all_fields=True)
 otp.run(q, start=s, end=e, symbols=['AAPL'])
 ```
@@ -76,8 +76,8 @@ All of the aggregation operations support grouping.
 q = otp.DataSource('US_COMP_SAMPLE', tick_type='TRD')
 q = q[['PRICE', 'SIZE', 'COND', 'EXCHANGE']]
 q = q.agg({
-    'VOLUME': otp.agg.sum('SIZE'),
-    'VWAP': otp.agg.vwap('PRICE', 'SIZE')
+    'volume': otp.agg.sum('SIZE'),
+    'vwap': otp.agg.vwap('PRICE', 'SIZE')
 }, group_by=['EXCHANGE'])
 otp.run(q, start=s, end=e, symbols=['AAPL'])
 ```

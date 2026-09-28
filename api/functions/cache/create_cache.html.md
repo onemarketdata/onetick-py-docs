@@ -2,7 +2,7 @@
 
 ### ``create_cache(cache_name, query=None, inheritability=True, otq_params=None, time_granularity=0, time_granularity_units=None, timezone='', time_intervals_to_cache=None, allow_delete_to_everyone=False, allow_update_to_everyone=False, allow_search_to_everyone=True, cache_expiration_interval=0, tick_type='ANY', symbol=None, db=None)``
 
-Create cache via CREATE_CACHE EP.
+Create cache via CREATE_CACHE EP
 
 If ``onetick.py.Source`` or callable passed as `query` parameter,
 cache will be created only for current session.
@@ -53,7 +53,7 @@ Cache is only populated when an attempt is made to read the data from it via ``o
 
 ##### Examples
 
-Simple cache creation from .otq file on OneTick server under `OTQ_FILE_PATH`:
+Simple cache creation from .otq file on OneTick server under `OTQ_FILE_PATH`
 
 ```
 >>> otp.create_cache(
@@ -62,7 +62,7 @@ Simple cache creation from .otq file on OneTick server under `OTQ_FILE_PATH`:
 ... )
 ```
 
-Cache creation from function:
+Cache creation from function
 
 ```
 >>> def query_func():
