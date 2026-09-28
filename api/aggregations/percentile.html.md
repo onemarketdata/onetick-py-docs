@@ -5,7 +5,9 @@
 Percentile **running** aggregation.
 
 For each bucket, propagates its `n-1` `n-quantiles` where a comparison between ticks is done
-using a specified set of tick fields. A new field (`QUANTILE`) with the quantile number is added.
+using a specified set of tick fields.
+
+A new field **QUANTILE** with the quantile number is added.
 
 * **Parameters:**
   * **number_of_quantiles** (*int*) – 

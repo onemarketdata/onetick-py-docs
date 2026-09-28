@@ -2,7 +2,7 @@
 
 ### ``first_time(running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', time_series_type='event_ts')``
 
-Return timestamp of first tick
+Return timestamp of first tick.
 
 * **Parameters:**
   * **running** (*bool* *,* *default=False*) – 

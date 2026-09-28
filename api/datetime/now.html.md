@@ -2,7 +2,7 @@
 
 ### ``now()``
 
-Returns the current time expressed as the number of milliseconds since the UNIX epoch in a GMT timezone.
+Returns the current datetime in the timezone of the query.
 
 * **Return type:**
   ``Operation``

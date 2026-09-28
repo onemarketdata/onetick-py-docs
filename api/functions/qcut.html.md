@@ -19,14 +19,14 @@ Quantile-based discretization function (mimics `pandas.qcut`).
 ##### Examples
 
 ```
->>> data = otp.Ticks({"X": [10, 3, 5, 6, 7, 1]})
->>> data['bin'] = otp.qcut(data['X'], q=3, labels=['a', 'b', 'c'])
->>> otp.run(data)[['X', 'bin']]
-    X bin
-0  10   c
-1   3   a
-2   5   b
-3   6   b
-4   7   c
-5   1   a
+>>> data = otp.Ticks({'X': [10, 3, 5, 6, 7, 1]})
+>>> data['BIN'] = otp.qcut(data['X'], q=3, labels=['a', 'b', 'c'])
+>>> otp.run(data)
+                     Time   X BIN
+0 2003-12-01 00:00:00.000  10   c
+1 2003-12-01 00:00:00.001   3   a
+2 2003-12-01 00:00:00.002   5   b
+3 2003-12-01 00:00:00.003   6   b
+4 2003-12-01 00:00:00.004   7   c
+5 2003-12-01 00:00:00.005   1   a
 ```

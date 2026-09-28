@@ -4,12 +4,67 @@
 
 ### Added
 
+### Changed
+
+- Change build logic in Gitlab jobs
+
+### Fixed
+
+### Removed
+
+## [1.214.0] - 2026-09-28
+
+### Added
+
+- Add parameter `compression` to `otp.run` in WebAPI mode
+- Add parameter `db` to `otp.databases`
+- Support `pandas.DataFrame` as the `symbols` parameter of `otp.merge`
+- Added `otp.ReadFromIceberg`
+
+### Changed
+
+### Fixed
+
+- Fix `otp.databases` not returning virtual databases
+- Allow to pass timezone-aware `_PARAM_START_TIME`/`_PARAM_END_TIME` when a DataFrame used as a symbol list in `otp.run`
+- Fix running query with manually set `access_token` in WebAPI mode
+
+### Removed
+
+## [1.213.0] - 2026-09-21
+
+### Added
+
+- Add parameter `underlying_price_field_name` to `OptionPrice` aggregation
+
+### Changed
+
+- Improve Filtering sections in the docs
+- Split `otp.Source` methods in API reference into different sections
+- Simplify and correct examples in the documentation
+
+### Fixed
+
+- Make `CEP` tests more stable
+- Fix wrong query property name used in the documentation
+- Fix the order of fields after updating field type
+- Fix unstable test `test_now_timedelta`
+
+### Removed
+
+## [1.212.0] - 2026-09-14
+
+### Added
+
 - Add more code coverage reports
 - Add parameter `max_notional_value` to some Order Book aggregations and sources
 
 ### Changed
 
 ### Fixed
+
+- Fix `SonarQube` issues
+- Fix `DB.dates()` returning duplicate dates
 
 ### Removed
 

@@ -4,7 +4,7 @@
 
 Bases: ``Source``
 
-Make cached query
+Make cached query.
 
 Cache is initialized on the first read attempt.
 

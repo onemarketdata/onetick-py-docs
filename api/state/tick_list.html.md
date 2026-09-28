@@ -24,11 +24,11 @@ Defines a state tick list.
 >>> data = otp.Tick(A=1)
 >>> data.state_vars['LIST'] = otp.state.tick_list(otp.Ticks(B=[1, 2, 3]))
 >>> data = data.state_vars['LIST'].dump()
->>> otp.run(data)[['B']]
-   B
-0  1
-1  2
-2  3
+>>> otp.run(data)
+                     Time  B
+0 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.001  2
+2 2003-12-01 00:00:00.002  3
 ```
 
 ### ``class TickList(name, obj_ref, default_value, scope, schema=None, **kwargs)``
@@ -252,16 +252,14 @@ to start time and end time correspondingly.
 ##### Examples
 
 ```
->>> def another_query():
-...     return otp.Ticks(B=[1, 2, 3])
 >>> data = otp.Tick(A=1)
->>> data.state_vars['LIST'] = otp.state.tick_list(otp.eval(another_query))
+>>> data.state_vars['LIST'] = otp.state.tick_list(otp.Ticks(B=[1, 2, 3]))
 >>> data = data.state_vars['LIST'].dump()
->>> otp.run(data)[['B']]
-   B
-0  1
-1  2
-2  3
+>>> otp.run(data)
+                     Time  B
+0 2003-12-01 00:00:00.000  1
+1 2003-12-01 00:00:00.001  2
+2 2003-12-01 00:00:00.002  3
 ```
 
 #### ``modify_from_query(query, symbol=None, start=None, end=None, params=None, action='replace', where=None, output_field_name=None)``
@@ -331,7 +329,7 @@ print(df)
 ```
                      Time  A    X
 0 2003-12-01 00:00:00.000  1  123
-1 2003-12-01 00:00:00.001  2  7
+1 2003-12-01 00:00:00.001  2    7
 2 2003-12-01 00:00:00.002  3  123
 ```
 

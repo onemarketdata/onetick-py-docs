@@ -2,7 +2,7 @@
 
 ### ``sum(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', expect_decimals=None)``
 
-Implement sum aggregation
+Implement sum aggregation.
 
 * **Parameters:**
   * **column** (*str* *or* *Column* *or* *Operation*) – String with the name of the column to be aggregated or ``Column`` object.
@@ -175,13 +175,12 @@ so you may not get expected results when using, for example, 24 \* 60 \* 60 seco
 ```
 >>> data = otp.DataSource('CME', symbols=r'NQ\H23', tick_type='TRD')
 >>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')},
-...                 bucket_interval=24*60*60, bucket_units='seconds', bucket_time='start')
->>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')
+...                 bucket_interval=otp.Second(24*60*60), bucket_time='start')
+>>> otp.run(data, start=otp.dt(2023, 3, 12), end=otp.dt(2023, 3, 15), timezone='America/Chicago')
                  Time  VOLUME
-0 2023-03-11 00:00:00       0
-1 2023-03-12 00:00:00   66190
-2 2023-03-13 01:00:00  631750
-3 2023-03-14 01:00:00  345952
+0 2023-03-12 00:00:00   70321
+1 2023-03-13 01:00:00  629688
+2 2023-03-14 01:00:00  344988
 ```
 
 In such case use **days** bucket unit instead:
@@ -189,13 +188,12 @@ In such case use **days** bucket unit instead:
 ```
 >>> data = otp.DataSource('CME', symbols=r'NQ\H23', tick_type='TRD')
 >>> data = data.agg({'VOLUME': otp.agg.sum('SIZE')},
-...                 bucket_interval=1, bucket_units='days', bucket_time='start')
->>> otp.run(data, start=otp.dt(2023, 3, 11), end=otp.dt(2023, 3, 15), timezone='EST5EDT')
+...                 bucket_interval=otp.Day(1), bucket_time='start')
+>>> otp.run(data, start=otp.dt(2023, 3, 12), end=otp.dt(2023, 3, 15), timezone='America/Chicago')
         Time  VOLUME
-0 2023-03-11       0
-1 2023-03-12   62940
-2 2023-03-13  634172
-3 2023-03-14  346780
+0 2023-03-12   66190
+1 2023-03-13  631750
+2 2023-03-14  347057
 ```
 
 ##### SEE ALSO

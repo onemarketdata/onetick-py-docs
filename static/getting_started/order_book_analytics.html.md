@@ -59,8 +59,8 @@ Let’s compute the total ask and bid volumes and the corresponding imbalance.
 
 ```python
 prl = otp.ObSnapshotWide(db='CME_SAMPLE', tick_type='PRL_FULL', max_levels=x, running=True)
-prl = prl.agg({'ask_vol': otp.agg.sum('ASK_SIZE'), 'bid_vol': otp.agg.sum('BID_SIZE')}, bucket_units='ticks', bucket_interval=x)
-prl['imb'] = (prl['bid_vol'] - prl['ask_vol']) / (prl['bid_vol'] + prl['ask_vol'])
+prl = prl.agg({'ASK_VOL': otp.agg.sum('ASK_SIZE'), 'BID_VOL': otp.agg.sum('BID_SIZE')}, bucket_units='ticks', bucket_interval=x)
+prl['IMB'] = (prl['BID_VOL'] - prl['ASK_VOL']) / (prl['BID_VOL'] + prl['ASK_VOL'])
 otp.run(prl, symbols=r'NQ\H24', start=s, end=s + otp.Milli(100))
 ```
 
@@ -68,9 +68,9 @@ We can also compute that stats for the imbalance over time.
 
 ```python
 imb_stats = prl.agg({
-    'tw_imb': otp.agg.tw_average('imb'),
-    'mean':   otp.agg.average('imb'),
-    'stdev':  otp.agg.stddev('imb'),
+    'TW_IMB': otp.agg.tw_average('IMB'),
+    'MEAN':   otp.agg.average('IMB'),
+    'STDEV':  otp.agg.stddev('IMB'),
 })
 otp.run(imb_stats, symbols=r'NQ\H24', start=s, end=s + otp.Milli(100))
 ```
@@ -92,7 +92,7 @@ def sweep_by_price(side, price):
     prl = otp.ObSnapshot(db='CME_SAMPLE', tick_type='PRL_FULL', side=side)
     direction = side_to_direction(side)
     prl = prl.where(direction * prl['PRICE'] <= direction * price)
-    prl = prl.agg({'total_qty': otp.agg.sum('SIZE')})
+    prl = prl.agg({'TOTAL_QTY': otp.agg.sum('SIZE')})
     return otp.run(prl, symbols=r'NQ\H24', start=s, end=s)
 
 print(sweep_by_price('BID', 11896))
@@ -102,12 +102,13 @@ print(sweep_by_price('ASK', 11898))
 ```python
 def sweep_by_qty(side, qty):
     prl = otp.ObSnapshot(db='CME_SAMPLE', tick_type='PRL_FULL', side=side)
-    prl = prl.agg({'total_qty': otp.agg.sum('SIZE')}, running=True, all_fields=True)
-    prl = prl.where(prl['total_qty'] - prl['SIZE'] < qty)
-    # update the SIZE in the last tick only so that total_qty is exactly qty
-    prl['SIZE'] = prl.apply(lambda row: row['SIZE'] - (row['total_qty'] - qty) if row['total_qty'] > qty else row['SIZE'])
+    prl = prl.agg({'TOTAL_QTY': otp.agg.sum('SIZE')}, running=True, all_fields=True)
+    prl = prl.where(prl['TOTAL_QTY'] - prl['SIZE'] < qty)
+    # update the SIZE in the last tick only so that TOTAL_QTY is exactly qty
+    prl['SIZE'] = prl.apply(lambda row: row['SIZE'] - (row['TOTAL_QTY'] - qty) if row['TOTAL_QTY'] > qty else row['SIZE'])
     prl = prl.agg({'VWAP': otp.agg.vwap('PRICE', 'SIZE')})
     return otp.run(prl, symbols=r'NQ\H24', start=s, end=s)
+
 print(sweep_by_qty('BID', 10))
 print(sweep_by_qty('ASK', 10))
 ```
