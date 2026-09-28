@@ -123,8 +123,8 @@ data['X'] = 1              # it is the `int` type
 data['X'] = data['X'] / 2  # here it becomes `float`
 ```
 
-or it could be done explicitly using the ``onetick.py.Source.apply()`` method
-(or equivalently – `onetick.py.Source.astype()`)
+or it could be done explicitly using the ``onetick.py.Operation.apply()`` method
+(or equivalently – ``onetick.py.Operation.astype()``)
 
 ```python
 data['X'] = data['X'].apply(str)

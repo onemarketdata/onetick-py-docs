@@ -36,12 +36,11 @@ Using `float` value to pass nanoseconds:
 Use offset in columns:
 
 ```
->>> t = otp.Tick(A=1)
->>> t['T'] = otp.datetime(2012, 12, 12, 12)
->>> t['T'] += otp.Milli(t['A'])
+>>> t = otp.Tick(T=otp.datetime(2012, 12, 12, 12))
+>>> t['T'] += otp.Milli(1)
 >>> otp.run(t)
-        Time                       T  A
-0 2003-12-01 2012-12-12 12:00:00.001  1
+        Time                        T
+0 2003-12-01  2012-12-12 12:00:00.001
 ```
 
 Use it to calculate difference between two dates:

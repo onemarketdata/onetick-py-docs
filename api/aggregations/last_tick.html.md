@@ -2,7 +2,7 @@
 
 ### ``last_tick(n=1, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', keep_timestamp=True, time_series_type='event_ts')``
 
-Select the last `n` ticks
+Select the last `n` ticks.
 
 * **Parameters:**
   * **n** (*int* *,* *default=1*) – Number of ticks to output

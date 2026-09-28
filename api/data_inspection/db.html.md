@@ -29,7 +29,7 @@ All dates are returned in GMT timezone.
   * **username** – Can be used to specify the user for which the query will be executed.
     By default the query is executed for the current user.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
 * **Return type:**
   *DataFrame* | `dict`
 
@@ -88,7 +88,7 @@ Shows the specified configuration for a database.
     including additional information, such as
     LOCATION, ARCHIVE_DURATION, DAY_BOUNDARY_TZ, DAY_BOUNDARY_OFFSET, ALTERNATIVE_LOCATIONS, etc.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
 * **Return type:**
   `dict`
 
@@ -97,7 +97,7 @@ Shows the specified configuration for a database.
 ```
 >>> db = otp.databases()['US_COMP_SAMPLE']
 >>> print(db.show_config()['LOCATOR_STRING'])
-<DB ARCHIVE_COMPRESSION_TYPE="NATIVE_PLUS_GZIP" ... DAY_BOUNDARY_TZ="EST5EDT" ... ID="US_COMP_SAMPLE" ...>
+<DB ARCHIVE_COMPRESSION_TYPE="NATIVE_PLUS_GZIP" DAY_BOUNDARY_TZ="America/New_York" ... ID="US_COMP_SAMPLE" ...>
 <LOCATIONS >
     <LOCATION ACCESS_METHOD="file" END_TIME="20380101000000" LOCATION="..." ... />
 </LOCATIONS>
@@ -183,7 +183,7 @@ Returns list of tick types for the `date`.
   * **date** (``otp.dt``, ``datetime.datetime``, optional) – Date for the tick types look up. `None` means the ``last_date``
   * **timezone** (*str* *,* *optional*) – Timezone for the look up. `None` means the default timezone.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
   * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
     Otherwise only the archive databases will be used.
     Default is True.
@@ -219,7 +219,7 @@ Gets the schema of the database.
     By default this option is set to False if it is supported by API and the server,
     otherwise it is set to True.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
   * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
     Otherwise only the archive databases will be used.
     Default is True.
@@ -261,7 +261,7 @@ Finds a list of available symbols in the database
   * **timezone** (*str* *,* *optional*) – Timezone for the lookup. `None` means the default timezone.
   * **pattern** (*str*) – Regular expression to select symbols.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
   * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
     Otherwise only the archive databases will be used.
     Default is True.
@@ -311,7 +311,7 @@ Archive stats returned:
   * **date** (``otp.dt``, optional) – Date to query. Can be set instead of `start` and `end`.
   * **timezone** (*str*) – Timezone for the query. Default is GMT.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
 * **Return type:**
   *DataFrame*
 
@@ -362,7 +362,7 @@ as well as names of continuous contracts in database symbology.
   * **symbol_date** – This parameter must be specified for some reference data types to be queried.
   * **symbol** (*str*) – Symbol name for the query (may be useful for some `ref_data_type`).
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
 * **Return type:**
   *DataFrame*
 
@@ -375,7 +375,7 @@ Show calendars for a database US_COMP_SAMPLE in the given range:
 >>> db.ref_data('all_calendars',
 ...             date=otp.dt(2024, 1, 1),
 ...             symbol='AAPL',
-...             timezone='EST5EDT',
+...             timezone='America/New_York',
 ...             symbol_date=otp.dt(2024, 1, 1))
           Time END_DATETIME       CALENDAR_NAME SESSION_NAME SESSION_FLAGS DAY_PATTERN  START_HHMMSS              END_HHMMSS          TIMEZONE  PRIORITY                    DESCRIPTION
 0   2024-01-01   2024-01-02  BBG_EQUITY_EXCH_US     DAY_TYPE             R   0.0.12345             0                  240000  America/New_York         0                    @US_DEFAULT

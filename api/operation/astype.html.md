@@ -12,8 +12,8 @@ Alias for the ``apply()`` method with type.
 >>> data['B'] = data['B'].astype(int) + 1
 >>> data['C'] = data['C'].astype(float) + 0.1
 >>> otp.run(data)
-        Time  B   A    C
-0 2003-12-01  3  1A  3.4
+        Time   A  B    C
+0 2003-12-01  1A  3  3.4
 ```
 
 ##### SEE ALSO

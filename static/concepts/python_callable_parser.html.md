@@ -302,11 +302,11 @@ Only iterating over simple sequences (lists, tuples) with simple values (string 
 You can iterate over tick sequences inside per-tick script.
 These sequences should be created outside of the per-tick script.
 
-- `otp.state.tick_sequence_tick()`
-- `otp.state.tick_list()`
-- `otp.state.tick_set()`
-- `otp.state.tick_set_unordered()`
-- `otp.state.tick_deque()`
+- ``onetick.py.core._internal._state_objects.TickSequenceTick``
+- ``onetick.py.state.tick_list()``
+- ``onetick.py.state.tick_set()``
+- ``onetick.py.state.tick_set_unordered()``
+- ``onetick.py.state.tick_deque()``
 
 ```
 >>> t = otp.Tick(A=1)

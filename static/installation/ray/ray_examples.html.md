@@ -63,7 +63,7 @@ def get_BBO_offset(start, num_orders, offset):
 
     # Create order flow.
     # In practice, it can be take from a CSV file for from a DataFrame.
-    order = otp.Ticks(timezone_for_time='EST5EDT',
+    order = otp.Ticks(timezone_for_time='America/New_York',
                       start=start,
                       end=start + otp.Hour(1),
                       offset = [otp.Milli(x * 500) for x in range(0, num_orders)],
@@ -121,8 +121,8 @@ Remote run approach leads to some usage limitations:
 
 ### Using apply() method in remote context
 
-Technical implementation of `otp.Source.apply` method requires user to use `otp.remote` decorator
-with functions and lambda expressions that will be used as arguments to `otp.Source.apply` method.
+Technical implementation of ``onetick.py.Source.apply()`` method requires user to use `otp.remote` decorator
+with functions and lambda expressions that will be used as arguments to ``onetick.py.Source.apply()`` method.
 
 ```python
 import ray

@@ -1,6 +1,6 @@
 # otp.databases
 
-### ``databases(context=utils.default, derived=False, readable_only=False, fetch_description=None, as_table=False, query_properties=None)``
+### ``databases(context=utils.default, derived=False, readable_only=False, fetch_description=None, as_table=False, query_properties=None, db=None)``
 
 Gets all available databases in the `context`.
 
@@ -26,7 +26,9 @@ Gets all available databases in the `context`.
   * **as_table** (*bool*) – If False (default), this function returns a dictionary of database names and database objects.
     If True, returns a `pandas.DataFrame` table where each row contains the info for each database.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
-    such as ONE_TO_MANY_POLICY, ALLOW_GRAPH_REUSE, etc.
+    see OneTick server documentation for available options.
+  * **db** (*str*) – Specifies database name to use when running the query, otherwise
+    ``otp.config.default_db`` or `LOCAL` is used.
 * **Returns:**
   * Dict where keys are database names and values are ``DB`` objects
   * or `pandas.DataFrame` object depending on `as_table` parameter.
