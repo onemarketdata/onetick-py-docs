@@ -68,7 +68,7 @@ result = otp.run(data,
 result
 ```
 
-## Tick Type List
+## Tick Type - Table List
 
 Retrieve the list of databases, and then for a specified database, retrieve the available tick types / tables.
 

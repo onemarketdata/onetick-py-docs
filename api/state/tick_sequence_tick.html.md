@@ -128,36 +128,6 @@ Get value of the datetime `field_name` of the tick.
 0 2003-12-01  1 2003-12-01 00:00:00.003
 ```
 
-#### ``get_decimal_value(field_name, check_schema=True)``
-
-Get value of the decimal `field_name` of the tick.
-
-* **Parameters:**
-  * **field_name** (str, ``otp.Operation``) – String field name or operation which returns field name.
-  * **check_schema** (*bool*) – Check that `field_name` exists in tick’s schema and its type is float.
-    In some cases you may want to disable this behaviour, for example, when tick sequence
-    is updated dynamically in different branches of per-tick script. In this case onetick-py
-    can’t deduce if `field_name` exists in schema or has the same type.
-* **Return type:**
-  *Operation*
-
-##### Examples
-
-```
->>> data = otp.Tick(A=1)
->>> data.state_vars['LIST'] = otp.state.tick_list(
-...     otp.Ticks(X=[otp.decimal('1.1'), otp.decimal('2.2'), otp.decimal('3.3')])
-... )
->>> def fun(tick):
-...     tick['SUM'] = 0
-...     for t in tick.state_vars['LIST']:
-...         tick['SUM'] += t.get_decimal_value('X')
->>> data = data.script(fun)
->>> otp.run(data)
-        Time  A  SUM
-0 2003-12-01  1  6.6
-```
-
 #### ``get_double_value(field_name, check_schema=True)``
 
 Get value of the double `field_name` of the tick.
@@ -294,37 +264,6 @@ Set `value` of the datetime `field_name` of the tick.
 0 2003-12-01 00:00:00.000  a 2003-12-01
 1 2003-12-01 00:00:00.001  b 2003-12-01
 2 2003-12-01 00:00:00.002  c 2003-12-01
-```
-
-#### ``set_decimal_value(field_name, value, check_schema=True)``
-
-Set `value` of the decimal `field_name` of the tick.
-
-* **Parameters:**
-  * **field_name** (str, ``otp.Operation``) – String field name or operation which returns field name.
-  * **value** (``decimal``,                ``otp.Operation``) – Decimal value to set or operation which return such value.
-  * **check_schema** (*bool*) – Check that `field_name` exists in tick’s schema and its type is the same as the type of `value`.
-    In some cases you may want to disable this behaviour, for example, when tick sequence
-    is updated dynamically in different branches of per-tick script. In this case onetick-py
-    can’t deduce if `field_name` exists in schema or has the same type.
-
-##### Examples
-
-```
->>> data = otp.Tick(A=1)
->>> data.state_vars['LIST'] = otp.state.tick_list(
-...     otp.Ticks(A=[1, 2, 3], X=[otp.decimal('1.1'), otp.decimal('2.2'), otp.decimal('3.3')])
-... )
->>> def fun(tick):
-...     for t in tick.state_vars['LIST']:
-...         t.set_decimal_value('X', otp.decimal('1.1'))
->>> data = data.script(fun)
->>> data = data.state_vars['LIST'].dump()
->>> otp.run(data)
-                     Time  A    X
-0 2003-12-01 00:00:00.000  1  1.1
-1 2003-12-01 00:00:00.001  2  1.1
-2 2003-12-01 00:00:00.002  3  1.1
 ```
 
 #### ``set_double_value(field_name, value, check_schema=True)``
