@@ -2,7 +2,7 @@
 
 ### ``var(default_value, scope='query')``
 
-Defines a state variable. Supports int, float and string values.
+Defines a state variable. Supports int, float, ``decimal`` and string values.
 
 * **Parameters:**
   * **default_value** (*any*) – Default value of the state variable

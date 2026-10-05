@@ -6,9 +6,30 @@
 
 ### Changed
 
+### Fixed
+
+- Updated documentation about `otp.state.var` and config environment variables
+
+### Removed
+
+## [1.215.0] - 2026-10-05
+
+### Added
+
+- Add missing OneTick datetime functions
+- Support getting and setting decimal values in per-tick script
+- Add `Earnings Events Analysis` section to the Use Cases documentation
+- Add `.jupyter_cache` directory to git
+
+### Changed
+
 - Change build logic in Gitlab jobs
 
 ### Fixed
+
+- Fix unstable tests and some compatibility tests
+- Fix SonarQube issues
+- Fix `otp.join` not joining on `TIMESTAMP` column
 
 ### Removed
 
