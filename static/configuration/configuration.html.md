@@ -14,6 +14,11 @@ If `onetick.py` is used on the machine without OneTick distribution, then settin
 
 See ``otp.config`` for details.
 
+For configuration parameters expecting `boolean` values you can pass next string values (case-insensitive):
+
+* `1`, `true`, `yes` for `True` values
+* `0`, `false`, `no` for `False` values
+
 ### OptionsTable
 
 | Name                                                                                                                                                                                         | Environment Variable                        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |

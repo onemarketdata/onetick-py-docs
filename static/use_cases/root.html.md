@@ -16,6 +16,7 @@ Documentation for `onetick.py` examples library, grouped by topic, using OneTick
 * `Corrections and Time Travel`
 * `Composites`
 * `Crypto`
+* `Earnings Events Analysis`
 * `ETF`
 * `Futures`
 * `Options`
