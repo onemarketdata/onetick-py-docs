@@ -8,8 +8,13 @@ Object that represents decimal OneTick value.
 Decimal is 128 bit base 10 floating point number.
 
 * **Parameters:**
-  **value** (*int* *,* *float* *,* *str*) – The value to initialize decimal from.
+  **value** (*int* *,* *float* *,* *str*) – 
+
+  The value to initialize decimal from.
+
   Note that float values may be converted with precision lost.
+
+  Special string literals `NaN` and `Infinity` can also be used.
 
 ##### Examples
 
@@ -36,6 +41,15 @@ an ``Operation`` object:
 >>> otp.run(t)
         Time  A    X
 0 2003-12-01  1  inf
+```
+
+Special values `NaN` and `Infinity` can be used when initializing ``decimal`` values:
+
+```
+>>> t = otp.Tick(NAN=otp.decimal('NaN'), INF=otp.decimal('Infinity'), NEG_INF=-otp.decimal('Infinity'))
+>>> otp.run(t)
+        Time  NAN  INF  NEG_INF
+0 2003-12-01  NaN  inf     -inf
 ```
 
 Note that converting from float (first row) may result in losing precision.
@@ -69,5 +83,13 @@ so even the float values will not lose precision:
 2 2003-12-01 00:00:00.002  0.0010  0.0010000000000000000000000000000000
 3 2003-12-01 00:00:00.003  0.0001  0.0001000000000000000000000000000000
 ```
+
+##### SEE ALSO
+**STRING_TO_DECIMAL** OneTick function
+
+**DECIMAL_NAN** OneTick function
+
+**DECIMAL_INFINITY** OneTick function
+
 
 #### ``to_operation()``

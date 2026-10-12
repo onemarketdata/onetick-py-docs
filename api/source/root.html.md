@@ -29,7 +29,7 @@ such properties as symbol name and tick type manually.
 ```
 
 * **Parameters:**
-  **query_parameters** (*QueryParameters*)
+  **query_parameters** (*QueryParameters* *|* *None*)
 
 ## Table Of Contents
 

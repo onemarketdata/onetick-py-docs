@@ -24,3 +24,7 @@ each time a query is invoked.
         Time  A  RAND
 0 2003-12-01  1   155
 ```
+
+##### SEE ALSO
+**RAND** OneTick function
+

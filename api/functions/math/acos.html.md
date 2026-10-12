@@ -5,7 +5,7 @@
 Returns the value of inverse trigonometric function arccos.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -19,7 +19,7 @@ Returns the value of inverse trigonometric function arccos.
 0 2003-12-01  1  3.1416
 ```
 
-otp.math.arccos() is the alias for otp.math.acos():
+`otp.math.arccos()` is the alias for ``acos()``:
 
 ```
 >>> data = otp.Tick(A=1)
@@ -30,4 +30,9 @@ otp.math.arccos() is the alias for otp.math.acos():
 ```
 
 ##### SEE ALSO
-``onetick.py.math.pi()``, ``onetick.py.math.cos()``
+**ACOS** OneTick function
+
+``onetick.py.math.pi()``
+
+``onetick.py.math.cos()``
+

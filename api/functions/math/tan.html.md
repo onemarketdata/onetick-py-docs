@@ -5,7 +5,7 @@
 Returns the value of trigonometric function tan for the given `value` number expressed in radians.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -20,4 +20,9 @@ Returns the value of trigonometric function tan for the given `value` number exp
 ```
 
 ##### SEE ALSO
-``onetick.py.math.pi()``, ``onetick.py.math.atan()``
+**TAN** OneTick function
+
+``onetick.py.math.pi()``
+
+``onetick.py.math.atan()``
+

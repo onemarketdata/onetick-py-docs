@@ -5,7 +5,7 @@
 Returns the value of inverse trigonometric function arccot.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -19,7 +19,7 @@ Returns the value of inverse trigonometric function arccot.
 0 2003-12-01  1  0.7854
 ```
 
-otp.math.arccot() is the alias for otp.math.acot():
+`otp.math.arccot()` is the alias for ``acot()``:
 
 ```
 >>> data = otp.Tick(A=1)
@@ -30,4 +30,9 @@ otp.math.arccot() is the alias for otp.math.acot():
 ```
 
 ##### SEE ALSO
-``onetick.py.math.pi()``, ``onetick.py.math.cot()``
+**ACOT** OneTick function
+
+``onetick.py.math.pi()``
+
+``onetick.py.math.cot()``
+

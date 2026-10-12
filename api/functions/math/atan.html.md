@@ -5,7 +5,7 @@
 Returns the value of inverse trigonometric function arctan.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -19,7 +19,7 @@ Returns the value of inverse trigonometric function arctan.
 0 2003-12-01  1  0.7854
 ```
 
-otp.math.arctan() is the alias for otp.math.atan():
+`otp.math.arctan()` is the alias for ``atan()``:
 
 ```
 >>> data = otp.Tick(A=1)
@@ -30,4 +30,9 @@ otp.math.arctan() is the alias for otp.math.atan():
 ```
 
 ##### SEE ALSO
-``onetick.py.math.pi()``, ``onetick.py.math.tan()``
+**ATAN** OneTick function
+
+``onetick.py.math.pi()``
+
+``onetick.py.math.tan()``
+

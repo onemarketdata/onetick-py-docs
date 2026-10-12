@@ -10,3 +10,4 @@ methods specific to float type.
 * `otp.Operation.float.cmp`
 * `otp.Operation.float.eq`
 * `otp.Operation.float.str`
+* `otp.Operation.float.to_32nds`

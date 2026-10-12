@@ -5,7 +5,7 @@
 Returns the value of inverse trigonometric function arcsin.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -19,7 +19,7 @@ Returns the value of inverse trigonometric function arcsin.
 0 2003-12-01  1  1.5708
 ```
 
-otp.math.arcsin() is the alias for otp.math.asin():
+`otp.math.arcsin()` is the alias for ``asin()``:
 
 ```
 >>> data = otp.Tick(A=1)
@@ -30,4 +30,9 @@ otp.math.arcsin() is the alias for otp.math.asin():
 ```
 
 ##### SEE ALSO
-``onetick.py.math.pi()``, ``onetick.py.math.sin()``
+**ASIN** OneTick function
+
+``onetick.py.math.pi()``
+
+``onetick.py.math.sin()``
+

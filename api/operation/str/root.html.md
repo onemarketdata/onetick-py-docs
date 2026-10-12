@@ -15,6 +15,7 @@ Property that provides access to methods specific to string types.
 * `otp.Operation.str.extract`
 * `otp.Operation.str.find`
 * `otp.Operation.str.first`
+* `otp.Operation.str.from_32nds`
 * `otp.Operation.str.get`
 * `otp.Operation.str.ilike`
 * `otp.Operation.str.insert`

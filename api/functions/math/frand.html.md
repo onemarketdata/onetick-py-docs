@@ -16,8 +16,13 @@ Returns a pseudo-random value in the range between `min_value` and `max_value`.
 ##### Examples
 
 ```
->>> data = otp.Tick(A=otp.math.frand())
+>>> data = otp.Tick(A=1)
+>>> data['FRAND'] = otp.math.frand()
 >>> otp.run(data)
         Time  A     FRAND
 0 2003-12-01  1  0.667519
 ```
+
+##### SEE ALSO
+**FRAND** OneTick function
+

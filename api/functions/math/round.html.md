@@ -8,6 +8,7 @@ Rounding ``otp.nan`` returns NaN
 and rounding ``otp.inf`` returns Infinity.
 
 * **Parameters:**
+  * **value** (int, float, ``decimal``, ``Operation``, ``Column``) – The value to round.
   * **precision** (*int*) – Number from -12 to 12.
     Positive precision is precision after the floating point.
     Negative precision is precision before the floating point (and the fraction part is dropped in this case).
@@ -47,9 +48,9 @@ Positive precision truncates to the number of digits *after* floating point:
 >>> t['ROUND1'] = otp.math.round(t['A'], 1)
 >>> t['ROUND2'] = otp.math.round(t['A'], 2)
 >>> otp.run(t)
-                        Time       A  ROUND1  ROUND2
-0 2003-12-01 00:00:00.000 -123.45  -123.4 -123.45
-1 2003-12-01 00:00:00.001  123.45   123.5  123.45
+                     Time       A  ROUND1   ROUND2
+0 2003-12-01 00:00:00.000 -123.45  -123.4  -123.45
+1 2003-12-01 00:00:00.001  123.45   123.5   123.45
 ```
 
 Negative precision truncates to the number of digits *before* floating point
@@ -60,7 +61,7 @@ Negative precision truncates to the number of digits *before* floating point
 >>> t['ROUND_M1'] = otp.math.round(t['A'], -1)
 >>> t['ROUND_M2'] = otp.math.round(t['A'], -2)
 >>> otp.run(t)
-                        Time       A  ROUND_M1  ROUND_M2
+                     Time       A  ROUND_M1  ROUND_M2
 0 2003-12-01 00:00:00.000 -123.45    -120.0    -100.0
 1 2003-12-01 00:00:00.001  123.45     120.0     100.0
 ```
@@ -79,3 +80,9 @@ and rounding ``otp.inf`` returns Infinity in all cases:
 1 2003-12-01 00:00:00.001 -inf     -inf      -inf      -inf
 2 2003-12-01 00:00:00.002  NaN      NaN       NaN       NaN
 ```
+
+##### SEE ALSO
+**ROUND_DOUBLE** OneTick function
+
+**ROUND_DECIMAL** OneTick function
+

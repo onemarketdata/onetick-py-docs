@@ -66,3 +66,9 @@ Getting mapping for all symbols in US_COMP_SAMPLE database in single source:
 499 2024-02-01 00:00:00   US_COMP_SAMPLE::ZTS             291586
 500 2024-02-01 06:00:00   US_COMP_SAMPLE::DAY             668642
 ```
+
+##### SEE ALSO
+**SYMBOLOGY_MAPPING** OneTick event processor
+
+``onetick.py.ShowSymbologyList``
+

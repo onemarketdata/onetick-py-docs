@@ -8,9 +8,11 @@ See also: `Math operations`
 * `otp.math.acot`
 * `otp.math.asin`
 * `otp.math.atan`
+* `otp.math.atn2`
 * `otp.math.ceil`
 * `otp.math.cos`
 * `otp.math.cot`
+* `otp.math.degrees`
 * `otp.math.div`
 * `otp.math.exp`
 * `otp.math.floor`
@@ -23,9 +25,11 @@ See also: `Math operations`
 * `otp.math.mod`
 * `otp.math.pi`
 * `otp.math.pow`
+* `otp.math.radians`
 * `otp.math.rand`
 * `otp.math.round`
 * `otp.math.sign`
 * `otp.math.sin`
 * `otp.math.sqrt`
 * `otp.math.tan`
+* `otp.math.truncate`

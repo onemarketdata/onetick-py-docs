@@ -5,8 +5,8 @@
 Compute the `base` to the power of the `exponent`.
 
 * **Parameters:**
-  * **base** (int, float, ``Operation``, ``Column``)
-  * **exponent** (int, float, ``Operation``, ``Column``)
+  * **base** (int, float, ``decimal``, ``Operation``, ``Column``)
+  * **exponent** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -19,3 +19,7 @@ Compute the `base` to the power of the `exponent`.
         Time  A     RES
 0 2003-12-01  2  1024.0
 ```
+
+##### SEE ALSO
+**POWER** OneTick function
+

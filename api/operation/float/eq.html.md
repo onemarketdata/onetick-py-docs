@@ -17,7 +17,7 @@ Calculated as `abs(column - other) <= delta`.
 >>> data = otp.Ticks(X=[1, 2.17, 10.31841, 3.141593, 6],
 ...                  OTHER=[1.01, 2.1, 10.32841, 3.14, 5],
 ...                  DELTA=[0, 1, 0.1, 0.01, 0.001])
->>> data["Y"] = (1 + data["X"] - 1).float.eq(data["OTHER"], data["DELTA"])
+>>> data['Y'] = (1 + data['X'] - 1).float.eq(data['OTHER'], data['DELTA'])
 >>> otp.run(data)
                      Time          X     OTHER  DELTA    Y
 0 2003-12-01 00:00:00.000   1.000000   1.01000  0.000  0.0
@@ -28,4 +28,5 @@ Calculated as `abs(column - other) <= delta`.
 ```
 
 ##### SEE ALSO
-``cmp``
+cmp
+

@@ -23,7 +23,7 @@ if `length` is specified as a column, the method will return string default (64 
 
 ```
 >>> data = otp.Ticks(X=[1, 2.17, 10.31861, 3.141593, otp.nan, otp.inf, -otp.inf])
->>> data["Y"] = data["X"].float.str(15, 3)
+>>> data['Y'] = data['X'].float.str(15, 3)
 >>> otp.run(data)
                      Time          X       Y
 0 2003-12-01 00:00:00.000   1.000000   1.000
@@ -41,7 +41,7 @@ Parameters `length` and `precision` can also be taken from the columns:
 >>> data = otp.Ticks(X=[1, 2.17, 10.31841, 3.141593],
 ...                  LENGTH=[2, 3, 4, 5],
 ...                  PRECISION=[5, 5, 3, 3])
->>> data["Y"] = data["X"].float.str(data["LENGTH"], data["PRECISION"])
+>>> data['Y'] = data['X'].float.str(data['LENGTH'], data['PRECISION'])
 >>> otp.run(data)
                      Time          X  LENGTH  PRECISION      Y
 0 2003-12-01 00:00:00.000   1.000000       2          5      1
@@ -49,3 +49,7 @@ Parameters `length` and `precision` can also be taken from the columns:
 2 2003-12-01 00:00:00.002  10.318410       4          3   10.3
 3 2003-12-01 00:00:00.003   3.141593       5          3  3.142
 ```
+
+##### SEE ALSO
+**STR** OneTick function
+

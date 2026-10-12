@@ -5,7 +5,7 @@
 Compute the base-10 logarithm of the `value`.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -18,3 +18,7 @@ Compute the base-10 logarithm of the `value`.
         Time  A  LOG10
 0 2003-12-01  1    2.0
 ```
+
+##### SEE ALSO
+**LOG10** OneTick function
+

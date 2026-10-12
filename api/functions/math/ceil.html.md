@@ -5,7 +5,7 @@
 Returns a float value representing the smallest number that is greater than or equal to the `value`.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -33,3 +33,9 @@ and rounding ``otp.inf`` returns Infinity.
 10 2003-12-01 00:00:00.010   inf   inf
 11 2003-12-01 00:00:00.011   NaN   NaN
 ```
+
+##### SEE ALSO
+**CEIL** OneTick function
+
+floor
+

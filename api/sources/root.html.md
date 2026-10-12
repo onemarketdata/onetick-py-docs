@@ -16,6 +16,10 @@
 * `otp.ReadFromKdb`
 * `otp.ReadParquet`
 * `otp.RefData`
+* `otp.ShowEpInfo`
+* `otp.ShowEpList`
+* `otp.ShowFunctionList`
+* `otp.ShowSymbologyList`
 * `otp.SplitQueryOutputBySymbol`
 * `otp.SymbologyMapping`
 * `otp.Symbols`

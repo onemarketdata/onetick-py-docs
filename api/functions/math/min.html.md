@@ -7,7 +7,7 @@ Returns minimum value from list of `objs`.
 The objects must be of the same type.
 
 * **Parameters:**
-  **objs** (int, float, ``Operation``, ``Column``)
+  **objs** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -20,3 +20,7 @@ The objects must be of the same type.
         Time  A  MIN
 0 2003-12-01  1   -5
 ```
+
+##### SEE ALSO
+**MIN** OneTick function
+

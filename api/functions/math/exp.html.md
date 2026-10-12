@@ -5,7 +5,7 @@
 Compute the natural exponent of the `value`.
 
 * **Parameters:**
-  **value** (int, float, ``Operation``, ``Column``)
+  **value** (int, float, ``decimal``, ``Operation``, ``Column``)
 * **Return type:**
   ``Operation``
 
@@ -20,4 +20,7 @@ Compute the natural exponent of the `value`.
 ```
 
 ##### SEE ALSO
+**EXP** OneTick function
+
 ``onetick.py.math.ln()``
+
