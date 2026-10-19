@@ -6,6 +6,8 @@ Bases: `SqlQuery`
 
 Constructs SQL query object.
 
+See more SQL examples on `https://sql.docs.sol.onetick.com/`.
+
 * **Parameters:**
   * **sql_statement** (*str*) – The SQL statement string.
   * **merge_all_symbols** (*bool*) – If set to True, ticks returned by the query for all symbols get merged into a single time series.
@@ -22,8 +24,8 @@ Select two fields from a single tick type and symbol and return first three tick
 ...     otp.SqlQuery(
 ...         "select PRICE,SIZE from US_COMP_SAMPLE.TRD"
 ...         " where symbol_name = 'AAPL'"
-...         " and start_time = '2024-02-01 00:00:00 America/New_York'"
-...         " and end_time = '2024-02-02 00:00:00 America/New_York'"
+...         " and TIMESTAMP >= '2024-02-01 00:00:00 America/New_York'"
+...         " and TIMESTAMP < '2024-02-02 00:00:00 America/New_York'"
 ...         " limit 3"
 ...     ),
 ... )
@@ -42,8 +44,8 @@ Join quotes and trades:
 ...         " from US_COMP_SAMPLE.TRD t join US_COMP_SAMPLE.QTE q"
 ...         " on sametime_as_existing(t.timestamp, q.timestamp, 0) = TRUE"
 ...         " where t.symbol_name = 'AAPL' and q.symbol_name = 'AAPL'"
-...         " and start_time = '2024-02-01 00:00:00 America/New_York'"
-...         " and end_time = '2024-02-02 00:00:00 America/New_York'"
+...         " and TIMESTAMP >= '2024-02-01 00:00:00 America/New_York'"
+...         " and TIMESTAMP < '2024-02-02 00:00:00 America/New_York'"
 ...         " limit 2"
 ...     ),
 ... )
@@ -60,8 +62,8 @@ Calculate average price of trades across several symbols:
 ...         "select COUNT(*) as COUNT, AVG(PRICE) as AVG_PRICE"
 ...         " from US_COMP_SAMPLE.TRD"
 ...         " where symbol_name in ('AAPL', 'AAL')"
-...         " and start_time = '2024-02-01 00:00:00 America/New_York'"
-...         " and end_time = '2024-02-02 00:00:00 America/New_York'",
+...         " and TIMESTAMP >= '2024-02-01 00:00:00 America/New_York'"
+...         " and TIMESTAMP < '2024-02-02 00:00:00 America/New_York'",
 ...         merge_all_symbols=True
 ...     ),
 ... )

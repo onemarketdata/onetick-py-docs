@@ -180,15 +180,21 @@ Can be set using environment variable `OTP_HTTP_PASSWORD`.
 
 #### http_proxy *: `str`, NoneType* *= None*
 
-HTTP proxy used for WebAPI requests.
+HTTP proxy used for WebAPI requests and for obtaining SSO access token.
 
 Can be set using environment variable `HTTP_PROXY`.
 
 #### https_proxy *: `str`, NoneType* *= None*
 
-HTTPS proxy used for WebAPI requests.
+HTTPS proxy used for WebAPI requests and for obtaining SSO access token.
 
 Can be set using environment variable `HTTPS_PROXY`.
+
+#### http_headers *: `dict`, NoneType* *= None*
+
+A dictionary with HTTP headers used for obtaining SSO access token. If set with an environment variable, string will be parsed as a python dictionary.
+
+Can be set using environment variable `OTP_HTTP_HEADERS`.
 
 #### access_token *: `str`, NoneType* *= None*
 
@@ -220,9 +226,9 @@ Scope for obtaining SSO access token.
 
 Can be set using environment variable `OTP_ACCESS_TOKEN_SCOPE`.
 
-#### trusted_certificates_file *: `str`, `bool`, NoneType* *= None*
+#### trusted_certificates_file *: `bool`, NoneType, `str`* *= None*
 
-Either a boolean, in which case it controls whether we verify the server TLS certificate or a string with the path to the file with list of trusted Certificate Authority certificates for WebAPI requests. Default behaviour implies verification is enabled.
+Controls TLS certificate logic for WebAPI requests and for obtaining SSO access token. Either a boolean, in which case it controls whether we verify the server TLS certificate or a string with the path to the file with list of trusted Certificate Authority certificates for WebAPI requests. Default behaviour implies verification is enabled.
 
 Can be set using environment variable `OTP_SSL_CERT_FILE`.
 
@@ -250,7 +256,7 @@ Can be set using environment variable `OTP_IGNORE_TICKS_IN_UNENTITLED_TIME_RANGE
 
 #### main_query_generated_filename *: `str`* *= ''*
 
-The name of the .otq file with generated main query executed by otp.run.
+The name of the .otq file with generated main query executed by ``otp.run``.
 
 Can be set using environment variable `OTP_MAIN_QUERY_GENERATED_FILENAME`.
 
@@ -290,7 +296,7 @@ Can be set using environment variable `OTP_DISABLE_COMPATIBILITY_CHECKS`.
 
 #### print_symbol_errors *: `bool`* *= True*
 
-When calling otp.run that returns dataframe as result print symbol errors from OneTick as python warnings.
+When calling ``otp.run`` that returns dataframe as result print symbol errors from OneTick as python warnings.
 
 Can be set using environment variable `OTP_PRINT_SYMBOL_ERRORS`.
 
@@ -299,6 +305,12 @@ Can be set using environment variable `OTP_PRINT_SYMBOL_ERRORS`.
 Maximum number of seconds after which the query is terminated (exception will be raised). By default the value is not set, meaning waiting any amount of time until the query finishes normally.
 
 Can be set using environment variable `OTP_QUERY_AUTO_TERMINATION_TIME_LIMIT`.
+
+#### default_archive_format *: `str`, NoneType* *= None*
+
+Default OneTick archive format set in the locator file. Not set in `onetick.py` by default, OneTick will choose its own default value.
+
+Can be set using environment variable `OTP_DEFAULT_ARCHIVE_FORMAT`.
 
 **The following properties are derived and thus read-only:**
 

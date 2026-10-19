@@ -115,7 +115,7 @@ Shows the specified configuration for a database.
  'LOCATION': '...',
  'DAY_BOUNDARY_TZ': 'EST5EDT',
  'DAY_BOUNDARY_OFFSET': 0,
- 'ALTERNATIVE_LOCATIONS': ''}
+ 'ALTERNATIVE_LOCATIONS': '...'}
 ```
 
 ##### SEE ALSO
@@ -392,7 +392,7 @@ Set symbol name with `symbol` parameter:
 >>> db = otp.databases()['US_COMP_SAMPLE']
 >>> db.ref_data(ref_data_type='corp_actions',
 ...             start=otp.dt(2024, 1, 1),
-...             end=otp.dt(2024, 4, 1),
+...             end=otp.dt(2024, 3, 1),
 ...             symbol_date=otp.dt(2024, 1, 1),
 ...             symbol='AAPL',
 ...             timezone='America/New_York')

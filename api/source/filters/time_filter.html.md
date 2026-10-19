@@ -6,7 +6,7 @@ Filters ticks by time.
 
 * **Parameters:**
   * **discard_on_match** (*bool* *,* *optional*) – If `True`, then ticks that match the filter will be discarded.
-    Otherwise, only ticks that match the filter will be passed.
+    Otherwise, only ticks that match the filter will be propagated.
   * **start_time** (str or int or ``datetime.time``, optional) – Start time of the filter, string must be in the format `HHMMSSmmm` or `HH:MM:SS[.mmm]`.
     Default value is 0.
   * **end_time** (str or int or ``datetime.time``, optional) – End time of the filter, string must be in the format `HHMMSSmmm` or `HH:MM:SS[.mmm]`.

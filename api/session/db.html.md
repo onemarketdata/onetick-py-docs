@@ -33,7 +33,14 @@ they can’t be updated for the same timestamps.
   * **tick_type** (*str* *,* *optional*) – Tick type to add `src` data for.
     Can be set only if `src` is set.
     Default value is the same as in ``add()`` method.
-  * **db_properties** (``dict``, optional) – Properties of the database to add to the locator
+  * **db_properties** (``dict``, optional) – 
+
+    Properties of the database to add to the locator.
+
+    Some options from ``otp.config`` will be used here by default:
+    * ``otp.config.default_symbology``
+    * ``otp.config.default_archive_format``
+    * …
   * **db_locations** (``list`` of ``dict``, optional) – A list of locations for the database to add to the locator.
     This parameter is a list, because databases in a locator can have several location sections.
     If not specified, a temporary directory is used as the database location.

@@ -63,10 +63,10 @@ OneTick team maintains a Claude plugin *marketplace* that contains different ski
 
 See `https://code.claude.com/docs/en/discover-plugins#add-marketplaces` for details.
 
-Install OneTick plugins from Claude Code session:
+Install OneTick plugins from Github in Claude Code session:
 
 ```
-/plugin marketplace add git@gitlab.sol.onetick.com:solutions/ml-ops/onetick-coding-skills.git
+/plugin marketplace add git@github.com:onemarketdata/onetick-coding-skills.git
 /plugin install onetick-py-coding@onetick-coding-skills
 /reload-plugins
 ```
