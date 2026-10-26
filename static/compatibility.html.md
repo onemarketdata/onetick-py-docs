@@ -8,8 +8,8 @@ automated compatibility tests are run against selected (not exhaustive) versions
 
 ## OneTick Build compatibility
 
-* 20230605-release_1.23: 🆗 stable with minor issues (99.976% of tests passed)
-* 20240730-release_1.24: ✅ stable
+* 20230605-release_1.23: 🆗 stable with minor issues (99.953% of tests passed)
+* 20240730-release_1.24: 🆗 stable with minor issues (99.977% of tests passed)
 * 20250727-3:            ✅ stable
 * 20251010-3:            ✅ stable
 * 20251102-release_1.25: ✅ stable
