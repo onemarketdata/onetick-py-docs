@@ -1,6 +1,6 @@
 # Corrections and Time Travel
 
-This section contains examples for Corrections and Time Travel using the `onetick-py`.<br />
+This section contains 5 examples for Corrections and Time Travel using the `onetick-py`.<br />
 \\\\
 Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 

@@ -1,71 +1,51 @@
-# Opportunity Cost
+# Opportunity cost
 
-Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
+OC – opportunity cost.
 
-```
-# onetick-py WebAPI configuration for OneTick Cloud
-import os
-os.environ['OTP_WEBAPI'] = '1'
-os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
-os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
-os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
-os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
-```
-
-Opportunity cost values the unexecuted quantity against the price move over the life of the order
-(arrival mid versus exit mid).
+Formula for it:
 
 ```
-OC = DIRECTION * UNEXEC_QTY * (ARRIVAL_MID - EXIT_MID)
+OC := Direction * Unexecuted_QTY * (Arrival_Mid_Price - Exit_Mid_Price)
 ```
 
-Every order message is joined “as of” to the prevailing mid;
-the first mid seen for the order is the arrival mid and the last is the exit mid.<br />
-\\\\
-Unexecuted quantity is the summed difference between ordered and filled quantity.
+To calculate the Opportunity Cost (OC) for orders, we need to determine the direction of each order, the unexecuted quantity (Unexecuted_QTY), the arrival mid-price (Arrival_Mid_Price), and the exit mid-price (Exit_Mid_Price). The OC is then calculated using the provided formula. Here’s how you can do it using `onetick.py`:
 
 ```python
 import onetick.py as otp
 
-order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
-order = order[['ID', 'QTY', 'QTY_FILLED', 'SIDE']]
-order['DIRECTION'] = order.if_else(order['SIDE'] == 'BUY', 1, -1)
-order['UNEXEC_QTY'] = order['QTY'] - order['QTY_FILLED']
+# Define the symbol, orders database, quotes database, and date
+symbol = 'TSLA'
+orders_db = 'ORDERS_DB'
+quotes_db = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
 
-qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
-qte['MID'] = (qte['ASK_PRICE'] + qte['BID_PRICE']) / 2
-qte = qte[['MID']]
+# Load orders and quotes data
+orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
+quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
 
-joined = otp.join_by_time([order, qte])
+# Add mid-price for every quote
+quotes['MID_PRICE'] = (quotes['ASK_PRICE'] + quotes['BID_PRICE']) / 2
 
-data = joined.agg({
-    'ARRIVAL_MID': otp.agg.first('MID'),
-    'EXIT_MID': otp.agg.last('MID'),
-    'UNEXEC_QTY': otp.agg.sum('UNEXEC_QTY'),
-    'DIRECTION': otp.agg.first('DIRECTION'),
-}, group_by=['ID'])
+# Join quotes to orders without any filtration
+joined_data = otp.join_by_time([orders, quotes])
 
-data['OC'] = data['DIRECTION'] * data['UNEXEC_QTY'] * (data['ARRIVAL_MID'] - data['EXIT_MID'])
-data = data[['ID', 'OC']]
+# Roll up order, save the first mid price (arrival mid price) and the last mid price (exit mid price)
+orders_agg = joined_data.agg({
+    'ARRIVAL_MID_PRICE': otp.agg.first('MID_PRICE'),
+    'EXIT_MID_PRICE': otp.agg.last('MID_PRICE'),
+    'SIDE': otp.agg.first('SIDE'),
+    'UNEXECUTED_QTY': otp.agg.sum(joined_data['QTY'] - joined_data['QTY_FILLED'])
+}, group_by='ID')
 
-result = otp.run(data,
-                 start=otp.dt(2024, 1, 3),
-                 end=otp.dt(2024, 1, 4),
-                 timezone='Europe/London',
-                 symbols='VOD')
-result
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
+
+# Calculate OC (Opportunity Cost)
+orders_agg['OC'] = orders_agg['DIRECTION'] * orders_agg['UNEXECUTED_QTY'] * (orders_agg['ARRIVAL_MID_PRICE'] - orders_agg['EXIT_MID_PRICE'])
+
+# Select relevant fields
+orders_with_oc = orders_agg[['ID', 'OC']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_oc, date=date)
 ```
-
-|    | Time       | ID                 | OC      |
-|----|------------|--------------------|---------|
-| 0  | 2024-01-04 | 233402424600089290 | 347.67  |
-| 1  | 2024-01-04 | 233402424600163510 | 0.00    |
-| 2  | 2024-01-04 | 233402424600242327 | 0.00    |
-| 3  | 2024-01-04 | 233402424600242348 | 0.00    |
-| 4  | 2024-01-04 | 233402424600242354 | 0.00    |
-| .. | …          | …                  | …       |
-| 25 | 2024-01-04 | 233402424601044819 | 0.00    |
-| 26 | 2024-01-04 | 233402424601076779 | -448.47 |
-| 27 | 2024-01-04 | 233402424601108653 | 0.00    |
-| 28 | 2024-01-04 | 233402424601108753 | -78.33  |
-| 29 | 2024-01-04 | 233402424601134016 | -0.22   |

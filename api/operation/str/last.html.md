@@ -19,7 +19,3 @@ Returns last `count` symbols.
 1 2003-12-01 00:00:00.001  bac  1    c      c
 2 2003-12-01 00:00:00.002  cba  9    a    cba
 ```
-
-##### SEE ALSO
-``substr()``
-

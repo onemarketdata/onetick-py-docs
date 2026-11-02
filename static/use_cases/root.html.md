@@ -13,11 +13,10 @@ Documentation for `onetick.py` examples library, grouped by topic, using OneTick
 * `Data Retrieval - Tick`
 * `Data Retrieval with Continuous Contracts`
 * `Data Retrieval with Symbology`
-* `Joins`
 * `Corrections and Time Travel`
 * `Composites`
 * `Crypto`
-* `Events`
+* `Earnings Events Analysis`
 * `ETF`
 * `Futures`
 * `Options`

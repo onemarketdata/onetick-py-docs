@@ -84,7 +84,3 @@ This function can be used to filter out ticks:
 2 2003-12-01 00:00:00.002   A   1.0
 3 2003-12-01 00:00:00.003  b_   0.0
 ```
-
-##### SEE ALSO
-**ILIKE** OneTick operator
-

@@ -1,74 +1,53 @@
-# Number Spreads
+# Number spreads
 
-Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
-
-```
-# onetick-py WebAPI configuration for OneTick Cloud
-import os
-os.environ['OTP_WEBAPI'] = '1'
-os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
-os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
-os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
-os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
-```
-
-Number Spreads measures how far an order executes from the touch,
-expressed in units of the arrival spread (Far Touch minus Near Touch).
+The number spreads is a metric that defines how far an order is executed from the best bid and best ask according to the following formula:
 
 ```
-NUM_SPREADS = abs((VWAP - FT) / (FT - NT)), and NaN when (FT - NT) = 0
+Num_Spreads := abs((VWAP - FT) / (FT - NT)), and nan() when (FT - NT) = 0
 ```
 
-`NT`/`FT` are the arrival quote prices by side; `VWAP` is the order fill VWAP.<br />
-\\\\
-The prevailing quote at arrival is joined “as of” to the order.
+To calculate the Num_Spreads metric for each order, you need to first determine the VWAP, Near Touch (NT), and Far Touch (FT) for each order, and then use these values to compute Num_Spreads according to the provided formula. Here’s how you can do it in `onetick.py`:
 
 ```python
 import onetick.py as otp
 
-order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
-order = order[['ID', 'SIDE', 'PRICE_FILLED', 'QTY_FILLED']]
+# Define the symbol, orders database, quotes database, and date
+symbol = 'TSLA'
+orders_db = 'ORDERS_DB'
+quotes_db = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
 
-qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
-qte = qte[['ASK_PRICE', 'BID_PRICE']]
+# Load orders and quotes data
+orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
+quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
 
-joined = otp.join_by_time([order, qte])
+# Filter for new (arrival) orders
+arrival_orders, other_orders = orders[(orders['STATE'] == 'N')]
 
-data = joined.agg({
-    'VWAP_PRICE': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
+# Join arrival orders with quotes based on timestamp
+arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
+
+# Merge all ticks back to apply aggregation properly
+merged_orders = arrival_orders_with_quotes + other_orders
+
+# Aggregate to carry forward arrival ask and bid prices, along with VWAP and 'SIDE' field
+orders_agg = merged_orders.agg({
     'ARRIVAL_ASK_PRICE': otp.agg.first('ASK_PRICE'),
     'ARRIVAL_BID_PRICE': otp.agg.first('BID_PRICE'),
     'SIDE': otp.agg.first('SIDE'),
-}, group_by=['ID'])
+    'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED')
+}, group_by='ID')
 
-data['NT'] = data.if_else(data['SIDE'] == 'BUY', data['ARRIVAL_BID_PRICE'], data['ARRIVAL_ASK_PRICE'])
-data['FT'] = data.if_else(data['SIDE'] == 'BUY', data['ARRIVAL_ASK_PRICE'], data['ARRIVAL_BID_PRICE'])
+# Calculate NT and FT for each order using lambda functions
+orders_agg['NT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_BID_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_ASK_PRICE'])
+orders_agg['FT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_ASK_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_BID_PRICE'])
 
-data['NUM_SPREADS'] = data.if_else(
-    (data['FT'] - data['NT']) != 0,
-    abs((data['VWAP_PRICE'] - data['FT']) / (data['FT'] - data['NT'])),
-    otp.nan
-)
-data = data[['ID', 'NUM_SPREADS']]
+# Calculate NUM_SPREADS
+orders_agg['NUM_SPREADS'] = orders_agg.apply(lambda tick: abs((tick['VWAP'] - tick['FT']) / (tick['FT'] - tick['NT'])) if (tick['FT'] - tick['NT']) != 0 else otp.nan)
 
-result = otp.run(data,
-                 start=otp.dt(2024, 1, 3),
-                 end=otp.dt(2024, 1, 4),
-                 timezone='Europe/London',
-                 symbols='VOD')
-result
+# Select relevant fields
+orders_with_num_spreads = orders_agg[['ID', 'NUM_SPREADS']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_num_spreads, date=date)
 ```
-
-|    | Time       | ID                 | NUM_SPREADS   |
-|----|------------|--------------------|---------------|
-| 0  | 2024-01-04 | 233402424600089290 | 1.000000      |
-| 1  | 2024-01-04 | 233402424600163510 | 0.750000      |
-| 2  | 2024-01-04 | 233402424600242327 | 0.750000      |
-| 3  | 2024-01-04 | 233402424600242348 | 1.000000      |
-| 4  | 2024-01-04 | 233402424600242354 | 1.000000      |
-| .. | …          | …                  | …             |
-| 25 | 2024-01-04 | 233402424601044819 | 1.000000      |
-| 26 | 2024-01-04 | 233402424601076779 | 0.333333      |
-| 27 | 2024-01-04 | 233402424601108653 | 1.000000      |
-| 28 | 2024-01-04 | 233402424601108753 | 0.000000      |
-| 29 | 2024-01-04 | 233402424601134016 | 0.500000      |

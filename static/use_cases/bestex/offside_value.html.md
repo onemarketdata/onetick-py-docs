@@ -1,73 +1,57 @@
-# Offside Value
+# Offside value
 
-Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
-
-```
-# onetick-py WebAPI configuration for OneTick Cloud
-import os
-os.environ['OTP_WEBAPI'] = '1'
-os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
-os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
-os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
-os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
-```
-
-Offside value measures the impact of an aggressive order: the distance in notional units that the impacted
-side moved from the far touch prevailing when the order arrived.
+Offside value is a measure of the impact of an aggressive order. It is the distance in notional units that the impacted side moved from the best price prevailing at the time the order arrived.
+The formula to get offside value
 
 ```
-OFFSIDE_VALUE = EXEC_QTY * (VWAP - FT) * DIRECTION
+Offside_Value := Executed_QTY * (VWAP - FT) * Direction
 ```
 
-`FT` is the arrival far touch by side (*BUY* -> arrival ask, *SELL* -> arrival bid).<br />
-\\\\
-The prevailing quote at arrival is joined “as of” to the order.
+To calculate the offside value for orders, you need to determine the executed quantity (sum of QTY_FILLED), the VWAP, the Far Touch (FT), and the direction of each order. Here’s how you can do it using `onetick.py`:
 
 ```python
 import onetick.py as otp
 
-order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
-order = order[['ID', 'SIDE', 'PRICE_FILLED', 'QTY_FILLED']]
-order['DIRECTION'] = order.if_else(order['SIDE'] == 'BUY', 1, -1)
+# Define the symbol, orders database, quotes database, and date
+symbol = 'TSLA'
+orders_db = 'ORDERS_DB'
+quotes_db = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
 
-qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
-qte = qte[['ASK_PRICE', 'BID_PRICE']]
+# Load orders and quotes data
+orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
+quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
 
-joined = otp.join_by_time([order, qte])
+# Filter for new (arrival) orders
+arrival_orders, other_orders = orders[(orders['STATE'] == 'N')]
 
-data = joined.agg({
-    'VWAP_PRICE': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
-    'EXEC_QTY': otp.agg.sum('QTY_FILLED'),
+# Join arrival orders with quotes based on timestamp
+arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
+
+# Merge all ticks back to apply aggregation properly
+merged_orders = arrival_orders_with_quotes + other_orders
+
+# Aggregate to carry forward arrival ask and bid prices, along with VWAP, 'SIDE' field, and sum of 'QTY_FILLED'
+orders_agg = merged_orders.agg({
     'ARRIVAL_ASK_PRICE': otp.agg.first('ASK_PRICE'),
     'ARRIVAL_BID_PRICE': otp.agg.first('BID_PRICE'),
     'SIDE': otp.agg.first('SIDE'),
-    'DIRECTION': otp.agg.first('DIRECTION'),
-}, group_by=['ID'])
+    'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
+    'EXECUTED_QTY': otp.agg.sum('QTY_FILLED')
+}, group_by='ID')
 
-data['FT'] = data.if_else(data['SIDE'] == 'BUY', data['ARRIVAL_ASK_PRICE'], data['ARRIVAL_BID_PRICE'])
+# Calculate FT for each order using lambda functions
+orders_agg['FT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_ASK_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_BID_PRICE'])
 
-data = data.where(data['EXEC_QTY'] > 0)
-data['OFFSIDE_VALUE'] = data['EXEC_QTY'] * (data['VWAP_PRICE'] - data['FT']) * data['DIRECTION']
-data = data[['ID', 'OFFSIDE_VALUE']]
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
 
-result = otp.run(data,
-                 start=otp.dt(2024, 1, 3),
-                 end=otp.dt(2024, 1, 4),
-                 timezone='Europe/London',
-                 symbols='VOD')
-result
+# Calculate Offside Value
+orders_agg['OFFSIDE_VALUE'] = orders_agg['EXECUTED_QTY'] * (orders_agg['VWAP'] - orders_agg['FT']) * orders_agg['DIRECTION']
+
+# Select relevant fields
+orders_with_offside_value = orders_agg[['ID', 'OFFSIDE_VALUE']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_offside_value, date=date)
 ```
-
-|    | Time       | ID                 | OFFSIDE_VALUE   |
-|----|------------|--------------------|-----------------|
-| 0  | 2024-01-04 | 233402424600089290 | -79.48          |
-| 1  | 2024-01-04 | 233402424600163510 | -36.42          |
-| 2  | 2024-01-04 | 233402424600242327 | -22.50          |
-| 3  | 2024-01-04 | 233402424600242348 | -30.00          |
-| 4  | 2024-01-04 | 233402424600242354 | -30.00          |
-| .. | …          | …                  | …               |
-| 25 | 2024-01-04 | 233402424601044819 | -14.23          |
-| 26 | 2024-01-04 | 233402424601076779 | -0.75           |
-| 27 | 2024-01-04 | 233402424601108653 | -9.99           |
-| 28 | 2024-01-04 | 233402424601108753 | -0.00           |
-| 29 | 2024-01-04 | 233402424601134016 | -7.00           |

@@ -1,13 +1,12 @@
 # otp.Operation.str.match
 
-#### \_StrAccessor.match(pat, case=True, , utf8=False)
+#### \_StrAccessor.match(pat, case=True)
 
 Match the text against a regular expression specified in the `pat` parameter.
 
 * **Parameters:**
   * **pat** (*str* *or* *Column* *or* *Operation*) – A pattern specified via the POSIX extended regular expression syntax.
   * **case** (*bool*) – If `True`, then regular expression is case-sensitive.
-  * **utf8** (*bool*) – If set, then UTF-8 format is supported.
 * **Returns:**
   `True` if the match was successful, `False` otherwise.
   Note that boolean Operation is converted to float if added as a column.
@@ -48,9 +47,3 @@ For example, to filter on-exchange continuous trading trades:
 1  2023-05-15 09:30:00.019069440  412.230   100   F          K
 ..                           ...      ...   ...   ...      ...
 ```
-
-##### SEE ALSO
-**REGEX_MATCH** OneTick function
-
-**REGEX_MATCH_UTF8** OneTick function
-

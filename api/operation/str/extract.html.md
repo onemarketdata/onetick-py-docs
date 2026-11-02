@@ -1,6 +1,6 @@
 # otp.Operation.str.extract
 
-#### \_StrAccessor.extract(pat, rewrite='\\\\0', caseless=False, , utf8=False)
+#### \_StrAccessor.extract(pat, rewrite='\\\\0', caseless=False)
 
 Match the string against a regular expression specified by `pat` and return the first match.
 The `rewrite` parameter can optionally be used to arrange the matched substrings and embed them within the
@@ -13,7 +13,6 @@ string specified in `rewrite`.
     `\u` and `\l` modifiers within the `rewrite` string convert the case of the text that
     matches the corresponding parenthesized group (e.g., `\u1` converts `\1` to uppercase).
   * **caseless** (*bool*) – If the `caseless` flag is set to `True`, matching is case-insensitive.
-  * **utf8** (*bool*) – If set, then UTF-8 format is supported.
 * **Returns:**
   String matched by `pat` with format specified in `rewrite`.
 * **Return type:**
@@ -67,9 +66,4 @@ Case of the extracted string can be changed by adding `l` and `u` to extract gro
 ```
 
 ##### SEE ALSO
-**REGEX_EXTRACT** OneTick function
-
-**REGEX_EXTRACT_UTF8** OneTick function
-
-regex_replace
-
+``regex_replace``

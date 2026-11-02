@@ -21,7 +21,3 @@ Get the length of a string.
 0 2003-12-01 00:00:00.000   hello    5
 1 2003-12-01 00:00:00.001  world!    6
 ```
-
-##### SEE ALSO
-**STRLEN** OneTick function
-

@@ -1,68 +1,45 @@
-# Far Touch (FT) and Near Touch (NT)
+# FT (far touch) and NT (near touch)
 
-Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
-
-```
-# onetick-py WebAPI configuration for OneTick Cloud
-import os
-os.environ['OTP_WEBAPI'] = '1'
-os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
-os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
-os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
-os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
-```
-
-To find the `Near Touch` (NT) and `Far Touch` (FT) prices for every order,
-considering the definitions for buy and sell orders,
-you’ll need to process the order data to determine the arrival bid and ask prices,
-and then calculate NT and FT based on the side of the order.
-
-Far Touch (FT) and Near Touch (NT) are the arrival quote prices on the passive/aggressive side,
-determined by the order side:
-
-```
-BUY  ----> NT = ARRIVAL_BID_PRICE, FT = ARRIVAL_ASK_PRICE
-SELL ----> NT = ARRIVAL_ASK_PRICE, FT = ARRIVAL_BID_PRICE
-```
-
-The arrival ask/bid are the prevailing quote at order arrival (`STATE = 'N'`), joined “as of” to the order.
+To find the Near Touch (NT) and Far Touch (FT) prices for every order, considering the definitions for buy and sell orders, you’ll need to process the order data to determine the arrival bid and ask prices, and then calculate NT and FT based on the side of the order. Here’s how you can do it using `onetick.py`
 
 ```python
 import onetick.py as otp
 
-order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
-order = order.where(order['STATE'] == 'N')
-order = order[['ID', 'SIDE']]
+# Define the symbol, orders database, quotes database, and date
+symbol = 'TSLA'
+orders_db = 'ORDERS_DB'
+quotes_db = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
 
-qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
-qte['ARRIVAL_ASK_PRICE'] = qte['ASK_PRICE']
-qte['ARRIVAL_BID_PRICE'] = qte['BID_PRICE']
-qte = qte[['ARRIVAL_ASK_PRICE', 'ARRIVAL_BID_PRICE']]
+# Load orders and quotes data
+orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
+quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
 
-data = otp.join_by_time([order, qte])
+# Filter for new (arrival) orders
+arrival_orders, other_orders = orders[(orders['STATE'] == 'N')]
 
-data['NT'] = data.if_else(data['SIDE'] == 'BUY', data['ARRIVAL_BID_PRICE'], data['ARRIVAL_ASK_PRICE'])
-data['FT'] = data.if_else(data['SIDE'] == 'BUY', data['ARRIVAL_ASK_PRICE'], data['ARRIVAL_BID_PRICE'])
-data = data[['ID', 'NT', 'FT']]
+# Join arrival orders with quotes based on timestamp
+arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
 
-result = otp.run(data,
-                 start=otp.dt(2024, 1, 3),
-                 end=otp.dt(2024, 1, 4),
-                 timezone='Europe/London',
-                 symbols='VOD')
-result
+# Merge all ticks back to apply aggregation properly
+merged_orders = arrival_orders_with_quotes + other_orders
+
+# Aggregate to carry forward arrival ask and bid prices, along with the 'SIDE' field
+orders_agg = merged_orders.agg({
+    'ARRIVAL_ASK_PRICE': otp.agg.first('ASK_PRICE'),
+    'ARRIVAL_BID_PRICE': otp.agg.first('BID_PRICE'),
+    'SIDE': otp.agg.first('SIDE')
+}, group_by='ID')
+
+# Calculate NT and FT for each order
+# For buy orders: NT = Arrival_Bid_Price, FT = Arrival_Ask_Price
+# For sell orders: NT = Arrival_Ask_Price, FT = Arrival_Bid_Price
+orders_agg['NT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_BID_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_ASK_PRICE'])
+orders_agg['FT'] = orders_agg.apply(lambda tick: orders_agg['ARRIVAL_ASK_PRICE'] if tick['SIDE'] == 'BUY' else orders_agg['ARRIVAL_BID_PRICE'])
+
+# Select relevant fields
+orders_with_nt_ft = orders_agg[['ID', 'NT', 'FT']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_nt_ft, date=date)
 ```
-
-|    | Time                    | ID                 | NT    | FT    |
-|----|-------------------------|--------------------|-------|-------|
-| 0  | 2024-01-03 08:08:07.502 | 233402424600089290 | 70.37 | 70.41 |
-| 1  | 2024-01-03 08:27:05.220 | 233402424600163510 | 70.27 | 70.31 |
-| 2  | 2024-01-03 08:53:19.681 | 233402424600242348 | 70.73 | 70.69 |
-| 3  | 2024-01-03 08:53:19.685 | 233402424600242354 | 70.73 | 70.69 |
-| 4  | 2024-01-03 08:53:19.691 | 233402424600242364 | 70.73 | 70.69 |
-| .. | …                       | …                  | …     | …     |
-| 16 | 2024-01-03 15:00:06.170 | 233402424600990504 | 70.07 | 70.03 |
-| 17 | 2024-01-03 15:21:17.758 | 233402424601076779 | 69.91 | 69.88 |
-| 18 | 2024-01-03 15:31:59.347 | 233402424601108653 | 69.95 | 69.96 |
-| 19 | 2024-01-03 15:32:01.227 | 233402424601108753 | 69.96 | 69.95 |
-| 20 | 2024-01-03 15:38:33.230 | 233402424601134016 | 69.85 | 69.87 |

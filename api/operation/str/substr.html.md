@@ -1,6 +1,6 @@
 # otp.Operation.str.substr
 
-#### \_StrAccessor.substr(start, n_bytes=None, rtrim=False, , utf8=False)
+#### \_StrAccessor.substr(start, n_bytes=None, rtrim=False)
 
 Return `n_bytes` characters starting from `start`.
 
@@ -15,7 +15,6 @@ starting at `start` till the end of the string.
   * **n_bytes** (*int* *or* *Column* *or* *Operation*) – Number of bytes in substring
   * **rtrim** (*bool*) – If set to `True`, original string will be trimmed from the right side
     before getting the substring, this can be useful with negative `start` index.
-  * **utf8** (*bool*) – If set, then UTF-8 format is supported.
 * **Returns:**
   Substring of string (`n_bytes` length starting with `start`).
 * **Return type:**
@@ -33,9 +32,3 @@ starting at `start` till the end of the string.
 0 2003-12-01 00:00:00.000  abcdef            2  2     abc    def     cd
 1 2003-12-01 00:00:00.001   12345            1  3     123    345    234
 ```
-
-##### SEE ALSO
-**SUBSTR** OneTick function
-
-**SUBSTR_UTF8** OneTick function
-

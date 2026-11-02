@@ -1,79 +1,57 @@
-# Effective to Quoted Spread (ETQ)
+# Effective to quoted spread (ETQ)
 
-Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
+ETQ is a widely-used metric for small order instantaneous price impact. It is essentially an easier-to-interpret Effective Spread that (when aggregated) normalizes for the usual spread differences between instruments. ETQ is based on the regulatory Effective Spread Value, though ETQ is not itself a regulator-mandated metric. Like Effective Spread, ETQ is meaningful only for aggressive orders that execute immediately.
 
-```
-# onetick-py WebAPI configuration for OneTick Cloud
-import os
-os.environ['OTP_WEBAPI'] = '1'
-os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
-os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
-os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
-os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
-```
-
-`ETQ` is a widely-used metric for small order instantaneous price impact.<br />
-\\\\
-It is essentially an easier-to-interpret Effective Spread that (when aggregated)
-normalizes for the usual spread differences between instruments.<br />
-\\\\
-ETQ is based on the regulatory Effective Spread Value, though ETQ is not itself a regulator-mandated metric.<br />
-\\\\
-Like Effective Spread, ETQ is meaningful only for aggressive orders that execute immediately.<br />
-\\\\
-Formula to get ETQ:
+Formula to get ETQ
 
 ```
-ETQ = (VWAP - MID_PRICE) * 2 * DIRECTION / (ASK_PRICE - BID_PRICE)
+ETQ := (VWAP - Mid_Price) * 2 * Direction / (Ask_Price - Bid_Price)
 ```
 
-The prevailing quote is joined to each order “as of”.<br />
-\\\\
-`DIRECTION` is +1 for BUY and -1 for SELL. `VWAP` is the fill VWAP across the order.
+To calculate the Effective to Quoted Spread Ratio (ETQ) for every order, we need to determine the VWAP, Mid_Price, Ask_Price, Bid_Price, and the direction of each order. The ETQ is then calculated using the provided formula. Here’s the onetick.py code to do this:
 
 ```python
 import onetick.py as otp
 
-order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
-order = order[['ID', 'PRICE_FILLED', 'QTY_FILLED', 'SIDE']]
-order['DIRECTION'] = order.if_else(order['SIDE'] == 'BUY', 1, -1)
+# Define the symbol, orders database, quotes database, and date
+symbol = 'TSLA'
+orders_db = 'ORDERS_DB'
+quotes_db = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
 
-qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
-qte['MID_PRICE'] = (qte['ASK_PRICE'] + qte['BID_PRICE']) / 2
-qte = qte[['ASK_PRICE', 'BID_PRICE', 'MID_PRICE']]
+# Load orders and quotes data
+orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
+quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
 
-joined = otp.join_by_time([order, qte])
+# Filter for new (arrival) orders and get other orders
+arrival_orders, other_orders = orders[(orders['STATE'] == 'N')]
 
-data = joined.agg({
-    'VWAP_PRICE': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
+# Join arrival orders with quotes based on timestamp
+arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
+
+# Merge all ticks back to apply aggregation properly
+merged_orders = arrival_orders_with_quotes + other_orders
+
+# Aggregate to carry forward ask and bid prices, along with VWAP, 'SIDE' field, and mid-price
+orders_agg = merged_orders.agg({
     'ASK_PRICE': otp.agg.first('ASK_PRICE'),
     'BID_PRICE': otp.agg.first('BID_PRICE'),
-    'MID_PRICE': otp.agg.first('MID_PRICE'),
-    'DIRECTION': otp.agg.first('DIRECTION'),
-}, group_by=['ID'])
+    'SIDE': otp.agg.first('SIDE'),
+    'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED')
+}, group_by='ID')
 
-data = data.where((data['ASK_PRICE'] - data['BID_PRICE']) != 0)
-data['ETQ'] = (data['VWAP_PRICE'] - data['MID_PRICE']) * 2 * data['DIRECTION'] / (data['ASK_PRICE'] - data['BID_PRICE'])
-data = data[['ID', 'ETQ']]
+# Calculate Mid_Price
+orders_agg['MID_PRICE'] = (orders_agg['ASK_PRICE'] + orders_agg['BID_PRICE']) / 2
 
-result = otp.run(data,
-                 start=otp.dt(2024, 1, 3),
-                 end=otp.dt(2024, 1, 4),
-                 timezone='Europe/London',
-                 symbols='VOD')
-result
+# Calculate Direction (1 for BUY, -1 for SELL)
+orders_agg['DIRECTION'] = orders_agg.apply(lambda tick: 1 if tick['SIDE'] == 'BUY' else -1)
+
+# Calculate ETQ
+orders_agg['ETQ'] = (orders_agg['VWAP'] - orders_agg['MID_PRICE']) * 2 * orders_agg['DIRECTION'] / (orders_agg['ASK_PRICE'] - orders_agg['BID_PRICE'])
+
+# Select relevant fields
+orders_with_etq = orders_agg[['ID', 'ETQ']]
+
+# Run the query for the specified date
+df = otp.run(orders_with_etq, date=date)
 ```
-
-|    | Time       | ID                 | ETQ       |
-|----|------------|--------------------|-----------|
-| 0  | 2024-01-04 | 233402424600089290 | -1.000000 |
-| 1  | 2024-01-04 | 233402424600163510 | -0.500000 |
-| 2  | 2024-01-04 | 233402424600242327 | -0.500000 |
-| 3  | 2024-01-04 | 233402424600242348 | -1.000000 |
-| 4  | 2024-01-04 | 233402424600242354 | -1.000000 |
-| .. | …          | …                  | …         |
-| 25 | 2024-01-04 | 233402424601044819 | -1.000000 |
-| 26 | 2024-01-04 | 233402424601076779 | 0.333333  |
-| 27 | 2024-01-04 | 233402424601108653 | -1.000000 |
-| 28 | 2024-01-04 | 233402424601108753 | 1.000000  |
-| 29 | 2024-01-04 | 233402424601134016 | 0.000000  |

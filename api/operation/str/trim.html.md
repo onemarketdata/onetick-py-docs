@@ -21,7 +21,4 @@ Removes white spaces from both sides of the string.
 ```
 
 ##### SEE ALSO
-**TRIM** OneTick function
-
 ``ltrim()``, ``rtrim()``
-

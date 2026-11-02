@@ -15,8 +15,6 @@ Methods to filter rows without changing the fields values.
 * `otp.Source.regex_matches`
 * `otp.Source.skip_bad_tick`
 * `otp.Source.time_filter`
-* `otp.Source.trd_vs_mid`
-* `otp.Source.trd_vs_quote`
 * `otp.Source.uptick`
 * `otp.Source.value_compare`
 * `otp.Source.value_present`

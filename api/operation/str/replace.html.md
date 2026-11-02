@@ -37,7 +37,3 @@ Other columns can be used as parameters too:
 1 2003-12-01 00:00:00.001   A Chair   A  Their  Their Chair
 2 2003-12-01 00:00:00.002  An Apple  An     My     My Apple
 ```
-
-##### SEE ALSO
-**REPLACE** OneTick function
-

@@ -74,7 +74,3 @@ Multiplying by 0 results in empty string:
 0 2003-12-01 00:00:00.000  Banana
 1 2003-12-01 00:00:00.001   Apple
 ```
-
-##### SEE ALSO
-**REPEAT** OneTick function
-

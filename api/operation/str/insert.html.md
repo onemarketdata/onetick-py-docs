@@ -1,6 +1,6 @@
 # otp.Operation.str.insert
 
-#### \_StrAccessor.insert(start, length, value, , utf8=False)
+#### \_StrAccessor.insert(start, length, value)
 
 Returns a string where `length` characters have been deleted from string,
 beginning at `start`, and where `value` has been inserted into string, beginning at `start`.
@@ -9,7 +9,6 @@ beginning at `start`, and where `value` has been inserted into string, beginning
   * **start** (*int* *or* *Column* *or* *Operation*) – Position to remove from and to insert into.
   * **length** (*int* *or* *Column* *or* *Operation*) – Number if characters to remove.
   * **value** (*str* *or* *Column* *or* *Operation*) – String to insert.
-  * **utf8** (*bool*) – If set, then UTF-8 format is supported.
 
 ##### Examples
 
@@ -48,9 +47,3 @@ It is possible to remove without insertion:
 1 2003-12-01 00:00:00.001    bbbbb     bbb
 2 2003-12-01 00:00:00.002     cccc      cc
 ```
-
-##### SEE ALSO
-**INSERT** OneTick function
-
-**INSERT_UTF8** OneTick function
-

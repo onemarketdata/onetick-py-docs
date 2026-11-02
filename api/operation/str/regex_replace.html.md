@@ -1,6 +1,6 @@
 # otp.Operation.str.regex_replace
 
-#### \_StrAccessor.regex_replace(pat, repl, , replace_every=False, caseless=False, utf8=False)
+#### \_StrAccessor.regex_replace(pat, repl, , replace_every=False, caseless=False)
 
 Search for occurrences (case dependent) of `pat` and replace with `repl`.
 
@@ -10,7 +10,6 @@ Search for occurrences (case dependent) of `pat` and replace with `repl`.
     to the text matched by the corresponding parenthesized group in `pat`.
   * **replace_every** (*bool*) – If `replace_every` flag is set to `True`, all matches will be replaced, if `False` only the first one.
   * **caseless** (*bool*) – If the `caseless` flag is set to `True`, matching is case-insensitive.
-  * **utf8** (*bool*) – If set, then UTF-8 format is supported.
 * **Returns:**
   String with pattern `pat` replaced by `repl`.
 * **Return type:**
@@ -51,9 +50,4 @@ Capturing groups in regular expressions is supported:
 ```
 
 ##### SEE ALSO
-**REGEX_REPLACE** OneTick function
-
-**REGEX_REPLACE_UTF8** OneTick function
-
 ``extract()``
-

@@ -10,7 +10,4 @@ Removes the trailing white spaces from a string.
   `Operation`
 
 ##### SEE ALSO
-**RTRIM** OneTick function
-
 ``ltrim()``, ``trim()``
-

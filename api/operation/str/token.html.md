@@ -45,7 +45,3 @@ If index is out of range, then empty string is returned:
         Time              X  Y
 0 2003-12-01  US_COMP::TRD
 ```
-
-##### SEE ALSO
-**TOKEN** OneTick function
-

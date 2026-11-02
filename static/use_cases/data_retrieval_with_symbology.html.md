@@ -1,6 +1,6 @@
 # Data Retrieval with Symbology
 
-This section contains examples for Data Retrieval with Symbology using the `onetick-py`.<br />
+This section contains 5 examples for Data Retrieval with Symbology using the `onetick-py`.<br />
 \\\\
 Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 

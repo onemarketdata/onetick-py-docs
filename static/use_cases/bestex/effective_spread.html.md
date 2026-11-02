@@ -1,77 +1,47 @@
 # Effective spread
 
-Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
+To calculate the effective spread of your orders, you’ll need to first calculate the Volume Weighted Average Price (VWAP) for each order and determine the prevailing mid-price (average of bid and ask prices) at the time of each order execution. Then, you can use the formula for the effective
 
 ```
-# onetick-py WebAPI configuration for OneTick Cloud
-import os
-os.environ['OTP_WEBAPI'] = '1'
-os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
-os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
-os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
-os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
+Effective_Spread := Executed_QTY x (VWAP - Mid_Price) x 2 x Direction
 ```
 
-To calculate the `effective spread` of your orders,
-you’ll need to first calculate the Volume Weighted Average Price (VWAP) for each order
-and determine the prevailing mid-price (average of bid and ask prices) at the time of each order.<br />
-\\\\
-Then, you can use the formula for the effective spread:
-
-```
-EFFECTIVE_SPREAD = 2 * DIRECTION * EXEC_QTY * (VWAP - ARRIVAL_MID)
-```
-
-Joining Orders recorded in the sample Orders database to LSE Quotes.<br />
-\\\\
-As the dataset refers to a single venue, the `QTE` table is used for benchmarking performance.<br />
-\\\\
-The prevailing quote is associated with each order message
-through an “as of” join with ``otp.join_by_time``,
-then the fill `VWAP`, `ARRIVAL_MID` and `DIRECTION` are aggregated per order ID.
+Here’s a full code example to calculate the effective spread using `onetick.py`:
 
 ```python
 import onetick.py as otp
 
-order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
-order = order[['ID', 'PRICE_FILLED', 'QTY_FILLED', 'SIDE']]
-order['DIRECTION'] = order.if_else(order['SIDE'] == 'BUY', 1, -1)
+# Define your symbol, orders database, and quotes database
+symbol = 'TSLA'
+orders_db = 'ORDERS_DB'
+quotes_db = 'US_COMP_SAMPLE'
+date = otp.dt(2024, 2, 1)
 
-qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
-qte['MID_PRICE'] = (qte['ASK_PRICE'] + qte['BID_PRICE']) / 2
-qte = qte[['MID_PRICE']]
+# Load orders and quotes data
+orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
+quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
 
-joined = otp.join_by_time([order, qte])
+# Join orders with quotes based on timestamp
+joined_data = otp.join_by_time([orders, quotes])
 
-data = joined.agg({
-    'VWAP_PRICE': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
-    'EXEC_COUNT': otp.agg.count(),
-    'EXEC_QTY': otp.agg.sum('QTY_FILLED'),
-    'ARRIVAL_MID': otp.agg.first('MID_PRICE'),
-    'DIRECTION': otp.agg.first('DIRECTION'),
-}, group_by=['ID'])
+# Calculate the mid-price of prevailing quotes
+joined_data['MID_PRICE'] = (joined_data['ASK_PRICE'] + joined_data['BID_PRICE']) / 2
 
-data = data.where(data['EXEC_QTY'] > 0)
-data['EFFECTIVE_SPREAD'] = 2 * data['DIRECTION'] * data['EXEC_QTY'] * (data['VWAP_PRICE'] - data['ARRIVAL_MID'])
+# Calculate VWAP for each order grouped by ID
+# Take the first MID_PRICE because effective spread uses the price prevailing at the time the order arrived
+# Propagate BUY_FLAG to calculate then DIRECTION
+joined_data = joined_data.agg({'VWAP': otp.agg.vwap('PRICE_FILLED', 'QTY_FILLED'),
+                               'EXEC_QTY': otp.agg.sum('QTY_FILLED'),
+                               'MID_PRICE': otp.agg.first('MID_PRICE'),
+                               'BUY_FLAG': otp.agg.first('BUY_FLAG')},
+                               group_by='ID')
 
-result = otp.run(data,
-                 start=otp.dt(2024, 1, 3),
-                 end=otp.dt(2024, 1, 4),
-                 timezone='Europe/London',
-                 symbols='VOD')
-result
+# Add direction (1 for buy orders and -1 for sell orders)
+joined_data['DIRECTION'] = joined_data['BUY_FLAG'] * 2 - 1
+
+# Calculate effective spread
+joined_data['EFFECTIVE_SPREAD'] = 2 * joined_data['DIRECTION'] * joined_data['EXEC_QTY'] * (joined_data['VWAP'] - joined_data['MID_PRICE'])
+
+# Run the query for the specified date
+df = otp.run(joined_data, date=date)
 ```
-
-|    | Time       | ID                 | VWAP_PRICE   | EXEC_COUNT   | EXEC_QTY   | ARRIVAL_MID   | DIRECTION   | EFFECTIVE_SPREAD   |
-|----|------------|--------------------|--------------|--------------|------------|---------------|-------------|--------------------|
-| 0  | 2024-01-04 | 233402424600089290 | 70.37        | 5            | 1987       | 70.390        | 1           | -79.48             |
-| 1  | 2024-01-04 | 233402424600163510 | 70.28        | 3            | 1214       | 70.290        | 1           | -24.28             |
-| 2  | 2024-01-04 | 233402424600242327 | 70.70        | 3            | 750        | 70.710        | 1           | -15.00             |
-| 3  | 2024-01-04 | 233402424600242348 | 70.73        | 2            | 750        | 70.710        | -1          | -30.00             |
-| 4  | 2024-01-04 | 233402424600242354 | 70.73        | 2            | 750        | 70.710        | -1          | -30.00             |
-| .. | …          | …                  | …            | …            | …          | …             | …           | …                  |
-| 25 | 2024-01-04 | 233402424601044819 | 69.97        | 1            | 1423       | 69.975        | 1           | -14.23             |
-| 26 | 2024-01-04 | 233402424601076779 | 69.89        | 5            | 75         | 69.895        | -1          | 0.75               |
-| 27 | 2024-01-04 | 233402424601108653 | 69.95        | 3            | 999        | 69.955        | 1           | -9.99              |
-| 28 | 2024-01-04 | 233402424601108753 | 69.95        | 3            | 5          | 69.955        | -1          | 0.05               |
-| 29 | 2024-01-04 | 233402424601134016 | 69.86        | 3            | 700        | 69.860        | 1           | 0.00               |

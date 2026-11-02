@@ -49,11 +49,3 @@ It is possible to use syntax with indexer to call this method:
 1 2003-12-01 00:00:00.001   abcde        bcde        abc               bc
 2 2003-12-01 00:00:00.002  qwerty       werty        qwe               we
 ```
-
-##### SEE ALSO
-``first()``
-
-``last()``
-
-``substr()``
-
