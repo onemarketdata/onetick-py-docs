@@ -1,6 +1,6 @@
-# Earnings Events Analysis
+# Events
 
-This section contains 6 examples for Events using the `onetick-py`.<br />
+This section contains examples for Events using the `onetick-py`.<br />
 \\\\
 Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 

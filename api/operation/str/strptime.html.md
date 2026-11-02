@@ -68,3 +68,11 @@ Converts the formatted time to the number of nanoseconds (datetime) since 1970/0
         Time              A              MSECTIME_A
 0 2003-12-01  1693825877111 2023-09-04 07:11:17.111
 ```
+
+##### SEE ALSO
+**PARSE_NSECTIME** OneTick function
+
+**MSEC_STR_TO_NSECTIME** OneTick function
+
+**GET_MSECS** OneTick function
+

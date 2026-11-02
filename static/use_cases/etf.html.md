@@ -1,6 +1,6 @@
 # ETF
 
-This section contains 4 examples for ETF using the `onetick-py`.<br />
+This section contains examples for ETF using the `onetick-py`.<br />
 \\\\
 Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 
@@ -164,4 +164,23 @@ result = otp.run(
 )
 
 result  # Display results
+```
+
+## ETF NAV
+
+Returns daily ETF price and performance metrics using the Bloomberg identifier.
+
+```
+import onetick.py as otp
+
+data = otp.DataSource(db='OQD_ETF', tick_type='DAY')
+data = data.limit(100)
+
+result = otp.run(data,
+                 start=otp.dt(2024, 7, 8),
+                 end=otp.dt(2024, 8, 9),
+                 timezone='UTC',
+                 symbol_date=otp.dt(2024, 7, 8),
+                 symbols='BSYM::::SPY US Equity')
+result
 ```

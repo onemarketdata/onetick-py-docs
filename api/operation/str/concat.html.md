@@ -19,3 +19,7 @@ Returns a string that is the result of concatenating to `others`.
 1 2003-12-01 00:00:00.001  X2  Y2           X2_suffix    X2Y2
 2 2003-12-01 00:00:00.002  X3  Y3           X3_suffix    X3Y3
 ```
+
+##### SEE ALSO
+**CONCAT** OneTick function
+

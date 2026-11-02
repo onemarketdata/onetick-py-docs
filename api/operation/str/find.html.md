@@ -6,7 +6,7 @@ Find the index of `sub` in the string. If not found, returns `-1`.
 
 * **Parameters:**
   * **sub** (*str* *or* *Column* *or* *Operation*) – Substring to find.
-  * **start** (*int* *or* *Column* *or* *Operation*) – Starting position to find.
+  * **start** (*int* *or* *Column* *or* *Operation*) – Starting position (0-based) to find.
 * **Returns:**
   The starting position of the substring or `-1` if it is not found.
 * **Return type:**
@@ -57,3 +57,9 @@ Note that empty string will be found at the start of any string:
 0 2003-12-01 00:00:00.000  ababab  2
 1 2003-12-01 00:00:00.001  abbbbb -1
 ```
+
+##### SEE ALSO
+**LOCATE** OneTick function
+
+``position()``
+

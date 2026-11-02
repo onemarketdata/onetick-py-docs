@@ -2,24 +2,24 @@
 
 ## Table Of Contents
 
-* `Arrival ask / bid / mid prices for an order`
+* `Arrival Ask / Bid / Mid prices for an Order`
 * `Effective spread`
-* `Effective to quoted spread (ETQ)`
-* `Exit ask/bid prices for an order`
-* `FT (far touch) and NT (near touch)`
-* `Implementation shortfall (slippage)`
+* `Effective to Quoted Spread (ETQ)`
+* `Exit Ask Bid Prices for an Order`
+* `Far Touch (FT) and Near Touch (NT)`
+* `Implementation Shortfall (Slippage)`
 * `Market impact`
-* `Interval Metrics (e.g., VWAP)`
-* `Notional spread (quoted spread)`
-* `Number spreads`
-* `Offside value`
-* `Opportunity cost`
-* `Price improvement`
+* `Interval Market VWAP`
+* `Notional Spread (Quoted Spread)`
+* `Number Spreads`
+* `Offside Value`
+* `Opportunity Cost`
+* `Price Improvement`
 * `Participation weighted price (PWP)`
 * `Relative Performance Measure (RPM)`
 * `Reversion`
-* `Right way`
-* `Takeout success`
+* `Right Way (Order Direction vs Mid Move)`
+* `Takeout Success`
 * `Volatility`
 * `Window ask and window bid`
 * `Windowed FT (far touch) and Windowed NT (far touch)`

@@ -7,3 +7,5 @@ Methods to merge the source with other sources.
 * `otp.Source.diff`
 * `otp.Source.estimate_ts_delay`
 * `otp.Source.lee_and_ready`
+* `otp.Source.trd_ob_join`
+* `otp.Source.trd_quote_join`

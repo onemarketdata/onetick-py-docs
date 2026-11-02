@@ -1,29 +1,40 @@
 # Volatility
 
-To calculate the volatility of a financial instrument using `onetick.py`, you’ll need to retrieve trade data (typically with the ‘TRD’ tick type) from the US_COMP_SAMPLE database and then apply your defined function to calculate the volatility. The volatility is computed as the standard deviation of the trade prices divided by their average, multiplied by 100 (to get a percentage).
+Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 
-```python
+```
+# onetick-py WebAPI configuration for OneTick Cloud
+import os
+os.environ['OTP_WEBAPI'] = '1'
+os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
+os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
+os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
+os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
+```
+
+A simple realized volatility proxy for an instrument over the interval,
+computed as the standard deviation of trade prices divided by their average, in percent.
+
+```
+VOLATILITY = STDDEV(PRICE) / AVERAGE(PRICE) * 100
+```
+
+```
 import onetick.py as otp
 
-# Define your symbol and the database
-symbol = 'TSLA'
-database = 'US_COMP_SAMPLE'
-date = otp.dt(2024, 2, 1)
+data = otp.DataSource(db='LSE_SAMPLE', tick_type='TRD')
+data = data[['PRICE']]
 
-# Load trades data from US_COMP_SAMPLE database
-trades = otp.DataSource(database, tick_type='TRD', symbol=symbol)
+data = data.agg({
+    'STDDEV_PRICE': otp.agg.stddev('PRICE'),
+    'AVERAGE_PRICE': otp.agg.average('PRICE'),
+})
+data['VOLATILITY'] = data['STDDEV_PRICE'] / data['AVERAGE_PRICE'] * 100
 
-def add_volatility(md: otp.Source):
-    md = md.agg({
-        'STDDEV': otp.agg.stddev('PRICE'),
-        'AVERAGE': otp.agg.average('PRICE'),
-    })
-    md['VOLATILITY'] = md['STDDEV'] / md['AVERAGE'] * 100
-    return md
-
-# Apply the volatility function
-volatility_data = add_volatility(trades)
-
-# Run the query for the specified date
-df = otp.run(volatility_data, date=date)
+result = otp.run(data,
+                 start=otp.dt(2024, 1, 3, 8, 0),
+                 end=otp.dt(2024, 1, 3, 16, 30),
+                 timezone='Europe/London',
+                 symbols='VOD')
+result
 ```

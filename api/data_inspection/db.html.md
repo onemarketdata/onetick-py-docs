@@ -8,7 +8,7 @@ An object of available databases that the ``otp.databases()`` function returns.
 It helps to make initial analysis on the database level: available tick types,
 dates with data, symbols, tick schema, etc.
 
-#### ``access_info(deep_scan=False, username=None, query_properties=None)``
+#### ``access_info(deep_scan=False, username=None, query_properties=None, **run_kwargs)``
 
 Get access info for this database and `username`.
 
@@ -30,6 +30,8 @@ All dates are returned in GMT timezone.
     By default the query is executed for the current user.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     see OneTick server documentation for available options.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Return type:**
   *DataFrame* | `dict`
 
@@ -73,7 +75,7 @@ Set parameter `deep_scan` to True to return access fields from each available ho
 ##### SEE ALSO
 **ACCESS_INFO** OneTick event processor
 
-#### ``show_config(config_type='locator_entry', query_properties=None)``
+#### ``show_config(config_type='locator_entry', query_properties=None, **run_kwargs)``
 
 Shows the specified configuration for a database.
 
@@ -89,6 +91,8 @@ Shows the specified configuration for a database.
     LOCATION, ARCHIVE_DURATION, DAY_BOUNDARY_TZ, DAY_BOUNDARY_OFFSET, ALTERNATIVE_LOCATIONS, etc.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     see OneTick server documentation for available options.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Return type:**
   `dict`
 
@@ -131,7 +135,7 @@ Returns None if not set.
 Maximum end date set in ACL for current user.
 Returns None if not set.
 
-#### ``dates(respect_acl=False, check_index_file=utils.adaptive)``
+#### ``dates(respect_acl=False, check_index_file=utils.adaptive, **run_kwargs)``
 
 Returns list of dates in GMT timezone for which data is available.
 
@@ -145,6 +149,8 @@ Returns list of dates in GMT timezone for which data is available.
     but where there is actually no data.
     By default this option is set to False if it is supported by API and the server,
     otherwise it is set to True.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Returns:**
   Returns `None` when there is no data in the database
 * **Return type:**
@@ -175,7 +181,7 @@ The latest date in GMT timezone on which db has data and the current user has ac
 datetime.date(2024, 3, 28)
 ```
 
-#### ``tick_types(date=None, timezone=None, query_properties=None, include_memdb=True)``
+#### ``tick_types(date=None, timezone=None, query_properties=None, include_memdb=True, **run_kwargs)``
 
 Returns list of tick types for the `date`.
 
@@ -187,6 +193,8 @@ Returns list of tick types for the `date`.
   * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
     Otherwise only the archive databases will be used.
     Default is True.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Returns:**
   List with string values of available tick types.
 * **Return type:**
@@ -200,7 +208,7 @@ Returns list of tick types for the `date`.
 ['DAY', 'IND', 'LULD', 'MKT', 'NBBO', 'QTE', 'STAT', 'TRD']
 ```
 
-#### ``schema(date=None, tick_type=None, timezone=None, check_index_file=utils.adaptive, query_properties=None, include_memdb=True)``
+#### ``schema(date=None, tick_type=None, timezone=None, check_index_file=utils.adaptive, query_properties=None, include_memdb=True, **run_kwargs)``
 
 Gets the schema of the database.
 
@@ -223,6 +231,8 @@ Gets the schema of the database.
   * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
     Otherwise only the archive databases will be used.
     Default is True.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Returns:**
   Dict where keys are field names and values are `onetick.py` `types`.
   It’s compatible with the ``onetick.py.Source.schema`` methods.
@@ -251,7 +261,7 @@ Gets the schema of the database.
  'TTE': string[1]}
 ```
 
-#### ``symbols(date=None, timezone=None, tick_type=None, pattern='.*', query_properties=None, include_memdb=True)``
+#### ``symbols(date=None, timezone=None, tick_type=None, pattern='.*', query_properties=None, include_memdb=True, **run_kwargs)``
 
 Finds a list of available symbols in the database
 
@@ -265,6 +275,8 @@ Finds a list of available symbols in the database
   * **include_memdb** (*bool*) – Setting this parameter to True will return result from memory databases too.
     Otherwise only the archive databases will be used.
     Default is True.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Return type:**
   `list``[str`]
 
@@ -276,7 +288,7 @@ Finds a list of available symbols in the database
 ['AAL', 'AAPL']
 ```
 
-#### ``show_archive_stats(start=utils.adaptive, end=utils.adaptive, date=None, timezone='GMT', query_properties=None)``
+#### ``show_archive_stats(start=utils.adaptive, end=utils.adaptive, date=None, timezone='GMT', query_properties=None, **run_kwargs)``
 
 This method shows various stats about the queried symbol,
 as well as an archive as a whole for each day within the queried interval.
@@ -312,6 +324,8 @@ Archive stats returned:
   * **timezone** (*str*) – Timezone for the query. Default is GMT.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     see OneTick server documentation for available options.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Return type:**
   *DataFrame*
 
@@ -334,7 +348,7 @@ Show stats for a particular date for a database *US_COMP_SAMPLE*:
 ##### SEE ALSO
 **SHOW_ARCHIVE_STATS** OneTick event processor
 
-#### ``ref_data(ref_data_type, symbol_date=None, start=utils.adaptive, end=utils.adaptive, date=None, timezone=utils.default, symbol='', query_properties=None)``
+#### ``ref_data(ref_data_type, symbol_date=None, start=utils.adaptive, end=utils.adaptive, date=None, timezone=utils.default, symbol='', query_properties=None, **run_kwargs)``
 
 Shows reference data for the specified security and reference data type.
 
@@ -363,6 +377,8 @@ as well as names of continuous contracts in database symbology.
   * **symbol** (*str*) – Symbol name for the query (may be useful for some `ref_data_type`).
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     see OneTick server documentation for available options.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Return type:**
   *DataFrame*
 

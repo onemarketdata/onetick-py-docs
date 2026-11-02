@@ -1,6 +1,6 @@
 # Real Time and Intraday
 
-This section contains 6 examples for Real Time and Intraday using the `onetick-py`.<br />
+This section contains examples for Real Time and Intraday using the `onetick-py`.<br />
 \\\\
 Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 

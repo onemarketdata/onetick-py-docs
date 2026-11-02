@@ -1,6 +1,6 @@
 # Crypto
 
-This section contains 7 examples for Crypto using the `onetick-py`.<br />
+This section contains examples for Crypto using the `onetick-py`.<br />
 \\\\
 Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 

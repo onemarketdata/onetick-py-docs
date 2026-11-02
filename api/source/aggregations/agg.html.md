@@ -338,8 +338,8 @@ Example of using ‘flexible’ buckets. Here every bucket consists of consecuti
 ```
 >>> trades = otp.Ticks(PRICE=[194.65, 194.65, 194.65, 194.75, 194.75, 194.51, 194.70, 194.71, 194.75, 194.71])
 >>> trades = trades.agg({'COUNT': otp.agg.count(),
-...                     'FIRST_TIME': otp.agg.first('Time'),
-...                     'LAST_TIME': otp.agg.last('Time')},
+...                     'FIRST_TIME': otp.agg.first_time(),
+...                     'LAST_TIME': otp.agg.last_time()},
 ...                     bucket_units='flexible',
 ...                     bucket_end_condition=trades['PRICE'] < trades['PRICE'][-1])
 >>> otp.run(trades)
