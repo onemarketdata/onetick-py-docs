@@ -15,5 +15,6 @@
 * `Math functions`
 * `Datetime functions`
 * `String functions`
+* `Join functions`
 * `Miscellaneous functions`
 * `Cache related functions`

@@ -4,9 +4,13 @@
 
 ### Added
 
+- Added functions `otp.ops.sametime` and `otp.ops.sametime_as_existing`
+
 ### Changed
 
 ### Fixed
+
+- Fixed tests on latest OneTick version
 
 ### Removed
 
