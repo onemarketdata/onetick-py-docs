@@ -13,5 +13,7 @@
 * `otp.qcut`
 * `otp.functions.save_sources_to_single_file`
 * `Math functions`
+* `Datetime functions`
+* `String functions`
 * `Miscellaneous functions`
 * `Cache related functions`

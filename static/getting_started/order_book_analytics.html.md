@@ -36,7 +36,7 @@ prl = prl.drop(r".+TIME\d")
 otp.run(prl, symbols=r'NQ\H24', start=s, end=s + otp.Milli(100))
 ```
 
-The ``otp.ObSnapshot`` method doesn’t require specifying `max_levels`. The entire book is returned when the parameter is not specified.
+The ``otp.ObSnapshot`` class doesn’t require specifying `max_levels`. The entire book is returned when the parameter is not specified.
 
 ```python
 prl = otp.ObSnapshot(db='CME_SAMPLE', tick_type='PRL_FULL')

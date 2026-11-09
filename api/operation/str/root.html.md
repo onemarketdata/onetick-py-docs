@@ -1,5 +1,7 @@
 # String accessor
 
+
+
 #### ``property Operation.str``
 
 Property that provides access to methods specific to string types.
@@ -25,9 +27,11 @@ Property that provides access to methods specific to string types.
 * `otp.Operation.str.lower`
 * `otp.Operation.str.ltrim`
 * `otp.Operation.str.match`
+* `otp.Operation.str.position`
 * `otp.Operation.str.regex_replace`
 * `otp.Operation.str.repeat`
 * `otp.Operation.str.replace`
+* `otp.Operation.str.right_from_end`
 * `otp.Operation.str.rtrim`
 * `otp.Operation.str.slice`
 * `otp.Operation.str.startswith`

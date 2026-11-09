@@ -1,37 +1,65 @@
-# Takeout success
+# Takeout Success
 
-Takeout success based on capturing the available size in the market for an order at a certain level takeout success flag:
+Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 
 ```
-Takeout_Success := SizeFilled >= min(Size, Ask_Size), when Side = 'BUY', and
-Takeout_Success := SizeFilled >= min(Size, Bid_Size), otherwise
+# onetick-py WebAPI configuration for OneTick Cloud
+import os
+os.environ['OTP_WEBAPI'] = '1'
+os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
+os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
+os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
+os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
 ```
 
-Calculate takeout success for orders and US_COMP_SAMPLE databases using for the `TSLA` ticker in `onetick.py`
+Takeout success flags whether an order captured the available size in the market
+on the touched side at arrival.
+
+```
+TAKEOUT_SUCCESS = QTY_FILLED >= ASK_SIZE,  when SIDE = 'BUY'
+TAKEOUT_SUCCESS = QTY_FILLED >= BID_SIZE,  when SIDE = 'SELL'
+```
+
+The prevailing quote at order arrival (`STATE = 'N'`) is joined “as of” to the order,
+supplying the `ASK_SIZE` / `BID_SIZE` available at that instant.
 
 ```python
 import onetick.py as otp
 
-orders = otp.DataSource('ORDERS_DB', tick_type='ORDER')
+order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
+order = order.where(order['STATE'] == 'N')
+order = order[['ID', 'SIDE', 'QTY_FILLED']]
+order['DIRECTION'] = order.if_else(order['SIDE'] == 'BUY', 1, -1)
 
-# add the direction that is equl to 1 for buy orders and -1 for sell orders
-orders['DIRECTION'] = 2 * orders['BUY_FLAG'] - 1
+qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
+qte = qte[['ASK_SIZE', 'BID_SIZE']]
 
-quotes = otp.DataSource('US_COMP_SAMPLE', tick_type='QTE')
+data = otp.join_by_time([order, qte])
 
-res = otp.join_by_time([orders, quotes])
+data['TAKEOUT_SUCCESS'] = data.if_else(
+    ((data['DIRECTION'] == 1) & (data['QTY_FILLED'] >= data['ASK_SIZE'])) |
+    ((data['DIRECTION'] == -1) & (data['QTY_FILLED'] >= data['BID_SIZE'])),
+    1, 0)
+data = data[['ID', 'TAKEOUT_SUCCESS']]
 
-# initialize a field where we could put the takeout sucess flag
-res['TAKEOUT_SUCCESS'] = 0
-
-res = res.update(
-            {'TAKEOUT_SUCCESS': 1},
-            where=(res['DIRECTION'] == 1) & (res['QTY_FILLED'] >= res['ASK_SIZE'])
-)
-res = res.update(
-            {'TAKEOUT_SUCCESS': 1},
-            where=(res['DIRECTION'] == -1) & (res['QTY_FILLED'] >= res['BID_SIZE'])
-)
-
-otp.run(res, date=otp.dt(2024, 2, 1), symbols='TSLA')
+result = otp.run(data,
+                 start=otp.dt(2024, 1, 3),
+                 end=otp.dt(2024, 1, 4),
+                 timezone='Europe/London',
+                 symbols='VOD')
+result
 ```
+
+|    | Time                    | ID                 | TAKEOUT_SUCCESS   |
+|----|-------------------------|--------------------|-------------------|
+| 0  | 2024-01-03 08:08:07.502 | 233402424600089290 | 0                 |
+| 1  | 2024-01-03 08:27:05.220 | 233402424600163510 | 0                 |
+| 2  | 2024-01-03 08:53:19.681 | 233402424600242348 | 0                 |
+| 3  | 2024-01-03 08:53:19.685 | 233402424600242354 | 0                 |
+| 4  | 2024-01-03 08:53:19.691 | 233402424600242364 | 0                 |
+| .. | …                       | …                  | …                 |
+| 16 | 2024-01-03 15:00:06.170 | 233402424600990504 | 0                 |
+| 17 | 2024-01-03 15:21:17.758 | 233402424601076779 | 0                 |
+| 18 | 2024-01-03 15:31:59.347 | 233402424601108653 | 0                 |
+| 19 | 2024-01-03 15:32:01.227 | 233402424601108753 | 0                 |
+| 20 | 2024-01-03 15:38:33.230 | 233402424601134016 | 0                 |

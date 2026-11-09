@@ -1,6 +1,6 @@
 # otp.derived_databases
 
-### ``derived_databases(context=utils.default, start=None, end=None, selection_criteria='all', db=None, db_discovery_scope='query_host_only', as_table=False, query_properties=None)``
+### ``derived_databases(context=utils.default, start=None, end=None, selection_criteria='all', db=None, db_discovery_scope='query_host_only', as_table=False, query_properties=None, **run_kwargs)``
 
 Gets available derived databases.
 
@@ -37,6 +37,8 @@ Gets available derived databases.
     If True, returns a `pandas.DataFrame` table where each row contains the info for each database.
   * **query_properties** (*dict* *,* *optional*) – Query properties passed to ``otp.run``,
     see OneTick server documentation for available options.
+  * **run_kwargs** – Parameters passed directly to ``otp.run``.
+    Only `username`, `alternative_username` and `password` are supported.
 * **Returns:**
   * Dict where keys are database names and values are ``DB`` objects
   * or `pandas.DataFrame` object depending on `as_table` parameter.

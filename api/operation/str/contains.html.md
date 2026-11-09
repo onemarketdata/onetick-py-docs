@@ -1,11 +1,12 @@
 # otp.Operation.str.contains
 
-#### \_StrAccessor.contains(substr)
+#### \_StrAccessor.contains(substr, , utf8=False)
 
 Check if the string contains `substr`.
 
 * **Parameters:**
-  **substr** (*str* *or* *Column* *or* *Operation*) – A substring to search for within the string.
+  * **substr** (*str* *or* *Column* *or* *Operation*) – A substring to search for within the string.
+  * **utf8** (*bool*) – If set, then UTF-8 format is supported.
 * **Returns:**
   `True` if the string contains the substring, `False` otherwise.
   Note that boolean Operation is converted to float if added as a column.
@@ -49,3 +50,9 @@ This method can also be used for filtering:
         Time      X
 0 2003-12-01  Hello
 ```
+
+##### SEE ALSO
+**INSTR** OneTick function
+
+**INSTR_UTF8** OneTick function
+

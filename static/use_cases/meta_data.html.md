@@ -1,6 +1,6 @@
 # Meta Data
 
-This section contains 5 examples for Meta Data using the `onetick-py`.<br />
+This section contains examples for Meta Data using the `onetick-py`.<br />
 \\\\
 Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
 
@@ -78,4 +78,21 @@ import onetick.py as otp
 dbs = otp.databases()
 result = dbs['US_COMP_SAMPLE'].tick_types()
 result
+```
+
+## Authorised DB List
+
+Returns the list of databases that the current user has read access to.<br />
+\\\\
+``otp.databases(readable_only=True)`` only enumerates the
+databases the connected user is authorised to read,
+so calling it is the direct equivalent of filtering the OTQ metadata `ACCESS_INFO` query on `READ_ACCESS = 1`.
+
+Query Accessible Databases with Read Permissions.
+
+```
+import onetick.py as otp
+
+data = otp.databases(readable_only=True)
+list(data)[:5]
 ```

@@ -1,32 +1,60 @@
-# Arrival ask / bid / mid prices for an order
+# Arrival Ask / Bid / Mid prices for an Order
 
-To find the arrival mid-price (which is the average of the ask and bid prices at the time of order arrival) for every order, you need to join the order data with the quote data at the time when each order was initially placed. In trading, the “arrival” of an order typically refers to the time when the order is first submitted, usually indicated by an order state of ‘N’ (New).
+Each example is a self-contained script that can be run against the OneTick Cloud sample databases.
+
+```
+# onetick-py WebAPI configuration for OneTick Cloud
+import os
+os.environ['OTP_WEBAPI'] = '1'
+os.environ['OTP_HTTP_ADDRESS'] = 'https://rest.cloud.onetick.com'
+os.environ['OTP_ACCESS_TOKEN_URL'] = 'https://cloud-auth.parent.onetick.com/realms/OMD/protocol/openid-connect/token'
+os.environ['OTP_CLIENT_ID'] = '__FILL_IN__'
+os.environ['OTP_CLIENT_SECRET'] = '__FILL_IN__'
+```
+
+In trading, the *arrival* of an order typically refers to the time when the order is first submitted,
+usually indicated by an order `STATE = 'N'` (New).<br />
+\\\\
+To find the *arrival price* for every order,
+you need to find the prevailing quote at the time when each order was initially placed.<br />
+\\\\
+The prevailing quote is associated with each arrival order through an “as of”
+join with ``otp.join_by_time``, and the mid is the average of the bid and ask.
 
 ```python
 import onetick.py as otp
 
-# Define the symbol, orders database, quotes database, and date
-symbol = 'TSLA'
-orders_db = 'ORDERS_DB'
-quotes_db = 'US_COMP_SAMPLE'
-date = otp.dt(2024, 2, 1)
+order = otp.DataSource(db='S_ORDERS_LSE_SAMPLE', tick_type='ORDER')
+order = order.where(order['STATE'] == 'N')
+order = order[['ID']]
 
-# Load orders and quotes data
-orders = otp.DataSource(orders_db, tick_type='ORDER', symbol=symbol)
-quotes = otp.DataSource(quotes_db, tick_type='QTE', symbol=symbol)
+qte = otp.DataSource(db='LSE_SAMPLE', tick_type='QTE')
+qte['ARRIVAL_ASK_PRICE'] = qte['ASK_PRICE']
+qte['ARRIVAL_BID_PRICE'] = qte['BID_PRICE']
+qte = qte[['ARRIVAL_ASK_PRICE', 'ARRIVAL_BID_PRICE']]
 
-# Filter for new (arrival) orders
-arrival_orders = orders.where(orders['STATE'] == 'N')
+data = otp.join_by_time([order, qte])
+data['ARRIVAL_MID_PRICE'] = (data['ARRIVAL_ASK_PRICE'] + data['ARRIVAL_BID_PRICE']) / 2
+data = data[['ID', 'ARRIVAL_ASK_PRICE', 'ARRIVAL_BID_PRICE', 'ARRIVAL_MID_PRICE']]
 
-# Join arrival orders with quotes based on timestamp
-arrival_orders_with_quotes = otp.join_by_time([arrival_orders, quotes])
-
-# Calculate the mid-price at the time of order arrival
-arrival_orders_with_quotes['ARRIVAL_MID_PRICE'] = (arrival_orders_with_quotes['ASK_PRICE'] + arrival_orders_with_quotes['BID_PRICE']) / 2
-
-# Select relevant fields, if necessary
-arrival_orders_with_quotes = arrival_orders_with_quotes[['ID', 'ARRIVAL_MID_PRICE']]
-
-# Run the query for the specified date
-df = otp.run(arrival_orders_with_quotes, date=date)
+result = otp.run(data,
+                 start=otp.dt(2024, 1, 3),
+                 end=otp.dt(2024, 1, 4),
+                 timezone='Europe/London',
+                 symbols='VOD')
+result
 ```
+
+|    | Time                       | ID                 | ARRIVAL_ASK_PRICE   | ARRIVAL_BID_PRICE   | ARRIVAL_MID_PRICE   |
+|----|----------------------------|--------------------|---------------------|---------------------|---------------------|
+| 0  | 2024-01-03 08:08:07.502000 | 233402424600089290 | 70.41               | 70.37               | 70.390              |
+| 1  | 2024-01-03 08:27:05.220000 | 233402424600163510 | 70.31               | 70.27               | 70.290              |
+| 2  | 2024-01-03 08:53:19.681000 | 233402424600242348 | 70.73               | 70.69               | 70.710              |
+| 3  | 2024-01-03 08:53:19.685000 | 233402424600242354 | 70.73               | 70.69               | 70.710              |
+| 4  | 2024-01-03 08:53:19.691000 | 233402424600242364 | 70.73               | 70.69               | 70.710              |
+| .. | …                          | …                  | …                   | …                   | …                   |
+| 16 | 2024-01-03 15:00:06.170000 | 233402424600990504 | 70.07               | 70.03               | 70.050              |
+| 17 | 2024-01-03 15:21:17.758000 | 233402424601076779 | 69.91               | 69.88               | 69.895              |
+| 18 | 2024-01-03 15:31:59.347000 | 233402424601108653 | 69.96               | 69.95               | 69.955              |
+| 19 | 2024-01-03 15:32:01.227000 | 233402424601108753 | 69.96               | 69.95               | 69.955              |
+| 20 | 2024-01-03 15:38:33.230000 | 233402424601134016 | 69.87               | 69.85               | 69.860              |

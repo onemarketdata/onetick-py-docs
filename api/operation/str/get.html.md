@@ -25,10 +25,16 @@ It is possible to use syntax with indexer to call this method:
 
 ```
 >>> data = otp.Ticks(X=['abcdef', '12345     ', 'qw'])
->>> data['THIRD'] = data['X'].str[1]
+>>> data['SECOND'] = data['X'].str[1]
 >>> otp.run(data)
-                     Time           X THIRD
-0 2003-12-01 00:00:00.000      abcdef     b
-1 2003-12-01 00:00:00.001  12345          2
-2 2003-12-01 00:00:00.002          qw     w
+                     Time           X  SECOND
+0 2003-12-01 00:00:00.000      abcdef       b
+1 2003-12-01 00:00:00.001  12345            2
+2 2003-12-01 00:00:00.002          qw       w
 ```
+
+##### SEE ALSO
+**BYTE_AT** OneTick function
+
+**CHAR** OneTick function
+
