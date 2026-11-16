@@ -1,6 +1,6 @@
 # otp.agg.option_price
 
-### ``option_price(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new', *args, volatility, interest_rate, compute_model, number_of_steps, compute_delta, compute_gamma, compute_theta, compute_vega, compute_rho, volatility_field_name, interest_rate_field_name, option_type_field_name, strike_price_field_name, days_in_year, days_till_expiration_field_name, expiration_date_field_name, underlying_price_field_name, all_fields_for_running, **kwargs)``
+### ``option_price(volatility, interest_rate, compute_model, number_of_steps, compute_delta, compute_gamma, compute_theta, compute_vega, compute_rho, volatility_field_name, interest_rate_field_name, option_type_field_name, strike_price_field_name, days_in_year, days_till_expiration_field_name, expiration_date_field_name, underlying_price_field_name, all_fields_for_running, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new')``
 
 This aggregation requires several parameters to compute the option price.
 

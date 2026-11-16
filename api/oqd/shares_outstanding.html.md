@@ -1,6 +1,6 @@
 # otp.oqd.SharesOutstanding
 
-### ``class SharesOutstanding(symbol=otp.utils.adaptive, start=otp.utils.adaptive, end=otp.utils.adaptive, **kwargs)``
+### ``class SharesOutstanding(start=otp.utils.adaptive, end=otp.utils.adaptive, symbol=otp.utils.adaptive)``
 
 Bases: ``Source``
 

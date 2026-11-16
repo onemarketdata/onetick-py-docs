@@ -1,6 +1,6 @@
 # otp.Operation.dt.year
 
-#### \_DtAccessor.year(timezone=None)
+#### \_DtAccessor.year(timezone)
 
 Return the year number.
 

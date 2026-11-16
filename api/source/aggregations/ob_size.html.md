@@ -1,6 +1,6 @@
 # otp.Source.ob_size
 
-#### ``Source.ob_size(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1, best_ask_price_field=None, best_bid_price_field=None, *args, **kwargs)``
+#### ``Source.ob_size(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1, best_ask_price_field=None, best_bid_price_field=None)``
 
 Returns the total size for a specified number of order book levels at the end of each bucket interval.
 

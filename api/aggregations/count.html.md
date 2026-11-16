@@ -1,6 +1,6 @@
 # otp.agg.count
 
-### ``count(running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', output_field_name=None, *args, **kwargs)``
+### ``count(running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all')``
 
 Returns number of ticks.
 
@@ -131,14 +131,6 @@ Returns number of ticks.
     By default **all** groups are shown at the end of each bucket interval.
     If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
     within a given bucket interval are shown.
-  * **output_field_name** (*str* *|* *None* *,* *default=None*) – 
-
-    Output field name of the aggregation.
-
-    If not set, then, depending on the type of aggregation,
-    either the input field name will be used (if there is only one input of the aggregation),
-    or the new column with some predefined name will be created
-    (usually `VALUE` or uppercased name of the aggregation).
 
 ##### Examples
 

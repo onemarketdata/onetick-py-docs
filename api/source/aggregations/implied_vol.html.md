@@ -1,6 +1,6 @@
 # otp.Source.implied_vol
 
-#### ``Source.implied_vol(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', interest_rate=None, price_field='PRICE', option_price_field='OPTION_PRICE', method='newton', precision='1.0e-5', value_for_non_converge='nan_val', option_type_field='', strike_price_field='', days_in_year=365, days_till_expiration_field='', expiration_date_field='', output_field_name=None, *args, **kwargs)``
+#### ``Source.implied_vol(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', interest_rate=None, price_field='PRICE', option_price_field='OPTION_PRICE', method='newton', precision='1.0e-5', value_for_non_converge='nan_val', option_type_field='', strike_price_field='', days_in_year=365, days_till_expiration_field='', expiration_date_field='')``
 
 `IMPLIED_VOL` aggregation.
 
@@ -183,14 +183,6 @@ in case of a tick attribute.
     Used with `days_till_expiration` parameter to compute the fractional years till expiration.
   * **days_till_expiration_field** (*Union* **[*str* *,* *onetick.py.core.column.Column* *]* *,* *default=*) – Specifies name of the field, which carries number of days till expiration of the option.
   * **expiration_date_field** (*Union* **[*str* *,* *onetick.py.core.column.Column* *]* *,* *default=*) – Specifies name of the field, which carries the expiration date of the option, in **YYYYMMDD** format.
-  * **output_field_name** (*str* *|* *None* *,* *default=None*) – 
-
-    Output field name of the aggregation.
-
-    If not set, then, depending on the type of aggregation,
-    either the input field name will be used (if there is only one input of the aggregation),
-    or the new column with some predefined name will be created
-    (usually `VALUE` or uppercased name of the aggregation).
 * **Return type:**
   `Source`
 

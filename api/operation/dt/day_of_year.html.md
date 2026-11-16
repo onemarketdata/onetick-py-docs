@@ -1,6 +1,6 @@
 # otp.Operation.dt.day_of_year
 
-#### \_DtAccessor.day_of_year(timezone=None)
+#### \_DtAccessor.day_of_year(timezone)
 
 Return the day of the year.
 

@@ -1,6 +1,6 @@
 # otp.Operation.dt.week
 
-#### \_DtAccessor.week(timezone=None)
+#### \_DtAccessor.week(timezone)
 
 Returns the week number.
 

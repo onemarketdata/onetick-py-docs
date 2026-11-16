@@ -1,6 +1,6 @@
 # otp.agg.linear_regression
 
-### ``linear_regression(dependent_variable_field_name, independent_variable_field_name, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', *args, **kwargs)``
+### ``linear_regression(dependent_variable_field_name, independent_variable_field_name, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new')``
 
 `LINEAR_REGRESSION` aggregation.
 

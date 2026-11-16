@@ -1,6 +1,6 @@
 # otp.DataSource
 
-### ``class DataSource(db=None, symbol=utils.adaptive, tick_type=utils.adaptive, start=utils.adaptive, end=utils.adaptive, date=None, schema=None, schema_policy=utils.adaptive, guess_schema=None, identify_input_ts=False, back_to_first_tick=0, keep_first_tick_timestamp=None, max_back_ticks_to_prepend=1, where_clause_for_back_ticks=None, symbols=None, presort=utils.adaptive, batch_size=None, concurrency=utils.default, symbol_date=None, query_parameters=None, **kwargs)``
+### ``class DataSource(db=None, symbol=utils.adaptive, tick_type=utils.adaptive, start=utils.adaptive, end=utils.adaptive, date=None, schema_policy=None, guess_schema=utils.adaptive, identify_input_ts=None, back_to_first_tick=False, keep_first_tick_timestamp=0, max_back_ticks_to_prepend=None, where_clause_for_back_ticks=1, symbols=None, presort=None, batch_size=utils.adaptive, concurrency=None, schema=utils.default, symbol_date=None, query_parameters=None, **kwargs)``
 
 Bases: ``Source``
 

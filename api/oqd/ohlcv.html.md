@@ -1,6 +1,6 @@
 # otp.oqd.OHLCV
 
-### ``class OHLCV(exch='all', symbol=utils.adaptive, start=utils.adaptive, end=utils.adaptive, **kwargs)``
+### ``class OHLCV(exch='all', start=utils.adaptive, end=utils.adaptive, symbol=utils.adaptive)``
 
 Bases: ``Source``
 

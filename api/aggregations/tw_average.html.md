@@ -1,6 +1,6 @@
 # otp.agg.tw_average
 
-### ``tw_average(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', time_series_type='state_ts', output_field_name=None, *args, **kwargs)``
+### ``tw_average(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', time_series_type='state_ts')``
 
 Returns time weighted average of input field.
 
@@ -148,14 +148,6 @@ Returns time weighted average of input field.
       * else
 
         latest tick from previous bucket included in current bucket
-  * **output_field_name** (*str* *|* *None* *,* *default=None*) – 
-
-    Output field name of the aggregation.
-
-    If not set, then, depending on the type of aggregation,
-    either the input field name will be used (if there is only one input of the aggregation),
-    or the new column with some predefined name will be created
-    (usually `VALUE` or uppercased name of the aggregation).
 
 ##### Examples
 

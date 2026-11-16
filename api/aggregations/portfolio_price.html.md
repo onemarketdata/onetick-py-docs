@@ -1,6 +1,6 @@
 # otp.agg.portfolio_price
 
-#### ``agg.portfolio_price(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', weight_field_name='', side='both', weight_type='absolute', symbols=None, *args, **kwargs)``
+#### ``agg.portfolio_price(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', weight_field_name='', side='both', weight_type='absolute', symbols=None)``
 
 `PORTFOLIO_PRICE` aggregation.
 

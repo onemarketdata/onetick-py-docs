@@ -12,7 +12,6 @@
 * `otp.corp_actions`
 * `otp.qcut`
 * `otp.functions.save_sources_to_single_file`
-* `otp.ts_add`
 * `Math functions`
 * `Datetime functions`
 * `String functions`

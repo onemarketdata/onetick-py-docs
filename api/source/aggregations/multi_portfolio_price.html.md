@@ -1,6 +1,6 @@
 # otp.Source.multi_portfolio_price
 
-#### ``Source.multi_portfolio_price(portfolios_query, columns='PRICE', running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', weight_field_name='', weight_multiplier_field_name='', side='both', weight_type='absolute', portfolios_query_params='', portfolio_value_field_name='VALUE', symbols=None, *args, **kwargs)``
+#### ``Source.multi_portfolio_price(portfolios_query, columns='PRICE', running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', weight_field_name='', weight_multiplier_field_name='', side='both', weight_type='absolute', portfolios_query_params='', portfolio_value_field_name='VALUE', symbols=None)``
 
 `MULTI_PORTFOLIO_PRICE` aggregation.
 

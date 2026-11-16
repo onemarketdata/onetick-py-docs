@@ -1,6 +1,6 @@
 # otp.Source.estimate_ts_delay
 
-#### ``Source.estimate_ts_delay(other, input_field1_name, input_field2_name, smallest_time_granularity_msec=1, max_ts_delay_msec=1000, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', **kwargs)``
+#### ``Source.estimate_ts_delay(other, input_field1_name, input_field2_name, smallest_time_granularity_msec=1, max_ts_delay_msec=1000, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all')``
 
 Given two time series of ticks, computes how much delay the second series has in relation to the first.
 A negative delay should be interpreted as the first series being delayed instead.
@@ -105,7 +105,6 @@ Output ticks always have 2 fields:
     By default **all** groups are shown at the end of each bucket interval.
     If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
     within a given bucket interval are shown.
-  * **self** (*Source*)
 * **Return type:**
   ``Source``
 

@@ -1,6 +1,6 @@
 # otp.agg.ob_num_levels
 
-### ``ob_num_levels(running=False, bucket_interval=0, side=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1, *args, **kwargs)``
+### ``ob_num_levels(running=False, bucket_interval=0, side=None, book_uncross_method=None, dq_events_that_clear_book=None, max_initialization_days=1)``
 
 Returns the number of levels in the order book at the end of each bucket.
 

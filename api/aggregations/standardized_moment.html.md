@@ -1,6 +1,6 @@
 # otp.agg.standardized_moment
 
-### ``standardized_moment(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', degree=3, output_field_name=None, *args, **kwargs)``
+### ``standardized_moment(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', degree=3)``
 
 `STANDARDIZED_MOMENT` aggregation.
 
@@ -141,14 +141,6 @@ as the expected value of the expression `((X - mean) / stddev)^k`.
     If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
     within a given bucket interval are shown.
   * **degree** (*int* *,* *default=3*) – The order (degree) of the standardized moment to compute, denoted as k in the description above.
-  * **output_field_name** (*str* *|* *None* *,* *default=None*) – 
-
-    Output field name of the aggregation.
-
-    If not set, then, depending on the type of aggregation,
-    either the input field name will be used (if there is only one input of the aggregation),
-    or the new column with some predefined name will be created
-    (usually `VALUE` or uppercased name of the aggregation).
 
 ##### Examples
 

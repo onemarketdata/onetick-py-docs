@@ -6,7 +6,6 @@ Most of these are basically wrappers around `otp.agg` objects.
 ## Table Of Contents
 
 * `otp.Source.agg`
-* `otp.Source.correlation_by_rank`
 * `otp.Source.distinct`
 * `otp.Source.exp_tw_average`
 * `otp.Source.exp_w_average`
@@ -28,14 +27,10 @@ Most of these are basically wrappers around `otp.agg` objects.
 * `otp.Source.ob_summary`
 * `otp.Source.ob_vwap`
 * `otp.Source.option_price`
-* `otp.Source.order_by_aggr`
 * `otp.Source.partition_evenly_into_groups`
 * `otp.Source.percentile`
 * `otp.Source.portfolio_price`
-* `otp.Source.prevailing_price`
 * `otp.Source.process_by_group`
 * `otp.Source.ranking`
 * `otp.Source.return_ep`
 * `otp.Source.standardized_moment`
-* `otp.Source.ts_subtract`
-* `otp.Source.tw_spread`

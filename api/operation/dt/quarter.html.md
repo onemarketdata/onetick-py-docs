@@ -1,6 +1,6 @@
 # otp.Operation.dt.quarter
 
-#### \_DtAccessor.quarter(timezone=None)
+#### \_DtAccessor.quarter(timezone)
 
 Return the quarter number.
 
