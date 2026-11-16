@@ -1,6 +1,6 @@
 # otp.Source.ob_snapshot_flat
 
-#### ``Source.ob_snapshot_flat(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', max_levels=None, book_uncross_method=None, dq_events_that_clear_book=None, show_full_detail=False, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None)``
+#### ``Source.ob_snapshot_flat(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', max_levels=None, book_uncross_method=None, dq_events_that_clear_book=None, show_full_detail=False, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None, *args, **kwargs)``
 
 Returns the snapshot for a specified number of book levels as a single tick
 with multiple field groups corresponding to book levels.

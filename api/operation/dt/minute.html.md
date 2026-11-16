@@ -1,6 +1,6 @@
 # otp.Operation.dt.minute
 
-#### \_DtAccessor.minute(timezone)
+#### \_DtAccessor.minute(timezone=None)
 
 Return the minute.
 

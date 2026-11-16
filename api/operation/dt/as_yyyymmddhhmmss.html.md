@@ -1,6 +1,6 @@
 # otp.Operation.dt.as_yyyymmddhhmmss
 
-#### \_DtAccessor.as_yyyymmddhhmmss(timezone)
+#### \_DtAccessor.as_yyyymmddhhmmss(timezone=None)
 
 Converts the timestamp into the integer in the form YYYYMMDDhhmmss.
 

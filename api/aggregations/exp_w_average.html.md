@@ -1,6 +1,6 @@
 # otp.agg.exp_w_average
 
-### ``exp_w_average(decay, decay_value_type='lambda', running=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', all_fields=False, group_by=None, groups_to_display='all', end_condition_per_group=False, time_series_type='state_ts')``
+### ``exp_w_average(decay, decay_value_type='lambda', running=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', all_fields=False, group_by=None, groups_to_display='all', end_condition_per_group=False, time_series_type='state_ts', output_field_name=None, *args, **kwargs)``
 
 Exponentially Weighted Average aggregation.
 
@@ -175,6 +175,14 @@ where the sum is computed across all data points.
       * else
 
         latest tick from previous bucket included in current bucket
+  * **output_field_name** (*str* *|* *None* *,* *default=None*) – 
+
+    Output field name of the aggregation.
+
+    If not set, then, depending on the type of aggregation,
+    either the input field name will be used (if there is only one input of the aggregation),
+    or the new column with some predefined name will be created
+    (usually `VALUE` or uppercased name of the aggregation).
 
 ##### Examples
 

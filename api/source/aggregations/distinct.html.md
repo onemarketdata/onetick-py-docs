@@ -1,6 +1,6 @@
 # otp.Source.distinct
 
-#### ``Source.distinct(keys, key_attrs_only, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new', selection='first')``
+#### ``Source.distinct(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new', selection='first', *args, keys, key_attrs_only, **kwargs)``
 
 Outputs all distinct values for a specified set of key fields.
 

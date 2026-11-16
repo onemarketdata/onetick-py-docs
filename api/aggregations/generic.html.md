@@ -1,6 +1,6 @@
 # otp.agg.generic
 
-### ``generic(query_fun, bucket_delimiter=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, running=False, group_by=None, groups_to_display='all', end_condition_per_group=False, boundary_tick_bucket='new')``
+### ``generic(query_fun, bucket_delimiter=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, running=False, group_by=None, groups_to_display='all', end_condition_per_group=False, boundary_tick_bucket='new', *args, **kwargs)``
 
 Generic aggregation.
 

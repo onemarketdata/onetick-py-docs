@@ -1,6 +1,6 @@
 # otp.agg.num_distinct
 
-### ``num_distinct(keys, running=False, all_fields=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', group_by=None, groups_to_display='all')``
+### ``num_distinct(running=False, all_fields=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', group_by=None, groups_to_display='all', *args, keys, **kwargs)``
 
 Outputs number of distinct values for a specified set of key fields.
 

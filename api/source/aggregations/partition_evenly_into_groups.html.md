@@ -1,6 +1,6 @@
 # otp.Source.partition_evenly_into_groups
 
-#### ``Source.partition_evenly_into_groups(field_to_partition, weight_field, number_of_groups, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new')``
+#### ``Source.partition_evenly_into_groups(field_to_partition, weight_field, number_of_groups, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, boundary_tick_bucket='new', *args, **kwargs)``
 
 `PARTITION_EVENLY_INTO_GROUPS` aggregation.
 

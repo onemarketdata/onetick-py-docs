@@ -1,6 +1,6 @@
 # otp.Operation.dt.month_name
 
-#### \_DtAccessor.month_name(timezone)
+#### \_DtAccessor.month_name(timezone=None)
 
 Return the name of the month.
 
