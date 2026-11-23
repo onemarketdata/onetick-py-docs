@@ -1,6 +1,6 @@
 # otp.misc.hash_code
 
-### ``hash_code(value, hash_type, , as_int=False)``
+### ``hash_code(value, hash_type)``
 
 Returns hexadecimal encoded hash code for the specified string with the specified hash function.
 
@@ -8,22 +8,18 @@ Returns hexadecimal encoded hash code for the specified string with the specifie
   * **value** (str, ``Operation``, ``Column``) – value to calculate hash from
   * **hash_type** (*str*) – 
 
-    These hash types are supported only with `as_int=False`:
+    one of following hash types:
     * sha_1
     * sha_224
     * sha_256
     * sha_384
     * sha_512
-
-    These hash types are supported with any value of `as_int`:
     * lookup3
     * metro_hash_64
     * city_hash_64
     * murmur_hash_64
-    * blake2b_64
     * sum_of_bytes
     * default
-  * **as_int** (*bool*) – If True, then integer value is returned instead of string.
 * **Return type:**
   ``Operation``
 
@@ -36,20 +32,10 @@ Basic example:
 
 ```
 >>> data = otp.Tick(A=1)
->>> data['HASH'] = otp.hash_code('some_string', 'metro_hash_64')
+>>> data['HASH'] = otp.hash_code('some_string', 'sha_224')
 >>> otp.run(data)
-        Time  A              HASH
-0 2003-12-01  1  cb72458d8cdb7ab1
-```
-
-Some types of hashes can be returned as integers as well:
-
-```
->>> data = otp.Tick(A=1)
->>> data['HASH'] = otp.hash_code('some_string', 'metro_hash_64', as_int=True)
->>> otp.run(data)
-        Time  A                  HASH
-0 2003-12-01  1  -5657968585125563701
+        Time  A                                                      HASH
+0 2003-12-01  1  12d3f96511450121e6343b5ace065ec9de7b2a946b86f7dfab8ac51f
 ```
 
 You can also pass ``Operation`` as a `value` parameter:
@@ -76,6 +62,3 @@ For the same string stored in strings with different fixed sizes, the hash value
 
 ##### SEE ALSO
 **COMPUTE_HASH_CODE_STR** OneTick built-in function
-
-**COMPUTE_HASH_CODE** OneTick built-in function
-

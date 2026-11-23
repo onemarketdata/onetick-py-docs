@@ -4,30 +4,9 @@
 
 ### Added
 
-- Added Claude code review
-- Added `otp.AccessInfo`, `otp.DbShowConfig`, `otp.DbShowLoadedTimeRanges`, `otp.DbShowTickTypes`,
-  `otp.ShowArchiveStats`, `otp.ShowDbList` and `otp.ShowDerivedDbList`
-
 ### Changed
 
 ### Fixed
-
-### Removed
-
-## [1.222.0] - 2026-11-23
-
-### Added
-
-- Add missing miscellaneous functions
-- Added documentation and examples for `_ALL_SYMBOLS_` and `_ALL_DATA_`
-- Add `otp.OneTickLib.enable_crash_stacks` to get the Python traceback and the OneTick C++ stack when the process
-  crashes inside OneTick
-
-### Changed
-
-### Fixed
-
-- Fixed `otp.merge` with string symbols in WebAPI mode
 
 ### Removed
 

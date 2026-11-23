@@ -53,8 +53,6 @@ Column(A, <class 'int'>)
 * `otp.Operation.isin`
 * `otp.Operation.map`
 * `otp.Operation.round`
-* `otp.Column.tick_shift`
-* `otp.Column.time_shift`
 * `Math operations`
 * `Datetime accessor`
 * `Float accessor`

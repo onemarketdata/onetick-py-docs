@@ -29,17 +29,6 @@ Defines a state variable. Supports int, float, ``decimal`` and string values.
 
 Bases: `_StateBase`, ``Column``
 
-The object returned when accessing state variable with ``onetick.py.Source.state_vars``.
-
-##### Examples
-
-```
->>> data = otp.Tick(A=1)
->>> data.state_vars['X'] = 1
->>> data.state_vars['X']
-StateColumn(STATE::X, <class 'int'>)
-```
-
 #### ``modify_from_query(*args, **kwargs)``
 
 Modifies a ``state variable``
@@ -152,31 +141,3 @@ print(df)
 
 ##### SEE ALSO
 **MODIFY_STATE_VAR_FROM_QUERY** OneTick event processor
-
-#### ``atomic_add(value)``
-
-Atomically adds `value` to the state variable and returns the new value.
-
-Only available for variables with `scope='cross_symbol'`.
-
-* **Parameters:**
-  **value** (int or float or ``Operation``)
-* **Return type:**
-  ``Operation``
-
-##### Examples
-
-```
->>> data = otp.Tick(A=1)
->>> data.state_vars['B'] = otp.state.var(1, scope='cross_symbol')
->>> data['OLD_B'] = data.state_vars['B']
->>> data['ATOMIC_ADD_B'] = data.state_vars['B'].atomic_add(2)
->>> data['NEW_B'] = data.state_vars['B']
->>> otp.run(data)
-        Time  A  OLD_B  ATOMIC_ADD_B  NEW_B
-0 2003-12-01  1      1             3      3
-```
-
-##### SEE ALSO
-**ATOMIC_ADD** OneTick function
-

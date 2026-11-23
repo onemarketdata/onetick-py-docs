@@ -41,18 +41,3 @@ Override config value of OneTickConfig
 * **Parameters:**
   * **config_parameter_name** (*str*) – param to override (could be both set or not set in OneTickConfig)
   * **config_parameter_value** – new value of the param
-
-#### ``static enable_crash_stacks(file=sys.stderr, log_link=None)``
-
-Report both stacks when the process crashes (SIGSEGV, SIGBUS, SIGABRT) inside OneTick:
-``faulthandler`` writes the Python traceback to `file`,
-OneTick writes the C++ stack to its log file.
-
-Call it from the main thread before the OneTickLib object is constructed.
-On platforms other than Linux and in WebAPI mode it only enables ``faulthandler``.
-
-* **Parameters:**
-  * **file** – file object or file descriptor for the Python traceback
-  * **log_link** – path of a symbolic link to keep pointing to the current OneTick log file,
-    which for ``otp.Session`` is a temporary file.
-    The link is removed when the OneTickLib object is destroyed, so it is left only if the process dies.
