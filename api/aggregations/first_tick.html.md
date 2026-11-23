@@ -1,6 +1,6 @@
 # otp.agg.first_tick
 
-### ``first_tick(n=1, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', keep_timestamp=True, default_tick=None)``
+### ``first_tick(n=1, running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', keep_timestamp=True, default_tick=None, *args, **kwargs)``
 
 Select the first `n` ticks.
 

@@ -1,6 +1,6 @@
 # otp.agg.sum
 
-### ``sum(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', expect_decimals=None)``
+### ``sum(column, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', expect_decimals=None, output_field_name=None, *args, **kwargs)``
 
 Implement sum aggregation.
 
@@ -158,6 +158,14 @@ Implement sum aggregation.
     If the input becomes **DECIMAL128**, `expect_decimals` applies its logic.
     If the input becomes a 64-bit integer, `large_ints` applies its logic.
     If the input becomes **DOUBLE**, both parameters revert to false behavior.
+  * **output_field_name** (*str* *|* *None* *,* *default=None*) – 
+
+    Output field name of the aggregation.
+
+    If not set, then, depending on the type of aggregation,
+    either the input field name will be used (if there is only one input of the aggregation),
+    or the new column with some predefined name will be created
+    (usually `VALUE` or uppercased name of the aggregation).
 
 ##### Examples
 

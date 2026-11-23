@@ -1,13 +1,15 @@
 # otp.Operation.isin
 
-#### ``Operation.isin(*items)``
+#### ``Operation.isin(*items, rtrim=False)``
 
 Check if column’s value is in `items`.
 
 * **Parameters:**
-  **items** – Possible string or numeric values to be checked against column’s value.
-  Such values can be passed as the function arguments
-  or as the list of such values in the first function argument.
+  * **items** – Possible string or numeric values to be checked against column’s value.
+    Such values can be passed as the function arguments
+    or as the list of such values in the first function argument.
+  * **rtrim** (*bool*) – If set to True, *trailing* whitespaces in strings are ignored.
+    Default is False.
 * **Returns:**
   Returns an ``onetick.py.Operation`` object with the value of 1.0 if
   the column’s value was found among `items` or 0.0 otherwise.
@@ -40,6 +42,18 @@ Passing values as a list:
 2 2003-12-01 00:00:00.002  c  1.0
 ```
 
+Use parameter `rtrim` to trim *trailing* whitespaces from strings before comparing:
+
+```
+>>> data = otp.Ticks(A=['a     ', '     b', '     c     '])
+>>> data['B'] = data['A'].isin('a', 'b', 'c', rtrim=True)
+>>> otp.run(data)
+                     Time            A    B
+0 2003-12-01 00:00:00.000       a       1.0
+1 2003-12-01 00:00:00.001            b  0.0
+2 2003-12-01 00:00:00.002       c       0.0
+```
+
 This function’s result can be used as filter expression:
 
 ```
@@ -64,3 +78,8 @@ This function’s result can be used as filter expression:
 
 ##### SEE ALSO
 ``Source.__getitem__()``
+
+**IN** OneTick function
+
+**IN_WITH_STRING_TRIM** OneTick function
+

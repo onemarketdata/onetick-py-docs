@@ -1,6 +1,6 @@
 # otp.Source.exp_tw_average
 
-#### ``Source.exp_tw_average(decay, decay_value_type='half_life_seconds', running=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', all_fields=False, group_by=None, groups_to_display='all', end_condition_per_group=False)``
+#### ``Source.exp_tw_average(decay, decay_value_type='half_life_seconds', running=False, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', all_fields=False, group_by=None, groups_to_display='all', end_condition_per_group=False, output_field_name=None, *args, **kwargs)``
 
 Exponentially Time-Weighted Average aggregation.
 
@@ -148,6 +148,14 @@ and **t** represents the timestamp of that infinitely small time interval.
 
     When set to True, applies to all bucketing conditions. Useful, for example, if you need to specify `group_by`,
     and you want to group items first, and create buckets after that.
+  * **output_field_name** (*str* *|* *None* *,* *default=None*) – 
+
+    Output field name of the aggregation.
+
+    If not set, then, depending on the type of aggregation,
+    either the input field name will be used (if there is only one input of the aggregation),
+    or the new column with some predefined name will be created
+    (usually `VALUE` or uppercased name of the aggregation).
 * **Return type:**
   `Source`
 

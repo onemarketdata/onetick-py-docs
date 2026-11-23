@@ -1,6 +1,6 @@
 # otp.Source.agg
 
-#### ``Source.agg(aggs, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all')``
+#### ``Source.agg(aggs, running=False, all_fields=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, boundary_tick_bucket='new', group_by=None, groups_to_display='all', *args, **kwargs)``
 
 Applies composition of `otp.agg` aggregations
 
@@ -139,6 +139,7 @@ Applies composition of `otp.agg` aggregations
     By default **all** groups are shown at the end of each bucket interval.
     If this parameter is set to **event_in_last_bucket**, only the groups that received at least one tick
     within a given bucket interval are shown.
+  * **self** (*Source*)
 * **Return type:**
   ``Source``
 

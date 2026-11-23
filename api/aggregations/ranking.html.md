@@ -1,6 +1,6 @@
 # otp.agg.ranking
 
-### ``ranking(rank_by, show_rank_as, include_tick, bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', group_by=None, groups_to_display='all', end_condition_per_group=False)``
+### ``ranking(bucket_interval=0, bucket_units=None, bucket_time='end', bucket_end_condition=None, boundary_tick_bucket='new', group_by=None, groups_to_display='all', end_condition_per_group=False, keep_timestamp=True, *args, rank_by, show_rank_as, include_tick, **kwargs)``
 
 Ranking **running** aggregation.
 
@@ -104,6 +104,9 @@ Does not change the order of the ticks.
 
     When set to True, applies to all bucketing conditions. Useful, for example, if you need to specify `group_by`,
     and you want to group items first, and create buckets after that.
+  * **keep_timestamp** (*bool* *,* *default=True*) – If True, timestamps of the output ticks are the same as timestamps of the original ticks.
+    Otherwise, timestamps of the output ticks are determined by bucket_time, and original timestamps
+    are put in the TICK_TIME field.
 
 ##### Examples
 

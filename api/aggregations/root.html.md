@@ -271,6 +271,7 @@ Aggregate over ``Operation`` instead of ``Column``:
 
 * `otp.agg.average`
 * `otp.agg.correlation`
+* `otp.agg.correlation_by_rank`
 * `otp.agg.count`
 * `otp.agg.distinct`
 * `otp.agg.exp_tw_average`
@@ -303,6 +304,7 @@ Aggregate over ``Operation`` instead of ``Column``:
 * `otp.agg.ob_summary`
 * `otp.agg.ob_vwap`
 * `otp.agg.option_price`
+* `otp.agg.order_by_aggr`
 * `otp.agg.partition_evenly_into_groups`
 * `otp.agg.percentile`
 * `otp.agg.portfolio_price`
@@ -312,5 +314,6 @@ Aggregate over ``Operation`` instead of ``Column``:
 * `otp.agg.stddev`
 * `otp.agg.sum`
 * `otp.agg.tw_average`
+* `otp.agg.tw_spread`
 * `otp.agg.variance`
 * `otp.agg.vwap`

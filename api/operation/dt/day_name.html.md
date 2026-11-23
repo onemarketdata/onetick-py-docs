@@ -1,6 +1,6 @@
 # otp.Operation.dt.day_name
 
-#### \_DtAccessor.day_name(timezone)
+#### \_DtAccessor.day_name(timezone=None)
 
 Returns the name of the weekday.
 

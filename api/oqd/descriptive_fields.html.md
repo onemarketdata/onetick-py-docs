@@ -1,6 +1,6 @@
 # otp.oqd.DescriptiveFields
 
-### ``class DescriptiveFields(start=utils.adaptive, end=utils.adaptive, symbol=utils.adaptive)``
+### ``class DescriptiveFields(symbol=utils.adaptive, start=utils.adaptive, end=utils.adaptive, **kwargs)``
 
 Bases: ``Source``
 

@@ -9,7 +9,7 @@ Provides an ability to get values from future or past ticks.
 - Positive - future ticks
 
 Boundary values will be defaulted. For instance for `item=-1` first tick value will be defaulted
-(there is no tick before first tick)
+(there is no tick before first tick).
 
 * **Parameters:**
   **item** (*int*) – number of ticks to look back/forward
@@ -30,3 +30,7 @@ Boundary values will be defaulted. For instance for `item=-1` first tick value w
 1 2003-12-01 00:00:00.001  2      1      0        3        0
 2 2003-12-01 00:00:00.002  3      2      1        0        0
 ```
+
+##### SEE ALSO
+``tick_shift()``
+

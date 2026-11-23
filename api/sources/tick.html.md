@@ -1,6 +1,6 @@
 # otp.Tick
 
-### ``class Tick(data, offset, offset_part, time, timezone_for_time, symbol, db, start, end, date, tick_type, bucket_interval, bucket_units, num_ticks_per_timestamp, query_parameters, kwargs, bucket_time=None)``
+### ``class Tick(data=None, offset=0, offset_part='millisecond', time=None, timezone_for_time=None, symbol=utils.adaptive_to_default, db=utils.adaptive_to_default, start=utils.adaptive, end=utils.adaptive, date=None, tick_type=utils.adaptive, bucket_time='start', bucket_interval=0, bucket_units=utils.adaptive, num_ticks_per_timestamp=1, query_parameters=None, **kwargs)``
 
 Bases: ``Source``
 

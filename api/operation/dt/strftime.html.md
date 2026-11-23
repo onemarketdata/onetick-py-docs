@@ -1,6 +1,6 @@
 # otp.Operation.dt.strftime
 
-#### \_DtAccessor.strftime(format, timezone)
+#### \_DtAccessor.strftime(format='%Y/%m/%d %H:%M:%S.%J', timezone=None)
 
 Converts the number of nanoseconds (datetime) since 1970/01/01 GMT into
 the string specified by `format` for a specified `timezone`.

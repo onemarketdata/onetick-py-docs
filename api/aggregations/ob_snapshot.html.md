@@ -1,6 +1,6 @@
 # otp.agg.ob_snapshot
 
-### ``ob_snapshot(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, identify_source=None, show_full_detail=False, show_only_changes=False, book_delimiters=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None, max_notional_value=None)``
+### ``ob_snapshot(running=False, bucket_interval=0, bucket_time='end', bucket_units=None, bucket_end_condition=None, end_condition_per_group=False, group_by=None, groups_to_display='all', side=None, max_levels=None, max_depth_shares=None, max_depth_for_price=None, max_spread=None, book_uncross_method=None, dq_events_that_clear_book=None, identify_source=None, show_full_detail=False, show_only_changes=False, book_delimiters=None, max_initialization_days=1, state_key_max_inactivity_sec=None, size_max_fractional_digits=0, include_market_order_ticks=None, show_num_orders_at_level=None, max_notional_value=None, *args, **kwargs)``
 
 Returns the order book state at the end of each bucket interval:
 the price, the size, the side, and the time of the last update for a specified number of order book levels.

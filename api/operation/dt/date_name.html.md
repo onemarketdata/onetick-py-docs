@@ -1,6 +1,6 @@
 # otp.Operation.dt.date_name
 
-#### \_DtAccessor.date_name(date_part, timezone)
+#### \_DtAccessor.date_name(date_part, timezone=None)
 
 Returns a number representing the specified `date_part` of the specified datetime,
 interpreted in the specified `timezone`.

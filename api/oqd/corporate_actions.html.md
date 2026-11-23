@@ -1,6 +1,6 @@
 # otp.oqd.CorporateActions
 
-### ``class CorporateActions(start=utils.adaptive, end=utils.adaptive, symbol=utils.adaptive)``
+### ``class CorporateActions(symbol=utils.adaptive, start=utils.adaptive, end=utils.adaptive, **kwargs)``
 
 Bases: ``Source``
 

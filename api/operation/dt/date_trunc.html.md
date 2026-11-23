@@ -1,6 +1,6 @@
 # otp.Operation.dt.date_trunc
 
-#### \_DtAccessor.date_trunc(date_part, timezone)
+#### \_DtAccessor.date_trunc(date_part, timezone=None)
 
 Truncates to the specified precision.
 
